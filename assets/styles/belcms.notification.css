@@ -1,0 +1,29 @@
+.belcms_box_notification {
+	display: block;
+	margin: 10px auto;
+	width: 100%;
+	padding: 20px;
+	border: 2px solid;
+	border-left: 0; border-right: 0;
+	background-color: rgba(71, 168, 245, .8);
+	border-color: rgba(71, 168, 245, 1);
+	color: rgb(255, 255, 255);
+	font-size: 13px;
+	background-image: url(/assets/images/pattern_3.png);
+}
+.belcms_box_notification strong {
+	font-size: 16px;
+	margin-right: 15px;
+}
+.belcms_box_notification.error {
+	background-color: rgba(246, 99, 88, .8);
+	border-color: rgba(246, 99, 88, 1);
+}
+.belcms_box_notification.success {
+	background-color: rgba(106, 189, 110, .8);
+	border-color: rgba(106, 189, 110, 1);
+}
+.belcms_box_notification.warning {
+	background-color: rgba(255, 170, 43, .8);
+	border-color: rgba(255, 170, 43, 1);
+}
