@@ -13,3 +13,28 @@ if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
 	exit(ERROR_INDEX);
 }
+
+final class BelCMS
+{
+	public $render = null;
+
+	function __construct ()
+	{
+		new BelCMSConfig();
+	}
+
+	public function _init ()
+	{
+		ob_start();
+
+		$template = new Template();
+
+		echo $template->render;
+
+		$this->render = ob_get_contents();
+
+		if (ob_get_length() != 0) {
+			ob_end_clean();
+		}
+	}
+}
