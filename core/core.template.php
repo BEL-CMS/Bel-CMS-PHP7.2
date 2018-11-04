@@ -30,6 +30,8 @@ final class Template  extends Dispatcher
 
 	function __construct ()
 	{
+		parent::__construct();
+
 		$this->title           = CMS_WEBSITE_NAME;
 		$this->keywords        = CMS_WEBSITE_KEYWORDS;
 		$this->description     = CMS_WEBSITE_DESCRIPTION;
@@ -42,6 +44,7 @@ final class Template  extends Dispatcher
 		} else {
 			$this->dirTpl = DIR_TPL_DEFAULT;
 		}
+
 		self::assembly ();
 	}
 
@@ -49,12 +52,15 @@ final class Template  extends Dispatcher
 	{
 		ob_start();
 
-		self::headBuffer ();
-		self::headerBuffer ();
-		echo "le contenue";
-		self::footerBuffer ();
+		$head   = self::headBuffer ();
+		$header = self::headerBuffer ();
+		$body   = self::bodyBuffer ();
+		$footer = self::footerBuffer ();
+
+		echo $head.$header.$body.$footer;
 
 		$this->render = ob_get_contents();
+
 		if (ob_get_length() != 0) {
 			ob_end_clean();
 		}	
@@ -79,7 +85,7 @@ final class Template  extends Dispatcher
 		if (ob_get_length() != 0) {
 			ob_end_clean();
 		}
-		echo $head;	
+		return $head;	
 	}
 	#########################################
 	# Récupère le header défaut ou du template
@@ -101,7 +107,29 @@ final class Template  extends Dispatcher
 		if (ob_get_length() != 0) {
 			ob_end_clean();
 		}
-		echo $header;	
+		return $header;	
+	}
+	#########################################
+	# Récupère le body défaut ou du template
+	#########################################
+	private function bodyBuffer ()
+	{
+		ob_start();
+
+		if (is_file($this->dirTpl.'body.tpl')) {
+			require $this->dirTpl.'body.tpl';
+			$body = ob_get_contents();
+			$assemblyPage = new AssemblyPages ();
+			$body = str_replace('{page}', $assemblyPage->render, $body);
+		} else {
+			Notification::error('Unknow File body.tpl', 'Error');
+			$body = ob_get_contents();
+		}
+		
+		if (ob_get_length() != 0) {
+			ob_end_clean();
+		}
+		return $body;	
 	}
 	#########################################
 	# Récupère le footer défaut ou du template
@@ -124,7 +152,7 @@ final class Template  extends Dispatcher
 		if (ob_get_length() != 0) {
 			ob_end_clean();
 		}
-		echo $footer;
+		return $footer;
 	}
 	#########################################
 	# Gestions des styles (css)
@@ -142,8 +170,8 @@ final class Template  extends Dispatcher
 		/* FONTAWASOME 5.4.2 ALL */
 		$files[] = 'assets/plugins/fontawesome-5.4.2/css/all.min.css';
 
-		if (is_file(ROOT.'pages'.DS.$this->GetNamePage.DS.'css'.DS.'styles.css')) {
-			$files[] = 'pages'.DS.$this->GetNamePage.DS.'css'.DS.'styles.css';
+		if (is_file(ROOT.'pages'.DS.$this->controller.DS.'css'.DS.'styles.css')) {
+			$files[] = 'pages'.DS.$this->controller.DS.'css'.DS.'styles.css';
 		}
 
 		foreach ($files as $v) {
@@ -166,8 +194,8 @@ final class Template  extends Dispatcher
 		$files[] = 'assets/plugins/bootstrap-4.1.3/js/popper.min.js';
 		$files[] = 'assets/plugins/bootstrap-4.1.3/js/bootstrap.min.js';
 
-		if (is_file(ROOT.'pages'.DS.$this->GetNamePage.DS.'js'.DS.'javascripts.js')) {
-			$files[] = 'pages'.DS.$this->GetNamePage.DS.'js'.DS.'javascripts.js';
+		if (is_file(ROOT.'pages'.DS.$this->controller.DS.'js'.DS.'javascripts.js')) {
+			$files[] = 'pages'.DS.$this->controller.DS.'js'.DS.'javascripts.js';
 		}
 
 		foreach ($files as $v) {
@@ -183,13 +211,13 @@ final class Template  extends Dispatcher
 		$return  = '<nav aria-label="breadcrumb"><ol class="breadcrumb">';
 		$return .= '<li class="breadcrumb-item"><a href="Home">'.constant('HOME').'</a></li>';
 
-		if ($this->GetNamePage != 'blog') {
-			$return .= '<li class="breadcrumb-item"><a href="'.$this->GetNamePage.'">'.Common::translate($this->GetNamePage).'</a></li>';
-			if ($this->GetNameView != 'index') {
-				$return .= '<li class="breadcrumb-item"><a href="'.ucfirst($this->GetNamePage).'/'.$this->GetNameView.'">'.Common::translate($this->GetNameView).'</a></li>';
-				if (!empty($this->params[2])) {
+		if ($this->controller != 'blog') {
+			$return .= '<li class="breadcrumb-item"><a href="'.$this->controller.'">'.Common::translate($this->controller).'</a></li>';
+			if ($this->view != 'index') {
+				$return .= '<li class="breadcrumb-item"><a href="'.ucfirst($this->controller).'/'.$this->view.'">'.Common::translate($this->view).'</a></li>';
+				if (!empty($this->links[2])) {
 
-					$return .= '<li class="breadcrumb-item active"><a href="'.ucfirst($this->GetNamePage).'/'.$this->GetNameView.'/'.$this->params[2].'">'.$this->params[2].'</a></li>';
+					$return .= '<li class="breadcrumb-item active"><a href="'.ucfirst($this->controller).'/'.$this->view.'/'.$this->links[2].'">'.$this->links[2].'</a></li>';
 				}
 			}
 		}

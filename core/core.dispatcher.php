@@ -16,113 +16,160 @@ if (!defined('CHECK_INDEX')) {
 
 class Dispatcher
 {
-	var $params;
-	var $GetNamePage;
-	var $GetNameView;
+	var $controller;
+	var $view;
+	var $links;
 
-	function __construct()
+	function __construct ()
 	{
-		$this->params      = isset($_GET['params']) && !empty($_GET['params']) ? explode('/', strtolower(rtrim($_GET['params'], '/'))) : array();
-		$this->GetNamePage = self::GetNamePage();
-		$this->GetNameView = self::GetNameView();
+		$this->links      = isset($_GET['params']) && !empty($_GET['params']) ? explode('/', strtolower(rtrim($_GET['params'], '/'))) : array();
+		$this->controller = self::controller();
+		$this->view       = isset($this->links[1]) && !empty($this->links[1]) ? $this->links[1] : 'index';
+		$this->id         = self::RequestId();
+		$this->IsJquery   = self::IsJquery();
+		$this->IsEcho     = self::IsEcho();
+		$this->IsJson     = self::IsJson();
 	}
-	#########################################
-	# Get link
-	#########################################
-	private static function GetLinkParams ()
-	{
-		return isset($_GET['params']) && !empty($_GET['params']) ? explode('/', strtolower(rtrim($_GET['params'], '/'))) : array();
-	}
-	#########################################
-	# Get Name Page 
-	#########################################
-	public static function GetNamePage ()
-	{
-		$return = 'blog';
-		$linkAction = self::GetLinkParams([0]);
 
-		if (isset($linkAction) && !empty($linkAction)) {
-			$return = $linkAction;
-		}
-
-		return $return; // return le nom de la page  (blog par défaut) => pages/$return
-	}
-	#########################################
-	# Get Name View 
-	#########################################
-	public static function GetNameView ()
+	private function controller ()
 	{
-		$return = 'index';
-		$linkAction = self::GetLinkParams([1]);
+		$management = false;
+		$getManagement = array(
+			'admin',
+			'Admin',
+			'Management',
+			'management'
+		);
 
-		if (isset($linkAction) && !empty($linkAction)) {
-			$return = $linkAction;
-		}
-
-		return $return; // return l'action de la page => pages/page/$return/
-	}
-	#########################################
-	# Get ID
-	#########################################
-	public static function GetId ()
-	{
-		$return = null;
-		$linkAction = self::GetLinkParams([2]);
-	
-		if (isset($linkAction) && !empty($linkAction)) {
-			if (is_numeric($linkAction)) {
-				$return = intval($linkAction); // autorise que du numérique 
+		foreach ($getManagement as $k) {
+			if (array_key_exists($k, $_REQUEST)) {
+				$management = true;
+				break;
 			}
 		}
 
-		return $return; // return ID
+		if (isset($this->links[0]) && !empty($this->links[0])) {
+			$unauthorized = strtolower($this->links[0]);
+			switch ($unauthorized) {
+				case 'config':
+					return false;
+				break;
+
+				case 'asset':
+					return false;
+				break;
+
+				case 'class':
+					return false;
+				break;
+
+				case 'pages':
+					return false;
+				break;
+
+				case 'templates':
+					return false;
+				break;
+
+				case 'uploads':
+					return false;
+				break;
+
+				case 'widgets':
+					return false;
+				break;
+
+				case 'home':
+					$return = 'blog';
+				break;
+
+				case 'index.html':
+					$return = 'blog';
+				break;
+
+				case 'forum.html':
+					$return = 'forum';
+				break;
+
+				case 'downloads.html':
+					$return = 'downloads';
+				break;
+
+				case 'telechargement.html':
+					$return = 'downloads';
+				break;
+
+				case 'user.html':
+					$return = 'user';
+				break;
+
+				case 'utilisateur.html':
+					$return = 'user';
+				break;
+
+				case 'members.html':
+					$return = 'members';
+				break;
+
+				default:
+					$return = $this->links[0];
+				break;
+			}
+		} else {
+			if ($management === true) {
+				$return = 'dashboard';
+			} else {
+				$return = 'blog';
+			}
+		}
+
+		return $return;
 	}
+
 	#########################################
 	# Set page
 	#########################################
 	public static function RequestPages ()
 	{
-		if (isset($_GET['page']) AND is_numeric($_GET['page'])) {
+		if (isset($_GET['page']) AND is_numeric($_GET['page']) ) {
 			$return = intval($_GET['page']);
 		} else {
 			$return = 1;
 		}
-		return $return; // Return la nombre de la page
+		return $return;
 	}
-	#########################################
-	# Get custom name 
-	#########################################
-	public static function GetName ()
-	{
-		$return = null;
-		$linkAction = self::GetLinkParams([3]);
-	
-		if (isset($linkAction) && !empty($linkAction)) {
-			$return = strip_tags($linkAction); // interdit tout html/php
-		}
 
-		return $return; // return le nom réel (Référencement uniquement, jamais utilisé, uniquement l'ID pour plus de sécurité)
+	function IsJquery ()
+	{
+		$return = false;
+		if (isset($_GET['jquery'])) {
+			$return = true;
+		} else if (isset($_GET['ajax'])) {
+			$return = true;
+		}
+		return $return;
 	}
-	#########################################
-	# Test return data in json
-	#########################################
-	public static function IsJson ()
+
+	function IsJson ()
 	{
 		$return = false;
 		if (isset($_GET['json'])) {
 			$return = true;
 		}
-		return $return; // return true, si les données doivent être traitée comme du json
+		return $return;
 	}
-	#########################################
-	# Test return data in json
-	#########################################
-	public static function IsEcho ()
+
+	function IsEcho ()
 	{
 		$return = false;
 		if (isset($_GET['echo'])) {
 			$return = true;
 		}
-		return $return; // return true, si les données doivent être traitée comme un echo simple affichage
+		return $return;
+	}
+
+	function RequestId ()
+	{
+		return isset($this->links[2]) && !empty($this->links[2]) ? $this->links[2] : false;
 	}
 }
