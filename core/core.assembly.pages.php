@@ -17,16 +17,14 @@ if (!defined('CHECK_INDEX')) {
 final class AssemblyPages extends Dispatcher
 {
 	public $render;
-	var $_page;
 
 	function __construct ()
 	{
 		parent::__construct();
 		self::getLangs ();
-		$this->render = self::getController ();
 	}
 
-	private function getController ()
+	public function getRender ()
 	{
 		ob_start();
 
@@ -50,7 +48,7 @@ final class AssemblyPages extends Dispatcher
 			ob_end_clean();
 		}
 
-		return $buffer;
+		$this->render = $buffer;
 	}
 
 	private function getLangs ()

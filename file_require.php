@@ -22,8 +22,10 @@ final class RequireFiles
 	{
 		$this->files = array(
 			function_exists('password_hash') ? '' : DIR_CORE.'core.password.php',
+			DIR_CORE.'core.session.php',
 			DIR_CORE.'core.dispatcher.php',
 			DIR_CORE.'core.common.php',
+			DIR_CORE.'core.host.php',
 			DIR_CONFIG.'config.inc.php',
 			DIR_CONFIG.'config.tables.php',
 			DIR_CORE.'core.spdo.php',
@@ -33,7 +35,6 @@ final class RequireFiles
 			DIR_CORE.'core.access.php',
 			DIR_CORE.'core.secure.php',
 			DIR_CORE.'core.comment.php',
-			DIR_CORE.'core.session.php',
 			DIR_CORE.'core.user.php',
 			DIR_CORE.'core.visitors.php',
 			DIR_CORE.'core.config.page.php',

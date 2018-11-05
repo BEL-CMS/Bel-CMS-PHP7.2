@@ -117,10 +117,11 @@ final class Template  extends Dispatcher
 		ob_start();
 
 		if (is_file($this->dirTpl.'body.tpl')) {
+			$assemblyPage = new AssemblyPages ();
+			$assemblyPage->getRender();
+			$page = $assemblyPage->render;
 			require $this->dirTpl.'body.tpl';
 			$body = ob_get_contents();
-			$assemblyPage = new AssemblyPages ();
-			$body = str_replace('{page}', $assemblyPage->render, $body);
 		} else {
 			Notification::error('Unknow File body.tpl', 'Error');
 			$body = ob_get_contents();

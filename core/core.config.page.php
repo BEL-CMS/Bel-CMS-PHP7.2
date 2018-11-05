@@ -60,6 +60,7 @@ class Pages
 	}
 
 	function render($filename) {
+		/*
 		if (defined('MANAGEMENT')) {
 			if (SecureAccess::AccessManagement(strtolower(get_class($this))) === false) {
 				self::error(ERROR, NO_ACCESS_GROUP_PAGE, 'danger');
@@ -75,6 +76,7 @@ class Pages
 				return false;
 			}
 		}
+		*/
 		extract($this->vars);
 		ob_start();
 		if ($this->access === true) {

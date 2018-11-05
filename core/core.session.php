@@ -13,3 +13,13 @@ if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
 	exit(ERROR_INDEX);
 }
+
+final class Session {
+
+	public function __construct(){
+		if(!isset($_SESSION)){
+			session_start();
+		}
+	}
+}
+new Session;
