@@ -1,10 +1,12 @@
-	<footer class="blog-footer">
-	  <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-	  <p>
-		<a href="#">Back to top</a>
-	  </p>
-	  <p>Page generated in <?=$loadingPage?> seconds.</p>
-	</footer>
-	{js}
-  </body>
+			</div>
+		</div>
+    	<!-- Footer -->
+    	<footer class="py-5 bg-dark">
+			<div class="container">
+				<p style="display: block; float: right;" class="m-0 text-white">Page generated in <?=$loadingPage?> seconds.</p>
+				<p style="display: block;float: left" class="m-0 text-white">Copyright &copy; <a href="https://bel-cms.be" title="Bel-CMS">BEL-CMS</a> 2018</p>
+			</div>
+		</footer>
+		{js}
+	</body>
 </html>
