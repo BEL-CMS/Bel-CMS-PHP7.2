@@ -39,6 +39,7 @@ final class RequireFiles
 			DIR_CORE.'core.visitors.php',
 			DIR_CORE.'core.config.page.php',
 			DIR_CORE.'core.assembly.pages.php',
+			DIR_CORE.'core.assembly.widgets.php',
 			DIR_CORE.'core.widgets.php',
 			DIR_CORE.'core.template.php',
 			DIR_CORE.'core.belcms.php'

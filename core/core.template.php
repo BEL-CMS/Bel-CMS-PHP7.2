@@ -119,8 +119,11 @@ final class Template  extends Dispatcher
 	{
 		ob_start();
 
-		$widgetsLeft  = self::widgetsLeftBuffer ();
-		$widgetsRight = self::widgetsRightBuffer ();
+		$widgetsLeft = new assemblyWidgets ('left');
+
+		debug($widgetsLeft);
+
+		$widgetsLeft = 'null';
 
 		if (is_file($this->dirTpl.'body.tpl')) {
 			$assemblyPage = new AssemblyPages ();
@@ -136,7 +139,7 @@ final class Template  extends Dispatcher
 		if (ob_get_length () != 0) {
 			ob_end_clean ();
 		}
-		return $body;	
+		return $body;
 	}
 	#########################################
 	# Récupère le footer défaut ou du template

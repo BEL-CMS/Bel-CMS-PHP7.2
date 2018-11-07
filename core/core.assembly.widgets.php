@@ -14,9 +14,10 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 
-class Widgets
+class assemblyWidgets
 {
 	public $position;
+	var $widget = array();
 	
 	function __construct($pos)
 	{
@@ -34,7 +35,6 @@ class Widgets
 		ob_start();
 
 		if (is_file($this->dirTpl.'widgets.'.$this->position.'.tpl')) {
-			$page = $assemblyPage->render;
 			require $this->dirTpl.'widgets.'.$this->position.'.tpl';
 			$widget = ob_get_contents ();
 		}
@@ -44,6 +44,21 @@ class Widgets
 		}
 		return $widget;
 	}
+
+	private function getWidgetsBDD ()
+	{
+		$return = null;
+		$sql = New BDD();
+		$sql->table('TABLE_WIDGETS');
+		$sql->orderby(array(array('name' => 'orderby', 'type' => 'ASC')));
+		$sql->queryAll();
+		if (!empty($sql->data)) {
+			$return = $sql->data;
+		}
+		return $return;
+	}
+
+	
 
 	
 }
