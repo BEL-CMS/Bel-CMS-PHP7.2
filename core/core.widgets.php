@@ -16,34 +16,47 @@ if (!defined('CHECK_INDEX')) {
 
 class Widgets
 {
-	public $position;
-	
-	function __construct($pos)
-	{
-		$this->position = $pos;
+	var $vars = array();
+	var $widgets = null;
 
-		if (defined('CMS_TPL_WEBSITE') && !empty(constant('CMS_TPL_WEBSITE')) ) {
-			$this->dirTpl = DIR_TPL.CMS_TPL_WEBSITE;
-		} else {
-			$this->dirTpl = DIR_TPL_DEFAULT;
+	function __construct () {
+		if (isset($this->models)){
+			foreach($this->models as $v){
+				$this->loadModel($v);
+			}
 		}
 	}
 
-	public function getWidgets ()
-	{
+	function set ($d) {
+		$this->vars = array_merge($this->vars,$d);
+	}
+
+	function render($filename) {
+		extract($this->vars);
 		ob_start();
-
-		if (is_file($this->dirTpl.'widgets.'.$this->position.'.tpl')) {
-			$page = $assemblyPage->render;
-			require $this->dirTpl.'widgets.'.$this->position.'.tpl';
-			$widget = ob_get_contents ();
+		$dir = DIR_WIDGETS.strtolower(get_class($this)).DS.$filename.'.php';
+		if (is_file($dir)) {
+			require_once $dir;
+		} else {
+			Notification::Error ('file : '.$filename.' no found', 'Error File !');
 		}
-		
-		if (ob_get_length () != 0) {
-			ob_end_clean ();
+		$this->widgets = ob_get_contents();
+		if (ob_get_length() != 0) {
+			ob_end_clean();
 		}
-		return $widget;
 	}
 
-	
+	function loadModel ($name)
+	{
+		debug($name);
+		if (is_file(DIR_WIDGETS.strtolower(get_class($this)).DS.'models.php')) {
+			require_once DIR_WIDGETS.strtolower(get_class($this)).DS.'models.php';
+			$this->$name = new $name();
+		} else {
+			ob_start();
+			Notification::Error ('file models no found<br>'.DIR_PAGES.get_class($this).DS.'models.php', 'Error File !');
+			$this->widgets = ob_get_contents();
+			ob_end_clean();
+		}
+	}
 }

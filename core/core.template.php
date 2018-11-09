@@ -121,9 +121,7 @@ final class Template  extends Dispatcher
 
 		$widgetsLeft = new assemblyWidgets ('left');
 
-		debug($widgetsLeft);
-
-		$widgetsLeft = 'null';
+		$widgetsLeft = $widgetsLeft->widgets;
 
 		if (is_file($this->dirTpl.'body.tpl')) {
 			$assemblyPage = new AssemblyPages ();

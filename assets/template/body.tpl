@@ -5,4 +5,6 @@
 				<div class="col-md-8">
 					<?php echo $page; ?>
 				</div>
-				<?php echo $widgetsLeft; ?>
+				<div class="col-md-4">
+					<?php echo $widgetsLeft; ?>
+				</div>

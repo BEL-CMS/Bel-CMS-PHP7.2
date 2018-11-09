@@ -14,12 +14,7 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 
-class WidgetSearch extends Widgets
+class WidgetUsers extends Widgets
 {
-	var $models = array('ModelsSearch');
-
-	function index ()
-	{
-		$this->render('index');
-	}
+	
 }
