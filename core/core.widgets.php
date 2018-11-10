@@ -34,7 +34,8 @@ class Widgets
 	function render($filename) {
 		extract($this->vars);
 		ob_start();
-		$dir = DIR_WIDGETS.strtolower(get_class($this)).DS.$filename.'.php';
+		$str = str_replace('Widget', '', get_class($this));
+		$dir = DIR_WIDGETS.strtolower($str).DS.$filename.'.php';
 		if (is_file($dir)) {
 			require_once $dir;
 		} else {
@@ -48,13 +49,13 @@ class Widgets
 
 	function loadModel ($name)
 	{
-		debug($name);
-		if (is_file(DIR_WIDGETS.strtolower(get_class($this)).DS.'models.php')) {
-			require_once DIR_WIDGETS.strtolower(get_class($this)).DS.'models.php';
+		$str = str_replace('Widget', '', get_class($this));
+		if (is_file(DIR_WIDGETS.strtolower($str).DS.'models.php')) {
+			require_once DIR_WIDGETS.strtolower($str).DS.'models.php';
 			$this->$name = new $name();
 		} else {
 			ob_start();
-			Notification::Error ('file models no found<br>'.DIR_PAGES.get_class($this).DS.'models.php', 'Error File !');
+			Notification::Error ('file models no found<br>'.DIR_WIDGETS.get_class($this).DS.'models.php', 'Error File !');
 			$this->widgets = ob_get_contents();
 			ob_end_clean();
 		}

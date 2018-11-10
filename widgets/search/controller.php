@@ -18,8 +18,8 @@ class WidgetSearch extends Widgets
 {
 	var $models = array('ModelsSearch');
 
-	function index ()
+	function __construct ()
 	{
-		$this->render('index');
+		$this->render ('index');
 	}
 }

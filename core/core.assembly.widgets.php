@@ -43,11 +43,9 @@ class assemblyWidgets
 				} else {
 					Notification::error('Manque le fichier controller du widget'.$name, 'Alert !');
 				}
-				$name  = $v->name;
-				$title = $v->title;
-				$this->controller = 'Widget'.ucfirst($name);
+				$title = empty($v->title) ? $v->name : $v->title;
+				$this->controller = 'Widget'.ucfirst($v->name);
 				$objWidget = new $this->controller ();
-				debug($objWidget);
 				$content = $objWidget->widgets;
 				require $this->dirTpl.'widgets.'.$this->position.'.tpl';
 				$this->widgets .= ob_get_contents ();

@@ -14,7 +14,7 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 
-class WidgetUsers extends Widgets
+class ModelsUsers extends Widgets
 {
 	var $models = array('ModelsUsers');
 
