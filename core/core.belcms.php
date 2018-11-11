@@ -14,22 +14,35 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 
-final class BelCMS
+final class BelCMS extends Dispatcher
 {
 	public $render = null;
 
 	function __construct ()
 	{
-		new BelCMSConfig();
+		parent::__construct();
+
+		new BelCMSConfig;
+		new User;
 	}
 
 	public function _init ()
 	{
 		ob_start();
 
-		$template = new Template();
-
-		echo $template->render;
+		if ($this->IsEcho === true) {
+			$assemblyPage = new AssemblyPages ();
+			$assemblyPage->getRender ();
+			$page = $assemblyPage->render;
+		} else if ($this->IsJson === true) {
+			header('Content-Type: application/json');
+			$assemblyPage = new AssemblyPages ();
+			$assemblyPage->getRender ();
+			$page = $assemblyPage->render;
+		} else {
+			$template = new Template();
+			echo $template->render;			
+		}
 
 		$this->render = ob_get_contents();
 
