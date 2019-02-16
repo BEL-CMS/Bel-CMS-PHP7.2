@@ -44,11 +44,11 @@ final class AssemblyPages extends Dispatcher
 			$buffer = ob_get_contents();
 		}
 
+		$this->render = $buffer;
+
 		if (ob_get_length() != 0) {
 			ob_end_clean();
 		}
-
-		$this->render = $buffer;
 	}
 
 	private function getLangs ()

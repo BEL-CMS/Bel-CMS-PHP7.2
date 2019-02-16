@@ -41,13 +41,30 @@ final class Template  extends Dispatcher
 		$this->breadcrumb      = self::BreadCrumb ();
 		$this->base            = GetHost::getBaseUrl ();
 
+
 		if (defined('CMS_TPL_WEBSITE') && !empty(constant('CMS_TPL_WEBSITE')) ) {
-			$this->dirTpl = DIR_TPL.CMS_TPL_WEBSITE;
+			$this->dirTpl = DIR_TPL.CMS_TPL_WEBSITE.DS;
 		} else {
 			$this->dirTpl = DIR_TPL_DEFAULT;
 		}
 
 		self::assembly ();
+	}
+
+	public function fullPage ()
+	{
+		$tpl_full = explode(',', constant('CMS_TPL_FULL'));
+
+		foreach ($tpl_full as $k => $v) {
+			$tplfull[$k] = trim($v);
+		}
+
+		if (in_array($this->controller, $tplfull)) {
+			return true;
+		}
+		if (in_array($this->view, $tplfull)) {
+			return true;
+		}
 	}
 
 	private function assembly ()
@@ -73,6 +90,7 @@ final class Template  extends Dispatcher
 	private function headBuffer ()
 	{
 		ob_start();
+
 		if (is_file($this->dirTpl.'head.tpl')) {
 			require $this->dirTpl.'head.tpl';
 			$head = ob_get_contents();
@@ -95,7 +113,7 @@ final class Template  extends Dispatcher
 	private function headerBuffer ()
 	{
 		ob_start();
-		$widgetsTop = self::widgetsTopBuffer ();
+
 		if (is_file($this->dirTpl.'header.tpl')) {
 			require $this->dirTpl.'header.tpl';
 			$header = ob_get_contents ();
@@ -119,9 +137,9 @@ final class Template  extends Dispatcher
 	{
 		ob_start();
 
-		$widgetsLeft = new assemblyWidgets ('left');
-
-		$widgetsLeft = $widgetsLeft->widgets;
+		/* CURRENT PAGE AND FULL */
+		$currentpage = $this->controller;
+		$fullpage    = self::fullPage ();
 
 		if (is_file($this->dirTpl.'body.tpl')) {
 			$assemblyPage = new AssemblyPages ();
@@ -145,8 +163,12 @@ final class Template  extends Dispatcher
 	private function footerBuffer ()
 	{
 		ob_start();
+
+		/* CURRENT PAGE AND FULL */
+		$currentpage = $this->controller;
+		$fullpage    = self::fullPage ();
+
 		$loadingPage = round((explode(' ', microtime())[0] + explode(' ', microtime())[1]) - $GLOBALS['TIME_START'], 3);
-		$widgetsBottom = self::widgetsBottomBuffer ();
 		if (is_file($this->dirTpl.'footer.tpl')) {
 			require $this->dirTpl.'footer.tpl';
 			$footer = ob_get_contents ();
@@ -164,74 +186,6 @@ final class Template  extends Dispatcher
 		return $footer;
 	}
 	#########################################
-	# Récupère le widgets haut 
-	#########################################
-	private function widgetsTopBuffer ()
-	{
-		$widgetsTop = null;
-		ob_start();
-		if (is_file($this->dirTpl.'widgets.top.tpl')) {
-			require $this->dirTpl.'widgets.top.tpl';
-			$widgets = null;
-			$widgetsTop = ob_get_contents ();
-		}
-		if (ob_get_length () != 0) {
-			ob_end_clean ();
-		}
-		return $widgetsTop;
-	}
-	#########################################
-	# Récupère le widgets bas
-	#########################################
-	private function widgetsBottomBuffer ()
-	{
-		$widgetsBottom = null;
-		ob_start();
-		if (is_file($this->dirTpl.'widgets.bottom.tpl')) {
-			require $this->dirTpl.'widgets.bottom.tpl';
-			$widgets = null;
-			$widgetsBottom = ob_get_contents ();
-		}
-		if (ob_get_length () != 0) {
-			ob_end_clean ();
-		}
-		return $widgetsBottom;
-	}
-	#########################################
-	# Récupère le widgets droite 
-	#########################################
-	private function widgetsLeftBuffer ()
-	{
-		$widgetsLeft = null;
-		ob_start();
-		if (is_file($this->dirTpl.'widgets.left.tpl')) {
-			require $this->dirTpl.'widgets.left.tpl';
-			$widgets = null;
-			$widgetsLeft = ob_get_contents ();
-		}
-		if (ob_get_length () != 0) {
-			ob_end_clean ();
-		}
-		return $widgetsLeft;
-	}
-	#########################################
-	# Récupère le widgets gauche 
-	#########################################
-	private function widgetsRightBuffer ()
-	{
-		$widgetsRight = null;
-		ob_start();
-		if (is_file($this->dirTpl.'widgets.right.tpl')) {
-			require $this->dirTpl.'widgets.right.tpl';
-			$widgets = null;
-			$widgetsRight = ob_get_contents ();
-		}
-		if (ob_get_length () != 0) {
-			ob_end_clean ();
-		}
-		return $widgetsRight;
-	}
-	#########################################
 	# Gestions des styles (css)
 	#########################################
 	public function cascadingStyleSheets ()
@@ -244,9 +198,13 @@ final class Template  extends Dispatcher
 		$files[] = 'assets/styles/belcms.notification.css';
 		/* BOOTSTRAP 4.1.3 */
 		$files[] = 'assets/plugins/bootstrap-4.1.3/css/bootstrap.min.css';
-		/* FONTAWASOME 5.4.2 ALL */
-		$files[] = 'assets/plugins/fontawesome-5.4.2/css/all.min.css';
-
+		/* FONTAWASOME 5.7.1 ALL */
+		$files[] = 'assets/plugins/fontawesome-5.7.1/css/all.min.css';
+		/* WIDGETS STYLE */
+		$widgets = Widgets::getCssStyles ();
+		foreach ($widgets  as $v) {
+			$files[] = $v;
+		}
 		if (is_file(ROOT.'pages'.DS.$this->controller.DS.'css'.DS.'styles.css')) {
 			$files[] = 'pages'.DS.$this->controller.DS.'css'.DS.'styles.css';
 		}
@@ -265,19 +223,27 @@ final class Template  extends Dispatcher
 	{
 		$files          = array();
 		$return         = '';
-
+		/* jQuery 3.3.1 */
 		$files[] = 'assets/plugins/jquery-3.3.1/jquery-3.3.1.min.js';
-		$files[] = 'assets/plugins/belcms.core.js';
+		/* Tinymce */
+		$files[] = 'assets/plugins/tinymce/tinymce.min.js';
 		/* BOOTSTRAP 4.1.3 */
 		$files[] = 'assets/plugins/bootstrap-4.1.3/js/popper.min.js';
 		$files[] = 'assets/plugins/bootstrap-4.1.3/js/bootstrap.min.js';
+		/* WIDGETS Javascript (jquery) */
+		$widgets = Widgets::getJsJavascript ();
+		foreach ($widgets  as $v) {
+			$files[] = $v;
+		}
+		/* FILE GENERAL BEL-CMS */
+		$files[] = 'assets/plugins/belcms.core.js';
 
 		if (is_file(ROOT.'pages'.DS.$this->controller.DS.'js'.DS.'javascripts.js')) {
 			$files[] = 'pages'.DS.$this->controller.DS.'js'.DS.'javascripts.js';
 		}
 
 		foreach ($files as $v) {
-			$return .= '	<script type="text/javascript" src="'.$v.'"></script>'.PHP_EOL;
+			$return .= '	<script type="text/javascript" src="'.$v.'?x='.rand(0,100).'"></script>'.PHP_EOL;
 		}
 		return trim($return);
 	}

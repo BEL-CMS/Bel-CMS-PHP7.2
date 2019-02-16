@@ -16,6 +16,8 @@ if (!defined('CHECK_INDEX')) {
 
 final class BelCMSConfig extends Dispatcher
 {
+	public $return;
+
 	function __construct ()
 	{
 		parent::__construct();
@@ -31,5 +33,23 @@ final class BelCMSConfig extends Dispatcher
 			$return[mb_strtoupper($v->name)] = (string) $v->value;
 		}
 		Common::Constant($return);
+	}
+
+	public static function GetConfigPage ($page = null)
+	{
+		$return = null;
+
+		if ($page != null) {
+			$page = trim(strtolower($page));
+			$sql = New BDD;
+			$sql->table('TABLE_PAGES_CONFIG');
+			$sql->where(array('name' => 'name', 'value' => $page));
+			$sql->fields(array('name', 'config'));
+			$sql->queryOne();
+			$return = $sql->data;
+			$return->config = Common::transformOpt($return->config);
+		}
+
+		return $return;
 	}
 }

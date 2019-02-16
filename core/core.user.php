@@ -13,28 +13,21 @@ if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
 	exit(ERROR_INDEX);
 }
-class User
+class Users
 {
 	function __construct ()
 	{
-		debug($_SESSION);
-	}
-
-	public static function isLogged ()
-	{
-		return empty($_SESSION['USER']) ? false : true;
+		self::autoLogin();
 	}
 	#########################################
-	# Auto connection through cookie
+	# is logged true or false
 	#########################################
 	public static function isLogged () {
-		if (isset($_SESSION['USER']) && !empty($_SESSION['USER'])) {
-			$return = (bool) true;
+		if (isset($_SESSION['USER']['HASH_KEY']) and strlen($_SESSION['USER']['HASH_KEY']) == 32) {
+			return true;
 		} else {
-			unset($_SESSION['USER']);
-			$return = (bool) false;
+			return false;
 		}
-		return $return;
 	}
 	#########################################
 	# Auto connection through cookie
@@ -101,7 +94,7 @@ class User
 				if (password_verify($password, $results['password']) OR $check_password) {
 					$setcookie = $results['username'].'###'.$results['hash_key'].'###'.date('Y-m-d H:i:s').'###'.$results['password'];
 					setcookie('BEL-CMS-COOKIE', $setcookie, time()+60*60*24*30, '/');
-					$_SESSION['USER'] = self::getInfosUser($results['hash_key']);
+					$_SESSION['USER']['HASH_KEY'] = $results['hash_key'];
 					$return['msg']  = 'La connexion a été éffectuée avec succès';
 					$return['type'] = 'success';
 				} else {
@@ -121,8 +114,62 @@ class User
 	#########################################
 	# Get infos user by id
 	#########################################
-	public static function getInfosUser($hash_key = false, $name = false)
+	public static function getInfosUser($hash_key = null)
 	{
-		
+		if ($hash_key !== null && strlen($hash_key) == 32) {
+			$sql = New BDD();
+			$sql->table('TABLE_USERS');
+			$sql->where(array(
+				'name'  => 'hash_key',
+				'value' => $hash_key
+			));
+			$sql->queryOne();
+
+			if (!empty($sql->data)) {
+				$return[$sql->data->hash_key] = $sql->data;
+				unset($return[$sql->data->hash_key]->password, $return[$sql->data->hash_key]->hash_key);
+			} else {
+				return (object) array();
+			}
+		} else {
+			return (object) array();
+		}
+
+		return $return;
+
+	}
+	#########################################
+	# Logout
+	#########################################
+	public static function logout()
+	{
+		unset($_SESSION['USER']);
+		setcookie('BEL-CMS-COOKIE', NULL, -1, '/');
+		$return['msg']  = 'Votre session est vos cookie de ce site sont effacés';
+		$return['type'] = 'success';
+		return $return;
+	}
+	#########################################
+	# Verifie si l'utilisateur existe
+	#########################################
+	public static function ifUserExist ($hash_key = null)
+	{
+		$return = false;
+
+		if ($hash_key !== null && strlen($hash_key) == 32) {
+			$sql = New BDD();
+			$sql->table('TABLE_USERS');
+			$sql->where(array(
+				'name'  => 'hash_key',
+				'value' => $hash_key
+			));
+			$sql->count();
+			$return = $sql->data;
+			if (!empty($return)) {
+				$return = true;
+			}
+		}
+
+		return $return;
 	}
 }

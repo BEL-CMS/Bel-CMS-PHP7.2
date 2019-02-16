@@ -45,72 +45,66 @@ class Pages
 	function set ($d) {
 		$this->vars = array_merge($this->vars,$d);
 	}
-	function json ($d) {
-		$this->json = $d;
-	}
-	function jquery ($d) {
-		$this->jquery = $d;
-	}
-	function affiche ($d) {
-		$this->affiche = $d;
-	}
-	function internManagement ($d = false)
-	{
-		$this->internManagement = $d;
-	}
 
-	function render($filename) {
-		/*
-		if (defined('MANAGEMENT')) {
-			if (SecureAccess::AccessManagement(strtolower(get_class($this))) === false) {
-				self::error(ERROR, NO_ACCESS_GROUP_PAGE, 'danger');
-				return false;
-			}
+	public function pageActive ($name)
+	{
+		$sql = New BDD();
+		$sql->table('TABLE_PAGES_CONFIG');
+		$sql->where(array('name'=>'name', 'value'=> $name));
+		$sql->queryOne();
+		if (empty($sql->data)) {
+			return false;
 		} else {
-			if (SecureAccess::ActivePage(strtolower(get_class($this))) === false) {
-				self::error(ERROR, NO_ACCESS_PAGE, 'info');
-				return false;
-			}
-			if (SecureAccess::AccessPage(strtolower(get_class($this))) === false) {
-				self::error(ERROR, NO_ACCESS_GROUP_PAGE, 'danger');
+			if ($sql->data->active == 1) {
+				return true;
+			} else {
 				return false;
 			}
 		}
-		*/
+	}
+
+	function render($filename) {
+		if (Secures::getAccessPage(strtolower(get_class($this))) === false) {
+			self::error('Page', NO_ACCESS_GROUP_PAGE, 'infos');
+			return false;
+		}
+
+		if (Secures::getPageActive(strtolower(get_class($this))) === false) {
+			self::error('Page', NO_ACCESS_PAGE, 'warning');
+			return false;
+		}
 		extract($this->vars);
 		ob_start();
-		if ($this->access === true) {
 
-			if ($this->intern) {
-				$dir    = ROOT_MANAGEMENT.'pages'.DS.strtolower(get_class($this)).DS.$filename.'.php';
-				$custom = null;
+		if ($this->intern) {
+			$dir    = ROOT_MANAGEMENT.'pages'.DS.strtolower(get_class($this)).DS.$filename.'.php';
+			$custom = null;
+		} else {
+			if (defined('MANAGEMENT')) {
+				$dir = isset($_GET['widgets']) ?
+					$dir = DIR_WIDGETS.strtolower(get_class($this)).DS.'management'.DS.$filename.'.php':
+					$dir = DIR_PAGES.strtolower(get_class($this)).DS.'management'.DS.$filename.'.php';
 			} else {
-				if (defined('MANAGEMENT')) {
-					$dir = isset($_GET['widgets']) ?
-						$dir = DIR_WIDGETS.strtolower(get_class($this)).DS.'management'.DS.$filename.'.php':
-						$dir = DIR_PAGES.strtolower(get_class($this)).DS.'management'.DS.$filename.'.php';
-				} else {
-					$dir = DIR_PAGES.strtolower(get_class($this)).DS.$filename.'.php';
-				}
-
-				$custom = defined('MANAGEMENT') ? null :
-					DIR_TPL.CMS_TPL_WEBSITE.DS.'custom'.DS.lcfirst(get_class($this)).'.'.$filename.'.php';
-			}
-			if (is_file($custom)) {
-				require_once $custom;
-			} else if (is_file($dir)) {
-				require_once $dir;
-			} else {
-				$error_name    = 'file no found';
-				$error_content = '<p><strong>file : '.$filename.' no found</strong><p>';
-				require DIR_ASSET_TPL.'error'.DS.'404.php';
+				$dir = DIR_PAGES.strtolower(get_class($this)).DS.$filename.'.php';
 			}
 
-			$this->page = ob_get_contents();
+			$custom = defined('MANAGEMENT') ? null :
+				DIR_TPL.CMS_TPL_WEBSITE.DS.'custom'.DS.lcfirst(get_class($this)).'.'.$filename.'.php';
+		}
+		if (is_file($custom)) {
+			require_once $custom;
+		} else if (is_file($dir)) {
+			require_once $dir;
+		} else {
+			$error_name    = 'file no found';
+			$error_content = '<p><strong>file : '.$filename.' no found</strong><p>';
+			require DIR_ASSET_TPL.'error'.DS.'404.php';
+		}
 
-			if (ob_get_length() != 0) {
-				ob_end_clean();
-			}
+		$this->page = ob_get_contents();
+
+		if (ob_get_length() != 0) {
+			ob_end_clean();
 		}
 	}
 
@@ -121,11 +115,10 @@ class Pages
 		ob_end_clean();
 	}
 
-	function error ($title, $msg, $type, $debug = null)
+	function error ($title, $msg, $type)
 	{
 		ob_start();
-		$type = empty($type) ? 'danger' : $type;
-		new notification ($title, $msg, $type, $debug);
+		Notification::$type($msg, $title);
 		$this->page = ob_get_contents();
 		ob_end_clean();
 	}

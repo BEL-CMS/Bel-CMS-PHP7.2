@@ -13,7 +13,9 @@ if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
 	exit(ERROR_INDEX);
 }
-
+#########################################
+# Notification Alert (red, blue, green, orange)
+#########################################
 final class Notification
 {
 	public static function alert($text = NO_TEXT_DEFINED, $title = INFO)
@@ -32,13 +34,22 @@ final class Notification
 	{
 		echo self::render ('success', $text, $title);
 	}
+	public static function infos ($text = NO_TEXT_DEFINED, $title = INFO)
+	{
+		echo self::render ('infos', $text, $title);
+	}
 	private static function render ($type = null, $text = 'BEL-CMS : Alert neutral', $title = 'Alert !')
 	{
-		$render  = '<div class="belcms_box_notification '.$type.' ">';
-		$render .= '<strong>'.$title.'</strong>';
-		$render .= $text;
-		$render .= '</div>';
 
+		$render  = '<section class="belcms_notification">';
+		$render .= '<header class="belcms_notification_header '.$type.'">';
+		$render .= '<i class="fas fa-exclamation-triangle"></i>';
+		$render .= '<span>'.$title.'</span>';
+		$render .= '</header>';
+		$render .= '<div class="belcms_notification_msg">';
+		$render .= $text;
+		$render .= '</div> ';
+		$render .= '</section>';
 		return $render;
 	}
 }

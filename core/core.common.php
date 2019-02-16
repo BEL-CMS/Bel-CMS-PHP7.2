@@ -1043,9 +1043,7 @@ final class Common
 		$text = $text." ";
 		$text = substr($text,0,$chars);
 		$text = substr($text,0,strrpos($text,' '));
-		if (count($text) < $chars) {
-			$text = $text."...";
-		}
+		$text = $text.'...';
 		return $text;
 	}
 }
@@ -1054,79 +1052,37 @@ final class Secure
 {
 	public static function isMail ($data = false)
 	{
-		$return = false;
-		if ($data !== false) {
-			if (filter_var($data, FILTER_VALIDATE_EMAIL)) {
-				$return = true;
-			}
-		}
-		return $return;
+		return filter_var($data, FILTER_VALIDATE_EMAIL) ? $data : false;
 	}
 
 	public static function isBool ($data = false)
 	{
-		$return = false;
-		if ($data !== false) {
-			if (filter_var($data, FILTER_VALIDATE_BOOLEAN)) {
-				$return = true;
-			}
-		}
-		return $return;
+		return filter_var($data, FILTER_VALIDATE_BOOLEAN) ? $data : false;
 	}
 
 	public static function isInt ($data = false)
 	{
-		$return = false;
-		if ($data !== false) {
-			if (filter_var($data, FILTER_VALIDATE_INT)) {
-				$return = true;
-			}
-		}
-		return $return;
+		return filter_var($data, FILTER_VALIDATE_INT) ? $data : false;
 	}
 
 	public static function isfloat ($data = false)
 	{
-		$return = false;
-		if ($data !== false) {
-			if (filter_var($data, FILTER_VALIDATE_FLOAT)) {
-				$return = true;
-			}
-		}
-		return $return;
+		return filter_var($data, FILTER_VALIDATE_FLOAT) ? $data : false;
 	}
 
 	public static function isIp ($data = false)
 	{
-		$return = false;
-		if ($data !== false) {
-			if (filter_var($data, FILTER_VALIDATE_IP)) {
-				$return = true;
-			}
-		}
-		return $return;
+		return filter_var($data, FILTER_VALIDATE_IP) ? $data : false;
 	}
 
 	public static function isUrl ($data = false)
 	{
-		$return = false;
-		if ($data !== false) {
-			if (filter_var($data, FILTER_VALIDATE_URL)) {
-				$return = true;
-			}
-		}
-		return $return;
+		return filter_var($data, FILTER_VALIDATE_URL) ? $data : false;
 	}
 
-	public function isString($data = false)
+	public static function isString($data = false)
 	{
-		$return = false;
-		if ($data !== false) {
-			if (is_string($data)) {
-				$return = true;
-			}
-		}
-		return $return;
+		return is_string($data) ? $data : false;
 	}
 }
 

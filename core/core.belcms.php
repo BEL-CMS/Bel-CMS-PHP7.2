@@ -22,23 +22,29 @@ final class BelCMS extends Dispatcher
 	{
 		parent::__construct();
 
+		if ($this->controller !== 'shoutbox') {
+			new Visitors;
+		}
 		new BelCMSConfig;
-		new User;
+		new Users;
 	}
 
 	public function _init ()
 	{
 		ob_start();
 
-		if ($this->IsEcho === true) {
+		if ($this->isManagement === true) {
+			require_once MANAGEMENTS.'managements.php';
+			new Managements;
+		} else if ($this->IsEcho === true) {
 			$assemblyPage = new AssemblyPages ();
 			$assemblyPage->getRender ();
-			$page = $assemblyPage->render;
+			echo $assemblyPage->render;
 		} else if ($this->IsJson === true) {
 			header('Content-Type: application/json');
 			$assemblyPage = new AssemblyPages ();
 			$assemblyPage->getRender ();
-			$page = $assemblyPage->render;
+			echo json_encode($assemblyPage->render);
 		} else {
 			$template = new Template();
 			echo $template->render;			
