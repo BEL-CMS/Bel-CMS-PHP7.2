@@ -1,0 +1,375 @@
+#belcms_main_user_account {
+}
+#belcms_main_user_safety {
+	display: none;
+}
+#belcms_main_user_security {
+	display: none;
+}
+#belcms_main_user_avatar {
+	display: none;
+}
+#belcms_main_user_social {
+	display: none;
+}
+#belcms_main_user_mobile {
+	display: none;
+}
+#belcms_main_user_connexion {
+	display: none;
+}
+#belcms_main_user {
+	display: block;
+	overflow: hidden;
+	margin: auto;
+}
+	#belcms_main_user > #belcms_main_user_left {
+		display: block;
+		float: left;
+		width: 290px;
+	}
+		#belcms_main_user_left_avatar {
+			height: 155px;
+			background: grey;
+			position: relative;
+			margin-bottom: 15px;
+		}
+			#belcms_main_user_left_avatar img {
+				border-radius: 50%;
+				height: 65px;
+				width: 65px;
+				border: 2px solid #fff;
+				padding: 1px;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				color: #fff;
+				position: absolute;
+				bottom: 20px;
+				left: 20px;
+				z-index: 100;
+			}
+			#belcms_main_user_left_username {
+				background: white;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 50px;
+				line-height: 50px;
+				padding-left: 100px;
+				z-index: 90;
+			}
+		#belcms_main_user_left_menu {
+
+		}
+			#belcms_main_user_left_menu .nav-link i {
+				float: right;
+				line-height: 30px;
+			}
+	#belcms_main_user > #belcms_main_user_right {
+		display: block;
+		float: right;
+		width: calc(100% - 305px);
+	}
+	#belcms_main_user_right h2 {
+		font-size: 1.3rem;
+		line-height: 30px;
+		border-bottom: 1px solid grey;
+	}
+
+
+
+.setting {
+  margin: 0 auto 3px;
+  width: 100%;
+}
+.setting a[data-action] {
+  cursor: pointer;
+  color: #555;
+  font-size: 14px;
+  line-height: 24px;
+  transition: color 0.2s;
+}
+.setting a[data-action] i {
+  width: 1.25em;
+  text-align: center;
+}
+.setting a[data-action]:hover {
+  color: #f80;
+}
+.setting a[data-action].disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.setting a[data-action].disabled:hover {
+  color: #555;
+}
+.image_picker .settings_wrap {
+  overflow: hidden;
+  position: relative;
+}
+.image_picker .settings_wrap .drop_target,
+.image_picker .settings_wrap .settings_actions {
+  float: left;
+}
+.image_picker .settings_wrap .drop_target {
+  margin-right: 18px;
+}
+.image_picker .settings_wrap .settings_actions {
+  margin-top: 12px;
+}
+.settings_actions.vertical a {
+  display: block;
+}
+.drop_target {
+  position: relative;
+  cursor: pointer;
+  background: hsl(0, 0%, 90%);
+  border-top: 1px solid hsl(0, 0%, 80%);
+  border-radius: 4px;
+  width: 72px;
+  height: 72px;
+  padding: 4px 6px 6px;
+  transition: all 0.2s;
+}
+.drop_target input[type="file"] {
+  visibility: hidden;
+}
+.drop_target:before {
+  content: '\f03e';
+  font-family: "Font Awesome 5 Free";
+  position: absolute;
+  display: block;
+  width: 60px;
+  line-height: 60px;
+  text-align: center;
+  font-size: 32px;
+  color: rgba(0, 0, 0, 0.3);
+  transition: color 0.2s;
+}
+.drop_target:hover,
+.drop_target.dropping {
+  background: #f80;
+  border-top-color: #cc6d00;
+}
+.drop_target:hover:before,
+.drop_target.dropping:before {
+  color: rgba(0, 0, 0, 0.6);
+}
+.drop_target .image_preview {
+  width: 100%;
+  height: 100%;
+  background: no-repeat center;
+  background-size: contain;
+  position: relative;
+  z-index: 2;
+}
+.image_details {
+  width: 192px;
+  padding: 4px;
+  background: hsl(0, 0%, 90%);
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  left: 84px;
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+.dropped ~ .image_details {
+  opacity: 1;
+  pointer-events: all;
+}
+.image_details:before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-right-color: hsl(0, 0%, 90%);
+  position: absolute;
+  left: -12px;
+  top: 10px;
+}
+.image_details .input_line {
+  display: block;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+.image_details .input_line:last-of-type {
+  margin-bottom: 0;
+}
+.image_details .input_line span,
+.image_details .input_line input {
+  float: left;
+  line-height: 24px;
+}
+.image_details .input_line span {
+  font-size: 12px;
+  color: #666;
+  width: 20%;
+}
+.image_details .input_line input[type="text"] {
+  width: 100%;
+  color: #444444;
+  appearance: none;
+  border: 1px solid hsl(0, 0%, 90%);
+  border-radius: 3px;
+  background: #fff;
+  height: 24px;
+  line-height: 18px;
+  padding: 3px 5px;
+  font-size: 14px;
+  transition: border 0.2s;
+}
+.image_details .input_line input[type="text"]:hover,
+.image_details .input_line input[type="text"]:focus {
+  outline: 0;
+  border: 1px solid #f80;
+}
+.image_details .input_line input[type="text"]::-webkit-input-placeholder {
+  font-size: 14px;
+  color: #999;
+}
+.image_details a.confirm {
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  margin-top: -12px;
+  display: block;
+  width: 21px;
+  height: 21px;
+  border-radius: 100%;
+  background: #eee;
+  line-height: 23px;
+  text-align: center;
+  font-size: 16px;
+}
+/*###################################
+# BEL-CMS MODULE USER # MAIN
+###################################*/
+section#bel_cms_page_user {
+	display: block;
+	overflow: hidden;
+	width: 100%;
+}
+	#bel_cms_page_user ul {
+		margin-bottom: 15px;
+	}
+	section#bel_cms_page_user .logout {
+		display: block;
+		float: right;
+		color: red;
+	}
+	section#bel_cms_page_user > .card {
+		margin-bottom: 15px;
+	}
+		#bel_cms_page_user_main_avatar {
+			width: 210px;
+			float: left;
+		}
+			#bel_cms_page_user_main_avatar > img {
+				display: block;
+				width: 180px;
+				height: 180px;
+			}
+		#bel_cms_page_user_main_infos {
+			width: calc(100% - 210px);
+			float: left;
+			border-left: 1px solid #dfdfdf;
+		}
+		#bel_cms_page_user_main_infos ul li span:first-child {
+			display: block;
+			float: left;
+			text-align: right;
+			padding: 0 15px;
+			width: 200px;
+			text-transform: uppercase;
+		}
+		#bel_cms_page_user_main_infos ul li span:last-child {
+			width: calc(100% - 200px);
+			display: block;
+			float: left;
+			font-weight: bold;
+		}
+
+		@media (max-width: 765px) {
+			#bel_cms_page_user_main_avatar {
+				display: none;
+			}
+			#bel_cms_page_user_main_infos {
+				width: 100%;
+				float: none;
+				border-left: none;
+			}
+		}
+	#bel_cms_user_ul_avatar {
+		display: block;
+		list-style: none;
+		margin: 0; padding: 0 15px;
+		overflow: hidden;
+	}
+		#bel_cms_user_ul_avatar li {
+			display: block;
+			float: left;
+			width: 125px;
+			height: 125px;
+			padding: 0 5px;
+			margin-bottom: 10px;
+		}
+			#bel_cms_user_ul_avatar li a {
+				display: block;
+				position: relative;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+				#bel_cms_user_ul_avatar li a img {
+					display: block;
+					margin: auto;
+					border: none;
+					-webkit-transition: all 125ms linear;
+					   -moz-transition: all 125ms linear;
+					    -ms-transition: all 125ms linear;
+					     -o-transition: all 125ms linear;
+					        transition: all 125ms linear;
+				}
+				#bel_cms_user_ul_avatar li a span {
+					display: block;
+					width: 100%;
+					left: 0;
+					position: absolute;
+					bottom: -20px;
+					line-height: 20px;
+					text-align: center;
+					background: rgba(0, 0, 0, .8);
+					color: #F6F6F6;
+					-webkit-transition: all 125ms linear;
+					   -moz-transition: all 125ms linear;
+					    -ms-transition: all 125ms linear;
+					     -o-transition: all 125ms linear;
+					        transition: all 125ms linear;
+				}
+				#bel_cms_user_ul_avatar li a:hover img {
+					opacity: 0.7;
+					box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.12);
+					-webkit-filter: blur(2px);
+					   -moz-filter: blur(2px);
+					     -o-filter: blur(2px);
+					    -ms-filter: blur(2px);
+					        filter: blur(2px);
+				}
+				#bel_cms_user_ul_avatar li a:hover span {
+					bottom: 0;
+				}
+.select_avatar {
+	display: none;
+}
+/*###################################
+# BEL-CMS MODULE USER # SEND
+###################################*/
+#bel_cms_user_send {
+	padding: 25px;
+	margin: auto;
+}
