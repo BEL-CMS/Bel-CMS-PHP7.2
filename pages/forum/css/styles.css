@@ -1,0 +1,167 @@
+.clear_forum {
+	display: block;
+	clear: both;
+}
+/*###################################
+# FORUM
+###################################*/
+.bel_cms_forum_main_fm {
+	display: block;
+	overflow: hidden;
+	margin-bottom: 25px;
+}
+	.bel_cms_forum_main_fm h2 {
+		font-size: 15px;
+		float: left;
+		line-height: 35px;
+	}
+		.bel_cms_forum_main_fm h3 {
+			font-size: 13px;
+			float: left;
+			line-height: 35px;
+		}
+		.bel_cms_forum_main_tds {
+			display: block;
+			overflow: hidden;
+			border: 1px solid #E4E4E4;
+			padding: 20px 20px 15px 20px;
+		}
+			.bel_cms_forum_main_tds:last-child {
+				/*border-bottom: 0;*/
+			}
+			.bel_cms_forum_main_tds_ico {
+				display: block;
+				float: left;
+				width: 40px;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				margin-right: 15px;
+			}
+				.bel_cms_forum_main_tds_ico i { 
+					font-size: 24px;
+					line-height: 40px;
+				}
+
+			.bel_cms_forum_main_tds_title {
+				display: block;
+				float: left;
+				width: calc(100% - 455px);
+			}
+				.bel_cms_forum_main_tds_title span {
+					display: block;
+					width: 100%;
+				}
+			.bel_cms_forum_main_tds_sj {
+				display: block;
+				float: left;
+				width: 85px;
+			}
+				.bel_cms_forum_main_tds_sj span {
+					display: block;
+					line-height: 40px;
+					text-align: left;
+				}
+			.bel_cms_forum_main_tds_last {
+				display: block;
+				float: left;
+				width: 260px;
+			}
+				.bel_cms_forum_main_tds_img {
+					display: block;
+					float: left;
+					width: 40px;
+					height: 40px;
+					line-height: 40px;
+					vertical-align: middle;
+					margin-right: 15px;
+				}
+				.bel_cms_forum_main_tds_last > h4 {
+					font-size: 0.9rem;
+					display: block;
+					width: calc(100% - 40px);
+					line-height: 20px;
+					margin: 0; padding: 0;
+				}
+				.bel_cms_forum_main_tds_last > h5 {
+					font-size: 0.8rem;
+					display: block;
+					width: calc(100% - 40px);
+					line-height: 40px;
+					margin: 0; padding: 0;
+				}
+				.bel_cms_forum_main_tds_last > span {
+					display: block;
+					width: calc(100% - 40px);
+					line-height: 20px;
+				}
+/*###################################
+# THREADS
+###################################*/
+#bel_cms_forum_threads > h2 {
+	font-size: 16px;
+	display: inline-block;
+}
+#bel_cms_forum_threads > a {
+	font-size: 12px;
+	display: inline-block;
+}
+.bel_cms_forum_threads_fm {
+	display: block;
+	overflow: hidden;
+	color: #636363;
+	margin-top: 0px;
+	padding: 20px 20px 15px 20px;
+	border: 1px solid #E4E4E4;
+}
+	.bel_cms_forum_threads_tds_ico {
+		display: block;
+		float: left;
+		width: 40px;
+		height: 40px;
+		line-height: 40px;
+		text-align: center;
+		margin-right: 15px;
+	}
+		.bel_cms_forum_threads_tds_ico i { 
+			font-size: 24px;
+			line-height: 40px;
+		}
+	.bel_cms_forum_threads_tds_title {
+		display: block;
+		float: left;
+		width: calc(100% - 455px);
+	}
+		.bel_cms_forum_threads_tds_title span {
+			display: block;
+			width: 100%;
+		}
+	.bel_cms_forum_threads_tds_sj {
+		display: block;
+		float: left;
+		width: 85px;
+	}
+		.bel_cms_forum_threads_tds_sj span {
+			display: block;
+			width: 100%;
+			text-align: center;
+		}
+	.bel_cms_forum_threads_tds_img {
+		display: block;
+		float: left;
+		width: 40px;
+		height: 40px;
+		line-height: 40px;
+		vertical-align: middle;
+		margin-right: 15px;
+	}
+	.bel_cms_forum_threads_tds_last {
+		display: block;
+		float: left;
+		width: 260px;
+	}
+		.bel_cms_forum_threads_tds_last span {
+			display: block;
+			width: 100%;
+		}
+
