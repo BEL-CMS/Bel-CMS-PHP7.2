@@ -1,0 +1,215 @@
+.bel-cms-widgets {
+	display: block;
+	overflow: hidden;
+	width: 100%;
+}
+.bel-cms-widgets-title {
+	padding: .75rem 1.25rem;
+	margin-bottom: 0;
+	background-color: rgba(0,0,0,.03);
+	border-bottom: 1px solid rgba(0,0,0,.125);
+}
+.bel-cms-widgets-title:first-child {
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+}
+.bel-cms-widgets-content {
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+	padding: 1.25rem;
+}
+.pull-right {
+	float: right;
+}
+/* ==========================================================================
+   BEL-CMS # Alert
+   ========================================================================== */
+#alrt_bel_cms {
+	background: rgba(0, 0, 0, 0.8);
+	text-align: center;
+	position: fixed;
+	border-bottom: 2px;
+	border-color: #21a9ec;
+	width: 100%;
+	display: block;
+	z-index: 99999;
+	line-height: 35px;
+	color: rgba(255, 255, 255, .95);
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.2);
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset, 0 1px 2px rgba(0, 0, 0, 0.1);
+	color: rgba(255, 255, 255, .95);
+	font-size: 12px;
+	transition: background-color 0.2s ease 0s;
+	vertical-align: middle;
+	top: -35px;
+}
+#alrt_bel_cms.danger {
+	background-color: #db3325;
+	background-image: linear-gradient(rgba(219, 51, 37, 0), rgba(1, 0, 0, 0.1));
+	border-color: rgba(0, 0, 0, 0.05) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.15);
+	color: white;
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.15);
+}
+#alrt_bel_cms.warning {
+	background-color: #f5a732;
+	background-image: linear-gradient(rgba(245, 167, 50, 0), rgba(38, 24, 2, 0.1));
+	border-color: rgba(0, 0, 0, 0.05) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.15);
+	color: white;
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.15);
+}
+#alrt_bel_cms.success {
+	background-color: #7eb216;
+	background-image: linear-gradient(rgba(126, 178, 22, 0), rgba(0, 0, 0, 0.1));
+	border-color: rgba(0, 0, 0, 0.05) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.15);
+	color: white;
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.15);
+}
+
+/* --- Modal --- */
+.modal-backdrop {
+	z-index: -1 !important;
+}
+
+/* Popup User Info */
+
+#bel_cms_popup_user {
+	display: block;
+	position: absolute;
+	max-width: 95%;
+	padding: 5px;
+	border-radius: 3px;
+}
+#bel_cms_popup_user header {
+
+}
+#bel_cms_popup_user_content {
+	display: table;
+}
+#bel_cms_popup_user_avatar {
+	display: table-cell;
+}
+#bel_cms_popup_user_infos {
+	display: table-cell;
+}
+#bel_cms_popup_user_infos li {
+	display: table;
+}
+#bel_cms_popup_user_infos li span {
+	display: table-cell;
+}
+#bel_cms_popup_user_infos li span:first-child {
+	font-weight: bold;
+}
+/*#########################################
+# define constant array or simple name
+#########################################*/
+#belcms_comments {
+	display: block;
+	margin: 20px 10px;
+	border: 1px solid rgba(209, 207, 207, 1);
+	background: rgba(239, 239, 239, 1);
+}
+	#belcms_comments > header {
+		display: block;
+		border-bottom: 1px solid rgba(209, 207, 207, 1);
+	}
+		#belcms_comments > header > span {
+			line-height: 30px;
+			padding-left: 20px;
+			font-weight: bold;
+		}
+
+		.belcms_comments_content {
+			display: block;
+			overflow: hidden;
+			background: rgba(245, 245, 245, 1);
+			padding: 5px;
+			border-bottom: 1px dashed rgba(209, 207, 207, 1);;
+		}
+		.belcms_comments_content:last-child {
+			border-bottom: none;
+		}
+		.belcms_comments_avatar {
+			display: block;
+			width: 50px;
+			margin-right: 15px;
+			line-height: 50px;
+			vertical-align: middle;
+			float: left;
+		}
+			.belcms_comments_avatar img {
+				width: 50px;
+				height: 50px;
+				vertical-align: middle;
+			}
+
+		.belcms_comments_infos {
+			display: block;
+			overflow: hidden;
+			width: calc(100% - 65px);
+		}
+
+		#belcms_comments_username {
+			display: block;
+			float: left;
+			font-size: 1rem;
+			line-height: 25px;
+			font-weight: bold;
+		}
+		#belcms_comments_date {
+			display: block;
+			float: right;
+			font-size: 0.75rem;
+			line-height: 25px;
+		}
+		#belcms_comments_reply {
+			display: block;
+			float: right;
+			font-size: 1.5rem;
+			margin: 0 5px;
+			line-height: 25px;
+		}
+		.belcms_comments_com {
+			display: block;
+			text-align: justify;
+			font-size: .85rem;
+		}
+/*#########################################
+# popup full screen for BEL-CMS
+#########################################*/
+section#bel_cms_pup_full {
+	position: fixed;
+	z-index: 99999;
+	background: rgba(0, 0, 0, 0.75);
+	width: 100%;
+	left: 0;
+	height: 100%;
+	bottom: 0;
+}
+#bel_cms_pup_b {
+	position: absolute;
+	width: 700px;
+	height: auto;
+	left: calc(50% - 350px);
+	top: 50%;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+#bel_cms_pup_b_title {
+	background: #515050;
+	line-height: 45px;
+	text-align: center;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.9);
+	color: #FFF;
+}
+#bel_cms_pup_b_content {
+	background: #F4F4F4;
+	padding: 15px;
+	text-align: justify;
+	color: #515050;
+}
+#bel_cms_pup_b_content a {
+	font-weight: bold;
+	color: #515050;
+	text-decoration: none;
+}

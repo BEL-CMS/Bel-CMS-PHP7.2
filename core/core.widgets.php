@@ -151,7 +151,8 @@ class Widgets
 
 		if ($custom === null) {
 			if ($pos === null) {
-				$dir = DIR_ASSET.'widgets'.DS.'widgets.static.tpl';
+				$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.'.ucfirst($data->name).'.tpl';
+				$dir = is_file($custom) ? $custom : DIR_ASSET.'widgets'.DS.'widgets.static.tpl';
 			} else if ($pos == 'right' or $pos == 'top' or $pos == 'bottom' or $pos == 'top') {
 				switch ($pos) {
 					case 'top':
@@ -161,17 +162,17 @@ class Widgets
 
 					case 'bottom':
 						$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.bottom.tpl';
-						$dir = is_file($custom) ? $custom : DIR_ASSET.'widgets'.DS.'bottom.top.tpl';
+						$dir = is_file($custom) ? $custom : DIR_ASSET.'widgets'.DS.'widgets.bottom.tpl';
 						break;
 
 					case 'left':
 						$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.left.tpl';
-						$dir = is_file($custom) ? $custom : DIR_ASSET.'widgets'.DS.'left.top.tpl';
+						$dir = is_file($custom) ? $custom : DIR_ASSET.'widgets'.DS.'widgets.left.tpl';
 						break;
 
 					case 'right':
 						$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.right.tpl';
-						$dir = is_file($custom) ? $custom : DIR_ASSET.'widgets'.DS.'right.top.tpl';
+						$dir = is_file($custom) ? $custom : DIR_ASSET.'widgets'.DS.'widgets.right.tpl';
 						break;
 
 					default:
@@ -218,7 +219,7 @@ class Widgets
 		ob_start();
 
 		if ($pos != null) {
-			if ($pos = 'right') {
+			if ($pos == 'right') {
 				foreach (self::getControllers($pos) as $k => $v) {
 					$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.right.tpl';
 					$dir = DIR_ASSET.'widgets'.DS.'widgets.right.tpl';
@@ -230,7 +231,7 @@ class Widgets
 						require $dir;
 					}
 				}
-			} else if ($pos = 'left') {
+			} else if ($pos == 'left') {
 				foreach (self::getControllers($pos) as $k => $v) {
 					$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.left.tpl';
 					$dir = DIR_ASSET.'widgets'.DS.'widgets.left.tpl';
@@ -242,7 +243,7 @@ class Widgets
 						require $dir;
 					}
 				}
-			} else if ($pos = 'top') {
+			} else if ($pos == 'top') {
 				foreach (self::getControllers($pos) as $k => $v) {
 					$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.top.tpl';
 					$dir = DIR_ASSET.'widgets'.DS.'widgets.top.tpl';
@@ -254,7 +255,7 @@ class Widgets
 						require $dir;
 					}
 				}
-			} else if ($pos = 'bottom') {
+			} else if ($pos == 'bottom') {
 				foreach (self::getControllers($pos) as $k => $v) {
 					$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.bottom.tpl';
 					$dir = DIR_ASSET.'widgets'.DS.'widgets.bottom.tpl';

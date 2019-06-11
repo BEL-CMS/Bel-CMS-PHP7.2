@@ -22,7 +22,7 @@ final class BelCMS extends Dispatcher
 	{
 		parent::__construct();
 
-		if ($this->controller !== 'shoutbox') {
+		if ($this->controller != 'shoutbox') {
 			new Visitors;
 		}
 		new BelCMSConfig;
@@ -44,7 +44,7 @@ final class BelCMS extends Dispatcher
 			header('Content-Type: application/json');
 			$assemblyPage = new AssemblyPages ();
 			$assemblyPage->getRender ();
-			echo json_encode($assemblyPage->render);
+			echo ($assemblyPage->render);
 		} else {
 			$template = new Template();
 			echo $template->render;			

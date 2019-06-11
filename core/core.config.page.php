@@ -82,8 +82,8 @@ class Pages
 		} else {
 			if (defined('MANAGEMENT')) {
 				$dir = isset($_GET['widgets']) ?
-					$dir = DIR_WIDGETS.strtolower(get_class($this)).DS.'management'.DS.$filename.'.php':
-					$dir = DIR_PAGES.strtolower(get_class($this)).DS.'management'.DS.$filename.'.php';
+				$dir = DIR_WIDGETS.strtolower(get_class($this)).DS.'management'.DS.$filename.'.php':
+				$dir = DIR_PAGES.strtolower(get_class($this)).DS.'management'.DS.$filename.'.php';
 			} else {
 				$dir = DIR_PAGES.strtolower(get_class($this)).DS.$filename.'.php';
 			}

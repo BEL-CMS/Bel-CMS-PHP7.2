@@ -40,14 +40,19 @@ final class BelCMSConfig extends Dispatcher
 		$return = null;
 
 		if ($page != null) {
-			$page = trim(strtolower($page));
+			$page = strtolower(trim(strtolower($page)));
 			$sql = New BDD;
 			$sql->table('TABLE_PAGES_CONFIG');
 			$sql->where(array('name' => 'name', 'value' => $page));
-			$sql->fields(array('name', 'config'));
 			$sql->queryOne();
 			$return = $sql->data;
-			$return->config = Common::transformOpt($return->config);
+			$return->access_groups = explode('|', $return->access_groups);
+			$return->access_admin  = explode('|', $return->access_admin);
+			if (!empty($return->config)) {
+				$return->config = Common::transformOpt($return->config);
+			} else {
+				$return->config = (object) array();
+			}
 		}
 
 		return $return;

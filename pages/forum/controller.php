@@ -17,74 +17,196 @@ if (!defined('CHECK_INDEX')) {
 class Forum extends Pages
 {
 	var $models = array('ModelsForum');
-	private $_error = false;
 
 	public function index ()
 	{
-		$data['forum']     = $this->ModelsForum->getForum();
-		$data['threads']   = $this->ModelsForum->getThreads();
+		$data['forum'] = $this->ModelsForum->getForum();
 
-		$i = 0;
-		foreach ($data['threads'] as $k => $v) {
-			$i++;
-			if (array_key_exists($v->id_forum, $data['forum'])) {
-				$data['data'][$v->id_forum] = $data['forum'][$v->id_forum];
-				$data['data'][$v->id_forum]->threads[$i] = $v;
-				$data['data'][$v->id_forum]->threads[$i]->count = $this->ModelsForum->getCountPost($v->id);
-				$data['data'][$v->id_forum]->threads[$i]->last = $this->ModelsForum->getLastPost($v->id);
-				$data['data'][$v->id_forum]->threads[$i]->id_threads = $v->id;
+		if (empty($data['forum'])) {
+			$this->error('Forum', 'Aucun Forum enregistrée en base de donnée.', 'warning');
+			return false;
+		}
+
+		foreach ($data['forum'] as $k => $v) {
+			$data['forum'][$k]->category = $this->ModelsForum->getCatForum($v->id);
+			foreach ($data['forum'][$k]->category as $last_k => $last_v) {
+
+				$data['forum'][$k]->category[$last_k]->count = $this->ModelsForum->CountSjForum($data['forum'][$k]->category[$last_k]->id);
+
+				$last = $this->ModelsForum->getLastPostForum($last_v->id);
+				if (empty($last)) {
+					$data['forum'][$k]->category[$last_k]->last            = (object) array();
+					$data['forum'][$k]->category[$last_k]->last->title     = null;
+					$data['forum'][$k]->category[$last_k]->last->date_post = null;
+					$data['forum'][$k]->category[$last_k]->last->author    = null;
+				} else {
+					$data['forum'][$k]->category[$last_k]->last = $last;
+					/*
+					if (Users::ifUserExist($data['forum'][$k]->category[$last_k]->last->author)) {
+						$user = Users::getInfosUser($data['forum'][$k]->category[$last_k]->last->author);
+						if ($user === false) {
+							$data['forum'][$k]->category[$last_k]->last->author = 'Unknow';
+						} else {
+							$data['forum'][$k]->category[$last_k]->last->author = $user->username;
+						}
+					} else {
+						$data['forum'][$k]->category[$last_k]->last->author = 'Unknow';
+					}
+					*/
+				}
 			}
 		}
 
 		$this->set($data);
-		$this->render("main");
+		$this->render('main');
 	}
 
 	public function threads ($title, $id)
 	{
-		$data['title'] = Common::VarSecure($title);
-		$data['post']  = $this->ModelsForum->getPost($id);
-		$data['id']    = $id;
+		$data['id']      = (int) $id;
+		$data['threads'] = $this->ModelsForum->GetThreadsPost($data['id']);
+		$groupUser       = Users::getGroups($_SESSION['USER']['HASH_KEY']);
+		$current         = current($data['threads']);
+		$access          = false;
+		$secure          = $this->ModelsForum->securityPost((int) $current->id_threads);
 
-		foreach ($data['post'] as $k => $v) {
-			$data['post'][$k]->last = $this->ModelsForum->getLastPosts($v->id);
-		}
-
-		foreach ($data['post'] as $key => $value) {
-			$data['post'][$key]->options = Common::transformOpt($value->options);
-			if (!empty($v->author) && strlen($v->author) == 32) {
-				if (Users::ifUserExist($v->author)) {
-					$user     = Users::getInfosUser($v->author);
-					$username = $user[$v->author]->username;
-					$data['post'][$key]->author = $username;
-				} else {
-					$data['post'][$key]->author = 'Inconnu';
-				}
-			} else {
-				$data['post'][$key]->author = 'Inconnu';
-			}
-			$data['post'][$key]->date_post = Common::TransformDate($value->date_post, 'MEDIUM', 'SHORT');
-		}
-
-		$this->set($data);
-		$this->render("threads");
-	}
-
-	public function NewThread ($id)
-	{
-		$data['id'] = $id;
-		$this->set($data);
-		$this->render("newthreads");
-	}
-
-	public function SendNewPost ($id)
-	{
-		if (empty($id) or !is_numeric($id)) {
-			$this->error('Erreur', 'ID Inconnu', 'error');
+		if (in_array('1', $groupUser)) {
+			$access = true;
 		} else {
-			$return = $this->ModelsForum->AddPost($id, $this->data);
-			$this->error($return['title'], $return['msg'], $return['type']);
-			$this->redirect('Forum/Threads', 2);
+			if ($secure === true) {
+				$access = true;
+			} else {
+				foreach ($secure as $k_secure => $v_secure) {
+					if (in_array($v_secure, $groupUser)) {
+						$access = true;
+						break;
+					}
+				}
+			}
 		}
+
+		if ($access === false) {
+			$this->error('Forum', 'Tentative accès non autorisé, un administrateur à été prévenue.', 'error');
+			$this->redirect(true, 2);
+			return false;
+		}
+
+		foreach ($data['threads'] as $k => $v) {
+			$data['threads'][$k]->options = Common::transformOpt($v->options);
+			$last = $this->ModelsForum->getLastPostsForum($v->id);
+			if (empty($last)) {
+				$data['threads'][$k]->last = $this->ModelsForum->getLastPostsOriginForum($v->id, $v->id_threads);
+			} else {
+				$data['threads'][$k]->last = $last;
+			}
+			
+		}
+
+		$this->set($data);
+		$this->render('threads');
+	}
+
+	public function post ($name = '', $id = '')
+	{
+		if (empty($name)) {
+			$this->error('Forum', 'Page manquante...', 'error');
+			$this->redirect('Forum', 3);
+			return;
+		}
+		$d = array();
+		$id = (int) $id;
+		$_SESSION['REPLYPOST']   = $id;
+		$_SESSION['FORUM']       = uniqid('forum_');
+		$_SESSION['FORUM_CHECK'] = $_SESSION['FORUM'];
+		$this->ModelsForum->addView($id);
+		$d['post'] = $this->ModelsForum->GetPosts($name, $id);
+		if (count($d['post']) == 0) {
+			$this->error('Forum', 'Page manquante...', 'error');
+			return;
+		} else {
+			$this->set($d);
+			$this->render('post');
+		}
+	}
+
+	private function accessLock ()
+	{
+		$groupUser = Users::getGroups($_SESSION['USER']['HASH_KEY']);
+
+		if (in_array('1', $groupUser)) {
+			return true;
+		}
+
+		$access    = false;
+		foreach (BelCMSConfig::GetConfigPage('forum') as $k => $v) {
+			if (in_array($v, $groupUser)) {
+				$access = true;
+				break;
+			}
+		}
+		return $access;
+	}
+
+	public function lockpost ($id)
+	{
+			if (self::accessLock()) {
+				$return = $this->ModelsForum->lock($id);
+				$this->error ('Forum', $return['msg'], $return['type']);
+			} else {
+				$this->error ('Forum', NO_CLOSE_POST, 'error');
+			}
+			$this->redirect(true, 2);
+	}
+
+	public function unlockpost ($id)
+	{
+			if (self::accessLock()) {
+				$return = $this->ModelsForum->unlock($id);
+				$this->error ('Forum', $return['msg'], $return['type']);
+			} else {
+				$this->error ('Forum', NO_ACCESS_POST, 'error');
+			}
+			$this->redirect(true, 2);
+	}
+
+	public function delpost ($id)
+	{
+		if (self::accessLock()) {
+			$return = $this->ModelsForum->delpost($id);
+			$this->error ('Forum', $return['msg'], $return['type']);
+		} else {
+			$this->error ('Forum', NO_ACCESS_POST, 'error');
+		}
+		$this->redirect('Forum', 2);
+	}
+
+	public function NewThread ($name)
+	{
+		$_SESSION['NEWTHREADS'] = $name;
+		$this->render('newthread');
+	}
+
+	public function send ()
+	{
+		if ($_REQUEST['send'] == 'SubmitReply') {
+			self::SubmitReply($this->data);
+		} else if ($_REQUEST['send'] == 'NewThread') {
+			self::NewPostThread($this->data);
+		}
+	}
+
+	private function NewPostThread ($data)
+	{
+		$insert = $this->ModelsForum->SubmitThread($data['id'], $data);
+		$this->error ('Forum', $insert['msg'], $insert['type']);
+		$this->redirect(true, 2);
+	}
+
+	private function SubmitReply ($data)
+	{
+		$referer = (!empty($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : 'Forum';
+		$insert  = $this->ModelsForum->SubmitPost($data);
+		$this->error ('Forum : Réponse', $insert['msg'], $insert['type']);
+		$this->redirect(true, 2);
 	}
 }

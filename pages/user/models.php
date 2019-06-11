@@ -109,7 +109,14 @@ class ModelsUser
 						$v = array();
 					} else {
 						$arrayHash = explode('|', $v);
-						$returnInfosUser = User::getInfosUser($arrayHash);
+						/*
+						foreach ($arrayHash as $k_h => $v_h) {
+							$returnMerge[$k][$v_h]['name'] = Users::hashkeyToUsernameAvatar($v_h);
+							$returnMerge[$k][$v_h]['avatar'] = Users::hashkeyToUsernameAvatar($v_h, 'avatar');
+						}
+
+						/*
+						$returnInfosUser = Users::getInfosUser($arrayHash);
 						$v = array();
 						foreach ($returnInfosUser as $keyTmp => $valueTmp) {
 							$v[$keyTmp]['name']   = $valueTmp->name;
@@ -118,6 +125,7 @@ class ModelsUser
 								$v[$keyTmp]['avatar'] = 'assets/imagery/default_avatar.jpg';
 							}
 						}
+						*/
 					}
 				}
 
@@ -212,7 +220,7 @@ class ModelsUser
 					$return[$k]['birthday']          = Common::transformDate($return[$k]['birthday']);
 					$return[$k]['date_registration'] = Common::transformDate($return[$k]['date_registration'], true);
 					$return[$k]['last_visit']        = Common::transformDate($return[$k]['last_visit'], true);
-					if (empty($return[$k]['avatar'])) {
+					if (empty($return[$k]['avatar']) or !is_file($return[$k]['avatar'])) {
 						$return[$k]['avatar'] = 'assets/imagery/default_avatar.jpg';
 					}
 					$return[$k]['groups'] = explode('|', $v['groups']);
@@ -1063,7 +1071,7 @@ class ModelsUser
 			$link .= $data['avatar'];
 			// @ = fix erreur Windows localhost
 			@unlink($link);
-			$return['msg']  = 'Image supprimer avec succès';
+			$return['msg']  = $link;
 			$return['type'] = 'success';
 			$return['ext']  = 'Avatar';
 		}

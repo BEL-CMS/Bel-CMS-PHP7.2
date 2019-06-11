@@ -40,7 +40,7 @@ final class AssemblyPages extends Dispatcher
 				$buffer = ob_get_contents();
 			}
 		} else {
-			Notification::error('file controller and view no found', 'Page no found');
+			Notification::error('La page demander, n\'est pas disponible.', 'Page no found');
 			$buffer = ob_get_contents();
 		}
 

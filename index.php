@@ -52,12 +52,7 @@ define ('DIR_ASSET',ROOT.'assets'.DS);
 define ('DIR_ASSET_TPL',ROOT.'assets'.DS.'tpl'.DS);
 define ('DIR_WIDGETS', ROOT.'widgets'.DS);
 define ('DIR_UPLOADS', ROOT.'uploads'.DS);
-#########################################
-# require
-#########################################
-require DIR_CORE.'core.error.php';
-require 'file_require.php';
-new RequireFiles;
+define ('MANAGEMENTS', ROOT.'managements'.DS);
 #########################################
 # Install
 #########################################
@@ -65,6 +60,12 @@ if (is_file(ROOT.'INSTALL'.DS.'index.php')) {
 	header('Location: INSTALL/index.php');
 	die();
 }
+#########################################
+# require
+#########################################
+require DIR_CORE.'core.error.php';
+require 'file_require.php';
+new RequireFiles;
 try {	
 	$BelCMS = new BelCMS;
 	$BelCMS->_init();

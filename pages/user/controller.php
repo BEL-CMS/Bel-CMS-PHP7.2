@@ -43,6 +43,9 @@ class User extends Pages
 		if (Users::isLogged() === false) {
 			$this->render('login');
 		} else {
+			$d = array();
+			$d['user'] = $this->ModelsUser->getDataUser($_SESSION['USER']['HASH_KEY']);
+			$this->set($d);
 			$this->render('index');
 		}
 	}

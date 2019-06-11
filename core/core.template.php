@@ -198,8 +198,8 @@ final class Template  extends Dispatcher
 		$files[] = 'assets/styles/belcms.notification.css';
 		/* BOOTSTRAP 4.1.3 */
 		$files[] = 'assets/plugins/bootstrap-4.1.3/css/bootstrap.min.css';
-		/* FONTAWASOME 5.7.1 ALL */
-		$files[] = 'assets/plugins/fontawesome-5.7.1/css/all.min.css';
+		/* FONTAWASOME 5.4.2 ALL */
+		$files[] = 'assets/plugins/fontawesome-5.8.2/css/all.min.css';
 		/* WIDGETS STYLE */
 		$widgets = Widgets::getCssStyles ();
 		foreach ($widgets  as $v) {
@@ -252,7 +252,7 @@ final class Template  extends Dispatcher
 	#########################################
 	public function breadCrumb ()
 	{
-		$return  = '<nav aria-label="breadcrumb"><ol class="breadcrumb">';
+		$return  = '<nav id="nav_breadcrumb" aria-label="breadcrumb"><ol class="breadcrumb">';
 		$return .= '<li class="breadcrumb-item"><a href="Home">'.constant('HOME').'</a></li>';
 
 		if ($this->controller != 'blog') {
@@ -260,8 +260,7 @@ final class Template  extends Dispatcher
 			if ($this->view != 'index') {
 				$return .= '<li class="breadcrumb-item"><a href="'.ucfirst($this->controller).'/'.$this->view.'">'.Common::translate($this->view).'</a></li>';
 				if (!empty($this->links[2])) {
-
-					$return .= '<li class="breadcrumb-item active"><a href="'.ucfirst($this->controller).'/'.$this->view.'/'.$this->links[2].'">'.$this->links[2].'</a></li>';
+					$return .= '<li class="breadcrumb-item active"><a href="'.ucfirst($this->controller).'/'.$this->view.'/'.$this->links[2].'">'.($this->links[2]).'</a></li>';
 				}
 			}
 		}

@@ -32,7 +32,7 @@ if (Users::isLogged() === false):
 						<h2>Login</h2>
 						<p>Please enter your email or username and password</p>
 					</div>
-					<form id="Login" action="user/sendLogin" method="post">
+					<form id="Login" action="/user/sendLogin" method="post">
 						<div class="form-group">
 							<input name="username" required="required" autofocus="" type="text" class="form-control" id="inputEmail" placeholder="Email or username">
 						</div>

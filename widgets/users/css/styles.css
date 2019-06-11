@@ -1,0 +1,37 @@
+#bel_cms_widget_users {
+	display: block;
+}
+	.bel_cms_widget_users {
+		display: block;
+		margin-bottom: 25px;
+	}
+		.bel_cms_widget_users > img {
+			width: 100%;
+			padding: 25px;
+			background: rgba(0, 0, 0, 0.3);
+		}
+	#bel_cms_widget_users nav {
+		display: block;
+		background: rgba(0, 0, 0, 0.3);
+	}
+		#bel_cms_widget_users nav ul {
+			display: block;
+			margin: 0; padding: 0;
+			list-style: none;
+		}
+			#bel_cms_widget_users nav ul li {
+				display: block;
+				width: 100%;
+				border-bottom: 1px solid rgba(255, 255, 255, .1);
+			}
+				#bel_cms_widget_users nav ul li a {
+					display: block;
+					width: 100%;
+					line-height: 30px;
+					padding: 0 15px;
+					border-bottom: 1px solid background: rgba(0, 0, 0, 0.3);
+					text-decoration: none;
+				}
+				#bel_cms_widget_users nav ul li a:hover {
+					background: rgba(255, 255, 255, .1);
+				}

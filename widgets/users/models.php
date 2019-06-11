@@ -16,10 +16,22 @@ if (!defined('CHECK_INDEX')) {
 
 class ModelsUsers extends Widgets
 {
-	var $models = array('ModelsUsers');
-
-	function __construct ()
+	public function getInfosUser ()
 	{
-		$this->render ('index');
+		$return = null;
+
+		if (Users::isLogged()) {
+
+			$sql = New BDD;
+			$sql->table('TABLE_USERS');
+			$sql->where(array('name' => 'hash_key', 'value' => $_SESSION['USER']['HASH_KEY']));
+			$sql->queryOne();
+
+			if ($sql->data) {
+				$return = $sql->data;
+			}
+		}
+
+		return $return;
 	}
 }

@@ -18,6 +18,7 @@ class Users
 	function __construct ()
 	{
 		self::autoLogin();
+		self::autoUpdateSession();
 	}
 	#########################################
 	# is logged true or false
@@ -26,7 +27,21 @@ class Users
 		if (isset($_SESSION['USER']['HASH_KEY']) and strlen($_SESSION['USER']['HASH_KEY']) == 32) {
 			return true;
 		} else {
+			$_SESSION['USER']['HASH_KEY'] = false;
 			return false;
+		}
+	}
+	#########################################
+	# Auto update last visit timer
+	#########################################
+	private function autoUpdateSession ()
+	{
+		if (self::isLogged() === true) {
+			$sql = New BDD();
+			$sql->table('TABLE_USERS');
+			$sql->where(array('name' => 'hash_key', 'value' => $_SESSION['USER']['HASH_KEY']));
+			$sql->sqlData(array('last_visit' => date('Y-m-d H:i:s'), 'ip' => Common::GetIp()));
+			$sql->update();
 		}
 	}
 	#########################################
@@ -129,10 +144,10 @@ class Users
 				$return[$sql->data->hash_key] = $sql->data;
 				unset($return[$sql->data->hash_key]->password, $return[$sql->data->hash_key]->hash_key);
 			} else {
-				return (object) array();
+				return false;
 			}
 		} else {
-			return (object) array();
+			return false;
 		}
 
 		return $return;
@@ -172,4 +187,82 @@ class Users
 
 		return $return;
 	}
+	#########################################
+	# Change hash_key en username ou avatar
+	#########################################
+	public static function hashkeyToUsernameAvatar ($hash_key = null, $username = 'username')
+	{
+		if ($hash_key !== null && strlen($hash_key) == 32) {
+			$sql = New BDD();
+			$sql->table('TABLE_USERS');
+			$sql->where(array(
+				'name'  => 'hash_key',
+				'value' => $hash_key
+			));
+			$sql->fields(array('username', 'avatar'));
+			$sql->queryOne();
+			if (!empty($sql->data)) {
+				if ($username == 'username') {
+					$return = $sql->data->username;
+				} else {
+					if (empty($sql->data->avatar)) {
+						$return = 'assets/images/default_avatar.jpg';
+					} else {
+						if (is_file($sql->data->avatar)) {
+							$return = $sql->data->avatar;
+						} else {
+							$return = 'assets/images/default_avatar.jpg';
+						}
+						
+					}
+				}
+			} else {
+				if ($username == 'username') {
+					$return = UNKNOWN;
+				} else {
+					$return = 'assets/images/default_avatar.jpg';
+				}
+			}
+		} else {
+			if ($username == 'username') {
+				$return = UNKNOWN;
+			} else {
+				$return = 'assets/images/default_avatar.jpg';
+			}
+		}
+		return $return;
+	}
+	#########################################
+	# Recupère tout les groupe de utilisateur
+	#########################################
+	public static function getGroups ($hash_key = null)
+	{
+		$return = array();
+
+		if ($hash_key !== null && strlen($hash_key) == 32) {
+			$sql = New BDD();
+			$sql->table('TABLE_USERS');
+			$sql->where(array(
+				'name'  => 'hash_key',
+				'value' => $hash_key
+			));
+			$sql->fields(array('groups', 'main_groups'));
+			$sql->queryOne();
+			if (!empty($sql->data)) {
+				$group[] = $sql->data->main_groups;
+				$groups  = explode("|", $sql->data->groups);
+				foreach ($groups as $k => $v) {
+					if (!in_array($v, $group)) {
+						$group[] = $v;
+					}
+				}
+				$return = $group;
+			}
+		} else {
+			$return = array(0 => 0);
+		}
+
+		return $return;
+	}
+
 }
