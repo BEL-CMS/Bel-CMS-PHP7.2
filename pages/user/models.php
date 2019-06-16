@@ -101,7 +101,7 @@ class ModelsUser
 				}
 				if ($k == 'avatar') {
 					if (empty($v) OR !is_file($v)) {
-						$v = 'assets/imagery/default_avatar.jpg';
+						$v = 'assets/images/default_avatar.jpg';
 					}
 				}
 				if ($k == 'friends') {

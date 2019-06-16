@@ -141,6 +141,11 @@ class Users
 			$sql->queryOne();
 
 			if (!empty($sql->data)) {
+				if (!empty($sql->data->avatar) and is_file($sql->data->avatar)) {
+					$sql->data->avatar = $sql->data->avatar;
+				} else {
+					$sql->data->avatar = 'assets/images/default_avatar.jpg';
+				}
 				$return[$sql->data->hash_key] = $sql->data;
 				unset($return[$sql->data->hash_key]->password, $return[$sql->data->hash_key]->hash_key);
 			} else {
@@ -213,7 +218,6 @@ class Users
 						} else {
 							$return = 'assets/images/default_avatar.jpg';
 						}
-						
 					}
 				}
 			} else {

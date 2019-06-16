@@ -88,7 +88,7 @@ class User extends Pages
 			}
 	}
 
-	private function sendRegister ()
+	public function sendRegister ()
 	{
 		if (empty($this->data)) {
 			Notification::alert('Pas de données');

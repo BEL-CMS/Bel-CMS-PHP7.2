@@ -48,8 +48,8 @@ final class Comment extends Dispatcher
 				if (empty($data->username)) {
 					$data->username = 'Non répertorié';
 				}
-				if (empty($data->avatar)) {
-					$data->avatar = '/assets/images/default_avatar.jpg';
+				if (empty($data->avatar) and !is_file($data->avatar)) {
+					$data->avatar = 'assets/images/default_avatar.jpg';
 				}
 				$return = $data;
 			} else {

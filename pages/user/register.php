@@ -31,7 +31,7 @@ if ($this->data):
 						<h2>Register</h2>
 						<p>Please enter your all information for the register</p>
 					</div>
-					<form id="Login" action="User/Send" method="post">
+					<form id="Login" action="/User/SendRegister" method="post">
 						<div class="form-group">
 							<input name="email" type="email" class="form-control" id="inputEmail" placeholder="Email">
 						</div>
