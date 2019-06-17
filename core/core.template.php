@@ -200,6 +200,10 @@ final class Template  extends Dispatcher
 		$files[] = 'assets/plugins/bootstrap-4.1.3/css/bootstrap.min.css';
 		/* FONTAWASOME 5.4.2 ALL */
 		$files[] = 'assets/plugins/fontawesome-5.8.2/css/all.min.css';
+		/* Jquery UI 1.12.1 */
+		$files[] = 'assets/plugins/jquery_ui-1.12.1/css/jquery-ui.min.css';
+		$files[] = 'assets/plugins/jquery_ui-1.12.1/css/jquery-ui.structure.min.css';
+
 		/* WIDGETS STYLE */
 		$widgets = Widgets::getCssStyles ();
 		foreach ($widgets  as $v) {
@@ -230,6 +234,8 @@ final class Template  extends Dispatcher
 		/* BOOTSTRAP 4.1.3 */
 		$files[] = 'assets/plugins/bootstrap-4.1.3/js/popper.min.js';
 		$files[] = 'assets/plugins/bootstrap-4.1.3/js/bootstrap.min.js';
+		/* Jquery UI 1.12.1 */
+		$files[] = 'assets/plugins/jquery_ui-1.12.1/js/jquery-ui.min.js';
 		/* WIDGETS Javascript (jquery) */
 		$widgets = Widgets::getJsJavascript ();
 		foreach ($widgets  as $v) {
