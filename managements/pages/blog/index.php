@@ -45,8 +45,8 @@
 							<td><?=$v->date_create?></td>
 							<td><?=$v->author?></td>
 							<td>
-								<a href="blog/edit/<?=$v->id?>?management&page=true>"><i class="fas fa-pencil-alt"></i></a> | 
-								<a href="blog/del/<?=$v->id?>?management&page=true"><i class="fas fa-times"></i></a>
+								<a href="blog/edit/<?=$v->id?>?management&page=true>"><i class="fas fa-pen"></i></a> - 
+								<a href="blog/del/<?=$v->id?>?management&page=true"><i class="fas fa-trash-alt"></i></a>
 							</td>
 						</tr>
 						<?php

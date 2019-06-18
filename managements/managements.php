@@ -61,20 +61,21 @@ final class Managements extends Dispatcher
 			$render = ob_get_contents();
 		} else {
 			if ($_REQUEST['page'] == true) {
-				$scan = Common::ScanFiles(MANAGEMENTS.'pages');
-				foreach ($scan as $k => $v) {
-					$scan[$k] = str_replace('.management.php', '', $v);
-				}
+				$scan = Common::ScanDirectory(MANAGEMENTS.'pages');
 				if (in_array($page, $scan)) {
-					include MANAGEMENTS.'pages'.DS.$page.'.management.php';
+					include MANAGEMENTS.'pages'.DS.$page.DS.'controller.php';
 					$this->controller = new $this->controller();
 					if ($this->controller->active === true) {
 						if (method_exists($this->controller, $this->view)) {
-						unset($this->links[0], $this->links[1]);
-						call_user_func_array(array($this->controller,$this->view),$this->links);
+							unset($this->links[0], $this->links[1]);
+							call_user_func_array(array($this->controller,$this->view),$this->links);
+						} else {
+							Notification::error('La sous-page demander <strong>'.$this->view.'</strong> n\'est pas disponible dans la page <strong>'.$page.'</strong>', 'Fichier');
 						}
 					}
 					echo $this->controller->render;
+				} else {
+					Notification::error('Fichier controller de la page : <strong> '.$page.'</strong> non disponible...', 'Fichier');
 				}
 			} else if ($_REQUEST['widgets'] == true) {
 
@@ -143,11 +144,7 @@ final class Managements extends Dispatcher
 		$return = array();
 
 		foreach ($pages as $k => $v) {
-			if (strpos($v, '.management.php')) {
-				$return[$k] = str_replace('.management.php', '', $v);
-				$return[$return[$k].'?management&page=true'] = defined(strtoupper($return[$k])) ? constant(strtoupper($return[$k])) : $return[$k];
-				unset($return[$k]);
-			}
+			$return[$v.'?management&page=true'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
 		}
 		return $return;
 	}
@@ -164,7 +161,7 @@ final class Managements extends Dispatcher
 	#########################################
 	private function getPages ()
 	{
-		$scan = Common::ScanFiles(MANAGEMENTS.'pages', true);
+		$scan = Common::ScanDirectory(MANAGEMENTS.'pages', true);
 		return $scan;
 	}
 	#########################################

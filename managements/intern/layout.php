@@ -10,7 +10,7 @@
 		<!-- Styles -->
 		<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 		<link href="/managements/assets/bootstrap-3.3.7/bootstrap.min.css" rel="stylesheet">
-		<link href="/assets/plugins/fontawesome-5.4.2/css/all.min.css" rel="stylesheet">
+		<link href="/assets/plugins/fontawesome-5.8.2/css/all.min.css" rel="stylesheet">
 		<link href="/assets/plugins/icomoon/style.css" rel="stylesheet">
 
 		<link href="/managements/assets/waves/waves.min.css" rel="stylesheet">
@@ -140,6 +140,7 @@
 		
 		<!-- Javascripts -->
 		<script src="/assets/plugins/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+		<script src="/assets/plugins/tinymce/tinymce.min.js"></script>
 		<script src="/managements/assets/bootstrap-3.3.7/bootstrap.min.js"></script>
 		<script src="/assets/plugins/slimscroll-1.3.8/jquery.slimscroll.min.js"></script>
 		<script src="/managements/assets/waves/waves.min.js"></script>

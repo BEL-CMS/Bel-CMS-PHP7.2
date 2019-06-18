@@ -22,8 +22,20 @@ class Blog extends AdminPages
 	public function index ()
 	{
 		$data['data'] = $this->ModelsBlog->getAllBlog();
-
 		$this->set($data);
 		$this->render('index');
+	}
+
+	public function edit ($id)
+	{
+		$data['data'] = $this->ModelsBlog->getBlog($id);
+		$this->set($data);
+		$this->render('edit');
+	}
+
+	public function sendedit ()
+	{
+		$return = $this->ModelsBlog->sendEdit($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
 	}
 }

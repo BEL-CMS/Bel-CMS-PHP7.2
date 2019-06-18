@@ -17,13 +17,15 @@ if (!defined('CHECK_INDEX')) {
 class AdminPages
 {
 	var $active;
-	var $vars      = array();
+	var $vars = array();
 	var $namepage;
 
 	public $render = null;
 
 	function __construct()
 	{
+		self::loadLang();
+
 		if ($this->active === false) {
 			self::pageOff();
 		}
@@ -64,7 +66,7 @@ class AdminPages
 		extract($this->vars);
 		ob_start();
 
-		$filename = MANAGEMENTS.'pages'.DS.'blog.management'.DS.$filename.'.php';
+		$filename = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.$filename.'.php';
 		
 		if (is_file($filename)) {
 			require $filename;
@@ -81,14 +83,34 @@ class AdminPages
 	#########################################
 	# récupère le models (BDD)
 	#########################################
-	protected function loadModel ($name)
+	private function loadModel ($name)
 	{
-		$dir = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).'.management'.DS.'models.php';
+		$dir = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.'models.php';
 		if (is_file($dir)) {
 			require_once $dir;
 			$this->$name = new $name();
 		} else {
 			Notification::error('Fichier models manquant', 'Models Page');
 		}
+	}
+	#########################################
+	# récupère le fichier lang
+	#########################################
+	private function loadLang ()
+	{
+		$dir = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.'lang'.DS.'lang.'.CMS_WEBSITE_LANG.'.php';
+		if (is_file($dir)) {
+			require_once $dir;
+		}
+	}
+	#########################################
+	# Retourne erreur ou le texte defini
+	#########################################
+	function error ($title, $msg, $type)
+	{
+		ob_start();
+		Notification::$type($msg, $title);
+		$this->render = ob_get_contents();
+		ob_end_clean();
 	}
 }

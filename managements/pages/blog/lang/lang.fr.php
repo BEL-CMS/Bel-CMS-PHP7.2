@@ -14,7 +14,13 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 
-class Downloads extends AdminPages
-{
-	
-}
+Common::constant(array(
+	#####################################
+	# Fichier lang en français - Pages Blog
+	#####################################
+	'EDIT_BLOG_SUCCESS' => 'Blog éditer avec succès',
+	'EDIT_BLOG_ERROR'   => 'Erreur d\'edition',
+	'ERROR_NO_DATA'     => 'Erreur de transfert de données',
+	'BLOG'              => 'Blog',
+	'COMPLEMENT'        => 'Complèmennt',
+));
