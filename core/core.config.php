@@ -57,4 +57,21 @@ final class BelCMSConfig extends Dispatcher
 
 		return $return;
 	}
+
+	public static function getGroups ()
+	{
+		$return = (object) array();
+
+		$sql = New BDD;
+		$sql->table('TABLE_GROUPS');
+		$sql->fields(array('name', 'id_group'));
+		$sql->queryAll();
+
+		foreach ($sql->data as $k => $v) {
+			$a = defined(strtoupper($v->name)) ? constant(strtoupper($v->name)) : ucfirst(strtolower($v->name));
+			$return->$a = $v->id_group;
+		}
+
+		return $return;
+	}
 }
