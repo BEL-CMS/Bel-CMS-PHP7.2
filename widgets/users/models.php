@@ -29,6 +29,11 @@ class ModelsUsers extends Widgets
 
 			if ($sql->data) {
 				$return = $sql->data;
+				if (empty($return->avatar)) {
+					$return->avatar = 'assets/images/default_avatar.jpg';
+				} else if (!is_file($return->avatar)) {
+					$return->avatar = 'assets/images/default_avatar.jpg';
+				}
 			}
 		}
 
