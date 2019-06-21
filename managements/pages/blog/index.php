@@ -4,10 +4,11 @@
 			<button class="email-compose-button btn btn-info btn-block" data-toggle="modal" data-target="#compose">Composer</button>
 
 				<ul class="list-unstyled mailbox-nav">
-					<li class="active"><a href="inbox.html"><i class="fas fa-home"></i>Accueil</a></li>
-					<li><a href="#"><i class="fas fa-cogs"></i>Configuration</a></li>
+					<li class="active"><a href="Blog?management&page=true"><i class="fas fa-home"></i>Accueil</a></li>
+					<li><a href="/Blog/parameter?management&page=true"><i class="fa fa-user-plus"></i><?=ADD?></a></li>
+					<li><a href="Blog/parameter?management&page=true"><i class="fas fa-cogs"></i>Configuration</a></li>
 					<hr>
-					<li><a href="#"><i class="fa fa-send"></i>Nombre de Blog <span class="badge badge-default pull-right">63</span></a></li>
+					<li><a href="#"><i class="fa fa-send"></i>Nombre de Blog <span class="badge badge-default pull-right"><?=$count?></span></a></li>
 				</ul>
 		</div>
 	</div>
@@ -43,7 +44,7 @@
 							<td><?=$v->id?></td>
 							<td><?=$v->name?></td>
 							<td><?=$v->date_create?></td>
-							<td><?=$v->author?></td>
+							<td><?=Users::hashkeyToUsernameAvatar($v->author)?></td>
 							<td>
 								<a href="blog/edit/<?=$v->id?>?management&page=true>"><i class="fas fa-pen"></i></a> - 
 								<a href="blog/del/<?=$v->id?>?management&page=true"><i class="fas fa-trash-alt"></i></a>

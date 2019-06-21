@@ -108,4 +108,51 @@ class ModelsBlog
 
 		return $return;
 	}
+
+	public function getNbBlog ()
+	{
+		$return = 0;
+
+		$sql = New BDD();
+		$sql->table('TABLE_PAGES_BLOG');
+		$sql->count();
+
+		if (!empty($sql->data)) {
+			$return = $sql->data;
+		}
+
+		return $return;
+	}
+
+	public function sendparameter($data = null)
+	{
+		if ($data !== false) {
+			$data['MAX_BLOG'] = (int) $data['MAX_BLOG'];
+			$opt = array('MAX_BLOG' => $data['MAX_BLOG']);
+			$upd['config'] = Common::transformOpt($opt, true);
+			// SQL UPDATE
+			$sql = New BDD();
+			$sql->table('TABLE_PAGES_CONFIG');
+			$sql->where(array('name' => 'name', 'value' => 'blog'));
+			$sql->sqlData($upd);
+			$sql->update();
+			if ($sql->rowCount == 1) {
+				$return = array(
+					'type' => 'success',
+					'text' => EDIT_BLOG_PARAM_SUCCESS
+				);
+			} else {
+				$return = array(
+					'type' => 'warning',
+					'text' => EDIT_BLOG_PARAM_ERROR
+				);
+			}
+		} else {
+			$return = array(
+				'type' => 'warning',
+				'text' => ERROR_NO_DATA
+			);
+		}
+		return $return;
+	}
 }

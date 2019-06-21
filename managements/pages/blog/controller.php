@@ -22,6 +22,7 @@ class Blog extends AdminPages
 	public function index ()
 	{
 		$data['data'] = $this->ModelsBlog->getAllBlog();
+		$data['count'] = $this->ModelsBlog->getNbBlog();
 		$this->set($data);
 		$this->render('index');
 	}
@@ -36,6 +37,20 @@ class Blog extends AdminPages
 	public function sendedit ()
 	{
 		$return = $this->ModelsBlog->sendEdit($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+	}
+
+	public function parameter ()
+	{
+		$data['groups'] = BelCMSConfig::getGroups();
+		$data['config'] = BelCMSConfig::GetConfigPage(get_class($this));
+		$this->set($data);
+		$this->render('parameter');
+	}
+
+	public function sendparameter ()
+	{
+		$return = $this->ModelsBlog->sendparameter($_POST);
 		$this->error(get_class($this), $return['text'], $return['type']);
 	}
 }
