@@ -113,4 +113,42 @@ class AdminPages
 		$this->render = ob_get_contents();
 		ob_end_clean();
 	}
+	#########################################
+	# Retourne le debug
+	#########################################
+	function debug($d) {
+		ob_start();
+		debug($d);
+		$this->render = ob_get_contents();
+		ob_end_clean();
+	}
+	#########################################
+	# Redirection
+	#########################################
+	function redirect ($url = null, $time = null)
+	{
+		if ($url === true) {
+			$url = $_SERVER['HTTP_REFERER'];
+			header("refresh:$time;url='$url'");
+		}
+
+		$scriptName = str_replace('index.php', '', $_SERVER['SCRIPT_NAME']);
+
+		$fullUrl = ($_SERVER['HTTP_HOST'].$scriptName);
+
+		if (!strpos($_SERVER['HTTP_HOST'], $scriptName)) {
+			$fullUrl = $_SERVER['HTTP_HOST'].$scriptName.$url;
+		}
+
+		if (!strpos($fullUrl, 'http://')) {
+			if ($_SERVER['SERVER_PORT'] == 80) {
+				$url = 'http://'.$fullUrl;
+			} else if ($_SERVER['SERVER_PORT'] == 443) {
+				$url = 'https://'.$fullUrl;
+			} else {
+				$url = 'http://'.$fullUrl;
+			}
+		}
+		header("refresh:$time;url='$url'");
+	}
 }

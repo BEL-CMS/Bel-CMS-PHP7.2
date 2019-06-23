@@ -27,7 +27,7 @@ final class Managements extends Dispatcher
 		self::getLangs();
 
 		if (isset($_SESSION['USER']['HASH_KEY']) && strlen($_SESSION['USER']['HASH_KEY']) == 32) {
-			if (isset($_SESSION['USER']['ADMIN']) and $_SESSION['USER']['ADMIN'] === true) {
+			if (isset($_SESSION['LOGIN_MANAGEMENT']) and $_SESSION['LOGIN_MANAGEMENT'] === true) {
 				require_once MANAGEMENTS.'intern'.DS.'adminpages.php';
 				self::base();
 			} else {
@@ -118,7 +118,7 @@ final class Managements extends Dispatcher
 
 				if (password_verify($_REQUEST['passwrd'], $data->password)) {
 					if ($_SESSION['USER']['HASH_KEY'] == $data->hash_key) {
-						$_SESSION['USER']['ADMIN'] = true;
+						$_SESSION['LOGIN_MANAGEMENT'] = true;
 						$return['ajax'] = 'login en cours...';
 					} else {
 						$return['ajax'] = 'Hash_key ne corespond pas au votre ?...';
