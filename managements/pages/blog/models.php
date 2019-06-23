@@ -109,6 +109,47 @@ class ModelsBlog
 		return $return;
 	}
 
+	public function sendnew ($data = false)
+	{
+		if ($data !== false) {
+			// SECURE DATA
+			$send['rewrite_name']      = Common::MakeConstant($data['name']);
+			$send['name']              = Common::VarSecure($data['name'], ''); // autorise que du texte
+			$send['content']           = Common::VarSecure($data['content'], 'html'); // autorise que les balises HTML
+			$send['additionalcontent'] = Common::VarSecure($data['additionalcontent'], 'html'); // autorise que les balises HTML
+			$send['author']            = $_SESSION['USER']['HASH_KEY'];
+			$send['authoredit']        = null;
+			$send['tags']              = Common::VarSecure($data['tags'], ''); // autorise que du texte
+			$send['tags']              = str_replace(' ', '', $send['tags']);
+			$send['cat']               = ''; // à implanter
+			$send['view']              = 0;
+			// SQL INSERT
+			$sql = New BDD();
+			$sql->table('TABLE_PAGES_BLOG');
+			$sql->sqlData($send);
+			$sql->insert();
+			// SQL RETURN NB INSERT
+			if ($sql->rowCount == 1) {
+				$return = array(
+					'type' => 'success',
+					'text' => SEND_BLOG_SUCCESS
+				);
+			} else {
+				$return = array(
+					'type' => 'warning',
+					'text' => SEND_BLOG_ERROR
+				);
+			}
+		} else {
+			$return = array(
+				'type' => 'warning',
+				'text' => ERROR_NO_DATA
+			);
+		}
+
+		return $return;
+	}
+
 	public function getNbBlog ()
 	{
 		$return = 0;
@@ -129,7 +170,12 @@ class ModelsBlog
 		if ($data !== false) {
 			$data['MAX_BLOG'] = (int) $data['MAX_BLOG'];
 			$opt = array('MAX_BLOG' => $data['MAX_BLOG']);
-			$upd['config'] = Common::transformOpt($opt, true);
+			$data['admin']        = isset($data['admin']) ? $data['admin'] : array(1);
+			$data['groups']       = isset($data['groups']) ? $data['groups'] : array(1);
+			$upd['config']        = Common::transformOpt($opt, true);
+			$upd['active']        = $data['active'] == 1 ? 1 : 0;
+			$upd['access_admin']  = implode("|", $data['admin']);
+			$upd['access_groups'] = implode("|", $data['groups']);
 			// SQL UPDATE
 			$sql = New BDD();
 			$sql->table('TABLE_PAGES_CONFIG');

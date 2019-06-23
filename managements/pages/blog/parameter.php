@@ -13,8 +13,6 @@ if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
 	exit(ERROR_INDEX);
 }
-debug($config);
-debug($groups);
 if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === true):
 ?>
 <div class="col-md-3">
@@ -37,7 +35,7 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 					<label class="col-sm-2 control-label">Page Activer</label>
 					<div class="col-sm-10">
 						<div class="checkbox">
-							<input name="active" type="checkbox" <?=$config->active == 1 ? 'checked' : ''?>>Activer
+							<input value="1" name="active" type="checkbox" <?=$config->active == 1 ? 'checked' : ''?>>Activer
 						</div>
 					</div>
 				</div>
@@ -46,13 +44,12 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 					<div class="col-sm-10">
 						<?php
 						foreach ($groups as $k => $v):
-							foreach ($config->access_admin as $k_a => $v_a) {
-								$checked = $v_a == $v ? 'checked' : '';
-							}
+							$checked = in_array($v, $config->access_admin) ? 'checked' : '';
+							$checked = $v == 1 ? 'checked' : $checked;
 							?>
 							<div class="input-group">
 								<span class="input-group-addon">
-									<input value="" type="checkbox" <?=$checked?>>
+									<input name="admin[]" value="<?=$v?>" type="checkbox" <?=$checked?>>
 								</span>
 								<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
 							</div>
@@ -64,18 +61,28 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Accès aux groupes</label>
 					<div class="col-sm-10">
-						<div class="input-group">
-							<span class="input-group-addon">
-								<input type="checkbox" aria-label="...">
-							</span>
-							<input type="text" class="form-control" aria-label="...">
-						</div>
+						<?php
+						$visitor = constant('VISITORS');
+						$groups->$visitor = 0;
+						foreach ($groups as $k => $v):
+							$checked = in_array($v, $config->access_groups) ? 'checked' : '';
+							$checked = $v == 1 ? 'checked' : $checked;
+							?>
+							<div class="input-group">
+								<span class="input-group-addon">
+									<input name="groups[]" value="<?=$v?>" type="checkbox" <?=$checked?>>
+								</span>
+								<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
+							</div>
+							<?php
+						endforeach;
+						?>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="input-NB_BLOG" class="col-sm-2 control-label"><?=NB_BLOG?></label>
 					<div class="col-sm-10">
-						<input id="input-NB_BLOG" name="MAX_BLOG" type="text" class="form-control" type="number" value="" min="1" max="16">
+						<input id="input-NB_BLOG" name="MAX_BLOG" type="number" class="form-control" type="number" value="<?=$config->config['MAX_BLOG']?>" min="1" max="16">
 					</div>
 				</div>
 				<button type="submit" class="btn btn-primary"><?=SAVE?></button>

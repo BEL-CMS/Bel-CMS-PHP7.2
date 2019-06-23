@@ -1,11 +1,11 @@
 <div class="col-md-3">
 	<div class="panel panel-white">
 		<div class="panel-body">
-			<button class="email-compose-button btn btn-info btn-block" data-toggle="modal" data-target="#compose">Composer</button>
+			<button onclick="window.location.href='/Blog/add?management&page=true'" class="email-compose-button btn btn-info btn-block">Composer</button>
 
 				<ul class="list-unstyled mailbox-nav">
 					<li class="active"><a href="Blog?management&page=true"><i class="fas fa-home"></i>Accueil</a></li>
-					<li><a href="/Blog/parameter?management&page=true"><i class="fa fa-user-plus"></i><?=ADD?></a></li>
+					<li><a href="/Blog/add?management&page=true"><i class="fa fa-user-plus"></i><?=ADD?></a></li>
 					<li><a href="Blog/parameter?management&page=true"><i class="fas fa-cogs"></i>Configuration</a></li>
 					<hr>
 					<li><a href="#"><i class="fa fa-send"></i>Nombre de Blog <span class="badge badge-default pull-right"><?=$count?></span></a></li>

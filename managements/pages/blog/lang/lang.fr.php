@@ -27,4 +27,6 @@ Common::constant(array(
 	'ERROR_NO_NUM'            => 'Erreur le texte rentrer n\'est pas du numerique',
 	'EDIT_BLOG_PARAM_SUCCESS' => 'les paramètres du blog sont sauvegarder avec succès',
 	'EDIT_BLOG_PARAM_ERROR'   => 'Erreur durant la sauvegarde des paramètres du blog',
+	'SEND_BLOG_SUCCESS'       => 'La page été ajouté avec succès à votre blog',
+	'SEND_BLOG_ERROR'         => 'La page n\'a pas pu etre ajouté : erreur BDD',
 ));
