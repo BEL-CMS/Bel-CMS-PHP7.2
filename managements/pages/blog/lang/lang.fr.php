@@ -29,4 +29,6 @@ Common::constant(array(
 	'EDIT_BLOG_PARAM_ERROR'   => 'Erreur durant la sauvegarde des paramètres du blog',
 	'SEND_BLOG_SUCCESS'       => 'La page été ajouté avec succès à votre blog',
 	'SEND_BLOG_ERROR'         => 'La page n\'a pas pu etre ajouté : erreur BDD',
+	'DEL_BLOG_SUCCESS'        => 'La page du blog à été supprimé avec succès',
+	'DEL_BLOG_ERROR'          => 'Erreur durant la suppression du blog',
 ));

@@ -38,6 +38,7 @@ class Blog extends AdminPages
 	{
 		$return = $this->ModelsBlog->sendEdit($_POST);
 		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('blog?management&page=true', 2);
 	}
 
 	public function parameter ()
@@ -63,6 +64,13 @@ class Blog extends AdminPages
 	public function sendnew ()
 	{
 		$return = $this->ModelsBlog->sendnew($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('blog?management&page=true', 2);
+	}
+
+	public function del ($id)
+	{
+		$return = $this->ModelsBlog->delete($id);
 		$this->error(get_class($this), $return['text'], $return['type']);
 		$this->redirect('blog?management&page=true', 2);
 	}
