@@ -213,7 +213,7 @@ class Users
 					if (empty($sql->data->avatar)) {
 						$return = 'assets/images/default_avatar.jpg';
 					} else {
-						if (is_file($sql->data->avatar)) {
+						if (is_file($sql->data->avatar) or is_file(ROOT.DS.$sql->data->avatar)) {
 							$return = $sql->data->avatar;
 						} else {
 							$return = 'assets/images/default_avatar.jpg';

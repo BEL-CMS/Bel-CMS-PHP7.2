@@ -1043,7 +1043,7 @@ final class Common
 		$text = $text." ";
 		$text = substr($text,0,$chars);
 		$text = substr($text,0,strrpos($text,' '));
-		if (count($text) < $chars) {
+		if (strlen($text) < $chars) {
 			$text = $text."...";
 		}
 		return $text;
