@@ -173,7 +173,7 @@ class ModelsBlog
 			$data['admin']        = isset($data['admin']) ? $data['admin'] : array(1);
 			$data['groups']       = isset($data['groups']) ? $data['groups'] : array(1);
 			$upd['config']        = Common::transformOpt($opt, true);
-			$upd['active']        = $data['active'] == 1 ? 1 : 0;
+			$upd['active']        = isset($data['active']) ? 1 : 0;
 			$upd['access_admin']  = implode("|", $data['admin']);
 			$upd['access_groups'] = implode("|", $data['groups']);
 			// SQL UPDATE

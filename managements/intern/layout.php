@@ -67,7 +67,13 @@
 									<i class="menu-icon icon-layers"></i><span>Widgets</span><i class="accordion-icon fa fa-angle-left"></i>
 								</a>
 								<ul class="sub-menu">
-									<li><a href="layout-blank.html" class="active">Blank Page</a></li>
+									<?php
+									foreach ($menuWidget as $k => $v):
+										?>
+										<li><a href="<?=$k?>"><?=$v?></a></li>
+										<?php
+									endforeach;
+									?>
 								</ul>
 							</li>
 							<li class="menu-divider"></li>

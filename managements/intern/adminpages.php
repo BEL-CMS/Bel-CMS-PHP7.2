@@ -66,7 +66,11 @@ class AdminPages
 		extract($this->vars);
 		ob_start();
 
-		$filename = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.$filename.'.php';
+		if (isset($_REQUEST['page']) and $_REQUEST['page'] == true) {
+			$filename = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.$filename.'.php';
+		} else if ($_REQUEST['widgets'] == true) {
+			$filename = MANAGEMENTS.'widgets'.DS.strtolower(get_class($this)).DS.$filename.'.php';
+		}
 		
 		if (is_file($filename)) {
 			require $filename;
@@ -85,12 +89,17 @@ class AdminPages
 	#########################################
 	private function loadModel ($name)
 	{
-		$dir = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.'models.php';
+		if (isset($_REQUEST['page']) and $_REQUEST['page'] == true) {
+			$dir = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.'models.php';
+		} else if ($_REQUEST['widgets'] == true) {
+			$dir = MANAGEMENTS.'widgets'.DS.strtolower(get_class($this)).DS.'models.php';
+		}
+
 		if (is_file($dir)) {
 			require_once $dir;
 			$this->$name = new $name();
 		} else {
-			Notification::error('Fichier models manquant', 'Models Page');
+			Notification::error('Fichier models manquant', 'Models');
 		}
 	}
 	#########################################
@@ -98,7 +107,12 @@ class AdminPages
 	#########################################
 	private function loadLang ()
 	{
-		$dir = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.'lang'.DS.'lang.'.CMS_WEBSITE_LANG.'.php';
+		if (isset($_REQUEST['page']) and $_REQUEST['page'] == true) {
+			$dir = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.'lang'.DS.'lang.'.CMS_WEBSITE_LANG.'.php';
+		} else if ($_REQUEST['widgets'] == true) {
+			$dir = MANAGEMENTS.'widgets'.DS.strtolower(get_class($this)).DS.'lang'.DS.'lang.'.CMS_WEBSITE_LANG.'.php';
+		}
+
 		if (is_file($dir)) {
 			require_once $dir;
 		}

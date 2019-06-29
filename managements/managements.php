@@ -42,8 +42,9 @@ final class Managements extends Dispatcher
 	#########################################
 	public function base ()
 	{
-		$render   = self::getLinksPages ($this->controller);
-		$menuPage = self::menuPage();
+		$render     = self::getLinksPages ($this->controller);
+		$menuPage   = self::menuPage();
+		$menuWidget = self::menuWidget();
 		require_once MANAGEMENTS.'intern'.DS.'layout.php';
 	}
 	#########################################
@@ -60,7 +61,7 @@ final class Managements extends Dispatcher
 			include MANAGEMENTS.'intern'.DS.'dashboard.php';
 			$render = ob_get_contents();
 		} else {
-			if ($_REQUEST['page'] == true) {
+			if (isset($_REQUEST['page']) and $_REQUEST['page'] == true) {
 				$scan = Common::ScanDirectory(MANAGEMENTS.'pages');
 				if (in_array($page, $scan)) {
 					include MANAGEMENTS.'pages'.DS.$page.DS.'controller.php';
@@ -77,8 +78,23 @@ final class Managements extends Dispatcher
 				} else {
 					Notification::error('Fichier controller de la page : <strong> '.$page.'</strong> non disponible...', 'Fichier');
 				}
-			} else if ($_REQUEST['widgets'] == true) {
-
+			} else if (isset($_REQUEST['widgets']) and $_REQUEST['widgets'] == true) {
+				$scan = Common::ScanDirectory(MANAGEMENTS.'widgets');
+				if (in_array($page, $scan)) {
+					include MANAGEMENTS.'widgets'.DS.$page.DS.'controller.php';
+					$this->controller = new $this->controller();
+					if ($this->controller->active === true) {
+						if (method_exists($this->controller, $this->view)) {
+							unset($this->links[0], $this->links[1]);
+							call_user_func_array(array($this->controller,$this->view),$this->links);
+						} else {
+							Notification::error('La sous-page demander <strong>'.$this->view.'</strong> n\'est pas disponible dans la page <strong>'.$page.'</strong>', 'Fichier');
+						}
+					}
+					echo $this->controller->render;
+				} else {
+					Notification::error('Fichier controller de la page : <strong> '.$page.'</strong> non disponible...', 'Fichier');
+				}
 			} else {
 				include MANAGEMENTS.'intern'.DS.'dashboard.php';
 				$render = ob_get_contents();
@@ -151,10 +167,15 @@ final class Managements extends Dispatcher
 	#########################################
 	# Menu des Widgets
 	#########################################
-	private function MenuWidget ()
+	private function menuWidget ()
 	{
-		$pages  = self::getPages ();
-		$return = array();
+		$widgets  = self::getWidgets ();
+		$return   = array();
+
+		foreach ($widgets as $k => $v) {
+			$return[$v.'?management&widgets=true'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
+		}
+		return $return;
 	}
 	#########################################
 	# Scan le dossier des pages
@@ -169,7 +190,7 @@ final class Managements extends Dispatcher
 	#########################################
 	private function getWidgets ()
 	{
-		$scan = Common::ScanFiles(MANAGEMENTS.'widgets');
+		$scan = Common::ScanDirectory(MANAGEMENTS.'widgets', true);
 		return $scan;
 	}
 	#########################################
