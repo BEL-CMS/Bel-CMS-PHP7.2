@@ -21,7 +21,6 @@
 				<div class="col-md-4">
 					<?php
 					Widgets::GetAllWidgets('right');
-					Widgets::GetWidget('shoutbox', 'right');
 					?>
 				</div>
 				<?php

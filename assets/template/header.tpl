@@ -30,6 +30,6 @@
 			</div>
 		</nav>
 
-		<header>
-
+		<header class="container">
+			<?=Widgets::GetAllWidgets('top')?>
 		</header>
