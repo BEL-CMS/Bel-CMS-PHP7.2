@@ -19,11 +19,11 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 	<div class="panel panel-white">
 		<div class="panel-body">
 			<button class="email-compose-button btn btn-info btn-block" data-toggle="modal" data-target="#compose">Composer</button>
-				<ul class="list-unstyled mailbox-nav">
-					<li><a href="/Blog?management&page=true"><i class="fas fa-home"></i>Accueil</a></li>
-					<li><a href="/Blog/parameter?management&page=true"><i class="fa fa-user-plus"></i><?=ADD?></a></li>
-					<li class="active"><a href="/Blog/parameter?management&page=true"><i class="fas fa-cogs"></i>Configuration</a></li>
-				</ul>
+			<ul class="list-unstyled mailbox-nav">
+				<li><a href="/Blog?management&page=true"><i class="fas fa-home"></i>Accueil</a></li>
+				<li><a href="/Blog/parameter?management&page=true"><i class="fa fa-user-plus"></i><?=ADD?></a></li>
+				<li class="active"><a href="/Blog/parameter?management&page=true"><i class="fas fa-cogs"></i>Configuration</a></li>
+			</ul>
 		</div>
 	</div>
 </div>
