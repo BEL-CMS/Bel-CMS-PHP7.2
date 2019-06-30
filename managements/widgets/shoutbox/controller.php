@@ -54,4 +54,20 @@ class Shoutbox extends AdminPages
 		$this->error(get_class($this), $return['text'], $return['type']);
 		$this->redirect('Shoutbox?management&widgets=true', 2);
 	}
+
+	public function parameter ()
+	{
+		$data['groups'] = BelCMSConfig::getGroups();
+		$data['config'] = BelCMSConfig::GetConfigWidgets(get_class($this));
+		$data['pages']  = Common::ScanDirectory(DIR_PAGES, true);
+		$this->set($data);
+		$this->render('parameter');
+	}
+
+	public function sendparameter ()
+	{
+		$return = $this->ModelsShoutbox->sendparameter($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('shoutbox?management&widgets=true', 2);
+	}
 }

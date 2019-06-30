@@ -157,4 +157,54 @@ class ModelsShoutbox
 
 		return $return;
 	}
+
+	public function sendparameter ($data)
+	{
+		$return = array();
+
+		if (!empty($data) && is_array($data)) {
+			$opt                  = array('MAX_MSG' => $data['MAX_MSG'], 'JS' => $data['JS'], 'CSS' => $data['CSS']);
+			$upd['config']        = Common::transformOpt($opt, true);
+			$upd['title']         = Common::VarSecure($data['title'], '');
+			$upd['groups_access'] = implode("|", $data['groups']);
+			$upd['groups_admin']  = implode("|", $data['admin']);
+			$upd['active']        = isset($data['active']) ? 1 : 0;
+			if ($data['pos'] == 'top') {
+				$upd['pos'] = 'top';
+			} else if ($data['pos'] == 'bottom') {
+				$upd['pos'] = 'bottom';
+			} else if ($data['pos'] == 'left') {
+				$upd['pos'] = 'left';
+			} else if ($data['pos'] == 'right') {
+				$upd['pos'] = 'right';
+			} else {
+				$upd['pos'] = 'right';
+			}
+			$upd['pages']  = implode("|", $data['pages']);
+			// SQL UPDATE
+			$sql = New BDD();
+			$sql->table('TABLE_WIDGETS');
+			$sql->where(array('name' => 'name', 'value' => 'shoutbox'));
+			$sql->sqlData($upd);
+			$sql->update();
+			if ($sql->rowCount == 1) {
+				$return = array(
+					'type' => 'success',
+					'text' => EDIT_SHOUTBOX_PARAM_SUCCESS
+				);
+			} else {
+				$return = array(
+					'type' => 'warning',
+					'text' => EDIT_SHOUTBOX_PARAM_ERROR
+				);
+			}
+		} else {
+			$return = array(
+				'type' => 'warning',
+				'text' => ERROR_NO_DATA
+			);
+		}
+
+		return $return;
+	}
 }

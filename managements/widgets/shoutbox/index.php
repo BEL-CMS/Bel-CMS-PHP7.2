@@ -1,14 +1,13 @@
 <div class="col-md-3">
 	<div class="panel panel-white">
 		<div class="panel-body">
-			<button onclick="window.location.href='/Shoutbox/deleteall?management&widgets=true'" class="email-compose-button btn btn-danger btn-block">Supprimer tout</button>
-
-				<ul class="list-unstyled mailbox-nav">
-					<li class="active"><a href="Blog?management&widgets=true"><i class="fas fa-home"></i>Accueil</a></li>
-					<li><a href="Blog/parameter?management&widgets=true"><i class="fas fa-cogs"></i>Configuration</a></li>
-					<hr>
-					<li><a href="#"><i class="fa fa-send"></i>Nombre de message <span class="badge badge-default pull-right"><?=$count?></span></a></li>
-				</ul>
+			<button onclick="window.location.href='/shoutbox/deleteall?management&widgets=true'" class="email-compose-button btn btn-danger btn-block">Supprimer tout</button>
+			<ul class="list-unstyled mailbox-nav">
+				<li class="active"><a href="shoutbox?management&widgets=true"><i class="fas fa-home"></i>Accueil</a></li>
+				<li><a href="shoutbox/parameter?management&widgets=true"><i class="fas fa-cogs"></i>Configuration</a></li>
+				<hr>
+				<li><a href="#"><i class="fa fa-send"></i>Nombre de message <span class="badge badge-default pull-right"><?=$count?></span></a></li>
+			</ul>
 		</div>
 	</div>
 </div>
