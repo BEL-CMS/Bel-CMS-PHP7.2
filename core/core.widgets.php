@@ -292,13 +292,15 @@ class Widgets
 
 		$sql = New BDD();
 		$sql->table('TABLE_WIDGETS');
-		$sql->where(array('name' => 'css', 'value' => 1));
 		$sql->queryAll();
 		$data = $sql->data;
 
 		if (!empty($data)) {
 			foreach ($data as $k => $v) {
-				$dir = 'widgets'.DS.$v->name.DS.'css'.DS.'styles.css';
+				$config = Common::transformOpt($v->config);
+				if ($config['CSS'] == '1') {
+					$dir = 'widgets'.DS.$v->name.DS.'css'.DS.'styles.css';
+				}
 				if (is_file($dir)) {
 					$return[] = $dir;
 				}
@@ -313,13 +315,15 @@ class Widgets
 
 		$sql = New BDD();
 		$sql->table('TABLE_WIDGETS');
-		$sql->where(array('name' => 'js', 'value' => 1));
 		$sql->queryAll();
 		$data = $sql->data;
 
 		if (!empty($data)) {
 			foreach ($data as $k => $v) {
-				$dir = 'widgets'.DS.$v->name.DS.'js'.DS.'javascripts.js';
+				$config = Common::transformOpt($v->config);
+				if ($config['JS'] == '1') {
+					$dir = 'widgets'.DS.$v->name.DS.'js'.DS.'javascripts.js';
+				}
 				if (is_file($dir)) {
 					$return[] = $dir;
 				}

@@ -58,6 +58,30 @@ final class BelCMSConfig extends Dispatcher
 		return $return;
 	}
 
+	public static function GetConfigWidgets ($widget = null)
+	{
+		$return = null;
+
+		if ($widget != null) {
+			$widget = strtolower(trim(strtolower($widget)));
+			$sql = New BDD;
+			$sql->table('TABLE_WIDGETS');
+			$sql->where(array('name' => 'name', 'value' => $widget));
+			$sql->queryOne();
+			$return = $sql->data;
+			$return->groups_access = explode('|', $return->groups_access);
+			$return->groups_admin  = explode('|', $return->groups_admin);
+			$return->pages  = explode('|', $return->pages);
+			if (!empty($return->config)) {
+				$return->config = Common::transformOpt($return->config);
+			} else {
+				$return->config = (object) array();
+			}
+		}
+
+		return $return;
+	}
+
 	public static function getGroups ()
 	{
 		$return = (object) array();
