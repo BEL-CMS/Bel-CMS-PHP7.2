@@ -138,7 +138,8 @@ class Forum extends Pages
 		}
 
 		$access    = false;
-		foreach (BelCMSConfig::GetConfigPage('forum') as $k => $v) {
+		$forumAccess = BelCMSConfig::GetConfigPage('forum')->access_admin;
+		foreach ($forumAccess as $k => $v) {
 			if (in_array($v, $groupUser)) {
 				$access = true;
 				break;
@@ -155,7 +156,7 @@ class Forum extends Pages
 			} else {
 				$this->error ('Forum', NO_CLOSE_POST, 'error');
 			}
-			$this->redirect(true, 2);
+			$this->redirect('Forum', 2);
 	}
 
 	public function unlockpost ($id)
@@ -166,7 +167,7 @@ class Forum extends Pages
 			} else {
 				$this->error ('Forum', NO_ACCESS_POST, 'error');
 			}
-			$this->redirect(true, 2);
+			$this->redirect('Forum', 2);
 	}
 
 	public function delpost ($id)
@@ -199,7 +200,7 @@ class Forum extends Pages
 	{
 		$insert = $this->ModelsForum->SubmitThread($data['id'], $data);
 		$this->error ('Forum', $insert['msg'], $insert['type']);
-		$this->redirect(true, 2);
+		$this->redirect('Forum', 2);
 	}
 
 	private function SubmitReply ($data)
@@ -207,6 +208,6 @@ class Forum extends Pages
 		$referer = (!empty($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : 'Forum';
 		$insert  = $this->ModelsForum->SubmitPost($data);
 		$this->error ('Forum : Réponse', $insert['msg'], $insert['type']);
-		$this->redirect(true, 2);
+		$this->redirect('Forum', 2);
 	}
 }
