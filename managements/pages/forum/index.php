@@ -1,14 +1,12 @@
 <div class="col-md-3">
 	<div class="panel panel-white">
 		<div class="panel-body">
-			<button onclick="window.location.href='/Blog/add?management&page=true'" class="email-compose-button btn btn-info btn-block">Composer</button>
-
 				<ul class="list-unstyled mailbox-nav">
-					<li class="active"><a href="Blog?management&page=true"><i class="fas fa-home"></i>Accueil</a></li>
-					<li><a href="/Blog/add?management&page=true"><i class="fa fa-user-plus"></i><?=ADD?></a></li>
-					<li><a href="Blog/parameter?management&page=true"><i class="fas fa-cogs"></i>Configuration</a></li>
+					<li class="active"><a href="/Forum?management&page=true"><i class="fas fa-home"></i>Accueil</a></li>
+					<li><a href="/Forum/category?management&page=true"><i class="far fa-plus-square"></i><?=CATEGORY?></a></li>
+					<li><a href="/Forum/parameter?management&page=true"><i class="fas fa-cogs"></i>Configuration</a></li>
 					<hr>
-					<li><a href="#"><i class="fa fa-send"></i>Nombre de Forum <span class="badge badge-default pull-right"></span></a></li>
+					<li><a href="#"><i class="fa fa-send"></i><?=NB_MSG?><span class="badge badge-default pull-right"></span></a></li>
 				</ul>
 		</div>
 	</div>
@@ -41,25 +39,35 @@
 						<tr>
 							<td><i class="<?=$v->icon?>"></i></td>
 							<td><?=$v->title?></td>
-							<td><?=$v->id_forum->title?></td>
+							<?php
+							if (isset($v->id_forum->title)) {
+								?>
+								<td><?=$v->id_forum->title?></td>
+								<?php
+							} else {
+								?>
+								<td><?=UNKNOWN?></td>
+								<?php
+							}
+							?>
 							<td class="td-actions">
-								<a href="Forum/EditForum/<?=$v->id?>?management" class="btn btn-small btn-success">
-									<i class="btn-icon-only icon-edit"> </i>
+								<a href="/Forum/EditForum/<?=$v->id?>?management&page=true" class="btn btn-small btn-success">
+									<i class="fas fa-pen"> </i>
 								</a>
-								<a href="#modal_<?=$v->id?>" role="button" data-toggle="modal" class="btn btn-danger btn-small">
-									<i class="btn-icon-only icon-remove"> </i>
-								</a>
-								<div id="modal_<?=$v->id?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-										<h3 id="myModalLabel">Suppression du forum</h3>
-									</div>
-									<div class="modal-body">
-										<p>Etes vous certain de d'effacer le forum : <?=$v->title?></p>
-									</div>
-									<div class="modal-footer">
-										<button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>
-										<a href="Forum/DelForum/<?=$v->id?>?management" class="btn btn-primary">Supprimer</a>
+								<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>" class="btn btn-danger btn-small"><i class="fas fa-trash-alt"></i></a>
+								<div class="modal fade" id="modal_<?=$v->id?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="exampleModalLabel"><?=$v->title?></h4>
+											</div>
+											<div class="modal-body">Confirmer la suppression du sous forum : <?=$v->title?></div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+												<button onclick="window.location.href='/Forum/delForum/<?=$v->id?>?management&page=true'" type="button" class="btn btn-primary">Supprimer</button>
+											</div>
+										</div>
 									</div>
 								</div>
 							</td>
@@ -69,7 +77,7 @@
 					?>
 				</tbody>
 			</table>
-			<button class="btn" onclick="window.location.href='Forum/AddForum?management&page=true'"><i class="icon-plus"></i> <?=ADD?></button>
+			<button class="btn" onclick="window.location.href='/Forum/AddForum?management&page=true'"><i class="icon-plus"></i> <?=ADD?></button>
 		</div>
 	</div>
 </div>

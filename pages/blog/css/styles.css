@@ -18,6 +18,7 @@
 		-webkit-box-shadow: 0 0 5px #dedede;
 		box-shadow: 0 0 5px #dedede;
 		position: relative;
+		width: 100%;
 	}
 		.bel_cms_blog .card,
 		.bel_cms_blog_readmore .card {

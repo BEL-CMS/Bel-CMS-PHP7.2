@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 0.0.1
+ * @version 1.0.0
  * @link https://bel-cms.be
- * @link https://stive.eu
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
  * @copyright 2014-2019 Bel-CMS
- * @author Stive - determe@stive.eu
+ * @author as Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -33,6 +33,7 @@ final class RequireFiles
 			DIR_CORE.'core.notification.php',
 			DIR_LANG.'langs.fr.php',
 			DIR_CORE.'core.secure.php',
+			DIR_CORE.'core.interaction.php',
 			DIR_CORE.'core.comment.php',
 			DIR_CORE.'core.user.php',
 			DIR_CORE.'core.visitors.php',

@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 0.3.0
- * @link http://www.bel-cms.be
- * @link http://www.stive.eu
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
- * @copyright 2014-2016 Bel-CMS
- * @author Stive - mail@stive.eu
+ * @version 1.0.0
+ * @link https://bel-cms.be
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @copyright 2014-2019 Bel-CMS
+ * @author as Stive - stive@determe.be
  */
 
 $error      = true;
@@ -209,7 +209,8 @@ switch ($table) {
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`title` varchar(64) NOT NULL,
 			`subtitle` varchar(128) NOT NULL,
-			`groups` text NOT NULL,
+			`access_groups` text NOT NULL,
+			`access_admin` text NOT NULL,
 			`activate` tinyint(1) DEFAULT '1',
 			`orderby` int(11) NOT NULL DEFAULT '0',
 			PRIMARY KEY (`id`),
@@ -352,8 +353,8 @@ switch ($table) {
 
 	case 'widgets':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
-		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
-			`id` int(11) NOT NULL AUTO_INCREMENT,
+		$sql  = "CREATE TABLE `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL,
 			`name` varchar(64) NOT NULL,
 			`title` varchar(64) NOT NULL,
 			`groups_access` varchar(255) NOT NULL,
@@ -362,15 +363,12 @@ switch ($table) {
 			`pos` varchar(6) NOT NULL,
 			`orderby` int(11) NOT NULL,
 			`pages` text NOT NULL,
-			`css` int(1) NOT NULL DEFAULT '1',
-			`js` int(1) NOT NULL DEFAULT '1',
-			PRIMARY KEY (`id`),
-			UNIQUE KEY `name` (`name`)
+			`config` text NOT NULL
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `name`, `title`, `groups_access`, `groups_admin`, `activate`, `pos`, `orderby`, `pages`) VALUES
-			(NULL, 'users', 'Utilisateurs', '0', '1', '1', 'right', '1', '', '1', '1'),
-			(NULL, 'shoutbox', 'T\'chat', '0', '1', '1', 'top', '1', '', '1', '1');";
-	break;
+		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `name`, `title`, `groups_access`, `groups_admin`, `active`, `pos`, `orderby`, `pages`, `config`) VALUES
+			(1, 'users', 'Utilisateurs', '0', '1', 1, 'right', 1, '', 'CSS=1|JS=1'),
+			(2, 'shoutbox', 'T\'chats', '1|2|0', '1', 1, 'top', 1, 'blog|forum', 'MAX_MSG=20|JS=1|CSS=1')";
+		break;
 }
 
 $pdo_options = array();

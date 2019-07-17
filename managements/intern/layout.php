@@ -22,6 +22,8 @@
 		<!-- Theme Styles -->
 		<link href="/managements/assets/metrotheme.min.css" rel="stylesheet">
 		<link href="/managements/assets/nv.d3.min.css" rel="stylesheet"> 
+		<!-- jstree Styles -->
+		<link href="/managements/assets/jstree/themes/default/style.min.css" rel="stylesheet"> 
 		<!-- BEL CMS Styles -->
 		<link href="/assets/styles/belcms.global.css" rel="stylesheet">
 		<link href="/assets/styles/belcms.notification.css" rel="stylesheet">
@@ -153,6 +155,9 @@
 		<script src="/managements/assets/uniform/js/jquery.uniform.standalone.js"></script>
 		<script src="/managements/assets/switchery/switchery.min.js"></script>
 		<script src="/managements/assets/datatables/js/jquery.datatables.min.js"></script>
+		<script src="/managements/assets/jstree/jstree.min.js"></script>
+		<script src="/managements/assets/jstree/ui-tree-view.js"></script>
 		<script src="/managements/assets/metrotheme.min.js"></script>
+
 	</body>
 </html>

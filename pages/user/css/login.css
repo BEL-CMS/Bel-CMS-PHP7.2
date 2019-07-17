@@ -126,6 +126,8 @@ body#LoginForm {
 	   -moz-border-radius: 20px;
 	        border-radius: 20px;
 	opacity: 0;
+	z-index: 999999;
+
 }
 #loading span {
 	color: rgba(255, 255, 255, 1);

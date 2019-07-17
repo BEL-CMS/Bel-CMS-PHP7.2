@@ -10,9 +10,13 @@
 .last_no {
 	line-height: 40px;
 }
+#bel_cms_forum_main {
+	width: 100%;
+}
 .bel_cms_forum_main {
 	display: block;
 	overflow: hidden;
+	width: 100%;
 }
 	.bel_cms_forum_main_cat {
 		display: block;

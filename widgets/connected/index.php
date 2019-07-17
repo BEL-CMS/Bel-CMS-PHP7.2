@@ -16,9 +16,10 @@
 						<ul id="getVisitorConnected">
 							<?php
 							$i = 0;
+							$visitor = null;
 							foreach (Visitors::getVisitorConnected()->data as $k => $v):
-								if (Users::isLogged() === true) {
-									$visitor = Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']);
+								if (Users::ifUserExist($v->visitor_user)) {
+									$visitor = Users::hashkeyToUsernameAvatar($v->visitor_user);
 								} else {
 									$visitor = VISITOR;
 								}

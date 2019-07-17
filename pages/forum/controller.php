@@ -66,9 +66,9 @@ class Forum extends Pages
 		$data['id']      = (int) $id;
 		$data['threads'] = $this->ModelsForum->GetThreadsPost($data['id']);
 		$groupUser       = Users::getGroups($_SESSION['USER']['HASH_KEY']);
-		$current         = current($data['threads']);
+		//$current         = current($data['threads']);
 		$access          = false;
-		$secure          = $this->ModelsForum->securityPost((int) $current->id_threads);
+		$secure          = $this->ModelsForum->securityPost((int) $data['id']);
 
 		if (in_array('1', $groupUser)) {
 			$access = true;
@@ -129,7 +129,7 @@ class Forum extends Pages
 		}
 	}
 
-	private function accessLock ()
+	private function accessLock ($id)
 	{
 		$groupUser = Users::getGroups($_SESSION['USER']['HASH_KEY']);
 
@@ -138,7 +138,7 @@ class Forum extends Pages
 		}
 
 		$access    = false;
-		$forumAccess = BelCMSConfig::GetConfigPage('forum')->access_admin;
+		$forumAccess = $this->ModelsForum->getAccessForum($id);
 		foreach ($forumAccess as $k => $v) {
 			if (in_array($v, $groupUser)) {
 				$access = true;
@@ -150,7 +150,7 @@ class Forum extends Pages
 
 	public function lockpost ($id)
 	{
-			if (self::accessLock()) {
+			if (self::accessLock($id)) {
 				$return = $this->ModelsForum->lock($id);
 				$this->error ('Forum', $return['msg'], $return['type']);
 			} else {
@@ -161,7 +161,7 @@ class Forum extends Pages
 
 	public function unlockpost ($id)
 	{
-			if (self::accessLock()) {
+			if (self::accessLock($id)) {
 				$return = $this->ModelsForum->unlock($id);
 				$this->error ('Forum', $return['msg'], $return['type']);
 			} else {

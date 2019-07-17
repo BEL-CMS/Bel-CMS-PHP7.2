@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 0.0.1
+ * @version 1.0.0
  * @link https://bel-cms.be
- * @link https://stive.eu
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
  * @copyright 2014-2019 Bel-CMS
- * @author Stive - determe@stive.eu
+ * @author as Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -119,14 +119,15 @@ final class Common
 	public static function ScanDirectory ($dir = false) {
 		$return = array();
 		if ($dir) {
-			$myDirectory = @opendir($dir);
-
-			while($entry = @readdir($myDirectory)) {
-				if (is_dir($dir.DS.$entry) && $entry != '.' && $entry != '..') {
-					$return[] = ($entry);
+			if (is_dir($dir)) {
+				$myDirectory = @opendir($dir);
+				while($entry = @readdir($myDirectory)) {
+					if (is_dir($dir.DS.$entry) && $entry != '.' && $entry != '..') {
+						$return[] = ($entry);
+					}
 				}
+				@closedir($myDirectory);
 			}
-			@closedir($myDirectory);
 		}
 		return $return;
 	}
@@ -418,6 +419,15 @@ final class Common
 			}
 		}
 
+		return $return;
+	}
+	public static function removeBlank ($data = null)
+	{
+		$return = null;
+
+		if ($data !== null) {
+			$return = str_replace(' ','',$data);
+		}
 		return $return;
 	}
 	#########################################

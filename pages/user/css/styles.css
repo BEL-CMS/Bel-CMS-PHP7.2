@@ -22,6 +22,7 @@
 	display: block;
 	overflow: hidden;
 	margin: auto;
+	width: 100%;
 }
 	#belcms_main_user > #belcms_main_user_left {
 		display: block;

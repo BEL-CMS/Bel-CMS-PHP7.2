@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 0.0.1
+ * @version 1.0.0
  * @link https://bel-cms.be
- * @link https://stive.eu
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
  * @copyright 2014-2019 Bel-CMS
- * @author Stive - determe@stive.eu
+ * @author as Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -25,21 +25,66 @@ final class Secures
 			return false;
 		} else {
 			$bdd = self::accessSqlPages($page);
-			if (in_array(0, $bdd[$page]->access_groups)) {
-				return true;
-			} else {
-				foreach ($bdd[$page]->access_groups as $k => $v) {
-					if (isset($_SESSION['USER']['HASH_KEY']->access) && strlen($_SESSION['USER']['HASH_KEY']->access) == 32) {
-						if (in_array($v, self::accessSqlUser())) {
-							return true;
-							break;
-						} else {
-							return false;
+			if (isset($bdd[$page]->access_groups)) {
+				if (in_array(0, $bdd[$page]->access_groups)) {
+					return true;
+				} else {
+					foreach ($bdd[$page]->access_groups as $k => $v) {
+						$user = self::accessSqlUser();
+						$user = $user[$_SESSION['USER']['HASH_KEY']];
+						$access = $user->access;
+						if (isset($_SESSION['USER']['HASH_KEY']) && strlen($_SESSION['USER']['HASH_KEY']) == 32) {
+							if (in_array(1, $access)) {
+								return true;
+								break;
+							}
+							if (in_array($v, $access)) {
+								return true;
+								break;
+							} else {
+								return false;
+							}
 						}
-					} else {
-						return false;
 					}
 				}
+			} else {
+				return true;
+			}
+		}
+	}
+	#########################################
+	# Accès au page admin via les groupes
+	#########################################
+	public static function getAccessPageAdmin ($page = null)
+	{
+		if ($page === null) {
+			return false;
+		} else {
+			$bdd = self::accessSqlPages($page);
+			if (isset($bdd[$page]->access_admin)) {
+				if (in_array(0, $bdd[$page]->access_admin)) {
+					return true;
+				} else {
+					foreach ($bdd[$page]->access_admin as $k => $v) {
+						$user = self::accessSqlUser();
+						$user = $user[$_SESSION['USER']['HASH_KEY']];
+						$access = $user->access;
+						if (isset($_SESSION['USER']['HASH_KEY']) && strlen($_SESSION['USER']['HASH_KEY']) == 32) {
+							if (in_array(1, $access)) {
+								return true;
+								break;
+							}
+							if (in_array($v, $access)) {
+								return true;
+								break;
+							} else {
+								return false;
+							}
+						}
+					}
+				}
+			} else {
+				return true;
 			}
 		}
 	}
@@ -79,10 +124,14 @@ final class Secures
 	public static function getPageActive ($page) 
 	{
 		$bdd = self::accessSqlPages($page);
-		if ($bdd[$page]->active == 1) {
-			return true;
+		if (isset($bdd[$page]->active)) {
+			if ($bdd[$page]->active == 1) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			return false;
+			return true;
 		}
 	}
 	#########################################

@@ -1,3 +1,19 @@
+<?php
+/**
+ * Bel-CMS [Content management system]
+ * @version 1.0.0
+ * @link https://bel-cms.be
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @copyright 2014-2019 Bel-CMS
+ * @author as Stive - stive@determe.be
+ */
+
+if (!defined('CHECK_INDEX')) {
+	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
+	exit(ERROR_INDEX);
+}
+?>
 <div class="col-md-3">
 	<div class="panel panel-white">
 		<div class="panel-body">
@@ -46,8 +62,8 @@
 							<td><?=$v->date_create?></td>
 							<td><?=Users::hashkeyToUsernameAvatar($v->author)?></td>
 							<td>
-								<a href="blog/edit/<?=$v->id?>?management&page=true>"><i class="fas fa-pen"></i></a> - 
-								<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>"><i class="fas fa-trash-alt"></i></a>
+								<a href="blog/edit/<?=$v->id?>?management&page=true>" class="btn btn-small btn-success"><i class="fas fa-pen"></i></a>
+								<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>" class="btn btn-danger btn-small"><i class="fas fa-trash-alt"></i></a>
 								<div class="modal fade" id="modal_<?=$v->id?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">

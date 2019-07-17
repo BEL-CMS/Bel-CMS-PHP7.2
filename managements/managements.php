@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 0.0.1
+ * @version 1.0.0
  * @link https://bel-cms.be
- * @link https://stive.eu
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
  * @copyright 2014-2019 Bel-CMS
- * @author Stive - determe@stive.eu
+ * @author as Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -55,26 +55,46 @@ final class Managements extends Dispatcher
 		$render = null;
 		ob_start();
 
+		$groups = Users::getGroups($_SESSION['USER']['HASH_KEY']);
+
 		require_once MANAGEMENTS.'intern'.DS.'adminpages.php';
 
 		if ($page == 'dashboard') {
-			include MANAGEMENTS.'intern'.DS.'dashboard.php';
+			if (in_array(1, $groups)) {
+				include MANAGEMENTS.'intern'.DS.'dashboard.php';
+			} else {
+				Notification::error(NO_ACCESS_GROUP_PAGE, 'Page');
+			}
 			$render = ob_get_contents();
 		} else {
+			if ($this->view == 'parameter' or $this->view == 'sendparameter') {
+				if (!in_array(1, $groups)) {
+					Notification::error(NO_ACCESS_GROUP_PAGE, 'Page');
+					$render = ob_get_contents();
+					if (ob_get_length() != 0) {
+						ob_end_clean();
+					}	
+					return $render;
+				}
+			}
 			if (isset($_REQUEST['page']) and $_REQUEST['page'] == true) {
 				$scan = Common::ScanDirectory(MANAGEMENTS.'pages');
 				if (in_array($page, $scan)) {
-					include MANAGEMENTS.'pages'.DS.$page.DS.'controller.php';
-					$this->controller = new $this->controller();
-					if ($this->controller->active === true) {
-						if (method_exists($this->controller, $this->view)) {
-							unset($this->links[0], $this->links[1]);
-							call_user_func_array(array($this->controller,$this->view),$this->links);
-						} else {
-							Notification::error('La sous-page demander <strong>'.$this->view.'</strong> n\'est pas disponible dans la page <strong>'.$page.'</strong>', 'Fichier');
+					if (Secures::getAccessPageAdmin($page) === false) {
+						Notification::error(NO_ACCESS_GROUP_PAGE, 'Page');
+					} else {
+						include MANAGEMENTS.'pages'.DS.$page.DS.'controller.php';
+						$this->controller = new $this->controller();
+						if ($this->controller->active === true) {
+							if (method_exists($this->controller, $this->view)) {
+								unset($this->links[0], $this->links[1]);
+								call_user_func_array(array($this->controller,$this->view),$this->links);
+							} else {
+								Notification::error('La sous-page demander <strong>'.$this->view.'</strong> n\'est pas disponible dans la page <strong>'.$page.'</strong>', 'Fichier');
+							}
 						}
+						echo $this->controller->render;
 					}
-					echo $this->controller->render;
 				} else {
 					Notification::error('Fichier controller de la page : <strong> '.$page.'</strong> non disponible...', 'Fichier');
 				}
@@ -160,7 +180,7 @@ final class Managements extends Dispatcher
 		$return = array();
 
 		foreach ($pages as $k => $v) {
-			$return[$v.'?management&page=true'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
+			$return['/'.$v.'?management&page=true'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
 		}
 		return $return;
 	}
@@ -173,7 +193,7 @@ final class Managements extends Dispatcher
 		$return   = array();
 
 		foreach ($widgets as $k => $v) {
-			$return[$v.'?management&widgets=true'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
+			$return['/'.$v.'?management&widgets=true'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
 		}
 		return $return;
 	}
@@ -202,5 +222,16 @@ final class Managements extends Dispatcher
 		foreach ($scan as $k => $v) {
 			require_once MANAGEMENTS.'langs'.DS.$v;
 		}
+	}
+	#########################################
+	# Autorisation des pages
+	#########################################
+		private function security ()
+	{
+		$sql = New BDD();
+		$sql->table('TABLE_USERS');
+		$sql->where(array('name' => 'email', 'value' => $_REQUEST['umal']));
+		$sql->queryOne();
+		$data = $sql->data;
 	}
 }

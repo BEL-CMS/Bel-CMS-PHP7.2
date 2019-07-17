@@ -26,31 +26,107 @@ class Forum extends AdminPages
 		$this->render('index');
 	}
 
+	public function category ()
+	{
+		$data['data'] = $this->ModelsForum->GetForum();
+		$this->set($data);
+		$this->render('category');
+	}
+
+	public function addcategory ()
+	{
+		$data['groups'] = BelCMSConfig::getGroups();
+		$this->set($data);
+		$this->render('addcategory');
+	}
+
+	public function editCat ($id)
+	{
+		if ($this->ModelsForum->SecureCat($id) === true) {
+			$data['groups'] = BelCMSConfig::getGroups();
+			$data['data']   = $this->ModelsForum->GetForum($id);
+			$this->set($data);
+			$this->render('editcategory');			
+		} else {
+			$this->error(get_class($this), NO_ACCESS_CAT, 'error');
+			Common::Redirect('Forum/category?management&page=true', 2);
+		}
+	}
+
+	public function delCategory ($id)
+	{
+		if ($this->ModelsForum->SecureCat($id) === true) {
+			$return = $this->ModelsForum->delCat($id);
+			$this->error(get_class($this), $return['text'], $return['type']);
+			Common::Redirect('Forum/Category?management', 2);
+		} else {
+			$this->error(get_class($this), NO_ACCESS_CAT, 'error');
+		}
+		Common::Redirect('Forum/category?management&page=true', 2);
+	}
+
 	public function addforum ()
 	{
 		$data['data'] = $this->ModelsForum->GetForum();
 		$this->set($data);
 		$this->render('addforum');
 	}
+
+	public function editForum($id)
+	{
+		if (is_numeric($id)) {
+			$data['thread'] = $this->ModelsForum->GetThreads($id);
+			$data['data'] = $this->ModelsForum->GetForum();
+			$this->set($data);
+			$this->render('editforum');
+		}
+	}
 	# Send
 	public function send ()
 	{
+		//$this->debug($_POST); return;
 		if ($_POST['send'] == 'addforum') {
-			$return = $this->ModelsForum->SendAddForum($_POST);
+			$return = $this->ModelsForum->sendAddForum($_POST);
 		} else if ($_POST['send'] == 'editforum') {
-			$return = $this->ModelsForum->SendEditForum($_POST);
+			$return = $this->ModelsForum->sendEditForum($_POST);
 		} else if ($_POST['send'] == 'addcat') {
-			if ($this->ModelsForum->isCat()) {
+			if ($this->ModelsForum->isCat($_POST['title'])) {
 				$return = $this->ModelsForum->SendAddCat($_POST);
 			} else {
-				$this->error(get_class($this), ERROR_NO_CAT, 'infos');
+				$this->error(get_class($this), CAT_IF_EXIST, 'infos');
+				Common::Redirect('Forum/addcategory?management&page=true', 2);
+				return;
 			}
 		} elseif ($_POST['send'] == 'editcat') {
-			$return = $this->ModelsForum->SendEditCat($_POST);
+			$return = $this->ModelsForum->sendEditCat($_POST);
+			Common::Redirect('Forum/category?management&page=true', 2);
+			return;
 		}
 
 		$this->error(get_class($this), $return['text'], $return['type']);
 
 		Common::Redirect('Forum?management&page=true', 2);
+	}
+
+	public function delForum ($id)
+	{
+		$return = $this->ModelsForum->delThreads($id);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		Common::Redirect('Forum?management&page=true', 2);
+	}
+
+	public function parameter ()
+	{
+		$data['groups'] = BelCMSConfig::getGroups();
+		$data['config'] = BelCMSConfig::GetConfigPage(get_class($this));
+		$this->set($data);
+		$this->render('parameter');
+	}
+
+	public function sendparameter ()
+	{
+		$return = $this->ModelsForum->sendparameter($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('Forum?management&page=true', 2);
 	}
 }

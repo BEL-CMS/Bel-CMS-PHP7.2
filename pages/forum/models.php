@@ -39,7 +39,7 @@ class ModelsForum
 
 		foreach ($return as $k => $v) {
 			$access = false;
-			$groups = explode('|', $v->groups);
+			$groups = explode('|', $v->access_groups);
 			foreach ($groups as $v_access) {
 				if ($v_access == 0) {
 					$access = true;
@@ -63,6 +63,28 @@ class ModelsForum
 		}
 
 
+		return $return;
+	}
+	#####################################
+	# Récupère les noms des forums
+	#####################################
+	public function getAccessForum ($data)
+	{
+		$data = (int) $data;
+		$return = array();
+		$sql = New BDD();
+		$sql->table('TABLE_FORUM');
+		$sql->orderby(array(array('name' => 'orderby', 'type' => 'ASC')));
+		$where = array(
+			'name' => 'id',
+			'value' => $data
+		);
+		$sql->where($where);
+		$sql->queryOne();
+		$return = $sql->data;
+		if ($return) {
+			$return = explode('|', $return->access_admin);
+		}
 		return $return;
 	}
 	#####################################
@@ -521,10 +543,10 @@ class ModelsForum
 				$sqlForum->queryOne();
 				$dataForum = $sqlForum->data;
 				if (!empty($dataForum)) {
-					if ($dataForum->groups == 0) {
+					if ($dataForum->access_groups == 0) {
 						$return = true;
 					} else {
-						$return = explode('|', $dataForum->groups);
+						$return = explode('|', $dataForum->access_groups);
 					}
 				}
 			}

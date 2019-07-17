@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 0.0.1
+ * @version 1.0.0
  * @link https://bel-cms.be
- * @link https://stive.eu
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
  * @copyright 2014-2019 Bel-CMS
- * @author Stive - determe@stive.eu
+ * @author as Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -25,13 +25,6 @@ class Pages
 	var $affiche = null;
 
 	function __construct () {
-		if ($this->intern && !in_array(strtolower(get_class($this)), array('dashboard', 'login', 'logout'))) {
-			if (!in_array(1, $_SESSION['user']->groups)) {
-				$this->access = false;
-				self::error('Accès', 'Accès réservé aux administrateurs principal', 'error');
-			}
-		}
-
 		$request = ($_SERVER['REQUEST_METHOD'] == 'POST') ? $_POST : $_GET;
 		$this->data = $request;
 
@@ -98,7 +91,7 @@ class Pages
 		} else {
 			$error_name    = 'file no found';
 			$error_content = '<p><strong>file : '.$filename.' no found</strong><p>';
-			require DIR_ASSET_TPL.'error'.DS.'404.php';
+			self::error($error_name, $error_content, 'error');
 		}
 
 		$this->page = ob_get_contents();

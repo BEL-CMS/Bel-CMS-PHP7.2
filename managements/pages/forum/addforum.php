@@ -23,21 +23,21 @@
 				<div class="form-group">
 					<label for="label_orderby" class="col-sm-2 control-label"><?=ORDER?></label>
 					<div class="col-sm-10">
-						<input name="subtitle" class="form-control" id="label_orderby" type="number" required="required" placeholder="1" min="1">
+						<input name="orderby" class="form-control" id="label_orderby" type="number" required="required" placeholder="1" min="1">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="label_icon" class="col-sm-2 control-label"><?=VIEW?> <a target="_blank" href="https://fontawesome.com/icons?d=gallery&m=free"><?=ICON?></a></label>
 					<div class="col-sm-10">
-						<input name="icon" class="form-control" id="label_icon" type="number" placeholder="fa fa-code">
+						<input name="icon" class="form-control" id="label_icon" type="text" placeholder="fa fa-code">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="label_orderby" class="col-sm-2 control-label"><?=CATEGORY?></label>
 					<div class="col-sm-10">
-						<select name="id_forum" class="form-control">
+						<select required="required" name="id_forum" class="form-control">
 							<?php
 							foreach ($data as $v):
 								echo '<option value="'.$v->id.'">'.$v->title.'</option>';

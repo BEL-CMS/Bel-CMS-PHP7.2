@@ -31,6 +31,7 @@ Common::constant(array(
 	'PASSWORD'              => 'Mot de passe',
 	'ACTUAL_PASSWORD'       => 'Mot de passe actuelle',
 	'IMPORT_IMG'            => 'Importer une image',
+	'REGISTER'              => 'S\'enregistrer',
 	#####################################
 	# Fichier lang en français - Admin
 	#####################################

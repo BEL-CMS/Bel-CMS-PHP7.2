@@ -1,13 +1,14 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 0.0.1
+ * @version 1.0.0
  * @link https://bel-cms.be
- * @link https://stive.eu
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
  * @copyright 2014-2019 Bel-CMS
- * @author Stive - determe@stive.eu
+ * @author as Stive - stive@determe.be
  */
+
 
 if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
@@ -25,6 +26,7 @@ Common::constant(array(
 	#########################################
 	# Tables
 	#########################################
+	'TABLE_CODE'             => $DB_PREFIX.'code',
 	'TABLE_COMMENTS'         => $DB_PREFIX.'comments',
 	'TABLE_CONFIG'           => $DB_PREFIX.'config',
 	'TABLE_PAGES_CONFIG'     => $DB_PREFIX.'config_pages',
@@ -33,6 +35,7 @@ Common::constant(array(
 	'TABLE_GROUPS'           => $DB_PREFIX.'groups',
 	'TABLE_INBOX'            => $DB_PREFIX.'inbox',
 	'TABLE_INBOX_MSG'        => $DB_PREFIX.'inbox_msg',
+	'TABLE_INTERACTION'      => $DB_PREFIX.'interaction',
 	'TABLE_LINK_OUT'         => $DB_PREFIX.'links_click',
 	'TABLE_MAIL_BLACKLIST'   => $DB_PREFIX.'mails_blacklist',
 	'TABLE_PAGE'             => $DB_PREFIX.'page',
