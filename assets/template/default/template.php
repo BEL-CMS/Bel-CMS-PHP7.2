@@ -45,26 +45,6 @@ function tpl_body () {
 			<aside class="bel_cms_content_right">
 				<?php Widgets::GetAllWidgets('left'); ?>
 				<div class="bel_cms_widgets">
-					<div class="bel_cms_widgets_title"><h3>Utilisateurs</h3></div>
-					<div class="bel_cms_widgets_pattern"></div>
-					<div class="bel_cms_widgets_content">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat.
-					</div>
-				</div>
-				<div class="bel_cms_widgets">
-					<div class="bel_cms_widgets_title"><h3>Utilisateurs</h3></div>
-					<div class="bel_cms_widgets_pattern"></div>
-					<div class="bel_cms_widgets_content">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat.
-					</div>
-				</div>
-				<div class="bel_cms_widgets">
 					<div class="bel_cms_widgets_title"><h3>FaceBook</h3></div>
 					<div class="bel_cms_widgets_pattern"></div>
 					<div class="bel_cms_widgets_content">
