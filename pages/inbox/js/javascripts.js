@@ -27,7 +27,7 @@ function _initTinymceInbox () {
 	});
 }
 
-function autoGet () {
+function autoGetUsers () {
 	$('#bel_cms_inbox_get').autocomplete({
 		source: function (request, response) {
 			$.getJSON("Inbox/getUsers?json&term=" + request.term, function (data) {

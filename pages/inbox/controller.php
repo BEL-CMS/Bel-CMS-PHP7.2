@@ -37,14 +37,14 @@ class Inbox extends Pages
 	public function showMessage($id)
 	{
 		if (!is_numeric($id)) {
-			$this->error(INBOX, ERROR_NO_ID, 'danger');
+			$this->error(INBOX, ERROR_NO_ID, 'error');
 		} else {
 			$set = $this->ModelsInbox->showMessage($id);
 			if (array_key_exists('type', $set) && array_key_exists('text', $set)) {
 				$this->error(INBOX, $set['text'], $set['type']);
 			} else {
 				if (count($set) == 0) {
-					$this->error(INBOX, ERROR_NO_MESSAGE_EXIST, 'danger');
+					$this->error(INBOX, ERROR_NO_MESSAGE_EXIST, 'error');
 				} else {
 					$set['inbox'] = $this->ModelsInbox->showMessage($id);
 					$this->set($set);

@@ -1,0 +1,30 @@
+a {
+	color: rgb(46, 151, 189);
+}
+#bel_cms-top_bar {
+	background: rgb(46, 151, 189);
+}
+	#bel_cms-top_bar a {
+		color: rgb(255, 255, 255);
+	}
+#bel_cms-main_menu {
+	background: rgb(50, 163, 203);
+}
+	#bel_cms-main_menu h1 {
+		color: rgb(255, 255, 255);
+	}
+.bel_cms_widgets_title {
+	background: rgb(46, 151, 189);
+}
+.bel_cms_widgets_title h3 {
+	background: rgb(50, 163, 203);
+	color: rgb(255, 255, 255);
+}
+
+/* CUSTOM */
+#bel_cms_widget_users nav ul li {
+	background: rgb(46, 151, 189);
+}
+#bel_cms_widget_users nav ul li a {
+	color: rgb(255, 255, 255);
+}

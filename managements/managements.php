@@ -67,7 +67,7 @@ final class Managements extends Dispatcher
 			}
 			$render = ob_get_contents();
 		} else {
-			if ($this->view == 'parameter' or $this->view == 'sendparameter') {
+			if ($this->view == 'parameter' or $this->view == 'sendparameter' or $page == 'parameter') {
 				if (!in_array(1, $groups)) {
 					Notification::error(NO_ACCESS_GROUP_PAGE, 'Page');
 					$render = ob_get_contents();
@@ -108,7 +108,7 @@ final class Managements extends Dispatcher
 							unset($this->links[0], $this->links[1]);
 							call_user_func_array(array($this->controller,$this->view),$this->links);
 						} else {
-							Notification::error('La sous-page demander <strong>'.$this->view.'</strong> n\'est pas disponible dans la page <strong>'.$page.'</strong>', 'Fichier');
+							Notification::error('La sous-page demander <strong>'.$this->view.'</strong> n\'est pas disponible dans la page : <strong>'.$page.'</strong>', 'Fichier');
 						}
 					}
 					echo $this->controller->render;

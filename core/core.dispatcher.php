@@ -133,6 +133,8 @@ class Dispatcher
 			}
 		}
 
+		Common::Constant('CURENT_PAGE', $return);
+
 		return $return;
 	}
 

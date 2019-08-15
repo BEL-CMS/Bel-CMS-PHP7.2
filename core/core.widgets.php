@@ -87,6 +87,17 @@ class Widgets
 			$sql->orderby(array('name' => 'orderby', 'value' => 'ASC'));
 			$sql->queryAll();
 
+			if (!empty($sql->data)) {
+				foreach ($sql->data as $key => $value) {
+					if ($value->pages != '') {
+						$ex = explode('|', $value->pages);
+						if (!in_array(CURENT_PAGE, $ex)) {
+							unset($sql->data[$key]);
+						}
+					}
+				}
+			}
+
 			return $sql->data;
 		}
 	}
@@ -149,40 +160,76 @@ class Widgets
 			$widgets[$title] = $widget->widgets;
 		}
 
+		if (defined('CMS_TPL_WEBSITE') && !empty(constant('CMS_TPL_WEBSITE')) ) {
+			$template = DIR_TPL.CMS_TPL_WEBSITE.DS.'template.php';
+			if (is_file($template)) {
+				$tpl_custom = DIR_TPL.CMS_TPL_WEBSITE.DS.'custom'.DS;
+			} else {
+				$tpl_custom = DIR_TPL_DEFAULT.DS.'default'.DS.'custom'.DS;
+			}
+		} else {
+			$tpl_custom = DIR_TPL_DEFAULT.DS.'default'.DS.'custom'.DS;
+		}
+
 		if ($custom === null) {
 			if ($pos === null) {
 				$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.'.ucfirst($data->name).'.tpl';
-				$dir = is_file($custom) ? $custom : DIR_ASSET.'widgets'.DS.'widgets.static.tpl';
+				$tpl_custom = $tpl_custom.DS.'widgets.'.ucfirst($data->name).'.tpl';
+				if (is_file($custom)) {
+					$dir = $custom;
+				} else if (is_file($tpl_custom)){
+					$dir = $tpl_custom;
+				}
 			} else if ($pos == 'right' or $pos == 'top' or $pos == 'bottom' or $pos == 'top') {
 				switch ($pos) {
 					case 'top':
-						$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.top.tpl';
-						$dir = is_file($custom) ? $custom : DIR_ASSET.'widgets'.DS.'widgets.top.tpl';
-						break;
+						$tpl_custom = $tpl_custom.DS.'widgets.top.tpl';
+						if (is_file($tpl_custom)) {
+							$dir = $tpl_custom;
+						} else {
+							$dir = DIR_ASSET.'widgets'.DS.'widgets.top.tpl';
+						}
+					break;
 
 					case 'bottom':
-						$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.bottom.tpl';
-						$dir = is_file($custom) ? $custom : DIR_ASSET.'widgets'.DS.'widgets.bottom.tpl';
-						break;
+						$tpl_custom = $tpl_custom.DS.'widgets.bottom.tpl';
+						if (is_file($tpl_custom)) {
+							$dir = $tpl_custom;
+						} else {
+							$dir = DIR_ASSET.'widgets'.DS.'widgets.bottom.tpl';
+						}
+					break;
 
 					case 'left':
-						$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.left.tpl';
-						$dir = is_file($custom) ? $custom : DIR_ASSET.'widgets'.DS.'widgets.left.tpl';
-						break;
+						$tpl_custom = $tpl_custom.DS.'widgets.left.tpl';
+						if (is_file($tpl_custom)) {
+							$dir = $tpl_custom;
+						} else {
+							$dir = DIR_ASSET.'widgets'.DS.'widgets.left.tpl';
+						}
+					break;
 
 					case 'right':
-						$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.right.tpl';
-						$dir = is_file($custom) ? $custom : DIR_ASSET.'widgets'.DS.'widgets.right.tpl';
+						$tpl_custom = $tpl_custom.DS.'widgets.right.tpl';
+						if (is_file($tpl_custom)) {
+							$dir = $tpl_custom;
+						} else {
+							$dir = DIR_ASSET.'widgets'.DS.'widgets.right.tpl';
+						}
 						break;
 
 					default:
-						$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'.custom'.DS.'widgets.static.tpl';
-						$dir = is_file($custom) ? $custom : DIR_ASSET.'widgets'.DS.'static.top.tpl';
-						break;
+						$tpl_custom = $tpl_custom.DS.'widgets.static.tpl';
+						if (is_file($tpl_custom)) {
+							$dir = $tpl_custom;
+						} else {
+							$dir = DIR_ASSET.'widgets'.DS.'widgets.static.tpl';
+						}
+					break;
 				}
 			}
 		} else {
-			$dir = trim($custom);
+			$dir = trim($dir);
 		}
 
 		$title   = $title;
@@ -218,11 +265,22 @@ class Widgets
 	{
 		ob_start();
 
+		if (defined('CMS_TPL_WEBSITE') && !empty(constant('CMS_TPL_WEBSITE')) ) {
+			$template = DIR_TPL.CMS_TPL_WEBSITE.DS.'template.php';
+			if (is_file($template)) {
+				$tpl_custom = DIR_TPL.CMS_TPL_WEBSITE.DS.'custom'.DS;
+			} else {
+				$tpl_custom = DIR_TPL_DEFAULT.DS.'default'.DS.'custom'.DS;
+			}
+		} else {
+			$tpl_custom = DIR_TPL_DEFAULT.DS.'default'.DS.'custom'.DS;
+		}
+
 		if ($pos != null) {
 			if ($pos == 'right') {
 				foreach (self::getControllers($pos) as $k => $v) {
-					$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.right.tpl';
-					$dir = DIR_ASSET.'widgets'.DS.'widgets.right.tpl';
+					$custom = $tpl_custom.'widgets.right.php';
+					$dir = DIR_ASSET.'widgets'.DS.'widgets.right.php';
 					$title   = $k;
 					$content = $v;
 					if (is_file($custom)) {
@@ -233,8 +291,8 @@ class Widgets
 				}
 			} else if ($pos == 'left') {
 				foreach (self::getControllers($pos) as $k => $v) {
-					$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.left.tpl';
-					$dir = DIR_ASSET.'widgets'.DS.'widgets.left.tpl';
+					$custom = $tpl_custom.'widgets.left.php';
+					$dir = DIR_ASSET.'widgets'.DS.'widgets.left.php';
 					$title   = $k;
 					$content = $v;
 					if (is_file($custom)) {
@@ -245,8 +303,8 @@ class Widgets
 				}
 			} else if ($pos == 'top') {
 				foreach (self::getControllers($pos) as $k => $v) {
-					$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.top.tpl';
-					$dir = DIR_ASSET.'widgets'.DS.'widgets.top.tpl';
+					$custom = $tpl_custom.'widgets.top.php';
+					$dir = DIR_ASSET.'widgets'.DS.'widgets.top.php';
 					$title   = $k;
 					$content = $v;
 					if (is_file($custom)) {
@@ -257,8 +315,8 @@ class Widgets
 				}
 			} else if ($pos == 'bottom') {
 				foreach (self::getControllers($pos) as $k => $v) {
-					$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.bottom.tpl';
-					$dir = DIR_ASSET.'widgets'.DS.'widgets.bottom.tpl';
+					$custom = $tpl_custom.'widgets.bottom.php';
+					$dir = DIR_ASSET.'widgets'.DS.'widgets.bottom.php';
 					$title   = $k;
 					$content = $v;
 					if (is_file($custom)) {
@@ -269,8 +327,8 @@ class Widgets
 				}
 			} else {
 				foreach (self::getControllers(null) as $k => $v) {
-					$custom = 'templates'.DS.CMS_TPL_WEBSITE.DS.'custom'.DS.'widgets.static.tpl';
-					$dir = DIR_ASSET.'widgets'.DS.'widgets.static.tpl';
+					$custom = $tpl_custom.'widgets.static.php';
+					$dir = DIR_ASSET.'widgets'.DS.'widgets.static.php';
 					$title   = $k;
 					$content = $v;
 					if (is_file($custom)) {

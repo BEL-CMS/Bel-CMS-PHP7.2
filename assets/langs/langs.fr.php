@@ -104,6 +104,10 @@ Common::constant(array(
 	'ADMINISTRATOR'          => 'Administrateur',
 	'ADMINISTRATORS'         => 'Administrateurs',
 	'FILE_ATTACHMENT'        => 'Pièce jointe',
+	'TEXT'                   => 'Texte',
+	'AUTHOR'                 => 'Auteur',
+	'MESSAGING_PRIVATE'      => 'Messagerie privé',
+	'ADMIN'                  => 'Administration',
 	#####################################
 	# UPLOAD
 	#####################################

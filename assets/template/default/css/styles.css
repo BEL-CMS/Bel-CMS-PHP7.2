@@ -1,0 +1,167 @@
+/*####################################
+# IMPORT
+####################################*/
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+/*####################################
+# 01 - BODY
+####################################*/
+body {
+	background: rgb(245, 248, 250);
+    font-family: 'Raleway', sans-serif;
+    font-size: 13px;
+    margin: 0; padding: 0;
+}
+/*####################################
+# 02 - COMMUN
+####################################*/
+a, a:hover {
+	text-decoration: none;
+}
+.bel_cms_content {
+	width: 1200px;
+	margin: 0 auto !important;
+	overflow: hidden;
+}
+/*####################################
+# 03 - TOP-BAR
+####################################*/
+#bel_cms-top_bar {
+	display: block;
+	padding: 0 15px;
+}
+	#bel_cms-top_bar ul {
+		display: block;
+		list-style: none;
+		margin: 0; padding: 0;
+	}
+		#bel_cms-top_bar ul li {
+			display: inline-block;
+		}
+		#bel_cms-top_bar ul li:last-child {
+			float: right;
+		}
+			#bel_cms-top_bar ul li a {
+				line-height: 35px;
+				padding: 0 5px;
+			}
+/*####################################
+# 04 - MAIN-MENU
+####################################*/
+#bel_cms-main_menu {
+	display: block;
+	border-bottom: 2px solid rgba(255, 255, 255, .9);
+	margin-bottom: 20px;
+}
+	#bel_cms-main_menu h1 {
+		display: block;
+		list-style: none;
+		margin: 0; padding: 0;
+		line-height: 60px
+	}
+/*####################################
+# 04 - MAIN-MENU
+####################################*/
+.bel_cms_content_left {
+	float: left;
+	width: calc(70% - 40px);
+	margin: 0 10px;
+}
+.bel_cms_content_right {
+	float: left;
+	width: 30%;
+	margin: 0 10px;
+}
+/*####################################
+# 05 - Article
+####################################*/
+article {
+	background: rgba(255, 255, 255, 1);
+	border-bottom: 1px solid #DDDDDD;
+	padding: 18px 25px 25px;
+}
+	article h2 {
+		font-size: 16px;
+		margin: 0; padding: 0;
+	}
+	.article_infos {
+		margin: 5px 0 10px 0;
+	}
+	.article_content {
+		text-align: justify;
+	}
+	article > .article_meta {
+		background: #f5f5f5;
+		padding: 10px 10px 0;
+		overflow: hidden;
+		line-height: 28px;
+		text-transform: uppercase;
+		font-size: .83333em;
+		margin-top: 20px;
+	}
+		.article_meta i {
+			float: left;
+			width: 28px;
+			height: 28px;
+			background: #fff;
+			display: inline-block;
+			font-size: 1.6666em;
+			line-height: 28px;
+			text-align: center;
+			color: #d9d9d9;
+			margin-right: 10px;
+		}
+		.article_comment {
+			float: right;
+		}
+			.article_comment a {
+				min-height: 28px;
+				line-height: 28px;
+				display: inline-block;
+				padding: 0 10px;
+				margin-left: 8px;
+				margin-bottom: 10px;
+				background: #fff;
+				color: #9e9e9e;
+				letter-spacing: .04em;
+				font-size: .8333em;
+				font-weight: 400;
+			}
+/*####################################
+# 06 - Widgets
+####################################*/
+.bel_cms_widgets {
+	background: rgba(255,255, 255,1);
+	margin-bottom: 20px;
+}
+	.bel_cms_widgets_title {
+		padding: 0 15px;
+	}
+		.bel_cms_widgets_title h3 {
+			display: inline-block;
+			margin: 0; padding: 0;
+			line-height: 35px;
+			padding: 0 15px;
+		}
+	.bel_cms_widgets_pattern {
+		background: url("../pattern/01.png") repeat;
+		height: 8px;
+		width: 100%;
+	}
+	.bel_cms_widgets_content {
+		text-align: justify;
+		padding: 20px;
+	}
+/*####################################
+# 07 - Footer
+####################################*/
+#footer {
+	display: block;
+	background: rgba(0, 0, 0, .6);
+}
+	#footer * {
+		line-height: 40px;
+		color: rgba(255, 255, 255, 1);
+	}
+	#footer span:last-child {
+		float: right;
+	}

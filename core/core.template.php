@@ -16,7 +16,9 @@ if (!defined('CHECK_INDEX')) {
 
 final class Template  extends Dispatcher
 {
-	var $dirTpl = null;
+	var $dirTpl  = null;
+	var $default = 'default';
+
 	public $render;
 
 	private static $authorizedVar = array (
@@ -26,32 +28,46 @@ final class Template  extends Dispatcher
 		'description',
 		'title',
 		'breadcrumb',
-		'base'
+		'base',
+		'currentpage',
+		'currentsubpage',
+		'page'
 	);
 
 	function __construct ()
 	{
-		parent::__construct();
+		parent::__construct();	
 
-		$this->title           = CMS_WEBSITE_NAME;
-		$this->keywords        = CMS_WEBSITE_KEYWORDS;
-		$this->description     = CMS_WEBSITE_DESCRIPTION;
-		$this->css             = self::CascadingStyleSheets ();
-		$this->js              = self::JavaScript ();
-		$this->breadcrumb      = self::BreadCrumb ();
-		$this->base            = GetHost::getBaseUrl ();
+		$assemblyPage = new AssemblyPages ();
+		$assemblyPage->getRender ();
 
+		$this->title          = CMS_WEBSITE_NAME;
+		$this->keywords       = CMS_WEBSITE_KEYWORDS;
+		$this->description    = CMS_WEBSITE_DESCRIPTION;
+		$this->css            = self::CascadingStyleSheets ();
+		$this->js             = self::JavaScript ();
+		$this->breadcrumb     = self::breadCrumb ();
+		$this->base           = GetHost::getBaseUrl ();
+		$this->currentpage    = $this->controller;
+		$this->currentsubpage = $this->view;
+		$this->page           = $assemblyPage->render;
 
 		if (defined('CMS_TPL_WEBSITE') && !empty(constant('CMS_TPL_WEBSITE')) ) {
-			$this->dirTpl = DIR_TPL.CMS_TPL_WEBSITE.DS;
+			$this->template = DIR_TPL.CMS_TPL_WEBSITE.DS.'template.php';
+			if (is_file($this->template)) {
+				require_once $this->template;
+			} else {
+				Notification::error('Unknow File template.php', 'Error', true);
+			}
 		} else {
-			$this->dirTpl = DIR_TPL_DEFAULT;
+			$this->template = DIR_TPL_DEFAULT.DS.$this->default.DS.'template.php';
+			require_once $this->template;
 		}
 
 		self::assembly ();
 	}
 
-	public function fullPage ()
+	private function fullPage ()
 	{
 		$tpl_full = explode(',', constant('CMS_TPL_FULL'));
 
@@ -71,12 +87,11 @@ final class Template  extends Dispatcher
 	{
 		ob_start();
 
-		$head          = self::headBuffer ();
-		$header        = self::headerBuffer ();
-		$body          = self::bodyBuffer ();
-		$footer        = self::footerBuffer ();
+		$head          = self::tpl_head ();
+		$body          = self::tpl_body ();
+		$footer        = self::tpl_footer ();
 
-		echo $head.$header.$body.$footer;
+		echo $head.$body.$footer;
 
 		$this->render = ob_get_contents();
 
@@ -87,19 +102,15 @@ final class Template  extends Dispatcher
 	#########################################
 	# Récupère le heade défaut ou du template
 	#########################################
-	private function headBuffer ()
+	private function tpl_head ()
 	{
 		ob_start();
 
-		if (is_file($this->dirTpl.'head.tpl')) {
-			require $this->dirTpl.'head.tpl';
-			$head = ob_get_contents();
-			foreach (self::$authorizedVar as $var) {
-				$head = str_replace('{'.trim($var).'}', $this->$var, $head);
-			}
-		} else {
-			Notification::error('Unknow File head.tpl', 'Error');
-			$head = ob_get_contents ();
+		tpl_head();
+
+		$head = ob_get_contents();
+		foreach (self::$authorizedVar as $var) {
+			$head = str_replace('{'.trim($var).'}', $this->$var, $head);
 		}
 		
 		if (ob_get_length () != 0) {
@@ -108,50 +119,20 @@ final class Template  extends Dispatcher
 		return $head;	
 	}
 	#########################################
-	# Récupère le header défaut ou du template
-	#########################################
-	private function headerBuffer ()
-	{
-		ob_start();
-
-		if (is_file($this->dirTpl.'header.tpl')) {
-			require $this->dirTpl.'header.tpl';
-			$header = ob_get_contents ();
-			foreach (self::$authorizedVar as $var) {
-				$header = str_replace('{'.trim($var).'}', $this->$var, $header);
-			}
-		} else {
-			Notification::error('Unknow File header.tpl', 'Error');
-			$header = ob_get_contents ();
-		}
-		
-		if (ob_get_length () != 0) {
-			ob_end_clean ();
-		}
-		return $header;	
-	}
-	#########################################
 	# Récupère le body défaut ou du template
 	#########################################
-	private function bodyBuffer ()
+	private function tpl_body ()
 	{
 		ob_start();
 
 		/* CURRENT PAGE AND FULL */
 		$currentpage = $this->controller;
 		$fullpage    = self::fullPage ();
-
-		if (is_file($this->dirTpl.'body.tpl')) {
-			$assemblyPage = new AssemblyPages ();
-			$assemblyPage->getRender ();
-			$page = $assemblyPage->render;
-			require $this->dirTpl.'body.tpl';
-			$body = ob_get_contents ();
-		} else {
-			Notification::error('Unknow File body.tpl', 'Error');
-			$body = ob_get_contents ();
+		tpl_body($fullpage);
+		$body = ob_get_contents ();
+		foreach (self::$authorizedVar as $var) {
+			$body = str_replace ('{'.trim($var).'}', $this->$var, $body);
 		}
-		
 		if (ob_get_length () != 0) {
 			ob_end_clean ();
 		}
@@ -160,7 +141,7 @@ final class Template  extends Dispatcher
 	#########################################
 	# Récupère le footer défaut ou du template
 	#########################################
-	private function footerBuffer ()
+	private function tpl_footer ()
 	{
 		ob_start();
 
@@ -169,15 +150,12 @@ final class Template  extends Dispatcher
 		$fullpage    = self::fullPage ();
 
 		$loadingPage = round((explode(' ', microtime())[0] + explode(' ', microtime())[1]) - $GLOBALS['TIME_START'], 3);
-		if (is_file($this->dirTpl.'footer.tpl')) {
-			require $this->dirTpl.'footer.tpl';
-			$footer = ob_get_contents ();
-			foreach (self::$authorizedVar as $var) {
-				$footer = str_replace ('{'.trim($var).'}', $this->$var, $footer);
-			}
-		} else {
-			Notification::error('Unknow File footer.tpl', 'Error');
-			$footer = ob_get_contents ();
+
+		tpl_footer();
+
+		$footer = ob_get_contents ();
+		foreach (self::$authorizedVar as $var) {
+			$footer = str_replace ('{'.trim($var).'}', $this->$var, $footer);
 		}
 		
 		if (ob_get_length () != 0) {
@@ -188,7 +166,7 @@ final class Template  extends Dispatcher
 	#########################################
 	# Gestions des styles (css)
 	#########################################
-	public function cascadingStyleSheets ()
+	private function cascadingStyleSheets ()
 	{
 		$files          = array();
 		$return         = '';
@@ -223,7 +201,7 @@ final class Template  extends Dispatcher
 	#########################################
 	# Gestions des scripts (js)
 	#########################################
-	public function javaScript ()
+	private function javaScript ()
 	{
 		$files          = array();
 		$return         = '';
@@ -258,7 +236,7 @@ final class Template  extends Dispatcher
 	#########################################
 	public function breadCrumb ()
 	{
-		$return  = '<nav id="nav_breadcrumb" aria-label="breadcrumb"><ol class="breadcrumb">';
+		$return  = '<nav aria-label="breadcrumb"><ol class="breadcrumb">';
 		$return .= '<li class="breadcrumb-item"><a href="Home">'.constant('HOME').'</a></li>';
 
 		if ($this->controller != 'blog') {
@@ -266,7 +244,8 @@ final class Template  extends Dispatcher
 			if ($this->view != 'index') {
 				$return .= '<li class="breadcrumb-item"><a href="'.ucfirst($this->controller).'/'.$this->view.'">'.Common::translate($this->view).'</a></li>';
 				if (!empty($this->links[2])) {
-					$return .= '<li class="breadcrumb-item active"><a href="'.ucfirst($this->controller).'/'.$this->view.'/'.$this->links[2].'">'.($this->links[2]).'</a></li>';
+
+					$return .= '<li class="breadcrumb-item active"><a href="'.ucfirst($this->controller).'/'.$this->view.'/'.$this->links[2].'">'.$this->links[2].'</a></li>';
 				}
 			}
 		}

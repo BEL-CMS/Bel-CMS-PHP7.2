@@ -4,11 +4,13 @@ html {
 	padding: 10% 0;
 }
 body#LoginForm {
-	background: url(/pages/user/images/blur-login.jpg) no-repeat center center fixed; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
+    background-color: #1a232f;
+    background-image: -moz-radial-gradient(center center,circle cover,#273648,#0d1218 100%);
+    background-image: -webkit-radial-gradient(center center,circle cover,#273648,#0d1218 100%);
+    background-image: -o-radial-gradient(center center,circle cover,#273648,#0d1218 100%);
+    background-image: -ms-radial-gradient(center center,circle cover,#273648,#0d1218 100%);
+    background-image: radial-gradient(center center,circle cover,#273648,#0d1218 100%);
+}
 }
 .form-heading {
 	color:#fff; font-size:23px;

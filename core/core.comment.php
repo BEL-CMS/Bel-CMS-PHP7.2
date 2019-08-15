@@ -68,33 +68,31 @@ final class Comment extends Dispatcher
 	public function html ()
 	{
 		$link  = null;
-		$html  = '<section id="belcms_comments">';
-		$html .= '<header>';
-		$html .= '<span>Vos commentaires.';
-		$html .= '</header>'; 
+		$html  = '<nav id="bel_cms_comment">';
+		$html .= '<ul>'; 
 
 		$message = self::getMessage();
 
 		foreach ($message as $k => $v) {
-			$html .= '<div class="belcms_comments_content">';
-			$html .= '<div class="belcms_comments_avatar">';
+			$html .= '<li class="bel_cms_comment_item">';
+			$html .= '<div class="bel_cms_comment_author">';
 			$html .= '<img src="'.$v->user->avatar.'" alt="avatar">';
-			$html .= '</div>';
+			$html .= '<div class="bel_cms_comment_date">';
 			$html .= '<div class="belcms_comments_infos">';
-			$html .= '<span id="belcms_comments_username">'.$v->user->username.'</span>';
-			$html .= '<span id="belcms_comments_reply"><a href="#" data-toggle="tooltip" title="Reply"><i class="fab fa-replyd"></i></a></span>';
-			$html .= '<span id="belcms_comments_date">'.$v->date_com.'</span>';
-			$html .= '</div>';
+			$html .= '<a href="#">'.$v->user->username.'</a>';
+			$html .= '<span>'.$v->date_com.'</span>';
+			$html .= '</div></div>';
 			$html .= '<div class="belcms_comments_com">'.$v->comment.'</div>';
-			$html .= '</div>';
+			$html .= '</li>';
 		}
+			$html .= '</ul><div id="bel_cms_comment_more">Lire la suite</div>';
 		if (isset($_SESSION['USER']['HASH_KEY'])) {
 			$links = $this->links[0].'/'.$this->links[1].'/';
 			if (isset($this->links[3]) and !empty($this->links[3])) {
 				$links .= $this->links[3];
 			}
 			if ($_SESSION['USER']['HASH_KEY'] !== false) {
-				$html .= '<form action="Comments/Send" method="post" enctype="multipart/form-data"><input name="url" type="hidden" value="'.$links.'"><textarea class="bel_cms_textarea_simple" name="text"></textarea><button type="submit" style="margin: 5px;" class="btn btn-primary">Envoyer</button></form>';
+				$html .= '<form action="Comments/Send" method="post" enctype="multipart/form-data"><input name="url" type="hidden" value="'.$links.'"><textarea name="text"></textarea><button type="submit" class="btn btn-primary">Envoyer</button></form>';
 			}
 		}
 

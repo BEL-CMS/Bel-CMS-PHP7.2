@@ -94,7 +94,7 @@ class ModelsInbox
 			# check user != yourself
 			if ($isExistUser == $_SESSION['USER']['HASH_KEY']) {
 				$return['text']	= ERROR_BE_SAME;
-				$return['type']	= 'danger';
+				$return['type']	= 'error';
 				return $return;
 			}
 			# insert main BDD
@@ -127,12 +127,12 @@ class ModelsInbox
 				$return['type']	= 'success';
 			} else {
 				$return['text']	= ERROR_INSERT_BDD;
-				$return['type']	= 'danger';
+				$return['type']	= 'error';
 			}
 
 		} else {
 			$return['text']	= ERROR_NO_USER;
-			$return['type']	= 'danger';
+			$return['type']	= 'error';
 		}
 		# return
 		return $return;
@@ -210,7 +210,7 @@ class ModelsInbox
 		# check user in username and usersend
 		if (!in_array($_SESSION['USER']['HASH_KEY'], $getId)) {
 			$return['text']	= ERROR_HASH_KEY_MSG;
-			$return['type']	= 'danger';
+			$return['type']	= 'error';
 			return $return;
 			# @todo include BDD : intrusion unauthorized
 		}
@@ -255,7 +255,7 @@ class ModelsInbox
 		# check message empty
 		if (empty($message)) {
 			$return['text']	= ERROR_EMPTY_MSG;
-			$return['type']	= 'danger';
+			$return['type']	= 'error';
 			return $return;
 		}
 		# insert msg BDD
@@ -276,7 +276,7 @@ class ModelsInbox
 			$return['type']	= 'success';
 		} else {
 			$return['text']	= ERROR_INSERT_BDD;
-			$return['type']	= 'danger';
+			$return['type']	= 'error';
 		}
 
 		$return['id'] = $id;
