@@ -73,7 +73,7 @@ switch ($table) {
 			(NULL, 'members', 1, '0', '1', 'MAX_USER=10'),
 			(NULL, 'team', 1, '0', '1', 'MAX_USER=10'),
 			(NULL, 'shoutbox', 1, '0', '1', 'MAX_MSG=15'),
-			(NULL, 'forum', 1, '0', '1', ''),
+			(NULL, 'forum', 1, '0', '1', 'NB_MSG_FORUM=6'),
 			(NULL, 'user', 1, '0', '1', 'MAX_USER=5|MAX_USER_ADMIN=20'),
 			(NULL, 'page', 1, '0', '1', ''),
 			(NULL, 'inbox', 1, '0', '1', '');";
