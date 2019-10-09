@@ -1,6 +1,3 @@
-<?php 
-function tpl_head () {
-?>
 <!doctype html>
 <html lang="fr">
 	<head>
@@ -12,10 +9,6 @@ function tpl_head () {
 		<link rel="stylesheet" href="/assets/template/default/css/styles.css">
 		<link rel="stylesheet" href="/assets/template/default/css/blue.css">
 	</head>
-<?php
-}
-function tpl_body () {
-?>
 	<body>
 		<!-- Top Bar Menu -->
 		<nav id="bel_cms-top_bar">
@@ -57,10 +50,6 @@ function tpl_body () {
 			<!-- / Aside -->
 		</div>
 		<!-- / Main Content -->
-<?php
-}
-function tpl_footer () {
-?>
 		<!-- Footer -->
 		<footer id="footer">
 			<div class="bel_cms_content">
@@ -72,5 +61,3 @@ function tpl_footer () {
 		<script src="assets/template/default/js/scripts.js"></script>
 	</body>
 </html>
-<?php
-}

@@ -122,7 +122,7 @@ final class Common
 			if (is_dir($dir)) {
 				$myDirectory = @opendir($dir);
 				while($entry = @readdir($myDirectory)) {
-					if (is_dir($dir.DS.$entry) && $entry != '.' && $entry != '..') {
+					if ($entry != '.' && $entry != '..' && @is_dir($dir.DS.$entry)) {
 						$return[] = ($entry);
 					}
 				}

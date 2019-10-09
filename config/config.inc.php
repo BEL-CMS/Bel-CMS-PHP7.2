@@ -14,7 +14,7 @@ $databases["server"] = array(
 # Réglages MySQL - SERVEUR
 #####################################
 'DB_DRIVER'   => 'mysql',
-'DB_NAME'     => 'new',
+'DB_NAME'     => 'new-09-10-2019',
 'DB_USER'     => 'root',
 'DB_PASSWORD' => 'root',
 'DB_HOST'     => 'localhost',

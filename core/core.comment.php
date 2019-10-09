@@ -79,7 +79,7 @@ final class Comment extends Dispatcher
 			$html .= '<img src="'.$v->user->avatar.'" alt="avatar">';
 			$html .= '<div class="bel_cms_comment_date">';
 			$html .= '<div class="belcms_comments_infos">';
-			$html .= '<a href="#">'.$v->user->username.'</a>';
+			$html .= '<a class="simple-tooltip" title="'.$v->user->username.'" href="#">'.$v->user->username.'</a>';
 			$html .= '<span>'.$v->date_com.'</span>';
 			$html .= '</div></div>';
 			$html .= '<div class="belcms_comments_com">'.$v->comment.'</div>';
@@ -95,6 +95,7 @@ final class Comment extends Dispatcher
 				$html .= '<form action="Comments/Send" method="post" enctype="multipart/form-data"><input name="url" type="hidden" value="'.$links.'"><textarea name="text"></textarea><button type="submit" class="btn btn-primary">Envoyer</button></form>';
 			}
 		}
+		$html .= '</nav>';
 
 		echo $html;
 	}

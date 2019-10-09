@@ -8,13 +8,13 @@ if (Users::isLogged()):
 	<nav>
 		<ul>
 			<li>
-				<a data-toggle="tooltip" title="<?=PROFIL?>" href="User/Profil"><i class="fas fa-chalkboard-teacher"></i></a>
+				<a class="simple-tooltip" title="<?=PROFIL?>" href="User/Profil"><i class="fas fa-chalkboard-teacher"></i></a>
 			</li>
 			<li>
-				<a data-toggle="tooltip" title="<?=MESSAGING_PRIVATE?>" href="Inbox"><i class="fas fa-envelope"></i></a>
+				<a class="simple-tooltip" title="<?=MESSAGING_PRIVATE?>" href="Inbox"><i class="fas fa-envelope"></i></a>
 			</li>
 			<li>
-				<a data-toggle="tooltip" title="<?=ADMIN?>" href="Dashboard?Management"><i class="fas fa-user-cog"></i></a>
+				<a class="simple-tooltip" title="<?=ADMIN?>" href="Dashboard?Management"><i class="fas fa-user-cog"></i></a>
 			</li>
 		</ul>
 	</nav>
@@ -30,12 +30,12 @@ else:
 		<div class="form-row align-items-center">
 			<div class="col-auto" style="width: 100%;">
 				<div class="bel_cms_box_input">
-					<input name="username" required="required" autofocus="" type="text" class="bel_cms_input" id="inlineFormInputGroup" placeholder="Nom D'utilisateur">
+					<input name="username" required="required" autofocus="" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Nom D'utilisateur"><br>
 				</div>
 			</div>
 			<div class="col-auto" style="width: 100%;">
 				<div class="bel_cms_box_input">
-					<input name="password" required="required" type="password" class="bel_cms_input" id="inlineFormInputGroup" placeholder="Mot de passe">
+					<input name="password" required="required" type="password" class="form-control" id="inlineFormInputGroup" placeholder="Mot de passe"><br>
 				</div>
 			</div>
 			<div class="col-auto" style="width: 100%;">

@@ -55,16 +55,38 @@ final class Template  extends Dispatcher
 		if (defined('CMS_TPL_WEBSITE') && !empty(constant('CMS_TPL_WEBSITE')) ) {
 			$this->template = DIR_TPL.CMS_TPL_WEBSITE.DS.'template.php';
 			if (is_file($this->template)) {
+				ob_start();
+				$tpl_full = self::fullPage();
+				$current  = $this->currentpage;
 				require_once $this->template;
+				$render = ob_get_contents();
+				$loadingPage = round((explode(' ', microtime())[0] + explode(' ', microtime())[1]) - $GLOBALS['TIME_START'], 3);
+				foreach (self::$authorizedVar as $var) {
+					$render = str_replace('{'.trim($var).'}', $this->$var, $render);
+				}
+				if (ob_get_length() != 0) {
+					ob_end_clean();
+				}
+				echo $render;
 			} else {
 				Notification::error('Unknow File template.php', 'Error', true);
 			}
 		} else {
 			$this->template = DIR_TPL_DEFAULT.DS.$this->default.DS.'template.php';
-			require_once $this->template;
+				ob_start();
+				$tpl_full = self::fullPage();
+				$current  = $this->currentpage;
+				require_once $this->template;
+				$render = ob_get_contents();
+				$loadingPage = round((explode(' ', microtime())[0] + explode(' ', microtime())[1]) - $GLOBALS['TIME_START'], 3);
+				foreach (self::$authorizedVar as $var) {
+					$render = str_replace('{'.trim($var).'}', $this->$var, $render);
+				}
+				if (ob_get_length() != 0) {
+					ob_end_clean();
+				}
+				echo $render;
 		}
-
-		self::assembly ();
 	}
 
 	private function fullPage ()
@@ -87,17 +109,19 @@ final class Template  extends Dispatcher
 	{
 		ob_start();
 
-		$head          = self::tpl_head ();
-		$body          = self::tpl_body ();
-		$footer        = self::tpl_footer ();
+		$render = ob_get_contents();
 
-		echo $head.$body.$footer;
+		$loadingPage = round((explode(' ', microtime())[0] + explode(' ', microtime())[1]) - $GLOBALS['TIME_START'], 3);
 
-		$this->render = ob_get_contents();
+		foreach (self::$authorizedVar as $var) {
+			$render = str_replace('{'.trim($var).'}', $this->$var, $render);
+		}
 
 		if (ob_get_length() != 0) {
 			ob_end_clean();
-		}	
+		}
+		echo $render;
+
 	}
 	#########################################
 	# Récupère le heade défaut ou du template
@@ -181,6 +205,8 @@ final class Template  extends Dispatcher
 		/* Jquery UI 1.12.1 */
 		$files[] = 'assets/plugins/jquery_ui-1.12.1/css/jquery-ui.min.css';
 		$files[] = 'assets/plugins/jquery_ui-1.12.1/css/jquery-ui.structure.min.css';
+		/* tipped 4.6.1 */
+		$files[] = 'assets/plugins/tipped/tipped.css';
 
 		/* WIDGETS STYLE */
 		$widgets = Widgets::getCssStyles ();
@@ -214,6 +240,8 @@ final class Template  extends Dispatcher
 		$files[] = 'assets/plugins/bootstrap-4.1.3/js/bootstrap.min.js';
 		/* Jquery UI 1.12.1 */
 		$files[] = 'assets/plugins/jquery_ui-1.12.1/js/jquery-ui.min.js';
+		/* tipped 4.6.1 */
+		$files[] = 'assets/plugins/tipped/tipped.js';
 		/* WIDGETS Javascript (jquery) */
 		$widgets = Widgets::getJsJavascript ();
 		foreach ($widgets  as $v) {

@@ -5,7 +5,7 @@ if (typeof jQuery === 'undefined') {
 (function($) {
 	"use strict";
 
-	$('[data-toggle="tooltip"]').tooltip();
+	Tipped.create('.simple-tooltip');
 
 	if ($("#bel_cms_copyleft").length) {
 		$('body').append('<a id="bel_cms_copyleft" style="display:none" href="https://bel-cms.be" title="BEL-CMS">Powered by Bel-CMS</a>');

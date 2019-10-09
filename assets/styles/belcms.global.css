@@ -115,6 +115,7 @@ nav#bel_cms_comment {
 	display: block;
 	width: 100%;
 	overflow: hidden;
+	margin-bottom: 20px;
 }
 	nav#bel_cms_comment ul {
 		list-style: none;
