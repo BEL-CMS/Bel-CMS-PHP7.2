@@ -15,26 +15,32 @@ if (!defined('CHECK_INDEX')) {
 }
 if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === true):
 ?>
-<div class="col-md-3">
-	<div class="panel panel-white">
-		<div class="panel-body">
-			<button onclick="window.location.href='/shoutbox/deleteall?management&widgets=true'" class="email-compose-button btn btn-danger btn-block">Supprimer tout</button>
-			<ul class="list-unstyled mailbox-nav">
-				<li><a href="/shoutbox?management&widgets=true"><i class="fas fa-home"></i>Accueil</a></li>
-				<li class="active"><a href="/shoutbox/parameter?management&widgets=true"><i class="fas fa-cogs"></i>Configuration</a></li>
-			</ul>
-		</div>
+<form action="/shoutbox/sendparameter?management&widgets=true" method="post" class="form-horizontal">
+<div class="x_panel">
+	<div class="x_title">
+		<h2>Menu Widgets Shoutbox</h2>
+		<div class="clearfix"></div>
+	</div>
+	<div class="x_content">
+		<a href="/shoutbox?management&widgets=true" class="btn btn-app">
+			<i class="fa fas fa-home"></i> Accueil
+		</a>
+		<button type="submit" class="btn btn-app">
+			<i class="fa fa-save"></i> <?=SAVE?>
+		</button>
 	</div>
 </div>
-<div class="col-md-9">
+
+<div class="col-md-12">
 	<div class="panel panel-white">
 		<div class="panel-body">
-			<form action="/shoutbox/sendparameter?management&widgets=true" method="post" class="form-horizontal">
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Page Activer</label>
 					<div class="col-sm-10">
 						<div class="checkbox">
-							<input value="1" name="active" type="checkbox" <?=$config->active == 1 ? 'checked' : ''?>>Activer
+							<label>
+								<input type="checkbox" class="js-switch" <?=$config->active == 1 ? 'checked' : ''?> name="active"> Activer
+							</label>
 						</div>
 					</div>
 				</div>
@@ -96,14 +102,18 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 					<label for="input-JS" class="col-sm-2 control-label"><?=JS?></label>
 					<div class="col-sm-10">
 						<?php $chkjs = $config->config['JS'] == 1 ? 'checked' : ''; ?>
-						<input name="JS" value="1" type="checkbox" <?=$chkjs?> > Activer
+						<label>
+							<input value="1" type="checkbox" class="js-switch" <?=$chkjs?> name="JS"> Activer
+						</label>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="input-CSS" class="col-sm-2 control-label"><?=CSS?></label>
 					<div class="col-sm-10">
 						<?php $chkcss = $config->config['CSS'] == 1 ? 'checked' : ''; ?>
-						<input name="CSS" value="1" type="checkbox" <?=$chkcss?> > Activer
+						<label>
+							<input value="1" type="checkbox" class="js-switch" <?=$chkcss?> name="CSS"> Activer
+						</label>
 					</div>
 				</div>
 				<?php
@@ -167,10 +177,9 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 						?>
 					</div>
 				</div>
-				<button type="submit" class="btn btn-primary"><?=SAVE?></button>
-			</form>
 		</div>
 	</div>
 </div>
+</form>
 <?php
 endif;

@@ -14,26 +14,33 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<div class="col-md-3">
-	<div class="panel panel-white">
-		<div class="panel-body">
-			<button onclick="window.location.href='/Blog/add?management&page=true'" class="email-compose-button btn btn-info btn-block">Composer</button>
-
-				<ul class="list-unstyled mailbox-nav">
-					<li class="active"><a href="Blog?management&page=true"><i class="fas fa-home"></i>Accueil</a></li>
-					<li><a href="/Blog/add?management&page=true"><i class="fa fa-user-plus"></i><?=ADD?></a></li>
-					<li><a href="Blog/parameter?management&page=true"><i class="fas fa-cogs"></i>Configuration</a></li>
-					<hr>
-					<li><a href="#"><i class="fa fa-send"></i>Nombre de Blog <span class="badge badge-default pull-right"><?=$count?></span></a></li>
-				</ul>
-		</div>
+<div class="x_panel">
+	<div class="x_title">
+		<h2>Menu Page Blog</h2>
+		<div class="clearfix"></div>
+	</div>
+	<div class="x_content">
+		<a href="/Blog?management&page=true" class="btn btn-app">
+			<i class="fa fas fa-home"></i> Accueil
+		</a>
+		<a href="Blog/parameter?management&page=true" class="btn btn-app">
+			<i class="fa fas fa-cogs"></i> Configuration
+		</a>
+		<a href="/Blog/add?management&page=true" class="btn btn-app">
+			<i class="fa fas fa-plus"></i> <?=ADD?>
+		</a>
+		<a class="btn btn-app">
+			<span class="badge bg-red"><?=$count?></span>
+			<i class="fa fa-bullhorn"></i> Blog
+		</a>
 	</div>
 </div>
-<div class="col-md-9">
+
+<div class="col-md-12">
 	<div class="panel panel-white">
 		<div class="panel-body">
 		   <div class="table-responsive">
-			<table id="datatableblog" class="display table table-data-width">
+			<table id="datatableblog" class="table table-striped jambo_table bulk_action">
 				<thead>
 					<tr>
 						<th># ID</th>
@@ -62,8 +69,8 @@ if (!defined('CHECK_INDEX')) {
 							<td><?=$v->date_create?></td>
 							<td><?=Users::hashkeyToUsernameAvatar($v->author)?></td>
 							<td>
-								<a href="blog/edit/<?=$v->id?>?management&page=true>" class="btn btn-small btn-success"><i class="fas fa-pen"></i></a>
-								<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>" class="btn btn-danger btn-small"><i class="fas fa-trash-alt"></i></a>
+								<a href="blog/edit/<?=$v->id?>?management&page=true>"><i class="fas fa-pen"></i></a> - 
+								<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>"><i class="fas fa-trash-alt"></i></a>
 								<div class="modal fade" id="modal_<?=$v->id?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">

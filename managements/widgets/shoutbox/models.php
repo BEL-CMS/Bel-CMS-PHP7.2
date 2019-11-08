@@ -163,6 +163,12 @@ class ModelsShoutbox
 		$return = array();
 
 		if (!empty($data) && is_array($data)) {
+			if (!isset($data['JS'])) {
+				$data['JS'] = 0;
+			}
+			if (!isset($data['CSS'])) {
+				$data['CSS'] = 0;
+			}
 			$opt                  = array('MAX_MSG' => $data['MAX_MSG'], 'JS' => $data['JS'], 'CSS' => $data['CSS']);
 			$upd['config']        = Common::transformOpt($opt, true);
 			$upd['title']         = Common::VarSecure($data['title'], '');

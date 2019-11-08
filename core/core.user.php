@@ -25,7 +25,12 @@ class Users
 	#########################################
 	public static function isLogged () {
 		if (isset($_SESSION['USER']['HASH_KEY']) and strlen($_SESSION['USER']['HASH_KEY']) == 32) {
-			return true;
+			if (self::ifUserExist($_SESSION['USER']['HASH_KEY']) === true) {
+				return true;
+			} else {
+				false;
+			}
+			
 		} else {
 			$_SESSION['USER']['HASH_KEY'] = false;
 			return false;

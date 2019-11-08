@@ -16,6 +16,8 @@ if (!defined('CHECK_INDEX')) {
 
 class ModelsBlog
 {
+	# TABLE_PAGES_BLOG
+	# TABLE_PAGES_BLOG_CAT
 	public function GetBlog ($id = false)
 	{
 		$config = BelCMSConfig::GetConfigPage('blog');

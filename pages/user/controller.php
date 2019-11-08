@@ -33,10 +33,14 @@ class User extends Pages
 	}
 	public function profil ()
 	{
-		$d = array();
-		$d['user'] = $this->ModelsUser->getDataUser($_SESSION['USER']['HASH_KEY']);
-		$this->set($d);
-		$this->render('index');
+		if (Users::isLogged() === false) {
+			$this->render('login');
+		} else {
+			$d = array();
+			$d['user'] = $this->ModelsUser->getDataUser($_SESSION['USER']['HASH_KEY']);
+			$this->set($d);
+			$this->render('index');
+		}
 	}
 	public function login ()
 	{
@@ -51,41 +55,41 @@ class User extends Pages
 	}
 	public function register ()
 	{
-			if (Users::isLogged() === false) {
-				$_SESSION['TMP_QUERY_REGISTER'] = array();
-				$_SESSION['TMP_QUERY_REGISTER']['number_1'] = rand(1, 9);
-				$_SESSION['TMP_QUERY_REGISTER']['number_2'] = rand(1, 9);
-				$_SESSION['TMP_QUERY_REGISTER']['overall']  = $_SESSION['TMP_QUERY_REGISTER']['number_1'] + $_SESSION['TMP_QUERY_REGISTER']['number_2'];
-				$_SESSION['TMP_QUERY_REGISTER'] = Common::arrayChangeCaseUpper($_SESSION['TMP_QUERY_REGISTER']);
-				$this->data = (bool) true;
-				$this->render('register');
-			} else {
-				$this->redirect('user', 0);
-			}
+		if (Users::isLogged() === false) {
+			$_SESSION['TMP_QUERY_REGISTER'] = array();
+			$_SESSION['TMP_QUERY_REGISTER']['number_1'] = rand(1, 9);
+			$_SESSION['TMP_QUERY_REGISTER']['number_2'] = rand(1, 9);
+			$_SESSION['TMP_QUERY_REGISTER']['overall']  = $_SESSION['TMP_QUERY_REGISTER']['number_1'] + $_SESSION['TMP_QUERY_REGISTER']['number_2'];
+			$_SESSION['TMP_QUERY_REGISTER'] = Common::arrayChangeCaseUpper($_SESSION['TMP_QUERY_REGISTER']);
+			$this->data = (bool) true;
+			$this->render('register');
+		} else {
+			$this->redirect('user', 0);
+		}
 	}
 	public function logout ()
 	{
-			$return = Users::logout();
-			$this->error('Logout', $return['msg'], $return['type']);
-			$this->redirect('user', 3);
+		$return = Users::logout();
+		$this->error('Logout', $return['msg'], $return['type']);
+		$this->redirect('user', 3);
 	}
 	public function lostpassword ()
 	{
-			if (Users::isLogged() === false) {
-				$this->data = (bool) true;
-				$this->render('lostpassword');
-			}
+		if (Users::isLogged() === false) {
+			$this->data = (bool) true;
+			$this->render('lostpassword');
+		}
 	}
 	private function sendLostPassword ()
 	{
-			unset($this->data['send']);
-			$return = $this->ModelsUser->checkToken($this->data);
-			if (!isset($return['pass'])) {
-				$this->error('Password', $return['msg'], $return['type']);
-				$this->redirect('User/LostPassword', 3);
-			} else {
-				$this->error('Password', $return['msg'], $return['type']);
-			}
+		unset($this->data['send']);
+		$return = $this->ModelsUser->checkToken($this->data);
+		if (!isset($return['pass'])) {
+			$this->error('Password', $return['msg'], $return['type']);
+			$this->redirect('User/LostPassword', 3);
+		} else {
+			$this->error('Password', $return['msg'], $return['type']);
+		}
 	}
 
 	public function sendRegister ()
@@ -162,10 +166,13 @@ class User extends Pages
 			if (defined('API_KEY')) {
 				if (!empty($api_key) && $api_key == constant('API_KEY')) {
 					$this->json = $this->ModelsUser->GetInfosUser($usermail, $userpass);
+					echo json_encode($this->json);
 				}
+			} else {
+				echo json_encode('Error API KEY');
 			}
 		} else {
-			$this->json = null;
+			echo json_encode(null);
 		}
 	}
 	#########################################

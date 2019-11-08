@@ -54,180 +54,191 @@ class ModelsUser
 	#####################################
 	public function getDataUser ($hash_key = false)
 	{
-		if ($hash_key and ctype_alnum($hash_key)) {
+		if (Users::isLogged() === true) {
+			if ($hash_key and ctype_alnum($hash_key)) {
 
-			$this->sql = New BDD();
-			$this->sql->table('TABLE_USERS');
-			$this->sql->isObject(false);
-			$this->sql->where(array(
-				'name'  => 'hash_key',
-				'value' => $hash_key
-			));
-			$this->sql->queryOne();
-			$results = $this->sql->data;
-
-			if ($results && sizeof($results)) {
-				$this->sqlP = New BDD();
-				$this->sqlP->table('TABLE_USERS_PROFILS');
-				$this->sqlP->isObject(false);
-				$this->sqlP->where(array(
+				$this->sql = New BDD();
+				$this->sql->table('TABLE_USERS');
+				$this->sql->isObject(false);
+				$this->sql->where(array(
 					'name'  => 'hash_key',
 					'value' => $hash_key
 				));
-				$this->sqlP->queryOne();
-				$resultsProfils = $this->sqlP->data;
-			}
-			$returnMerge = array_merge($results, $resultsProfils);
-			if ($returnMerge && sizeof($returnMerge)) {
+				$this->sql->queryOne();
+				$results = $this->sql->data;
 
-				$this->sqlS = New BDD();
-				$this->sqlS->table('TABLE_USERS_SOCIAL');
-				$this->sqlS->isObject(false);
-				$this->sqlS->where(array(
-					'name'  => 'hash_key',
-					'value' => $hash_key
-				));
-				$this->sqlS->queryOne();
-				$resultsSocial = $this->sqlS->data;
-			}
-
-			$returnMerge = array_merge($returnMerge, $resultsSocial);
-
-			foreach ($returnMerge as $k => $v) {
-				if ($k == 'birthday') {
-					$v = Common::transformDate($v, 'SHORT');
-				} else if ($k == 'date_registration' OR $k == 'last_visit') {
-					$v = Common::TransformDate($v, 'SHORT', 'SHORT');
+				if ($results && sizeof($results)) {
+					$this->sqlP = New BDD();
+					$this->sqlP->table('TABLE_USERS_PROFILS');
+					$this->sqlP->isObject(false);
+					$this->sqlP->where(array(
+						'name'  => 'hash_key',
+						'value' => $hash_key
+					));
+					$this->sqlP->queryOne();
+					$resultsProfils = $this->sqlP->data;
 				}
-				if ($k == 'avatar') {
-					if (empty($v) OR !is_file($v)) {
-						$v = 'assets/images/default_avatar.jpg';
-					}
+				$returnMerge = array_merge($results, $resultsProfils);
+				if ($returnMerge && sizeof($returnMerge)) {
+
+					$this->sqlS = New BDD();
+					$this->sqlS->table('TABLE_USERS_SOCIAL');
+					$this->sqlS->isObject(false);
+					$this->sqlS->where(array(
+						'name'  => 'hash_key',
+						'value' => $hash_key
+					));
+					$this->sqlS->queryOne();
+					$resultsSocial = $this->sqlS->data;
 				}
-				if ($k == 'friends') {
-					if (empty($v)) {
-						$v = array();
-					} else {
-						$arrayHash = explode('|', $v);
-						/*
-						foreach ($arrayHash as $k_h => $v_h) {
-							$returnMerge[$k][$v_h]['name'] = Users::hashkeyToUsernameAvatar($v_h);
-							$returnMerge[$k][$v_h]['avatar'] = Users::hashkeyToUsernameAvatar($v_h, 'avatar');
+
+				if (!empty($resultsSocial)) {
+					$returnMerge = array_merge($returnMerge, $resultsSocial);
+				}
+
+				if (!empty($returnMerge)) {
+				
+					foreach ($returnMerge as $k => $v) {
+						if ($k == 'birthday') {
+							$v = Common::transformDate($v, 'SHORT');
+						} else if ($k == 'date_registration' OR $k == 'last_visit') {
+							$v = Common::TransformDate($v, 'SHORT', 'SHORT');
 						}
-
-						/*
-						$returnInfosUser = Users::getInfosUser($arrayHash);
-						$v = array();
-						foreach ($returnInfosUser as $keyTmp => $valueTmp) {
-							$v[$keyTmp]['name']   = $valueTmp->name;
-							$v[$keyTmp]['avatar'] = $valueTmp->avatar;
-							if (empty($v[$keyTmp]['avatar']) OR !is_file($v[$keyTmp]['avatar'])) {
-								$v[$keyTmp]['avatar'] = 'assets/imagery/default_avatar.jpg';
+						if ($k == 'avatar') {
+							if (empty($v) OR !is_file($v)) {
+								$v = 'assets/images/default_avatar.jpg';
 							}
 						}
-						*/
+						if ($k == 'friends') {
+							if (empty($v)) {
+								$v = array();
+							} else {
+								$arrayHash = explode('|', $v);
+								/*
+								foreach ($arrayHash as $k_h => $v_h) {
+									$returnMerge[$k][$v_h]['name'] = Users::hashkeyToUsernameAvatar($v_h);
+									$returnMerge[$k][$v_h]['avatar'] = Users::hashkeyToUsernameAvatar($v_h, 'avatar');
+								}
+
+								/*
+								$returnInfosUser = Users::getInfosUser($arrayHash);
+								$v = array();
+								foreach ($returnInfosUser as $keyTmp => $valueTmp) {
+									$v[$keyTmp]['name']   = $valueTmp->name;
+									$v[$keyTmp]['avatar'] = $valueTmp->avatar;
+									if (empty($v[$keyTmp]['avatar']) OR !is_file($v[$keyTmp]['avatar'])) {
+										$v[$keyTmp]['avatar'] = 'assets/imagery/default_avatar.jpg';
+									}
+								}
+								*/
+							}
+						}
+
+						if ($k == 'gender') {
+							$v = strtoupper($v);
+							$v = defined($v) ? constant($v) : $v;
+						}
+
+						if ($k == 'groups') {
+							$v = explode('|', $v);
+							$v = is_array($v) ? $v : (array) $v;
+						}
+
+						if ($k == 'main_groups') {
+							$v = (int) $v;
+						}
+
+		/*
+						if (!is_array($v)) {
+							$return[$k] = empty($v) ? UNKNOWN : $v;
+						} else {
+							$return[$k] = $v;
+						}
+		*/
+						$return[$k] = $v;
+						$directoryAvatar = ROOT.'uploads/users/'.$hash_key;
+
+						if (!file_exists($directoryAvatar)) {
+							if (!mkdir($directoryAvatar, 0777, true)) {
+								throw new Exception('Failed to create directory');
+							} else {
+								$fopen = fopen($directoryAvatar.'/index.html', 'a+');
+								$fclose = fclose($fopen);
+							}
+						}
 					}
-				}
-
-				if ($k == 'gender') {
-					$v = strtoupper($v);
-					$v = defined($v) ? constant($v) : $v;
-				}
-
-				if ($k == 'groups') {
-					$v = explode('|', $v);
-					$v = is_array($v) ? $v : (array) $v;
-				}
-
-				if ($k == 'main_groups') {
-					$v = (int) $v;
-				}
-
-/*
-				if (!is_array($v)) {
-					$return[$k] = empty($v) ? UNKNOWN : $v;
+					$return['list_avatar'] = array();
+					$getListAvatar = Common::scanFiles('uploads/users/'.$hash_key.'/', array('.gif', 'gif', 'jpg', 'jpeg', 'png'), true);
+					foreach ($getListAvatar as $valueListAvatar) {
+						$return['list_avatar'][] = $valueListAvatar;
+					}
 				} else {
-					$return[$k] = $v;
+					$return = array();
 				}
-*/
-				$return[$k] = $v;
-				$directoryAvatar = ROOT.'uploads/users/'.$hash_key;
 
-				if (!file_exists($directoryAvatar)) {
-					if (!mkdir($directoryAvatar, 0777, true)) {
-						throw new Exception('Failed to create directory');
-					} else {
-						$fopen = fopen($directoryAvatar.'/index.html', 'a+');
-						$fclose = fclose($fopen);
+			} else {
+					$this->sqlU = New BDD();
+					$this->sqlU->table('TABLE_USERS');
+					$this->sqlU->isObject(false);
+					$this->sqlU->where(array(
+						'name'  => 'hash_key',
+						'value' => $hash_key
+					));
+					$this->sqlU->queryAll();
+					$results = $this->sqlU->data;
+
+				if ($results && sizeof($results)) {
+					$hashKeyRequest = array();
+
+					$this->sqlUS = New BDD();
+					$this->sqlUS->table('TABLE_USERS_PROFILS');
+					$this->sqlUS->isObject(false);
+					$this->sqlUS->where(array(
+						'name'  => 'hash_key',
+						'value' => $v['hash_key']
+					));
+					$this->sqlUS->queryAll();
+					$resultsProfils = $this->sqlUS->data;
+
+					$arrayProfils   = array();
+
+					foreach ($resultsProfils as $k => $v) {
+						$arrayProfils[$v['hash_key']] = $v;
 					}
+
+					$arraySocial   = array();
+
+					foreach ($resultsSocial as $k => $v) {
+						$arraySocial[$v['hash_key']] = $v;
+						unset($arraySocial[$v['hash_key']]['hash_key'], $arraySocial[$v['hash_key']]['id']);
+					}
+
+					$i = 0;
+					foreach ($results as $k => $v) {
+						if (array_key_exists($v['hash_key'], $arrayProfils)) {
+							$return[$i] = array_merge($results[$k], $arrayProfils[$v['hash_key']]);
+						}
+						if (array_key_exists($v['hash_key'], $arraySocial)) {
+							$return[$i] = array_merge($return[$i], $arraySocial[$v['hash_key']]);
+						} $i++;
+					}
+
+					foreach ($return as $k => $v) {
+						$return[$k]['gender']            = defined($v['gender']) ? constant(strtoupper($v['gender'])) : $v['gender'];
+						$return[$k]['birthday']          = Common::transformDate($return[$k]['birthday']);
+						$return[$k]['date_registration'] = Common::transformDate($return[$k]['date_registration'], true);
+						$return[$k]['last_visit']        = Common::transformDate($return[$k]['last_visit'], true);
+						if (empty($return[$k]['avatar']) or !is_file($return[$k]['avatar'])) {
+							$return[$k]['avatar'] = 'assets/imagery/default_avatar.jpg';
+						}
+						$return[$k]['groups'] = explode('|', $v['groups']);
+						$return[$k]['main_groups'] = (int) $v['main_groups'];
+					}
+
 				}
 			}
-			$return['list_avatar'] = array();
-			$getListAvatar = Common::scanFiles('uploads/users/'.$hash_key.'/', array('.gif', 'gif', 'jpg', 'jpeg', 'png'), true);
-			foreach ($getListAvatar as $valueListAvatar) {
-				$return['list_avatar'][] = $valueListAvatar;
-			}
-
 		} else {
-				$this->sqlU = New BDD();
-				$this->sqlU->table('TABLE_USERS');
-				$this->sqlU->isObject(false);
-				$this->sqlU->where(array(
-					'name'  => 'hash_key',
-					'value' => $hash_key
-				));
-				$this->sqlU->queryAll();
-				$results = $this->sqlU->data;
-
-			if ($results && sizeof($results)) {
-				$hashKeyRequest = array();
-
-				$this->sqlUS = New BDD();
-				$this->sqlUS->table('TABLE_USERS_PROFILS');
-				$this->sqlUS->isObject(false);
-				$this->sqlUS->where(array(
-					'name'  => 'hash_key',
-					'value' => $v['hash_key']
-				));
-				$this->sqlUS->queryAll();
-				$resultsProfils = $this->sqlUS->data;
-
-				$arrayProfils   = array();
-
-				foreach ($resultsProfils as $k => $v) {
-					$arrayProfils[$v['hash_key']] = $v;
-				}
-
-				$arraySocial   = array();
-
-				foreach ($resultsSocial as $k => $v) {
-					$arraySocial[$v['hash_key']] = $v;
-					unset($arraySocial[$v['hash_key']]['hash_key'], $arraySocial[$v['hash_key']]['id']);
-				}
-
-				$i = 0;
-				foreach ($results as $k => $v) {
-					if (array_key_exists($v['hash_key'], $arrayProfils)) {
-						$return[$i] = array_merge($results[$k], $arrayProfils[$v['hash_key']]);
-					}
-					if (array_key_exists($v['hash_key'], $arraySocial)) {
-						$return[$i] = array_merge($return[$i], $arraySocial[$v['hash_key']]);
-					} $i++;
-				}
-
-				foreach ($return as $k => $v) {
-					$return[$k]['gender']            = defined($v['gender']) ? constant(strtoupper($v['gender'])) : $v['gender'];
-					$return[$k]['birthday']          = Common::transformDate($return[$k]['birthday']);
-					$return[$k]['date_registration'] = Common::transformDate($return[$k]['date_registration'], true);
-					$return[$k]['last_visit']        = Common::transformDate($return[$k]['last_visit'], true);
-					if (empty($return[$k]['avatar']) or !is_file($return[$k]['avatar'])) {
-						$return[$k]['avatar'] = 'assets/imagery/default_avatar.jpg';
-					}
-					$return[$k]['groups'] = explode('|', $v['groups']);
-					$return[$k]['main_groups'] = (int) $v['main_groups'];
-				}
-
-			}
+			return false;
 		}
 		return (object) $return;
 	}

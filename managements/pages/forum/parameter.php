@@ -15,29 +15,36 @@ if (!defined('CHECK_INDEX')) {
 }
 if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === true):
 ?>
-<div class="col-md-3">
-	<div class="panel panel-white">
-		<div class="panel-body">
-				<ul class="list-unstyled mailbox-nav">
-					<li><a href="/Forum?management&page=true"><i class="fas fa-home"></i>Accueil</a></li>
-					<li><a href="/Forum/category?management&page=true"><i class="far fa-plus-square"></i><?=CATEGORY?></a></li>
-					<li class="active"><a href="/Forum/parameter?management&page=true"><i class="fas fa-cogs"></i>Configuration</a></li>
-					<hr>
-					<li><a href="#"><i class="fa fa-send"></i><?=NB_MSG?><span class="badge badge-default pull-right"></span></a></li>
-				</ul>
-		</div>
+<form action="/Forum/sendparameter?management&page=true" method="post" class="form-horizontal">
+
+<div class="x_panel">
+	<div class="x_title">
+		<h2>Menu Page Blog</h2>
+		<div class="clearfix"></div>
+	</div>
+	<div class="x_content">
+		<a href="/Blog?management&page=true" class="btn btn-app">
+			<i class="fa fas fa-home"></i> Accueil
+		</a>
+		<a href="Blog/parameter?management&page=true" class="btn btn-app">
+			<i class="fa fas fa-cogs"></i> Configuration
+		</a>
+		<button type="submit" class="btn btn-app">
+			<i class="fa fa-save"></i> <?=SAVE?>
+		</button>
 	</div>
 </div>
-<div class="col-md-9">
+
+
+<div class="col-md-12">
 	<div class="panel panel-white">
 		<div class="panel-body">
-			<form action="/Forum/sendparameter?management&page=true" method="post" class="form-horizontal">
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Page Activer</label>
 					<div class="col-sm-10">
-						<div class="checkbox">
-							<input value="1" name="active" type="checkbox" <?=$config->active == 1 ? 'checked' : ''?>>Activer
-						</div>
+						<label>
+							<input value="1" type="checkbox" class="js-switch" <?=$config->active == 1 ? 'checked' : ''?> name="active"> Activer
+						</label>
 					</div>
 				</div>
 				<div class="form-group">
@@ -81,15 +88,14 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="input-NB_MSG_FORUM" class="col-sm-2 control-label"><?=NB_MSG_FORUM?></label>
+					<label for="input-NB_BLOG" class="col-sm-2 control-label"><?=NB_MSG_FORUM?></label>
 					<div class="col-sm-10">
 						<input id="input-NB_BLOG" name="NB_MSG_FORUM" type="number" class="form-control" type="number" value="<?=$config->config['NB_MSG_FORUM']?>" min="1" max="16">
 					</div>
 				</div>
-				<button type="submit" class="btn btn-primary"><?=SAVE?></button>
-			</form>
 		</div>
 	</div>
 </div>
+</form>
 <?php
 endif;

@@ -45,6 +45,7 @@ final class Managements extends Dispatcher
 		$render     = self::getLinksPages ($this->controller);
 		$menuPage   = self::menuPage();
 		$menuWidget = self::menuWidget();
+		$menuGaming = self::menuGaming();
 		require_once MANAGEMENTS.'intern'.DS.'layout.php';
 	}
 	#########################################
@@ -115,6 +116,23 @@ final class Managements extends Dispatcher
 				} else {
 					Notification::error('Fichier controller de la page : <strong> '.$page.'</strong> non disponible...', 'Fichier');
 				}
+			} else if (isset($_REQUEST['gaming']) and $_REQUEST['gaming'] == true) {
+				$scan = Common::ScanDirectory(MANAGEMENTS.'gaming');
+				if (in_array($page, $scan)) {
+					include MANAGEMENTS.'gaming'.DS.$page.DS.'controller.php';
+					$this->controller = new $this->controller();
+					if ($this->controller->active === true) {
+						if (method_exists($this->controller, $this->view)) {
+							unset($this->links[0], $this->links[1]);
+							call_user_func_array(array($this->controller,$this->view),$this->links);
+						} else {
+							Notification::error('La sous-page demander <strong>'.$this->view.'</strong> n\'est pas disponible dans la page : <strong>'.$page.'</strong>', 'Fichier');
+						}
+					}
+					echo $this->controller->render;
+				} else {
+					Notification::error('Fichier controller de la page : <strong> '.$page.'</strong> non disponible...', 'Fichier');
+				}
 			} else {
 				include MANAGEMENTS.'intern'.DS.'dashboard.php';
 				$render = ob_get_contents();
@@ -163,7 +181,7 @@ final class Managements extends Dispatcher
 					$return['ajax'] = 'Le password n\'est pas le bon !!!';
 				}
 
-				sleep(2);
+				sleep(1);
 
 				echo json_encode($return);
 			}
@@ -198,6 +216,19 @@ final class Managements extends Dispatcher
 		return $return;
 	}
 	#########################################
+	# Menu gaming
+	#########################################
+	private function menuGaming ()
+	{
+		$gaming  = self::getGaming ();
+		$return   = array();
+
+		foreach ($gaming as $k => $v) {
+			$return['/'.$v.'?management&gaming=true'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
+		}
+		return $return;
+	}
+	#########################################
 	# Scan le dossier des pages
 	#########################################
 	private function getPages ()
@@ -214,6 +245,14 @@ final class Managements extends Dispatcher
 		return $scan;
 	}
 	#########################################
+	# Scan le dossier gaming
+	#########################################
+	private function getGaming ()
+	{
+		$scan = Common::ScanDirectory(MANAGEMENTS.'gaming', true);
+		return $scan;
+	}
+	#########################################
 	# récupère tout les fichiers de lang et les inclus
 	#########################################
 	private function getLangs ()
@@ -226,7 +265,7 @@ final class Managements extends Dispatcher
 	#########################################
 	# Autorisation des pages
 	#########################################
-		private function security ()
+	private function security ()
 	{
 		$sql = New BDD();
 		$sql->table('TABLE_USERS');

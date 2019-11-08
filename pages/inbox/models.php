@@ -16,9 +16,11 @@ if (!defined('CHECK_INDEX')) {
 
 class ModelsInbox
 {
+	#####################################
+	# Infos tables
+	#####################################
 	# TABLE_INBOX
 	# TABLE_INBOX_MSG
-
 	#####################################
 	# Get Users min letter >= 2
 	#####################################

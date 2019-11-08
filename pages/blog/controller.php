@@ -47,7 +47,8 @@ class Blog extends Pages
 	{
 		if (defined('API_KEY')) {
 			if (!empty($api_key) && $api_key == constant('API_KEY')) {
-				echo json_encode($this->ModelsBlog->GetLastBlog());
+				$data = $this->ModelsBlog->GetLastBlog();
+				echo json_encode($data);
 			}
 		} else {
 			echo json_encode(null);

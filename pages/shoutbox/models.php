@@ -92,8 +92,7 @@ class ModelsShoutbox
 
 		if (!empty($sql->data)) {
 			foreach ($sql->data as $k => $v) {
-				$getUsername = AutoUser::getNameAvatar($v->hash_key);
-				$sql->data[$k]->username = $getUsername->username;
+				$sql->data[$k]->username = Users::hashkeyToUsernameAvatar($v->hash_key);
 				unset($sql->data[$k]->hash_key);
 			}
 			$return = $sql->data;
@@ -111,13 +110,7 @@ class ModelsShoutbox
 			$data['hash_key'] = $hash_key;
 		}
 
-		$getInfoUser = AutoUser::getNameAvatar($hash_key);
-
-		if (empty($getInfoUser->avatar)) {
-			$data['avatar'] = DEFAULT_AVATAR;
-		} else {
-			$data['avatar'] = $getInfoUser->avatar;
-		}
+		$data['avatar'] = Users::hashkeyToUsernameAvatar($hash_key, 'avatar');
 
 		if (empty($text)) {
 			$return['text'] = 'Aucun texte transmis';

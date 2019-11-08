@@ -135,9 +135,8 @@ class Pages
 		} else {
 			ob_start();
 			$error_name    = 'file no found';
-			$error_content = '<strong>file models no found</strong> : <br>'.$dir;
-			require DIR_ASSET_TPL.'error'.DS.'404.php';
-			$this->page = ob_get_contents();
+			$error_content = '<p><strong>file : '.$dir.' no found</strong><p>';
+			self::error($error_name, $error_content, 'error');
 			ob_end_clean();
 		}
 	}

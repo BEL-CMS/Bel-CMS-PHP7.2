@@ -87,7 +87,7 @@ class Shoutbox extends Pages
 		if (strlen($_SESSION['USER']['HASH_KEY']) != 32) {
 			$return['text'] = 'Erreur HashKey';
 			$return['type'] = 'danger';
-			return $return;
+			return json_encode($return);
 		} else {
 			$data['hash_key'] = $_SESSION['USER']['HASH_KEY'];
 		}
@@ -102,7 +102,7 @@ class Shoutbox extends Pages
 		if (empty($_REQUEST['text'])) {
 			$return['text'] = 'Erreur Message Vide';
 			$return['type'] = 'danger';
-			return $return;
+			return json_encode($return);
 		} else {
 			$data['msg'] = Common::VarSecure($_REQUEST['text'], '<a><b><p><strong>');
 		}
@@ -115,7 +115,7 @@ class Shoutbox extends Pages
 		$return['text']	= 'Message envoyer avec succès';
 		$return['type']	= 'success';
 
-		return $return;
+		return json_encode($return);
 	}
 
 	public function getMessageJson ($api_key)

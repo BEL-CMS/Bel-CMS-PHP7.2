@@ -20,10 +20,10 @@ class Members extends Pages
 
 	public function index ()
 	{
-			$set['pagination'] = $this->pagination(10, get_class($this), TABLE_USERS);
-			$set['members'] = $this->ModelsMembers->GetUsers();
-			$this->set($set);
-			$this->render('index');
+		$set['pagination'] = $this->pagination(10, get_class($this), TABLE_USERS);
+		$set['members'] = $this->ModelsMembers->GetUsers();
+		$this->set($set);
+		$this->render('index');
 	}
 
 	public function view ($name)

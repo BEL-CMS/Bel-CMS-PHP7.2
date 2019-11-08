@@ -108,6 +108,8 @@ Common::constant(array(
 	'AUTHOR'                 => 'Auteur',
 	'MESSAGING_PRIVATE'      => 'Messagerie privé',
 	'ADMIN'                  => 'Administration',
+	'GAME'                   => 'Jeu',
+	'GAMES'                  => 'Jeux',
 	#####################################
 	# UPLOAD
 	#####################################

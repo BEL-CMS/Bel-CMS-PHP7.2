@@ -1,21 +1,29 @@
-<div class="col-md-3">
-	<div class="panel panel-white">
-		<div class="panel-body">
-				<ul class="list-unstyled mailbox-nav">
-					<li><a href="/Forum?management&page=true"><i class="fas fa-home"></i>Accueil</a></li>
-					<li class="active"><a href="/Forum/addcategory?management&page=true"><i class="far fa-plus-square"></i><?=CATEGORY?></a></li>
-					<li><a href="/Forum/parameter?management&page=true"><i class="fas fa-cogs"></i>Configuration</a></li>
-					<hr>
-					<li><a href="#"><i class="fa fa-send"></i>Nombre de Forum <span class="badge badge-default pull-right"></span></a></li>
-				</ul>
-		</div>
+<div class="x_panel">
+	<div class="x_title">
+		<h2>Menu Page Blog</h2>
+		<div class="clearfix"></div>
+	</div>
+	<div class="x_content">
+		<a href="/Forum?management&page=true" class="btn btn-app">
+			<i class="fa fas fa-home"></i> Accueil
+		</a>
+		<a href="Forum/parameter?management&page=true" class="btn btn-app">
+			<i class="fa fas fa-cogs"></i> Configuration
+		</a>
+		<a href="/Forum/category?management&page=true" class="btn btn-app">
+			<i class="fa far fa-plus-square"></i> <?=CATEGORY?>
+		</a>
+		<a href="/Forum/addcategory?management&page=true" class="btn btn-app">
+			<i class="fa fas fa-plus"></i> <?=ADD?>
+		</a>
 	</div>
 </div>
-<div class="col-md-9">
+
+<div class="col-md-12">
 	<div class="panel panel-white">
 		<div class="panel-body">
 			<!-- fin des boutton action -->
-			<table id="datatableblog" class="display table table-data-width">
+			<table id="datatableblog" class="table table-striped jambo_table bulk_action">
 				<thead>
 					<tr>
 						<th><?=TITLE?></th>

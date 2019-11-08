@@ -24,5 +24,6 @@ Common::constant(array(
 	'FORUM'     => 'Forum',
 	'SHOUTBOX'  => 'T\'chat',
 	'TEAM'      => 'Team',
-	'USER'      => 'Utilisateurs'
+	'USER'      => 'Utilisateurs',
+	'TEAM'      => 'Équipes',
 ));

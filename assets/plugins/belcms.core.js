@@ -1,8 +1,8 @@
 if (typeof jQuery === 'undefined') {
 	throw new Error('BEL-CMS requires jQuery')
 }
-
 (function($) {
+	console.log("Chargement BEL-CMS script Ok");
 	"use strict";
 
 	Tipped.create('.simple-tooltip');

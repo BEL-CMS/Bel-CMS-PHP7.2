@@ -79,6 +79,17 @@ switch ($table) {
 			(NULL, 'inbox', 1, '0', '1', '');";
 	break;
 
+	case 'games':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(10) NOT NULL AUTO_INCREMENT,
+			`name` varchar(128) NOT NULL,
+			`banner` text,
+			`ico` text,
+			PRIMARY KEY (`id`)
+		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
+	break;
+
 	case 'groups':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
@@ -93,7 +104,6 @@ switch ($table) {
 			(NULL, 'ADMINISTRATORS', 1),
 			(NULL, 'MEMBERS', 2);";
 	break;
-
 
 	case 'inbox':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
@@ -209,7 +219,8 @@ switch ($table) {
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`title` varchar(64) NOT NULL,
 			`subtitle` varchar(128) NOT NULL,
-			`groups` text NOT NULL,
+			`access_groups` text NOT NULL,
+			`access_admin` text NOT NULL,
 			`activate` tinyint(1) DEFAULT '1',
 			`orderby` int(11) NOT NULL DEFAULT '0',
 			PRIMARY KEY (`id`),
@@ -328,6 +339,29 @@ switch ($table) {
 			`pinterest` varchar(35) DEFAULT NULL,
 			PRIMARY KEY (`id`),
 			UNIQUE KEY `hash_key` (`hash_key`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+	break;
+
+	case 'team':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`name` varchar(64) NOT NULL,
+			`description` text,
+			`img` text NOT NULL,
+			`orderby` varchar(3) NOT NULL DEFAULT '1',
+			PRIMARY KEY (`id`),
+			UNIQUE KEY `name` (`name`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+	break;
+
+	case 'team_users':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`teamid` varchar(16) NOT NULL,
+			`author` varchar(32) NOT NULL,
+			PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	break;
 

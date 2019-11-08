@@ -13,6 +13,7 @@ jQuery.noConflict();
 						'comments',
 						'config',
 						'config_pages',
+						'games',
 						'groups',
 						'inbox',
 						'inbox_msg',
@@ -26,6 +27,8 @@ jQuery.noConflict();
 						'page_users',
 						'page_users_profils',
 						'page_users_social',
+						'team',
+						'team_users',
 						'visitors',
 						'widgets'
 					);

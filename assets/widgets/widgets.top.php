@@ -14,9 +14,9 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<div class="bel-cms-widgets">
-	<h5 class="bel-cms-widgets-title"><?=$title?></h5>
-	<div class="bel-cms-widgets-content">
+<div class="card bel-cms-widgets">
+	<div class="card-header"><?=$title?></div>
+	<div class="card-body">
 		<?=$content?>
 	</div>
 </div>

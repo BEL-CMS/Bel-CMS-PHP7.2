@@ -18,7 +18,6 @@ class AdminPages
 {
 	var $active;
 	var $vars = array();
-	var $namepage;
 
 	public $render = null;
 
@@ -68,8 +67,10 @@ class AdminPages
 
 		if (isset($_REQUEST['page']) and $_REQUEST['page'] == true) {
 			$filename = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.$filename.'.php';
-		} else if ($_REQUEST['widgets'] == true) {
+		} else if (isset($_REQUEST['widgets']) && $_REQUEST['widgets'] == true) {
 			$filename = MANAGEMENTS.'widgets'.DS.strtolower(get_class($this)).DS.$filename.'.php';
+		} else if ($_REQUEST['gaming'] == true) {
+			$filename = MANAGEMENTS.'gaming'.DS.strtolower(get_class($this)).DS.$filename.'.php';
 		}
 		
 		if (is_file($filename)) {
@@ -91,8 +92,10 @@ class AdminPages
 	{
 		if (isset($_REQUEST['page']) and $_REQUEST['page'] == true) {
 			$dir = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.'models.php';
-		} else if ($_REQUEST['widgets'] == true) {
+		} else if (isset($_REQUEST['widgets']) && $_REQUEST['widgets'] == true) {
 			$dir = MANAGEMENTS.'widgets'.DS.strtolower(get_class($this)).DS.'models.php';
+		} else if ($_REQUEST['gaming'] == true) {
+			$dir = MANAGEMENTS.'gaming'.DS.strtolower(get_class($this)).DS.'models.php';
 		}
 
 		if (is_file($dir)) {
@@ -109,8 +112,10 @@ class AdminPages
 	{
 		if (isset($_REQUEST['page']) and $_REQUEST['page'] == true) {
 			$dir = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.'lang'.DS.'lang.'.CMS_WEBSITE_LANG.'.php';
-		} else if ($_REQUEST['widgets'] == true) {
+		} else if (isset($_REQUEST['widgets']) && $_REQUEST['widgets'] == true) {
 			$dir = MANAGEMENTS.'widgets'.DS.strtolower(get_class($this)).DS.'lang'.DS.'lang.'.CMS_WEBSITE_LANG.'.php';
+		} else if ($_REQUEST['gaming'] == true) {
+			$dir = MANAGEMENTS.'gaming'.DS.strtolower(get_class($this)).DS.'lang'.DS.'lang.'.CMS_WEBSITE_LANG.'.php';
 		}
 
 		if (is_file($dir)) {
@@ -143,7 +148,8 @@ class AdminPages
 	{
 		if ($url === true) {
 			$url = $_SERVER['HTTP_REFERER'];
-			header("refresh:$time;url='$url'");
+			//header("refresh:$time;url='$url'");
+			header("Refresh:$time");
 		}
 
 		$scriptName = str_replace('index.php', '', $_SERVER['SCRIPT_NAME']);
