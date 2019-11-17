@@ -39,6 +39,7 @@ Common::constant(array(
 	'TABLE_INTERACTION'      => $DB_PREFIX.'interaction',
 	'TABLE_LINK_OUT'         => $DB_PREFIX.'links_click',
 	'TABLE_MAIL_BLACKLIST'   => $DB_PREFIX.'mails_blacklist',
+	'TABLE_MAINTENANCE'      => $DB_PREFIX.'maintenance',
 	'TABLE_PAGE'             => $DB_PREFIX.'page',
 	'TABLE_PAGES_BLOG'       => $DB_PREFIX.'page_blog',
 	'TABLE_PAGES_BLOG_CAT'   => $DB_PREFIX.'page_blog_cat',

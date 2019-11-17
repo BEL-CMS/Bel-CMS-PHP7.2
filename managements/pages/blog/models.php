@@ -16,6 +16,11 @@ if (!defined('CHECK_INDEX')) {
 
 class ModelsBlog
 {
+	#####################################
+	# Infos tables
+	#####################################
+	# TABLE_PAGES_BLOG
+	#####################################
 	public function getAllBlog ()
 	{
 		$return = array();

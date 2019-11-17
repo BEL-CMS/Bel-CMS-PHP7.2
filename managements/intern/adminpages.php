@@ -69,7 +69,9 @@ class AdminPages
 			$filename = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.$filename.'.php';
 		} else if (isset($_REQUEST['widgets']) && $_REQUEST['widgets'] == true) {
 			$filename = MANAGEMENTS.'widgets'.DS.strtolower(get_class($this)).DS.$filename.'.php';
-		} else if ($_REQUEST['gaming'] == true) {
+		} else if (isset($_REQUEST['parameter']) && $_REQUEST['parameter'] == true) {
+			$filename = MANAGEMENTS.'parameter'.DS.strtolower(get_class($this)).DS.$filename.'.php';
+		} else if (isset($_REQUEST['gaming']) && $_REQUEST['gaming'] == true) {
 			$filename = MANAGEMENTS.'gaming'.DS.strtolower(get_class($this)).DS.$filename.'.php';
 		}
 		
@@ -94,8 +96,10 @@ class AdminPages
 			$dir = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.'models.php';
 		} else if (isset($_REQUEST['widgets']) && $_REQUEST['widgets'] == true) {
 			$dir = MANAGEMENTS.'widgets'.DS.strtolower(get_class($this)).DS.'models.php';
-		} else if ($_REQUEST['gaming'] == true) {
+		} else if (isset($_REQUEST['gaming']) && $_REQUEST['gaming'] == true) {
 			$dir = MANAGEMENTS.'gaming'.DS.strtolower(get_class($this)).DS.'models.php';
+		} else if ($_REQUEST['parameter'] == true) {
+			$dir = MANAGEMENTS.'parameter'.DS.strtolower(get_class($this)).DS.'models.php';
 		}
 
 		if (is_file($dir)) {
@@ -114,8 +118,10 @@ class AdminPages
 			$dir = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.'lang'.DS.'lang.'.CMS_WEBSITE_LANG.'.php';
 		} else if (isset($_REQUEST['widgets']) && $_REQUEST['widgets'] == true) {
 			$dir = MANAGEMENTS.'widgets'.DS.strtolower(get_class($this)).DS.'lang'.DS.'lang.'.CMS_WEBSITE_LANG.'.php';
-		} else if ($_REQUEST['gaming'] == true) {
+		} else if (isset($_REQUEST['gaming']) && $_REQUEST['gaming'] == true) {
 			$dir = MANAGEMENTS.'gaming'.DS.strtolower(get_class($this)).DS.'lang'.DS.'lang.'.CMS_WEBSITE_LANG.'.php';
+		} else if ($_REQUEST['parameter'] == true) {
+			$dir = MANAGEMENTS.'parameter'.DS.strtolower(get_class($this)).DS.'lang'.DS.'lang.'.CMS_WEBSITE_LANG.'.php';
 		}
 
 		if (is_file($dir)) {

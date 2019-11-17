@@ -20,6 +20,8 @@
 	<link href="/assets/styles/belcms.notification.css" rel="stylesheet">
 	<!-- Custom Theme Style -->
 	<link href="/managements/build/css/custom.min.css" rel="stylesheet">
+	<link href="/assets/plugins/belcms.core.js" rel="stylesheet">
+    <link href="/managements/vendors/jquery.datetimepicker.css" rel="stylesheet">
   </head>
 
   <body class="nav-md">
@@ -53,6 +55,17 @@
 					<ul class="nav child_menu">
 					  <li><a href="Dashboard?management">Home Management</a></li>
 					  <li><a href="blog">Home Website</a></li>
+					</ul>
+				  </li>
+				  <li><a><i class="fa fa-edit"></i> Paramètres <span class="fa fa-chevron-down"></span></a>
+					<ul class="nav child_menu">
+						<?php
+						foreach ($menuParameter as $k => $v):
+							?>
+							<li><a href="<?=$k?>"><?=$v?></a></li>
+							<?php
+						endforeach;
+						?>
 					</ul>
 				  </li>
 				  <li><a><i class="fa fa-edit"></i> Pages <span class="fa fa-chevron-down"></span></a>
@@ -172,6 +185,7 @@
 	<script src="/managements/vendors/switchery/dist/switchery.min.js"></script>
 	<!-- tinymce Scripts -->
 	<script src="/assets/plugins/tinymce/tinymce.min.js"></script>
+	<script src="/managements/vendors/jquery.datetimepicker.js"></script>
 	<!-- custom cms Scripts -->
 	<script src="/assets/plugins/belcms.core.js"></script>
   </body>

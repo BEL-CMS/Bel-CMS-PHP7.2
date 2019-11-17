@@ -16,6 +16,11 @@ if (!defined('CHECK_INDEX')) {
 
 class ModelsShoutbox
 {
+	#####################################
+	# Infos tables
+	#####################################
+	# TABLE_SHOUTBOX
+	#####################################
 	public function getAllMsg ()
 	{
 		$return = array();

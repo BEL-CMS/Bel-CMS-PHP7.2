@@ -42,7 +42,6 @@ define ('DS', '/');
 define ('WEB_ROOT',str_replace('index.php','',$_SERVER['SCRIPT_NAME']));
 define ('ROOT',str_replace('index.php','',$_SERVER['SCRIPT_FILENAME']));
 define ('ROOT_HTML', 'templates'.DS);
-define ('ROOT_HTML_DFT', 'assets'.DS.'tpl'.DS);
 define ('DIR_CORE', ROOT.'core'.DS);
 define ('DIR_TPL', ROOT.'templates'.DS);
 define ('DIR_TPL_DEFAULT', ROOT.'assets'.DS.'template'.DS);
@@ -50,7 +49,6 @@ define ('DIR_CONFIG', ROOT.'config'.DS);
 define ('DIR_PAGES', ROOT.'pages'.DS);
 define ('DIR_LANG', ROOT.'assets'.DS.'langs'.DS);
 define ('DIR_ASSET',ROOT.'assets'.DS);
-define ('DIR_ASSET_TPL',ROOT.'assets'.DS.'tpl'.DS);
 define ('DIR_WIDGETS', ROOT.'widgets'.DS);
 define ('DIR_UPLOADS', ROOT.'uploads'.DS);
 define ('MANAGEMENTS', ROOT.'managements'.DS);
@@ -67,7 +65,7 @@ if (is_file(ROOT.'INSTALL'.DS.'index.php')) {
 require DIR_CORE.'core.error.php';
 require 'file_require.php';
 new RequireFiles;
-try {	
+try {
 	$BelCMS = new BelCMS;
 	$BelCMS->_init();
 	echo $BelCMS->render;

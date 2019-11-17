@@ -21,7 +21,7 @@ class Shoutbox extends Pages
 	public function send ()
 	{
 		$return = self::insertMsg();
-		echo json_encode(array('type' => $return['type'], 'text' => $return['text'] ));
+		echo json_encode($return);
 	}
 	public function getLast ()
 	{

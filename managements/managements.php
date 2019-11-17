@@ -42,10 +42,11 @@ final class Managements extends Dispatcher
 	#########################################
 	public function base ()
 	{
-		$render     = self::getLinksPages ($this->controller);
-		$menuPage   = self::menuPage();
-		$menuWidget = self::menuWidget();
-		$menuGaming = self::menuGaming();
+		$render        = self::getLinksPages ($this->controller);
+		$menuPage      = self::menuPage();
+		$menuWidget    = self::menuWidget();
+		$menuGaming    = self::menuGaming();
+		$menuParameter = self::menuParameter();
 		require_once MANAGEMENTS.'intern'.DS.'layout.php';
 	}
 	#########################################
@@ -103,6 +104,23 @@ final class Managements extends Dispatcher
 				$scan = Common::ScanDirectory(MANAGEMENTS.'widgets');
 				if (in_array($page, $scan)) {
 					include MANAGEMENTS.'widgets'.DS.$page.DS.'controller.php';
+					$this->controller = new $this->controller();
+					if ($this->controller->active === true) {
+						if (method_exists($this->controller, $this->view)) {
+							unset($this->links[0], $this->links[1]);
+							call_user_func_array(array($this->controller,$this->view),$this->links);
+						} else {
+							Notification::error('La sous-page demander <strong>'.$this->view.'</strong> n\'est pas disponible dans la page : <strong>'.$page.'</strong>', 'Fichier');
+						}
+					}
+					echo $this->controller->render;
+				} else {
+					Notification::error('Fichier controller de la page : <strong> '.$page.'</strong> non disponible...', 'Fichier');
+				}
+			} else if (isset($_REQUEST['parameter']) and $_REQUEST['parameter'] == true) {
+				$scan = Common::ScanDirectory(MANAGEMENTS.'parameter');
+				if (in_array($page, $scan)) {
+					include MANAGEMENTS.'parameter'.DS.$page.DS.'controller.php';
 					$this->controller = new $this->controller();
 					if ($this->controller->active === true) {
 						if (method_exists($this->controller, $this->view)) {
@@ -229,6 +247,19 @@ final class Managements extends Dispatcher
 		return $return;
 	}
 	#########################################
+	# Menu parameter
+	#########################################
+	private function menuParameter ()
+	{
+		$parameter  = self::getParameter ();
+		$return   = array();
+
+		foreach ($parameter as $k => $v) {
+			$return['/'.$v.'?management&parameter=true'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
+		}
+		return $return;
+	}
+	#########################################
 	# Scan le dossier des pages
 	#########################################
 	private function getPages ()
@@ -250,6 +281,14 @@ final class Managements extends Dispatcher
 	private function getGaming ()
 	{
 		$scan = Common::ScanDirectory(MANAGEMENTS.'gaming', true);
+		return $scan;
+	}
+	#########################################
+	# Scan le dossier parameter
+	#########################################
+	private function getParameter ()
+	{
+		$scan = Common::ScanDirectory(MANAGEMENTS.'parameter', true);
 		return $scan;
 	}
 	#########################################

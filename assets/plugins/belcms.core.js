@@ -193,7 +193,6 @@ function bel_cms_alert_box (objet, type) {
 		},
 		beforeSend:function() {
 			$('body').append('<div id="alrt_bel_cms">Chargement...</div>');
-			$('#alrt_bel_cms').animate({ top: 0 }, 500);
 		},
 		complete: function() {
 			$('textarea').val('');

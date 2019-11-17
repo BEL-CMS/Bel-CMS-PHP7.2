@@ -274,4 +274,14 @@ class Users
 		return $return;
 	}
 
+	public static function isSuperAdmin ($hashkey = null)
+	{
+		if ($hashkey !== null && strlen($hashkey) == 32) {
+			$groups = self::getGroups($hashkey);
+			if (in_array(1, $groups)) {
+				return true;
+			}
+		}
+	}
+
 }

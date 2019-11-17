@@ -27,6 +27,16 @@ final class BelCMS extends Dispatcher
 		}
 		new BelCMSConfig;
 		new Users;
+
+
+		if (CMSSTATUT == 'close') {
+			if (Users::isSuperAdmin($_SESSION['USER']['HASH_KEY'])) {
+				Notification::warning('Le site web est en mode fermé, seuls les administrateurs suprêmes ont accès.');
+			} else {
+				require_once DIR_TPL_DEFAULT.'close/index.php';
+				die();
+			}
+		}
 	}
 
 	public function _init ()
@@ -37,6 +47,7 @@ final class BelCMS extends Dispatcher
 			require_once MANAGEMENTS.'managements.php';
 			new Managements;
 		} else if ($this->IsEcho === true) {
+			header('Content-Type: text/html');
 			$assemblyPage = new AssemblyPages ();
 			$assemblyPage->getRender ();
 			echo $assemblyPage->render;
