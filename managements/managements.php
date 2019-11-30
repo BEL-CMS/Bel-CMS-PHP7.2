@@ -69,14 +69,16 @@ final class Managements extends Dispatcher
 			}
 			$render = ob_get_contents();
 		} else {
-			if ($this->view == 'parameter' or $this->view == 'sendparameter' or $page == 'parameter') {
-				if (!in_array(1, $groups)) {
-					Notification::error(NO_ACCESS_GROUP_PAGE, 'Page');
-					$render = ob_get_contents();
-					if (ob_get_length() != 0) {
-						ob_end_clean();
-					}	
-					return $render;
+			if (isset($_REQUEST['parameter'])) {
+				if ($this->view == 'parameter' or $this->view == 'sendparameter' or $page == 'parameter' or $_REQUEST['parameter'] == true) {
+					if (!in_array(1, $groups)) {
+						Notification::error(NO_ACCESS_GROUP_PAGE, 'Page');
+						$render = ob_get_contents();
+						if (ob_get_length() != 0) {
+							ob_end_clean();
+						}	
+						return $render;
+					}
 				}
 			}
 			if (isset($_REQUEST['page']) and $_REQUEST['page'] == true) {

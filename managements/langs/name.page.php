@@ -27,5 +27,5 @@ Common::constant(array(
 	'USER'      => 'Utilisateurs',
 	'TEAM'      => 'Équipes',
 	'MAINTENANCE' => 'Maintenance',
-	'REGISTRATION'=> 'Gestions des inscriptions',
+	'REGISTRATION'=> 'Gestions des membres',
 ));
