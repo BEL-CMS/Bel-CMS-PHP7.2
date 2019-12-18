@@ -20,21 +20,18 @@ if (!defined('CHECK_INDEX')) {
 		<div class="clearfix"></div>
 	</div>
 	<div class="x_content">
-		<a href="/Blog?management&page=true" class="btn btn-app">
+		<a href="/downloads?management&page=true" class="btn btn-app">
 			<i class="fa fas fa-home"></i> Accueil
 		</a>
-		<a href="Blog/parameter?management&page=true" class="btn btn-app">
+		<a href="downloads/parameter?management&page=true" class="btn btn-app">
 			<i class="fa fas fa-cogs"></i> Configuration
 		</a>
-		<a href="/downloads/cat?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-plus"></i> <?=CATEGORY?>
-		</a>
-		<a href="/downloads/add?management&page=true" class="btn btn-app">
+		<a href="/downloads/addcat?management&page=true" class="btn btn-app">
 			<i class="fa fas fa-plus"></i> <?=ADD?>
 		</a>
 		<a class="btn btn-app">
 			<span class="badge bg-red"><?=$count?></span>
-			<i class="fa fa-bullhorn"></i> Téléchargements
+			<i class="fa fa-bullhorn"></i> Groupes
 		</a>
 	</div>
 </div>
@@ -48,8 +45,6 @@ if (!defined('CHECK_INDEX')) {
 					<tr>
 						<th># ID</th>
 						<th>Nom</th>
-						<th>Date de publication</th>
-						<th>Auteur</th>
 						<th>Options</th>
 					</tr>
 				</thead>
@@ -57,8 +52,6 @@ if (!defined('CHECK_INDEX')) {
 					<tr>
 						<th># ID</th>
 						<th>Nom</th>
-						<th>Date de publication</th>
-						<th>Auteur</th>
 						<th>Options</th>
 					</tr>
 				</tfoot>
@@ -69,8 +62,6 @@ if (!defined('CHECK_INDEX')) {
 						<tr>
 							<td><?=$v->id?></td>
 							<td><?=$v->name?></td>
-							<td><?=Common::TransformDate($v->date, 'MEDIUM', 'SHORT')?></td>
-							<td><?=Users::hashkeyToUsernameAvatar($v->uploader)?></td>
 							<td>
 								<a href="blog/edit/<?=$v->id?>?management&page=true>"><i class="fas fa-pen"></i></a> - 
 								<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>"><i class="fas fa-trash-alt"></i></a>
