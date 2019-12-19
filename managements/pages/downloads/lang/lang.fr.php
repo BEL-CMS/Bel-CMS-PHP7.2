@@ -16,10 +16,11 @@ if (!defined('CHECK_INDEX')) {
 
 Common::constant(array(
 	#####################################
-	# Fichier lang en français - Users
+	# Fichier lang en français - Pages Téléchargements
 	#####################################
-	'DOWNLOAD'  => 'Téléchargement',
-	'DOWNLOADS' => 'Téléchargements',
-	'CAT'       => 'Catégorie',
-	'SIZE'      => 'Taille',
+	'SEND_NEWCAT_SUCCESS'  => 'Catégorie ajouter avec succès',
+	'SEND_NEWCAT_ERROR'    => 'Erreur lors de l\'ajout de la Catégorie',
+	'SEND_EDITCAT_SUCCESS' => 'Catégorie editer avec succès',
+	'SEND_EDITCAT_ERROR'   => 'Erreur lors de l\'édition de la Catégorie',
+	'ERROR_NO_DATA'        => 'Erreur de transfert de données',
 ));

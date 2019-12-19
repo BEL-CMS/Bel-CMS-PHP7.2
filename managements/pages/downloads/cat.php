@@ -63,7 +63,7 @@ if (!defined('CHECK_INDEX')) {
 							<td><?=$v->id?></td>
 							<td><?=$v->name?></td>
 							<td>
-								<a href="blog/edit/<?=$v->id?>?management&page=true>"><i class="fas fa-pen"></i></a> - 
+								<a href="/downloads/editcat/<?=$v->id?>?management&page=true"><i class="fas fa-pen"></i></a> - 
 								<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>"><i class="fas fa-trash-alt"></i></a>
 								<div class="modal fade" id="modal_<?=$v->id?>" tabindex="-1" role="dialog" aria-labelledby="DownloadsModalLabel">
 									<div class="modal-dialog" role="document">
@@ -72,10 +72,10 @@ if (!defined('CHECK_INDEX')) {
 											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 											<h4 class="modal-title" id="DownloadsModalLabel"><?=$v->name?></h4>
 											</div>
-											<div class="modal-body">Confirmer la suppression du fichier : <?=$v->name?></div>
+											<div class="modal-body">Confirmer la suppression de la catégorie : <?=$v->name?></div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-												<button onclick="window.location.href='/Blog/del/<?=$v->id?>?management&page=true'" type="button" class="btn btn-primary">Supprimer</button>
+												<button onclick="window.location.href='/downloads/delcat/<?=$v->id?>?management&page=true'" type="button" class="btn btn-primary">Supprimer</button>
 											</div>
 										</div>
 									</div>

@@ -14,48 +14,55 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 
-class Downloads extends AdminPages
+class Downloads extends Pages
 {
-	var $active = true;
 	var $models = array('ModelsDownloads');
 
 	public function index ()
-	{
-		$d['data']  = $this->ModelsDownloads->getAllDl();
-		$d['count'] = count($d['data']);
-		$this->set($d);
+	{	
+		$c['data'] = $this->ModelsDownloads->getCat();
+		foreach ($c['data'] as $a => $b) {
+			if (Secures::isAcess($b->groups) == false) {
+				unset($c['data'][$a]);
+			}
+			$c['data'][$a]->count = $this->ModelsDownloads->countFiles($b->id);
+		}
+		$this->set($c);
 		$this->render('index');
 	}
 
-	public function add ()
+	public function category ($id = null)
 	{
-		$this->render('add');
-	}
-
-	public function cat ()
-	{
-		$d['data']  = $this->ModelsDownloads->getCat();
-		$d['count'] = count($d['data']);
-		$this->set($d);
-		$this->render('cat');
-	}
-
-	public function addcat ()
-	{
-		$d['groups'] = BelCMSConfig::getGroups();
-		$this->set($d);
-		$this->render('addcat');
-	}
-
-	public function sendnewcat ()
-	{
-		if ($this->ModelsDownloads->testName($_POST['name'])) {
-			$return = $this->ModelsDownloads->sendnewcat($_POST);
-			$this->error(get_class($this), $return['text'], $return['type']);
+		$a = $this->ModelsDownloads->getCat($id);
+		$c['name'] = $a->name;
+		if (Secures::isAcess($a->groups) == true) {
+			$c['data'] = $this->ModelsDownloads->getDls($id);
 		} else {
-			$this->error(get_class($this), 'Le nom de la catégorie à déjà été pris', 'warning');
+			$c['data'] = array();
 		}
-		$this->redirect('downloads/cat?management&page=true', 2);
+		$this->set($c);
+		$this->render('category');
 	}
 
+	public function detail ($id = null)
+	{
+		$c['data'] = current($this->ModelsDownloads->getDlsDetail($id));
+		$this->ModelsDownloads->NewView($id);
+		$this->set($c);
+		$this->render('detail');
+	}
+
+	public function getDl ($id)
+	{
+		if ($id != null && is_numeric($id)) {
+			if ($this->ModelsDownloads->ifAccess($id) == true) {
+				$this->redirect($this->ModelsDownloads->getDownloads($id), 0);
+				$c['data'] = current($this->ModelsDownloads->getDlsDetail($id));
+				$this->set($c);
+				$this->render('detail');
+			} else {
+				$this->error(INFO, 'NO DL', 'warning');
+			}
+		}
+	}
 }

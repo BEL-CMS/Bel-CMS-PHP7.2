@@ -22,71 +22,175 @@ class ModelsDownloads
 	# TABLE_DOWNLOADS
 	# TABLE_DOWNLOADS_CAT
 	#####################################
-	public function getAllDl ()
-	{
-		$sql = New BDD();
-		$sql->table('TABLE_DOWNLOADS');
-		$sql->queryAll();
-		return $sql->data;
-	}
-
-	public function getCat ()
+	public function getCat ($id = null)
 	{
 		$sql = New BDD();
 		$sql->table('TABLE_DOWNLOADS_CAT');
-		$sql->queryAll();
-		return $sql->data;
-	}
 
-	public function testName ($name)
-	{
-		$sql = New BDD();
-		$sql->table('TABLE_DOWNLOADS_CAT');
-		$where = array(
-			'name'  => 'name',
-			'value' => $name
-		);
-		$sql->where($where);
-		$sql->queryAll();
-		if ($sql->rowCount != 0) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	public function sendnewcat ($data)
-	{
-		if ($data !== false) {
-			// SECURE DATA
-			$send['name']              = Common::VarSecure($data['name'], ''); // autorise que du texte
-			$send['description']       = Common::VarSecure($data['description'], 'html'); // autorise que les balises HTML
-			$data['groups']            = isset($data['groups']) ? $data['groups'] : array(1);
-			$send['groups']            = implode("|", $data['groups']);
-			// SQL INSERT
-			$sql = New BDD();
-			$sql->table('TABLE_DOWNLOADS_CAT');
-			$sql->sqlData($send);
-			$sql->insert();
-			// SQL RETURN NB INSERT
-			if ($sql->rowCount == 1) {
-				$return = array(
-					'type' => 'success',
-					'text' => SEND_NEWCAT_SUCCESS
-				);
-			} else {
-				$return = array(
-					'type' => 'warning',
-					'text' => SEND_NEWCAT_ERROR
-				);
-			}
-		} else {
-			$return = array(
-				'type' => 'warning',
-				'text' => ERROR_NO_DATA
+		if ($id !== null && is_numeric($id)) {
+			$id = (int) $id;
+			$where = array(
+				'name' => 'id',
+				'value' => $id
 			);
+			$sql->where($where);
+			$sql->queryOne();
+			return $sql->data;
+		} else {
+			$sql->queryAll();
+			return $sql->data;
 		}
+	}
 
-		return $return;
+	public function getDls ($id = null)
+	{
+		if ($id !== null && is_numeric($id)) {
+			$sql = New BDD();
+			$sql->table('TABLE_DOWNLOADS');
+			$id = (int) $id;
+			$where = array(
+				'name' => 'idcat',
+				'value' => $id
+			);
+			$sql->where($where);
+			$sql->queryAll();
+			return $sql->data;
+		}
+	}
+
+	public function getDlsDetail ($id = null)
+	{
+		if ($id !== null && is_numeric($id)) {
+			$sql = New BDD();
+			$sql->table('TABLE_DOWNLOADS');
+			$id = (int) $id;
+			$where = array(
+				'name' => 'id',
+				'value' => $id
+			);
+			$sql->where($where);
+			$sql->queryAll();
+			return $sql->data;
+		}
+	}
+
+	public function ifAccess ($id)
+	{
+		if ($id !== null && is_numeric($id)) {
+			$sql = New BDD();
+			$sql->table('TABLE_DOWNLOADS');
+			$id = (int) $id;
+			$where = array(
+				'name' => 'id',
+				'value' => $id
+			);
+			$sql->where($where);
+			$sql->queryOne();
+			$return = $sql->data;
+
+			$sqlCat = New BDD();
+			$sqlCat->table('TABLE_DOWNLOADS_CAT');
+			$idCatwhere = array(
+				'name' => 'id',
+				'value' => $return->idcat
+			);
+			$sqlCat->where($idCatwhere);
+			$sqlCat->queryOne();
+			$returnCat = $sqlCat->data;
+
+		}
+		if (Secures::isAcess($returnCat->groups) == true) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getDownloads ($id = null)
+	{
+		if ($id !== null && is_numeric($id)) {
+			$sql = New BDD();
+			$sql->table('TABLE_DOWNLOADS');
+			$id = (int) $id;
+			$where = array(
+				'name' => 'id',
+				'value' => $id
+			);
+			$sql->where($where);
+			$sql->queryOne();
+			$return = $sql->data;
+
+			self::AddDownload($id);
+
+			return $return->download;
+		}
+	}
+
+	public function NewView ($id = false)
+	{
+		if ($id) {
+			$id = Common::secureRequest($id);
+			$get = New BDD();
+			$get->table('TABLE_DOWNLOADS');
+			$where = array(
+				'name'  => 'id',
+				'value' => (int) $id
+			);
+			$get->where($where);
+			$get->queryOne();
+			$data = $get->data;
+			if ($get->rowCount != 0) {
+				$count = (int) $data->view;
+				$count++;
+				$update = New BDD();
+				$update->table('TABLE_DOWNLOADS');
+				$update->where($where);
+				$update->sqlData(array('view' => $count));
+				$update->update();
+			}
+		}
+	}
+
+	public function AddDownload ($id = false)
+	{
+		if ($id) {
+			$id = Common::secureRequest($id);
+			$get = New BDD();
+			$get->table('TABLE_DOWNLOADS');
+			$where = array(
+				'name'  => 'id',
+				'value' => (int) $id
+			);
+			$get->where($where);
+			$get->queryOne();
+			$data = $get->data;
+			if ($get->rowCount != 0) {
+				$count = (int) $data->dls;
+				$count++;
+				$update = New BDD();
+				$update->table('TABLE_DOWNLOADS');
+				$update->where($where);
+				$update->sqlData(array('dls' => $count));
+				$update->update();
+			}
+		}
+	}
+
+	public function countFiles ($id)
+	{
+			$id = Common::secureRequest($id);
+			$get = New BDD();
+			$get->table('TABLE_DOWNLOADS');
+			$where = array(
+				'name'  => 'idcat',
+				'value' => (int) $id
+			);
+			$get->where($where);
+			$get->queryAll();
+			if ($get->rowCount != 0) {
+				return (int) $get->rowCount;
+			} else {
+				return (int) 0;
+			}
 	}
 }

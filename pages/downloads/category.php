@@ -14,25 +14,32 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<section id="section_bel_cms_donwloads">
+<section id="section_bel_cms_donwloads_cat">
 	<div class="card mb-3">
-		<div class="card-body"><?=DOWNLOADS?></div>
+		<div class="card-body"><?=DOWNLOADS?> - <?=$name?></div>
 	</div>
-
+	<?php
+	if (count($data) != 0) {
+	?>
 	<div class="list-group mb-5">
-		<?php 
-		foreach ($data as $k => $v):
+		<?php
+		foreach ($data as $a => $b):
 			?>
-			<a href="downloads/category/<?=$v->id?>/<?=$v->name?>" class="list-group-item list-group-item-action">
+			<a href="downloads/detail/<?=$b->id?>/<?=$b->name?>" class="list-group-item list-group-item-action">
 				<div class="d-flex w-100 justify-content-between">
-					<h5 class="mb-1"><?=$v->name?></h5>
-					<small><?=$v->count?> fichier(s)</small>
+					<h5 class="mb-1"><?=$b->name?></h5>
+					<small><?=Common::ConvertSize($b->size)?></small>
 				</div>
-				<p class="mb-1"><?=$v->description?></p>
+				<p class="mb-1"><?=$b->description?></p>
 			</a>
 			<?php
 		endforeach;
 		?>
 	</div>
+	<?php
+	} else {
+		Notification::infos('Aucun téléchargement dans cette catégorie');
+	}	
+	?>
 
 </section>
