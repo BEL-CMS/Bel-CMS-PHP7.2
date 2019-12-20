@@ -22,5 +22,7 @@ Common::constant(array(
 	'SEND_NEWCAT_ERROR'    => 'Erreur lors de l\'ajout de la Catégorie',
 	'SEND_EDITCAT_SUCCESS' => 'Catégorie editer avec succès',
 	'SEND_EDITCAT_ERROR'   => 'Erreur lors de l\'édition de la Catégorie',
+	'DEL_CAT_SUCCESS'      => 'Suppression de la catégorie effectué avec succès',
+	'DEL_CAT_ERROR'        => 'Erreur lors de la suppression de la catégorie',
 	'ERROR_NO_DATA'        => 'Erreur de transfert de données',
 ));

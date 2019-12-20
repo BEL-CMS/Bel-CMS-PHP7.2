@@ -73,9 +73,9 @@ class Downloads extends AdminPages
 		$this->redirect('downloads/cat?management&page=true', 2);
 	}
 
-	public function delCat ($id)
+	public function delcat ($id)
 	{
-		$return = $this->ModelsDownloads->delCat($id);
+		$return = $this->ModelsDownloads->delcat($id);
 		$this->error(get_class($this), $return['text'], $return['type']);
 		$this->redirect('downloads/cat?management&page=true', 2);
 	}

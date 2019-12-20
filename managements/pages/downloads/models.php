@@ -125,4 +125,35 @@ class ModelsDownloads
 
 		return $return;
 	}
+
+	public function delcat ($data = null)
+	{
+		if ($data !== null && is_numeric($data)) {
+			// SECURE DATA
+			$delete = (int) $data;
+			// SQL DELETE
+			$sql = New BDD();
+			$sql->table('TABLE_DOWNLOADS_CAT');
+			$sql->where(array('name'=>'id','value' => $delete));
+			$sql->delete();
+			// SQL RETURN NB DELETE
+			if ($sql->rowCount == 1) {
+				$return = array(
+					'type' => 'success',
+					'text' => DEL_CAT_SUCCESS
+				);
+			} else {
+				$return = array(
+					'type' => 'warning',
+					'text' => DEL_CAT_ERROR
+				);
+			}
+		} else {
+			$return = array(
+				'type' => 'error',
+				'text' => ERROR_NO_DATA
+			);
+		}
+		return $return;
+	}
 }
