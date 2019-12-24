@@ -18,11 +18,16 @@ Common::constant(array(
 	#####################################
 	# Fichier lang en français - Pages Téléchargements
 	#####################################
-	'SEND_NEWCAT_SUCCESS'  => 'Catégorie ajouter avec succès',
-	'SEND_NEWCAT_ERROR'    => 'Erreur lors de l\'ajout de la Catégorie',
-	'SEND_EDITCAT_SUCCESS' => 'Catégorie editer avec succès',
-	'SEND_EDITCAT_ERROR'   => 'Erreur lors de l\'édition de la Catégorie',
-	'DEL_CAT_SUCCESS'      => 'Suppression de la catégorie effectué avec succès',
-	'DEL_CAT_ERROR'        => 'Erreur lors de la suppression de la catégorie',
-	'ERROR_NO_DATA'        => 'Erreur de transfert de données',
+	'SEND_NEWCAT_SUCCESS'   => 'Catégorie ajouter avec succès',
+	'SEND_NEWCAT_ERROR'     => 'Erreur lors de l\'ajout de la Catégorie',
+	'SEND_EDITCAT_SUCCESS'  => 'Catégorie editer avec succès',
+	'SEND_EDITCAT_ERROR'    => 'Erreur lors de l\'édition de la Catégorie',
+	'DEL_CAT_SUCCESS'       => 'Suppression de la catégorie effectué avec succès',
+	'EDIT_DL_PARAM_SUCCESS' => 'Edition des parametres effecté avec succès',
+	'EDIT_DL_PARAM_ERROR'   => 'Error lors de la sauvegarde des parametre',
+	'DEL_CAT_ERROR'         => 'Erreur lors de la suppression de la catégorie',
+	'DEL_FILE_SUCCESS'      => 'Fichier effacer avec succès',
+	'DEL_FILE_ERROR'        => 'Erreur lors de la suppression du fichier',
+	'ADD_FILE_SUCCESS'      => 'Ajout du fichier avec succès',
+	'ERROR_NO_DATA'         => 'Erreur de transfert de données',
 ));

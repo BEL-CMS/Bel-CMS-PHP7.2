@@ -29,7 +29,33 @@ class Downloads extends AdminPages
 
 	public function add ()
 	{
-		$this->render('add');
+		$cat = $this->ModelsDownloads->getCat();
+		$countCat = count($cat);
+
+		if ($countCat == 0) {
+			$this->error(get_class($this), 'Une catégorie est obligatoire', 'warning');
+			$this->redirect('downloads/addcat?management&page=true', 2);
+
+		} else {
+			$d['cat'] = $cat;
+			$this->set($d);
+			$this->render('add');
+		}
+	}
+
+	public function sendadd ()
+	{
+		$return = $this->ModelsDownloads->sendadd ($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('downloads?management&page=true', 2);
+	}
+
+	public function del ($id)
+	{
+		$id = (int) $id;
+		$return = $this->ModelsDownloads->del($id);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('downloads?management&page=true', 2);
 	}
 
 	public function cat ()
@@ -78,6 +104,21 @@ class Downloads extends AdminPages
 		$return = $this->ModelsDownloads->delcat($id);
 		$this->error(get_class($this), $return['text'], $return['type']);
 		$this->redirect('downloads/cat?management&page=true', 2);
+	}
+
+	public function parameter ()
+	{
+		$data['groups'] = BelCMSConfig::getGroups();
+		$data['config'] = BelCMSConfig::GetConfigPage(get_class($this));
+		$this->set($data);
+		$this->render('parameter');
+	}
+
+	public function sendparameter ()
+	{
+		$return = $this->ModelsDownloads->sendparameter($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('downloads?management&page=true', 2);
 	}
 
 }

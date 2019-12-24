@@ -47,9 +47,13 @@ class Downloads extends Pages
 	public function detail ($id = null)
 	{
 		$c['data'] = current($this->ModelsDownloads->getDlsDetail($id));
-		$this->ModelsDownloads->NewView($id);
-		$this->set($c);
-		$this->render('detail');
+		if (empty($c['data'])) {
+			$this->error(INFO, 'ID non valide', 'warning');
+		} else {
+			$this->ModelsDownloads->NewView($id);
+			$this->set($c);
+			$this->render('detail');			
+		}
 	}
 
 	public function getDl ($id)

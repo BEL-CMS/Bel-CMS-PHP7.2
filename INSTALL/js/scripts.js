@@ -13,6 +13,8 @@ jQuery.noConflict();
 						'comments',
 						'config',
 						'config_pages',
+						'downloads',
+						'downloads_cat',
 						'games',
 						'groups',
 						'inbox',

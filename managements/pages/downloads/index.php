@@ -20,10 +20,10 @@ if (!defined('CHECK_INDEX')) {
 		<div class="clearfix"></div>
 	</div>
 	<div class="x_content">
-		<a href="/Blog?management&page=true" class="btn btn-app">
+		<a href="/downloads?management&page=true" class="btn btn-app">
 			<i class="fa fas fa-home"></i> Accueil
 		</a>
-		<a href="Blog/parameter?management&page=true" class="btn btn-app">
+		<a href="downloads/parameter?management&page=true" class="btn btn-app">
 			<i class="fa fas fa-cogs"></i> Configuration
 		</a>
 		<a href="/downloads/cat?management&page=true" class="btn btn-app">
@@ -84,7 +84,7 @@ if (!defined('CHECK_INDEX')) {
 											<div class="modal-body">Confirmer la suppression du fichier : <?=$v->name?></div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-												<button onclick="window.location.href='/Blog/del/<?=$v->id?>?management&page=true'" type="button" class="btn btn-primary">Supprimer</button>
+												<button onclick="window.location.href='/downloads/del/<?=$v->id?>?management&page=true'" type="button" class="btn btn-primary">Supprimer</button>
 											</div>
 										</div>
 									</div>

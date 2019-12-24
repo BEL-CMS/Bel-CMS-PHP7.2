@@ -79,6 +79,35 @@ switch ($table) {
 			(NULL, 'inbox', 1, '0', '1', '');";
 	break;
 
+	case 'downloads':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL,
+			`name` varchar(128) NOT NULL,
+			`description` text,
+			`idcat` int(11) NOT NULL,
+			`size` varchar(8) NOT NULL,
+			`uploader` varchar(32) NOT NULL,
+			`date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+			`ext` text NOT NULL,
+			`view` int(11) NOT NULL,
+			`dls` int(11) NOT NULL,
+			`screen` text NOT NULL,
+			`download` text NOT NULL,
+			PRIMARY KEY (`id`)
+		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
+	break;
+
+	case 'downloads_cat':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL,
+			`name` varchar(128) DEFAULT NULL,
+			`description` text NOT NULL,
+			`groups` text,
+			PRIMARY KEY (`id`)
+		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
+
 	case 'games':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (

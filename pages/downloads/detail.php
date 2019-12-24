@@ -22,8 +22,8 @@ $screen = empty($data->screen) ? 'assets/images/no_screen.png' : $data->screen;
 				<td id="bel_cms_dl_detail_name" colspan="4"><?=$data->name?></td>
 			</tr>
 			<tr>
-				<td rowspan="7" style="width:180px">
-					<img id="bel_cms_dl_detail_img" src="<?=$screen?>" alt="dls_screen">
+				<td rowspan="7" style="max-width:180px">
+					<img style="max-width:180px" id="bel_cms_dl_detail_img" src="<?=$screen?>" alt="dls_screen">
 				</td>
 			</tr>
 			<tr class="">

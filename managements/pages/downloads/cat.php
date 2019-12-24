@@ -31,7 +31,7 @@ if (!defined('CHECK_INDEX')) {
 		</a>
 		<a class="btn btn-app">
 			<span class="badge bg-red"><?=$count?></span>
-			<i class="fa fa-bullhorn"></i> Groupes
+			<i class="fa fa-bullhorn"></i> Catégories
 		</a>
 	</div>
 </div>

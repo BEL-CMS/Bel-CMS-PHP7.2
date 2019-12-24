@@ -35,7 +35,7 @@ if (!defined('CHECK_INDEX')) {
 			<h4 class="panel-title"><?=BLOG?></h4>
 		</div>
 		<div class="panel-body basic-form-panel">
-			<form action="/blog/sendnew?management&page=true" method="post" class="form-horizontal">
+			<form action="/downloads/sendadd?management&page=true" enctype="multipart/form-data" method="post" class="form-horizontal">
 				<div class="form-group">
 					<label for="input-Default" class="col-sm-2 control-label"><?=NAME?></label>
 					<div class="col-sm-10">
@@ -45,7 +45,33 @@ if (!defined('CHECK_INDEX')) {
 				<div class="form-group">
 					<label class="col-sm-2 control-label"><?=TEXT?></label>
 					<div class="col-sm-10">
-						<textarea class="bel_cms_textarea_full" name="content"></textarea>
+						<textarea class="bel_cms_textarea_full" name="description"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label"><?=CATEGORY?></label>
+					<div class="col-sm-10">
+						<select name="idcat" class="select2_single form-control">
+						<?php
+						foreach ($cat as $a => $b):
+							?>
+							<option value="<?=$b->id?>"><?=$b->name?></option>
+							<?php
+						endforeach;
+						?>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Fichier (<?=Common::ConvertSize(Common::GetMaximumFileUploadSize())?> max)</label>
+					<div class="col-sm-10">
+						<input name="download" type="file" class="form-control" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Image</label>
+					<div class="col-sm-10">
+						<input name="screen" type="file" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">

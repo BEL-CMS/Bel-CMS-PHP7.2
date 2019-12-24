@@ -129,7 +129,7 @@ class ModelsDownloads
 	public function NewView ($id = false)
 	{
 		if ($id) {
-			$id = Common::secureRequest($id);
+			$id  = Common::secureRequest($id);
 			$get = New BDD();
 			$get->table('TABLE_DOWNLOADS');
 			$where = array(
@@ -154,7 +154,7 @@ class ModelsDownloads
 	public function AddDownload ($id = false)
 	{
 		if ($id) {
-			$id = Common::secureRequest($id);
+			$id  = Common::secureRequest($id);
 			$get = New BDD();
 			$get->table('TABLE_DOWNLOADS');
 			$where = array(
@@ -178,7 +178,7 @@ class ModelsDownloads
 
 	public function countFiles ($id)
 	{
-			$id = Common::secureRequest($id);
+			$id  = Common::secureRequest($id);
 			$get = New BDD();
 			$get->table('TABLE_DOWNLOADS');
 			$where = array(
