@@ -1,0 +1,77 @@
+.withdraw-history {
+    .transaction-history {
+        position: relative;
+        top: -22px;
+    }
+}
+
+.transaction-history {
+    .transaction-history-item {
+        border-bottom: 1px solid $main-border-color;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}
+
+.transaction-history-item {
+    height: 50px;
+    background-color: $white;
+    overflow: hidden;
+    
+    p, .text-header {
+        font-size: $paragraph-fs-small;
+        line-height: 50px;
+    }
+
+    & > * {
+        float: left;
+    }
+}
+
+.transaction-history-item-date {
+    width: 23.3%;
+}
+
+.transaction-history-item-mail {
+    width: 48%;
+}
+
+.transaction-history-item-amount {
+    width: 17.2%;
+}
+
+.transaction-history-item-status {
+    width: 11.5%;
+
+    p {
+        text-align: right;
+    }
+}
+
+/*-------------------
+  	MEDIA QUERIES
+-------------------*/
+@media screen and (max-width: 630px) {
+    .transaction-history-item {
+        height: auto;
+        padding: 20px 24px 14px;
+        
+        p, .text-header {
+            line-height: 1em;
+            margin-bottom: 6px;
+        }
+
+        & > * {
+            float: none;
+            width: 100%;
+        }
+    }
+
+    .transaction-history-item-status {
+       p {
+           text-align: left;
+       }
+    }
+}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Coming Soon 2</title>
+	<title><?=CMS_WEBSITE_NAME?> | Coming Soon</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/png" href="assets/template/close/images/icons/favicon.ico"/>
@@ -21,12 +21,17 @@
 	<div class="size1 overlay1">
 		<div class="size1 flex-col-c-m p-l-15 p-r-15 p-t-50 p-b-50">
 			<h3 class="l1-txt1 txt-center p-b-25">
-				Coming Soon
+				<?=$mtance["title"]?>
 			</h3>
 
 			<p class="m2-txt1 txt-center p-b-48">
-				Our website is under construction, follow us for update now!
+				<?=$mtance["description"]?>
 			</p>
+
+			<p class="m2-txt1 txt-center p-b-20">
+			<a href="/user/login&echo">Connexion</a>
+			</p>
+			<!--
 			<div class="flex-w flex-c-m cd100 p-b-33">
 				<div class="flex-col-c-m size2 bor1 m-l-15 m-r-15 m-b-20">
 					<span class="l2-txt1 p-b-9 days">0</span>
@@ -48,6 +53,7 @@
 					<span class="s2-txt1">Seconds</span>
 				</div>
 			</div>
+			-->
 		</div>
 	</div>
 	<footer>Popuslé par <a href="https://bel-cms.be">Bel-CMS</a></footer>

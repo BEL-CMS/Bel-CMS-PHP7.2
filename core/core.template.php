@@ -48,7 +48,7 @@ final class Template  extends Dispatcher
 		$this->js             = self::JavaScript ();
 		$this->breadcrumb     = self::breadCrumb ();
 		$this->base           = GetHost::getBaseUrl ();
-		$this->currentpage    = $this->controller;
+		$this->currentpage    = defined(strtoupper($this->controller)) ? constant(strtoupper($this->controller)) : $this->controller;
 		$this->currentsubpage = $this->view;
 		$this->page           = $assemblyPage->render;
 

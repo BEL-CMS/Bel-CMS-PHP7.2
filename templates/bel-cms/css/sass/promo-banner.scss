@@ -1,0 +1,61 @@
+.promo-banner {
+	width: 50%;
+	min-height: 360px;
+	padding-top: 140px;
+	background-size: cover;
+	position: relative;
+
+	&.secondary {
+		background: $secondary-color url('../images/promo2_texture.png');
+	}
+	
+	&.dark {
+		background: $promo-dark-color url('../images/promo1_texture.png');
+	}
+
+	&.left {
+		float: left;
+	}
+
+	&.right {
+		float: right;
+	}
+
+	h5 {
+		margin-bottom: 5px;	
+	}
+
+	h1 {
+		margin-bottom: 35px;
+	}
+
+	.button {
+		margin: 0 auto;
+	}
+
+	.icon-wallet, .icon-tag {
+		font-size: 58px;
+		position: absolute;
+		left: 50%;
+		margin-left: -29px;
+	}
+
+	.icon-wallet {
+		color: $primary-color-dark;
+		top: 53px;
+	}
+
+	.icon-tag {
+		color: $white;
+		top: 57px;
+	}
+}
+
+/*-------------------
+  	MEDIA QUERIES
+-------------------*/
+@media screen and (max-width: 930px) {
+	.promo-banner {
+		width: 100%;
+	}
+}

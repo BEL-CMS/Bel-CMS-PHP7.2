@@ -38,6 +38,9 @@ final class AssemblyPages extends Dispatcher
 				call_user_func_array(array($this->controller,$this->view),$this->links);
 				echo $this->controller->page;
 				$buffer = ob_get_contents();
+			} else {
+				Notification::error('La page demander, n\'est pas disponible.', 'Page no found');
+				$buffer = ob_get_contents();
 			}
 		} else {
 			Notification::error('La page demander, n\'est pas disponible.', 'Page no found');

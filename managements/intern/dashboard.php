@@ -8,3 +8,9 @@
  * @copyright 2014-2019 Bel-CMS
  * @author as Stive - stive@determe.be
  */
+$df = disk_free_space(ROOT);
+// $ds contient le nombre d'octets du dossier "/"
+$ds = disk_total_space(ROOT);
+debug(Common::ConvertSize($df));
+debug(Common::ConvertSize($ds));
+?>

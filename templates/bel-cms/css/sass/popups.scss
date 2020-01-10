@@ -1,0 +1,323 @@
+.section {
+	&.demo {
+		overflow: visible;
+		
+		.form-popup {
+			margin-bottom: 60px;
+			
+			&:nth-child(odd) {
+				float: left;
+				clear: both;
+			}
+
+			&:nth-child(even) {
+				float: right;
+			}
+		}
+	}
+}
+
+.form-popup {
+	width: 430px;
+	margin: 0 auto;
+	border: 1px solid $main-border-color;
+	background-color: $white;
+	position: relative;
+
+	&.new-message {
+		width: 570px;
+	}
+
+	&.promo {
+		width: 770px;
+		height: 420px;
+		border: none;
+
+		.promo-bg {
+			float: left;
+			width: 370px;
+			height: 100%;
+			background: url('../images/dashboard/promo-ad.jpg') no-repeat center;
+		}
+
+		.form-popup-content {
+			float: right;
+			width: 400px;
+			height: 100%;
+			padding: 56px 32px 38px;
+
+			.popup-title {
+				margin-bottom: 30px;
+			}
+
+			.info {
+				font-size: $paragraph-fs;
+				line-height: 24px;
+				margin-bottom: 24px;
+			}
+
+			.form-popup-content-links {
+				margin-top: 40px;
+				overflow: hidden;
+
+				& > .button {
+					float: left;
+					width: 232px;
+				}
+
+				.form-popup-content-links-social {
+					float: right;
+					width: 94px;
+
+					.button {
+						float: left;
+						width: 42px;
+
+						&:last-child {
+							float: right;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	.close-btn {
+		width: 38px;
+		height: 38px;
+		border-radius: 50%;
+		background-color: $popup-close-color;
+		cursor: pointer;
+		position: absolute;
+		top: -19px;
+		right: -19px;
+
+		&:hover {
+			background-color: $primary-color;
+		}
+		
+		.svg-plus {
+			fill: $white;
+			width: 10px;
+			height: 10px;
+			@include transform_rotate(45deg);
+			position: absolute;
+			top: 14px;
+			left: 14px;
+			pointer-events: none;
+		}
+
+		&.mfp-close {
+			opacity: 1;
+		}
+	}
+
+	.form-popup-headline {
+		padding: 36px 22px 30px;
+		
+		p {
+			margin-top: 10px;
+			color: $white;
+			line-height: 20px;
+		}
+
+		&.primary {
+			background: url('../images/section_headline_bg.png') no-repeat center $primary-color;
+			background-size: cover;
+		}
+
+		&.secondary {
+			background: url('../images/section_headline_bg.png') no-repeat center $secondary-color;
+			background-size: cover;
+		}
+	}
+
+	.form-popup-content {
+		padding: 22px 22px 26px;
+		overflow: hidden;
+	}
+	
+	.popup-title {
+		font-size: 22px / 16px * 1em;
+		margin-bottom: 15px;
+	}
+
+	.line-separator {
+		margin-bottom: 22px;
+		
+		&.double {
+			margin-top: 22px;
+		}
+		
+		&.short {
+			margin-bottom: 16px;
+		}
+	}
+
+	input {
+		&[type="text"], &[type="email"],
+		&[type="password"] {
+			margin-bottom: 24px;
+		}
+	}
+
+	.label-check {
+		display: inline-block;
+		margin-bottom: 22px;
+	}
+
+	p {
+		font-size: $paragraph-fs-small;
+		line-height: 1em;
+		
+		&.highlighted {
+			line-height: 20px;
+			
+			span {
+				color: $main-color;
+				font-weight: $bold;
+			}
+		}
+		
+		&.spaced {
+			line-height: 20px;
+			margin-bottom: 16px;
+		}
+		
+		a {
+			font-weight: $bold;
+			
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	button {
+		margin-top: 32px;
+		
+		&.no-space {
+			margin: 0;
+		}
+	}
+
+	.button {
+		width: 100%;
+		
+		&.half {
+			width: 185px;
+			float: left;
+			
+			& + .button.half {
+				float: right;
+			}
+		}
+	}
+
+	.input-container {
+        margin-bottom: 22px;
+        position: relative;
+
+        &.field-add {
+            padding-right: 36px;
+        }
+
+        textarea {
+            height: 200px;
+        }
+
+        .select-block {
+            margin-bottom: 0;
+        }
+    }
+
+    .add-field {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        bottom: 5px;
+        right: 0;
+        cursor: pointer;
+
+        .svg-plus {
+            width: 11px;
+            height: 11px;
+            fill: $white;
+            position: relative;
+            top: 2px;
+        }
+    }
+}
+
+@media screen and (max-width: 1260px) {
+	.section {
+		&.demo {
+			.form-popup {
+				margin: 0 auto 60px;
+				
+				&:nth-child(odd) {
+					float: none;
+				}
+
+				&:nth-child(even) {
+					float: none;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 935px) {
+	.form-popup {
+		&.promo {
+			width: 400px;
+
+			.promo-bg {
+				display: none;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 630px) {
+	.form-popup {
+		width: 90%;
+
+		&.promo {
+			width: 90%;
+			height: auto;
+			
+			.form-popup-content {
+				width: 100%;
+				height: auto;
+				background-color: $white;
+
+				.form-popup-content-links {
+					text-align: center;
+
+					& > .button {
+						float: none;
+						width: 100%;
+					}
+
+					.form-popup-content-links-social {
+						float: none;
+						display: inline-block;
+						margin-top: 20px;
+					}
+				}
+			}
+		}
+		
+		.button {
+			&.half {
+				width: 100%;
+				float: none;
+				
+				& + .button.half {
+					margin-top: 22px;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,33 @@
+.coming-soon-box {
+	width: 630px;
+	margin: 20px auto 0;
+	
+	p {
+		text-align: center;
+		
+		br {
+			display: none;
+		}
+	}
+
+	.text-header {
+		margin-bottom: 22px;
+	}
+	
+	.button {
+		width: 240px;
+		margin: 40px auto 0;
+	}
+}
+
+@media screen and (max-width: 935px) {
+	.coming-soon-box {
+		width: 90%;
+		
+		p {
+			br {
+				display: block;
+			}
+		}
+	}
+}

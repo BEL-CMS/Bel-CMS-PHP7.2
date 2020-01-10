@@ -77,7 +77,6 @@ function account ($user)
 	$genderF = strtoupper($user->gender) == strtoupper(constant('FEMALE')) ? 'checked="checked"' : '';
 	$genderU = strtoupper($user->gender) == strtoupper(constant('UNISEXUAL')) ? 'checked="checked"' : '';
 	$user->birthday = Common::DatetimeSQL($user->birthday, false, 'Y-m-d');
-	$user->birthday = Common::DatetimeSQL($user->birthday, false, 'Y-m-d')
 ?>
 <div class="tab-pane fade show active" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab">
 	<h2>Votre Compte</h2>

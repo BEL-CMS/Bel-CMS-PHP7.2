@@ -77,6 +77,12 @@ final class Managements extends Dispatcher
 						if (ob_get_length() != 0) {
 							ob_end_clean();
 						}	
+						$page = defined(strtoupper($page)) ? constant(strtoupper($page)) : $page;
+						$Interaction = New Interaction;
+						$Interaction->user($_SESSION['USER']['HASH_KEY']);
+						$Interaction->type('error');
+						$Interaction->text('Accès non autorisé de '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' à la page '.$page.' : paramètre');
+						$Interaction->insert();
 						return $render;
 					}
 				}
@@ -86,6 +92,12 @@ final class Managements extends Dispatcher
 				if (in_array($page, $scan)) {
 					if (Secures::getAccessPageAdmin($page) === false) {
 						Notification::error(NO_ACCESS_GROUP_PAGE, 'Page');
+						$page = defined(strtoupper($page)) ? constant(strtoupper($page)) : $page;
+						$Interaction = New Interaction;
+						$Interaction->user($_SESSION['USER']['HASH_KEY']);
+						$Interaction->type('error');
+						$Interaction->text('Accès non autorisé de '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' à la page '.$page.' : paramètre');
+						$Interaction->insert();
 					} else {
 						include MANAGEMENTS.'pages'.DS.$page.DS.'controller.php';
 						$this->controller = new $this->controller();
@@ -122,34 +134,54 @@ final class Managements extends Dispatcher
 			} else if (isset($_REQUEST['parameter']) and $_REQUEST['parameter'] == true) {
 				$scan = Common::ScanDirectory(MANAGEMENTS.'parameter');
 				if (in_array($page, $scan)) {
-					include MANAGEMENTS.'parameter'.DS.$page.DS.'controller.php';
-					$this->controller = new $this->controller();
-					if ($this->controller->active === true) {
-						if (method_exists($this->controller, $this->view)) {
-							unset($this->links[0], $this->links[1]);
-							call_user_func_array(array($this->controller,$this->view),$this->links);
-						} else {
-							Notification::error('La sous-page demander <strong>'.$this->view.'</strong> n\'est pas disponible dans la page : <strong>'.$page.'</strong>', 'Fichier');
+					if (Secures::getAccessPageAdmin($page) === false) {
+						Notification::error(NO_ACCESS_GROUP_PAGE, 'Page');
+						$page = defined(strtoupper($page)) ? constant(strtoupper($page)) : $page;
+						$Interaction = New Interaction;
+						$Interaction->user($_SESSION['USER']['HASH_KEY']);
+						$Interaction->type('error');
+						$Interaction->text('Accès non autorisé de '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' à la page '.$page.' : paramètre');
+						$Interaction->insert();
+					} else {
+						include MANAGEMENTS.'parameter'.DS.$page.DS.'controller.php';
+						$this->controller = new $this->controller();
+						if ($this->controller->active === true) {
+							if (method_exists($this->controller, $this->view)) {
+								unset($this->links[0], $this->links[1]);
+								call_user_func_array(array($this->controller,$this->view),$this->links);
+							} else {
+								Notification::error('La sous-page demander <strong>'.$this->view.'</strong> n\'est pas disponible dans la page : <strong>'.$page.'</strong>', 'Fichier');
+							}
 						}
+						echo $this->controller->render;
 					}
-					echo $this->controller->render;
 				} else {
 					Notification::error('Fichier controller de la page : <strong> '.$page.'</strong> non disponible...', 'Fichier');
 				}
 			} else if (isset($_REQUEST['gaming']) and $_REQUEST['gaming'] == true) {
 				$scan = Common::ScanDirectory(MANAGEMENTS.'gaming');
 				if (in_array($page, $scan)) {
-					include MANAGEMENTS.'gaming'.DS.$page.DS.'controller.php';
-					$this->controller = new $this->controller();
-					if ($this->controller->active === true) {
-						if (method_exists($this->controller, $this->view)) {
-							unset($this->links[0], $this->links[1]);
-							call_user_func_array(array($this->controller,$this->view),$this->links);
-						} else {
-							Notification::error('La sous-page demander <strong>'.$this->view.'</strong> n\'est pas disponible dans la page : <strong>'.$page.'</strong>', 'Fichier');
+					if (Secures::getAccessPageAdmin($page) === false) {
+						Notification::error(NO_ACCESS_GROUP_PAGE, 'Page');
+						$page = defined(strtoupper($page)) ? constant(strtoupper($page)) : $page;
+						$Interaction = New Interaction;
+						$Interaction->user($_SESSION['USER']['HASH_KEY']);
+						$Interaction->type('error');
+						$Interaction->text('Accès non autorisé de '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' à la page '.$page.' : paramètre');
+						$Interaction->insert();
+					} else {
+						include MANAGEMENTS.'gaming'.DS.$page.DS.'controller.php';
+						$this->controller = new $this->controller();
+						if ($this->controller->active === true) {
+							if (method_exists($this->controller, $this->view)) {
+								unset($this->links[0], $this->links[1]);
+								call_user_func_array(array($this->controller,$this->view),$this->links);
+							} else {
+								Notification::error('La sous-page demander <strong>'.$this->view.'</strong> n\'est pas disponible dans la page : <strong>'.$page.'</strong>', 'Fichier');
+							}
 						}
+						echo $this->controller->render;
 					}
-					echo $this->controller->render;
 				} else {
 					Notification::error('Fichier controller de la page : <strong> '.$page.'</strong> non disponible...', 'Fichier');
 				}
@@ -194,6 +226,7 @@ final class Managements extends Dispatcher
 					if ($_SESSION['USER']['HASH_KEY'] == $data->hash_key) {
 						$_SESSION['LOGIN_MANAGEMENT'] = true;
 						$return['ajax'] = 'login en cours...';
+						//New Interaction($_SESSION['USER']['HASH_KEY'], 'success', $data->username.' s\'est connecté au management');
 					} else {
 						$return['ajax'] = 'Hash_key ne corespond pas au votre ?...';
 					}

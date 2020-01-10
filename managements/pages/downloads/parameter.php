@@ -23,11 +23,8 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 		<div class="clearfix"></div>
 	</div>
 	<div class="x_content">
-		<a href="/Blog?management&page=true" class="btn btn-app">
+		<a href="/downloads?management&page=true" class="btn btn-app">
 			<i class="fa fas fa-home"></i> Accueil
-		</a>
-		<a href="Blog/parameter?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-cogs"></i> Configuration
 		</a>
 		<button type="submit" class="btn btn-app">
 			<i class="fa fa-save"></i> <?=SAVE?>

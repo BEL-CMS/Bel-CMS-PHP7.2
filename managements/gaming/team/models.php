@@ -189,7 +189,8 @@ class ModelsTeam
 			$insert['name']        = Common::VarSecure($data['name'], '');
 			$insert['description'] = Common::VarSecure($data['description'], 'html');
 			$insert['orderby']     = (int) $data['orderby'];
-
+			$insert['game']        = (int) $data['game'];
+ 
 			$sql = New BDD();
 			$sql->table('TABLE_TEAM');
 			$sql->sqlData($insert);

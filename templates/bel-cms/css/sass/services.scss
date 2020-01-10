@@ -1,0 +1,176 @@
+#services-wrap {
+	background-color: $white;
+}
+
+#services {
+	min-height: 500px;
+	padding-top: 134px;
+	
+	&.services-v2 {
+		min-height: 435px;
+		padding: 60px 0 10px;
+	}
+}
+
+.service-list {
+	.service-item {
+		padding: 145px 5px 0;
+		cursor: pointer;
+		position: relative;
+		
+		.circle {
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-left: -60px;
+			
+			span {
+				color: $primary-color-dark;
+				font-size: 50px;
+				position: absolute;
+				top: 33px;
+				left: 35px;
+				transition: color .3s ease-in-out;
+				
+				&.icon-diamond {
+					top: 37px;
+				}
+			}
+			
+			&.medium {
+				top: -10px;
+				margin-left: -70px;
+			}
+		}
+
+		h3 {
+			margin-bottom: 20px;
+		}
+
+		p {
+			font-size: $paragraph-fs-small;
+			line-height: 20px;
+			text-align: center;
+		}
+
+		&:hover {
+			.circle {
+				span {
+					color: $white;
+				}
+
+				&.dark {
+					@include transform_scale(.92);
+				}
+
+				&.gradient {
+					@include transform_scale(1);
+				}
+			}
+		}
+	}
+
+	&.small {
+		.service-item {
+			padding: 6px 10px 0 70px;
+			margin-bottom: 70px;
+			cursor: auto;
+			position: relative;
+			
+			.outer-ring {
+				width: 50px;
+				height: 50px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				
+				.inner-ring {
+					width: 42px;
+					height: 42px;
+					position: absolute;
+					top: 4px;
+					left: 4px;
+					background-color: $white;
+				}
+				
+				span {
+					color: $main-color;
+					font-size: 20px;
+					position: absolute;
+					top: 14px;
+					left: 15px;
+					transition: color .3s ease-in-out;
+					
+					&.icon-diamond {
+						top: 17px;
+					}
+				}
+			}
+
+			h3 {
+				font-size: 22px / 16px * 1em;
+				text-align: left;
+			}
+
+			p {
+				text-align: left;
+			}
+		}
+	}
+}
+
+.circle {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	transition: all .2s ease-in-out;
+	
+	&.dark {
+		background-color: $main-color;
+	}
+
+	&.gradient {
+		@include background_gradient(to right, $gradient-init-color, $gradient-end-color);
+		@include transform_scale(0);
+		border: none;
+	}
+
+	&.white-cover {
+		background-color: $white;
+	}
+
+	&.primary {
+		background-color: $primary-color;
+		
+		&:hover {
+			background-color: $primary-color-hover;
+		}
+	}
+
+	&.secondary {
+		background-color: $secondary-color;
+		
+		&:hover {
+			background-color: $secondary-color-hover;
+		}
+	}
+
+	&.medium {
+		width: 140px;
+		height: 140px;
+	}
+
+	&.tiny {
+		width: 40px;
+		height: 40px;
+	}
+}
+
+/*-------------------
+  	MEDIA QUERIES
+-------------------*/
+@media screen and (max-width: 1260px) {
+	#services {
+		padding-top: 60px;
+	}
+}

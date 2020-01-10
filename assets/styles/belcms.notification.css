@@ -11,6 +11,7 @@
 	padding: 15px;
 	overflow: hidden;
 	color: rgba(255, 255, 255, 0.95);
+	min-height: auto !important;
 }
 .belcms_notification > .error {
 	background-color: rgba(223, 83, 73, .8);

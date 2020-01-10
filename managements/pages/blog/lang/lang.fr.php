@@ -22,7 +22,7 @@ Common::constant(array(
 	'EDIT_BLOG_ERROR'         => 'Erreur d\'edition',
 	'ERROR_NO_DATA'           => 'Erreur de transfert de données',
 	'BLOG'                    => 'Blog',
-	'COMPLEMENT'              => 'Complèmennt',
+	'COMPLEMENT'              => 'Complément',
 	'NB_BLOG'                 => 'Nombre de blog',
 	'ERROR_NO_NUM'            => 'Erreur le texte rentrer n\'est pas du numerique',
 	'EDIT_BLOG_PARAM_SUCCESS' => 'les paramètres du blog sont sauvegarder avec succès',

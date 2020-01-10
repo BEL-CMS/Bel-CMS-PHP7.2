@@ -20,7 +20,6 @@ class Blog extends Pages
 
 	function index ()
 	{
-
 		$config = BelCMSConfig::GetConfigPage('blog');
 		$set['pagination'] = $this->pagination($config->config['MAX_BLOG'], 'blog', TABLE_PAGES_BLOG);
 		$set['blog'] = $this->ModelsBlog->GetBlog();

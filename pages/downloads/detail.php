@@ -14,6 +14,9 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 $screen = empty($data->screen) ? 'assets/images/no_screen.png' : $data->screen;
+$md5    = is_file($data->download) ? md5_file(($data->download)) : null;
+$mime   = is_file($data->download) ? mime_content_type(($data->download)) : null;
+$size   = is_file($data->download) ? Common::ConvertSize(filesize($data->download)) : null;
 ?>
 <div class="table-responsive">
 	<table class="table table-hover table-bordered">
@@ -23,17 +26,17 @@ $screen = empty($data->screen) ? 'assets/images/no_screen.png' : $data->screen;
 			</tr>
 			<tr>
 				<td rowspan="7" style="max-width:180px">
-					<img style="max-width:180px" id="bel_cms_dl_detail_img" src="<?=$screen?>" alt="dls_screen">
+					<?=$data->description?>
 				</td>
 			</tr>
 			<tr class="">
 				<td>Info hash MD5</td>
-				<td colspan="2"><?=md5_file(($data->download))?></td>
+				<td colspan="2"><?=$md5?></td>
 			</tr>
 			<tr>
 				<td><?=SIZE?></td>
 				<td>BDD : <?=Common::ConvertSize($data->size)?></td>
-				<td>Réel : <?=Common::ConvertSize(filesize($data->download))?></td>
+				<td>Réel : <?=$size?></td>
 			</tr>
 			<tr>
 				<td>Télécharger</td>
@@ -42,7 +45,7 @@ $screen = empty($data->screen) ? 'assets/images/no_screen.png' : $data->screen;
 			</tr>
 			<tr>
 				<td>Type mime</td>
-				<td colspan="2"><?=mime_content_type($data->download)?></td>
+				<td colspan="2"><?=$mime?></td>
 			</tr>
 			<tr>
 				<td>Date</td>

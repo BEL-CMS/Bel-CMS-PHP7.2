@@ -28,13 +28,23 @@ final class BelCMS extends Dispatcher
 		new BelCMSConfig;
 		new Users;
 
+		$sql = New BDD;
+		$sql->table('TABLE_MAINTENANCE');
+		$sql->queryAll();
+		$mtn = $sql->data;
+		$mtance = array();
+		foreach ($mtn as $k => $v) {
+			$mtance[$v->name] = $v->value;
+		}
 
-		if (CMSSTATUT == 'close') {
+		if ($mtance['status'] == 'close') {
 			if (Users::isSuperAdmin($_SESSION['USER']['HASH_KEY'])) {
 				Notification::warning('Le site web est en mode fermé, seuls les administrateurs suprêmes ont accès.');
 			} else {
-				require_once DIR_TPL_DEFAULT.'close/index.php';
-				die();
+				if ($this->controller != 'user') {
+					require_once DIR_TPL_DEFAULT.'close/index.php';
+					die();
+				}
 			}
 		}
 	}

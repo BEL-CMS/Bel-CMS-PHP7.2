@@ -249,4 +249,33 @@ final class Secures
 			return $return;
 		}
 	}
+
+	public static function IsAcess ($data = null)
+	{
+		$return = (bool) false;
+
+		if ($data == null or $data == 0) {
+			return (bool) true;
+		}
+
+		if (Users::isLogged()) {
+			if (Users::isSuperAdmin($_SESSION['USER']['HASH_KEY']) == true) {
+				return (bool) true;
+			}
+			if ($data == null or $data == 0) {
+				return (bool) true;
+			} else {
+				$e = explode('|', $data);
+				foreach ($e as $a => $b) {
+					$s = $_SESSION['USER']['HASH_KEY'];
+					$g = self::accessSqlUser()[$s]->access;
+					if (in_array($b, $g)) {
+						return (bool) true;
+					}
+				}
+			}
+			$return = $return;
+		}
+		return $return;
+	}
 }

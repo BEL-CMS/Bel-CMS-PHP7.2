@@ -1,0 +1,236 @@
+.header-wrap {
+	background-color: $main-color;
+}
+
+header {
+	min-height: 100px;
+	
+	.logo {
+		float: left;
+		margin-top: 20px;
+	}
+
+	.logo-mobile {
+		display: none;
+		width: 48px;
+		height: 56px;
+		position: absolute;
+		top: 20px;
+		left: 50%;
+		margin-left: -24px;
+	}
+
+	.mobile-menu-handler,
+	.mobile-account-options-handler {
+		width: 90px;
+		height: 100px;
+		position: absolute;
+		top: 0;
+		display: none;
+		cursor: pointer;
+		
+		&.primary {
+			background-color: $primary-color;
+		}
+
+		&.secondary {
+			background-color: $secondary-color;
+		}
+
+		&.left {
+			left: 0;
+		}
+
+		&.right {
+			right: 0;
+		}
+
+		img[alt="pull-icon"] {
+			position: absolute;
+			top: 41px;
+			left: 50%;
+			margin-left: -13px;
+		}
+
+		.icon-user {
+			color: $white;
+			font-size: 24px;
+			position: absolute;
+			top: 38px;
+			left: 50%;
+			margin-left: -12px;
+		}
+	}
+
+	.user-board {
+		float: right;
+		
+		.user-quickview {
+			float: right;
+			height: 80px;
+			margin-top: 20px;
+			
+			.dropdown {
+				left: 2px;
+
+				&.open {
+					top: 69px;
+				}
+
+				&.closed {
+					top: 0;
+				}	
+			}
+		}
+	}
+
+	.account-information {
+		float: right;
+		margin: 40px 6px 0 0;
+		
+		.account-wishlist-quickview, .account-cart-quickview,
+		.account-email-quickview, .account-settings-quickview {
+			float: left;
+			padding-right: 34px;
+			cursor: pointer;
+			position: relative;
+			
+			&:first-child, &:last-child {
+				padding-right: 26px;
+			}
+
+			& > span:first-child {
+				position: relative;
+				color: $account-features-color;
+				transition: all .2s ease-in-out;
+				
+				.svg-arrow {
+					fill: $account-features-color;
+					position: absolute;
+					right: -10px;
+					@include transform_rotate(90deg);
+					transition: all .2s ease-in-out;
+				}
+			}
+
+			&:hover, &.active {
+				& > span:first-child {
+					color: $account-features-hover-color;
+				
+					.svg-arrow {
+						fill: $account-features-hover-color;
+					}
+				}
+			}
+
+			.dropdown {
+				right: 13px;
+				
+				&.open {
+					top: 49px;
+					
+				}
+
+				&.closed {
+					top: 0;
+				}
+			}
+		}
+
+		.pin {
+			font-size: $paragraph-fs-pin-big;
+			top: -5px;
+			left: -6px;
+		}
+
+		.account-settings-quickview {
+			.dropdown {
+				right: 0;
+			}
+		}
+
+		.icon-present, .icon-envelope, .icon-settings {
+			font-size: 22px;
+		}
+
+		.icon-heart {
+			top: 1px;
+			font-size: 21px;
+		}
+
+		.icon-present {
+			top: -2px;
+			
+			.svg-arrow {
+				top: 9px;
+			}
+		}
+
+		.icon-envelope {
+			top: 1px;
+			
+			.svg-arrow {
+				top: 6px;
+				right: -12px;
+			}
+		}
+
+		.icon-settings {
+			.svg-arrow {
+				top: 7px;
+				right: -12px;
+			}
+		}
+	}
+
+	.account-actions {
+		float: right;
+		margin: 40px 26px 0 0;
+		
+		&.no-space {
+			margin-right: 0;
+		}
+		
+		.interesting-link {
+			float: left;
+			margin-right: 30px;
+			margin-top: 6px;
+			color: $int-link-color;
+			font-size: $paragraph-fs-tiny;
+			font-weight: $bold;
+			
+			&:hover {
+				color: $white;
+			}
+		}
+		
+		.button {
+			width: auto;
+			float: left;
+			height: 24px;
+			line-height: 24px;
+			padding: 0 20px;
+			margin-right: 12px;
+			
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+}
+
+/*-------------------
+  	MEDIA QUERIES
+-------------------*/
+@media screen and (max-width: 1260px) {
+	header {
+		.logo, .user-board {
+			display: none;
+		}
+
+		.logo-mobile, .mobile-menu-handler,
+		.mobile-account-options-handler {
+			display: block;
+		}
+	}
+}

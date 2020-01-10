@@ -1,0 +1,3 @@
+(function($) {
+	$('.liquid').imgLiquid();
+})(jQuery);

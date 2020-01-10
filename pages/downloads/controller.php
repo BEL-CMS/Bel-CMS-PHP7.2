@@ -24,8 +24,10 @@ class Downloads extends Pages
 		foreach ($c['data'] as $a => $b) {
 			if (Secures::isAcess($b->groups) == false) {
 				unset($c['data'][$a]);
+			} else {
+				$c['data'][$a]->count = $this->ModelsDownloads->countFiles($b->id);
 			}
-			$c['data'][$a]->count = $this->ModelsDownloads->countFiles($b->id);
+			
 		}
 		$this->set($c);
 		$this->render('index');

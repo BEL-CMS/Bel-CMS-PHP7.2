@@ -1,0 +1,105 @@
+.product-settings {
+    width: 30px;
+    height: 30px;
+    border-radius: 2px;
+    background-color: $main-color;
+    position: absolute;
+    top: 9px;
+    right: 7px;
+    z-index: $local-max-index;
+    cursor: pointer;
+    transition: all .3s ease;
+
+    &.primary {
+        &:hover, &.active {
+            background-color: $primary-color;
+        }
+    }
+
+    &.secondary {
+        &:hover, &.active {
+            background-color: $secondary-color;
+        }
+    }
+
+    &.tertiary {
+        &:hover, &.active {
+            background-color: $tertiary-color;
+        }
+    }
+
+    .sl-icon {
+        color: $white;
+        font-size: 17px;
+        position: relative;
+        top: 6px;
+        left: 6px;
+    }
+
+    & + .dropdown {
+        box-shadow: 0px 0px 16px 0px rgba(1, 2, 0, 0.2);
+        top: 54px;
+        right: -8px;
+
+        .dp-triangle {
+            width: 0; 
+            height: 0; 
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid $white;
+            position: absolute;
+            top: -8px;
+            right: 22px;
+        }
+    }
+}
+
+@media screen and (max-width: 1505px) {
+    .dashboard-content {
+        .column4-wrap {
+            width: 870px;
+            
+            .column {	
+                &:nth-child(4n+4) {
+                    margin-right: 30px;
+                }
+                
+                &:nth-child(3n+3) {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 935px) {
+    .dashboard-content {
+        .column4-wrap {
+            width: 570px;
+            
+            .column {
+                margin-bottom: 60px;
+                
+                &:nth-child(3n+3) {
+                    margin-right: 30px;
+                }
+                
+                &:nth-child(2n+2) {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 630px) {
+	.dashboard-content {
+        .column4-wrap {
+            width: 270px;
+            
+            .column {
+                margin-right: 0;
+            }
+        }
+    }
+}

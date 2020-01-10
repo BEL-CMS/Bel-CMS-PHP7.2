@@ -250,7 +250,8 @@ final class Common
 		} else if (CMS_WEBSITE_LANG == DEUTCH) {
 			$lg = 'de_DE';
 		}
-		$d = strtoupper($d); $t = strtoupper($t);
+
+		$d    = strtoupper($d); $t = strtoupper($t);
 		$date = str_replace('/', '-', $date);
 		$date = new DateTime($date);
 
@@ -310,19 +311,19 @@ final class Common
 			$return = new IntlDateFormatter($lg, IntlDateFormatter::FULL, IntlDateFormatter::FULL);
 		} else if ($d == 'SQLDATE') {
 			$return = new IntlDateFormatter(
-				'en_US',
+				$lg,
 				IntlDateFormatter::FULL,
 				IntlDateFormatter::FULL,
-				'America/Los_Angeles',
+				'Europe/Brussels',
 				IntlDateFormatter::GREGORIAN,
 				'yyyy-MM-dd'
 			);
 		} else if ($d == 'SQLDATETIME') {
 			$return = new IntlDateFormatter(
-				'en_US',
+				$lg,
 				IntlDateFormatter::FULL,
 				IntlDateFormatter::FULL,
-				'America/Los_Angeles',
+				'Europe/Brussels',
 				IntlDateFormatter::GREGORIAN,
 				'yyyy-MM-dd hh-mm-ss'
 			);

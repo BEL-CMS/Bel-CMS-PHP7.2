@@ -1,0 +1,56 @@
+.profile-image {
+    margin-bottom: 22px;
+    min-height: 70px;
+
+    .profile-image-data {
+        float: left;
+        padding-left: 80px;
+        position: relative;
+
+        .user-avatar {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .text-header {
+            margin-top: 14px;
+        }
+
+        .upload-details {
+            font-size: $paragraph-fs-tiny;
+        }
+    }
+
+    .button {
+        float: left;
+        width: 120px;
+        margin: 18px 0 0 80px;
+    }
+}
+
+/*-------------------
+  	MEDIA QUERIES
+-------------------*/
+@media screen and (max-width: 1350px) {
+    .dashboard-content {
+        .form-box-items {
+            .form-box-item {
+                float: none;
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 630px) {
+    .profile-image {
+        .profile-image-data {
+            float: none;
+        }
+
+        .button {
+            margin-top: 6px;
+        }
+    }
+}

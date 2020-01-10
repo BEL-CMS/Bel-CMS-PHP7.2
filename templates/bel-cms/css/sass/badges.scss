@@ -1,0 +1,171 @@
+/*---------------------
+  	BADGES SHOWCASE
+---------------------*/
+.badges-showcase {
+	margin: 0 auto;
+	
+	&.short {
+		width: 702px;
+	}
+
+	.badges-showcase-item {
+		padding-top: 192px;
+		position: relative;
+		margin-bottom: 70px;
+		
+		.badge {
+			position: absolute;
+			z-index: 1;
+			transition: all .3s ease-in-out;
+			
+			&.big {
+				top: 0;
+				left: 50%;
+				margin-left: -80px;
+				
+				&.pinned {
+					top: -10px;
+				}
+			}
+
+			&.small {
+				top: 136px;
+				right: 29px;
+			}
+
+			&.locked {
+				opacity: 0;
+				z-index: 0;
+			}
+
+			&.active {
+				opacity: 1;
+				z-index: 2;
+				
+				& + .badge {
+					opacity: 0;
+				}
+
+				&:hover {
+					opacity: 0;
+					
+					& + .badge {
+						opacity: 1;
+					}
+				}
+			}
+		}
+		
+		.text-header, .badge-description {
+			text-align: center;
+		}
+		
+		.text-header {
+			font-size: $header-fs-small;
+			margin-bottom: 16px;
+		}
+
+		.badge-description {
+			font-size: $paragraph-fs-tiny;
+			line-height: 18px;
+		}
+
+		.badge-progress-title {
+			font-size: $paragraph-fs-small;
+			margin: 34px 0 6px;
+		}
+
+		.badge-progress {
+			margin: 0 auto;
+		}
+	}
+}
+
+/*-----------
+  	BADGE
+-----------*/
+.badge {
+	&.big {
+		width: 160px;
+		height: 167px;
+	}
+
+	&.small {
+		width: 36px;
+		height: 37px;
+	}
+}
+
+/*------------------
+  	BADGE BOXES
+------------------*/
+.badge-boxes {
+	overflow: hidden;
+	
+	.sidebar-item {
+		margin-bottom: 26px;
+	}
+}
+
+/*------------------
+  	BADGE LIST
+------------------*/
+.badge-list {
+	width: 228px;
+	margin: 0 auto;
+	
+	.badge-list-item {
+		float: left;
+		margin: 0 12px 18px 0;
+		
+		.badge {
+			&.pinned {
+				position: relative;
+				top: -5px;
+			}
+		}
+		
+		&:nth-child(5n+5) {
+			margin-right: 0;
+		}
+	}
+
+	&.short {
+		width: 180px;
+		margin-left: auto;
+		margin-right: auto;
+		
+		.badge-list-item {
+			&:nth-child(5n+5) {
+				margin-right: 12px;
+			}
+
+			&:nth-child(4n+4) {
+				margin-right: 0;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 935px) {
+	/*---------------------
+	  	BADGES SHOWCASE
+	---------------------*/
+	.badges-showcase {
+		&.short {
+			width: 468px;
+		}
+	}
+}
+
+
+@media screen and (max-width: 630px) {
+	/*---------------------
+	  	BADGES SHOWCASE
+	---------------------*/
+	.badges-showcase {
+		&.short {
+			width: 234px;
+		}
+	}
+}

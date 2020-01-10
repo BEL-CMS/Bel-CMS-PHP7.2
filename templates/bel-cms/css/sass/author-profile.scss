@@ -1,0 +1,242 @@
+.author-profile-banner {
+	background: url('../images/profile_banner.jpg') no-repeat center;
+	background-size: cover;
+	min-height: 300px;
+}
+
+.author-profile-meta-wrap {
+	border-top: 1px solid $main-border-color;
+	border-bottom: 1px solid $main-border-color;
+	background-color: $white;
+}
+
+.author-profile-meta {
+	min-height: 100px;
+	padding-top: 15px;
+}
+
+.author-profile-info {
+	overflow: hidden;
+	padding-left: 300px;
+	
+	.author-profile-info-item {
+		float: left;
+		height: 70px;
+		border-right: 1px solid $main-border-color;
+		padding: 16px 70px 0 32px;
+		
+		&:last-child {
+			border-right: none;
+			padding-right: 0;
+		}
+
+		p {
+			font-size: $paragraph-fs-small;
+			line-height: 20px;
+			
+			a:hover {
+				text-decoration: underline;
+			}
+			
+			.primary {
+				color: $primary-color-light;
+			}
+
+			.secondary {
+				color: $secondary-color;
+			}
+
+			.tertiary {
+				color: $tertiary-color;
+			}
+		}
+	}
+}
+
+.follow-list {
+	width: 870px;
+	margin: 0 auto;
+	
+	.follow-list-item {
+		height: 94px;
+		padding: 11px 17px 11px 92px;
+		border: 1px solid $main-border-color;
+		margin-bottom: 14px;
+		background-color: $white;
+		position: relative;
+		
+		&:last-child {
+			margin-bottom: 0;
+		}
+		
+		.user-avatar {
+			position: absolute;
+			top: 11px;
+			left: 11px;
+		}
+
+		.fl-item-info {
+			float: left;
+			height: 70px;
+			border-right: 1px solid $main-border-color;
+			padding: 0 16px;
+			
+			&:last-child {
+				border-right: none;
+				padding-right: 0;
+			}
+			
+			&.fl-description {
+				width: 203px;
+				padding: 6px 10px 0 0;
+				
+				.text-header {
+					font-size: $paragraph-fs-medium;
+					margin-bottom: 5px;
+				}
+
+				p {
+					font-size: $paragraph-fs-tiny;
+					line-height: 18px;
+				}
+			}
+
+			&.fl-reputation {
+				width: 108px;
+				padding-top: 15px;
+				
+				.text-header {
+					font-size: $paragraph-fs-tiny;
+					text-align: center;
+				}
+
+				.rating {
+					width: 75px;
+					margin: 14px auto 0;
+				}
+			}
+
+			&.fl-product-items {
+				overflow: hidden;
+				
+				.product-preview-image {
+					float: left;
+					margin-right: 14px;
+				}
+
+				a:last-child {
+					.product-preview-image {
+						margin-right: 0;
+					}
+				}
+			}
+
+			&.fl-button {
+				padding-top: 20px;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1260px) {
+	.author-profile-info {
+		padding-left: 0;
+		padding-top: 15px;
+		width: 270px;
+		margin: 0 auto;
+		
+		.author-profile-info-item {
+			float: none;
+			border-right: none;
+			padding: 0;
+			padding-left: 32px;
+
+			p {
+				font-size: $paragraph-fs-small;
+				line-height: 20px;
+				
+				a:hover {
+					text-decoration: underline;
+				}
+				
+				.primary {
+					color: $primary-color-light;
+				}
+
+				.secondary {
+					color: $secondary-color;
+				}
+
+				.tertiary {
+					color: $tertiary-color;
+				}
+			}
+		}
+	}
+
+	.section {
+		.sidebar {
+			&.author-profile {
+				position: static;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 935px) {
+	.follow-list {
+		width: 598px;
+		
+		.follow-list-item {
+			.fl-item-info {
+				&.fl-product-items {
+					display: none;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 630px) {
+	.follow-list {
+		width: 270px;
+		
+		.follow-list-item {
+			height: auto;
+			padding: 90px 11px 20px;
+			
+			.user-avatar {
+				left: 50%;
+				margin-left: -35px;
+			}
+			
+			.fl-item-info {
+				float: none;
+				height: auto;
+				border-right: none;
+				padding: 0;
+				
+				&.fl-description {
+					padding: 0;
+					margin: 0 auto 14px;
+					
+					p {
+						text-align: center;
+					}
+				}
+
+				&.fl-reputation {
+					display: none;
+				}
+
+				&.fl-button {
+					padding: 0;
+					
+					.button {
+						margin: 0 auto;
+					}
+				}
+			}
+		}
+	}
+}

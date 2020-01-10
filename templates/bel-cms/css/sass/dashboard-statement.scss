@@ -1,0 +1,339 @@
+.statement-form {
+    & > label {
+        float: left;
+        margin: 0 6px;
+        line-height: 32px;
+    }
+}
+
+.datepicker-wrap {
+    float: left;
+    position: relative;
+
+    .icon-calendar {
+        color: $paragraph-color-light;
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        pointer-events: none;
+    }
+}
+
+.sale-data {
+    border: 1px solid $main-border-color;
+    overflow: hidden;
+    margin-bottom: 26px;
+
+    .sale-data-item {
+        float: left;
+        width: 25%;
+        border-right: 1px solid $main-border-color;
+
+        &:last-child {
+            border-right: none;
+        }
+    }
+}
+
+.sale-data-item {
+    height: 130px;
+    padding: 65px 0 0 25px;
+    background-color: $white;
+    position: relative;
+
+    p {
+        font-size: $paragraph-fs-small;
+        line-height: 1em;
+    }
+
+    .sl-icon {
+        color: $primary-color;
+        font-size: 30px;
+        position: absolute;
+        top: 20px;
+        left: 23px;
+    }
+
+    .text-header, .price {
+        &.big {
+            float: left;
+            margin-right: 12px;
+        }
+    }
+
+    .price {
+        span {
+            font-size: 22px / 36px * 1em;
+            top: -5px;
+            left: -4px;
+        }
+    }
+
+    .sale-data-item-info {
+        margin-top: 5px;
+
+        .text-header {
+            margin-bottom: 2px;
+        }
+    }
+}
+
+.transaction-list {
+    padding-bottom: 36px;
+    border: 1px solid $main-border-color;
+    background-color: $white;
+    overflow: hidden;
+
+    .transaction-list-item {
+        border-bottom: 1px solid $main-border-color;        
+    }
+
+    .pager-wrap {
+        float: right;
+        margin: 36px 32px 0 0;
+    }
+}
+
+.transaction-list-header {
+    height: 50px;
+    border-bottom: 1px solid $main-border-color;
+    overflow: hidden;
+
+    & > * {
+        float: left;
+    }
+
+    .text-header {
+        line-height: 50px;
+    }
+}
+
+.transaction-list-header-date,
+.transaction-list-item-date {
+    width: 14.5%;
+    padding-left: 24px;
+}
+
+.transaction-list-header-author,
+.transaction-list-item-author {
+    width: 17.25%;
+}
+
+.transaction-list-header-item,
+.transaction-list-item-item {
+    width: 22.55%;
+}
+
+.transaction-list-header-detail,
+.transaction-list-item-detail {
+    width: 10.75%;
+}
+.transaction-list-header-code,
+.transaction-list-item-code {
+    width: 7.7%;
+}
+
+.transaction-list-header-price,
+.transaction-list-item-price {
+    width: 7.5%;
+}
+
+.transaction-list-header-cut,
+.transaction-list-item-cut {
+    width: 8.55%;
+}
+
+.transaction-list-header-earnings,
+.transaction-list-item-earnings {
+    width: 8.2%;
+}
+
+.transaction-list-header-icon,
+.transaction-list-item-icon {
+    width: 3%;
+}
+
+.transaction-list-header-price, .transaction-list-item-price,
+.transaction-list-header-cut, .transaction-list-item-cut,
+.transaction-list-header-earnings, .transaction-list-item-earnings {
+    p, .text-header {
+        text-align: center;
+    }
+}
+
+.transaction-list-item {
+    height: 50px;
+
+    & > * {
+        float: left;
+    }
+
+    p {
+        font-size: $paragraph-fs-small;
+        line-height: 50px;
+    }
+
+    .transaction-list-item-icon {
+        padding-top: 18px;
+    }
+}
+
+.transaction-icon {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background-color: $paragraph-color-light;
+    position: relative;
+
+    &.primary {
+        background-color: $primary-color;
+    }
+
+    &.secondary {
+        background-color: $secondary-color;
+    }
+
+    &.tertiary {
+        background-color: $tertiary-color;
+    }
+
+    .svg-plus, .svg-minus {
+        fill: $white;
+        width: 5px;
+        height: 5px;
+        position: absolute;
+        top: 4px;
+        left: 4px;
+    }
+}
+
+/*-------------------
+  	MEDIA QUERIES
+-------------------*/
+@media screen and (max-width: 1260px) {
+    .sale-data {
+        width: 100%;
+        margin: 0 auto 26px;
+        border-right: none;
+
+        .sale-data-item {
+            width: 50%;
+
+            &:nth-child(3n+3) {
+                clear: left;
+            }
+
+            &:last-child {
+                border-right: 1px solid $main-border-color;
+            }
+        }
+    }
+
+    .transaction-list-header-item,
+    .transaction-list-item-item {
+        width: 31.1%;
+    }
+
+    .transaction-list-header-cut,
+    .transaction-list-item-cut {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 935px) {
+    .transaction-list-header-date,
+    .transaction-list-item-date {
+        width: 23%;
+    }
+
+    .transaction-list-header-author,
+    .transaction-list-item-author {
+        width: 25%;
+    }
+
+    .transaction-list-header-item,
+    .transaction-list-item-item {
+        width: 36%;
+    }
+
+    .transaction-list-header-detail,
+    .transaction-list-item-detail {
+        display: none;
+    }
+    .transaction-list-header-code,
+    .transaction-list-item-code {
+        display: none;
+    }
+
+    .transaction-list-header-price,
+    .transaction-list-item-price {
+        display: none;
+    }
+
+    .transaction-list-header-earnings,
+    .transaction-list-item-earnings {
+        width: 12%;
+    }
+
+    .transaction-list-header-icon,
+    .transaction-list-item-icon {
+        width: 4%;
+    }
+}
+
+@media screen and (max-width: 630px) {
+    .sale-data {
+        border-bottom: none;
+
+        .sale-data-item {
+            width: 100%;
+            border-bottom: 1px solid $main-border-color;
+        }
+    }
+
+    .transaction-list {
+        padding: 0 24px 36px;
+    }
+
+    .transaction-list-item {
+        height: auto;
+        padding: 20px 24px;
+
+        & > * {
+            float: none;
+            width: 100%;
+        }
+
+        p, .text-header {
+            line-height: 1em;
+            text-align: left;
+            margin-bottom: 6px;
+        }
+
+         .transaction-list-item-date,
+         .transaction-list-item-icon {
+            padding: 0;
+        }
+    }
+
+    .transaction-list-header-date,
+    .transaction-list-header-author,
+    .transaction-list-header-earnings,
+    .transaction-list-header-icon {
+        display: none;
+    }
+
+    .transaction-list-header-item {
+        width: 100%;
+
+        .text-header {
+            text-align: center;
+        }
+    }
+
+    .transaction-list-item-detail,
+    .transaction-list-item-code,
+    .transaction-list-item-price {
+        display: block;
+    }
+}

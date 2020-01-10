@@ -1,0 +1,33 @@
+@mixin transform_rotate($deg) {
+	-webkit-transform: rotate($deg);
+	    	transform: rotate($deg);
+}
+
+@mixin transform_scale($size) {
+	-webkit-transform: scale($size);
+	    	transform: scale($size);
+}
+
+@mixin background_gradient($direction, $init_color, $end_color) {
+	background: -webkit-linear-gradient($direction, $init_color, $end_color);
+	background: linear-gradient($direction, $init_color, $end_color);
+}
+
+@mixin appearance($value) {
+	-webkit-appearance: $value;
+       -moz-appearance: $value;
+    	    appearance: $value;
+}
+
+@mixin transition_delay($delay) {
+	-webkit-transition-delay: $delay;
+    		transition-delay: $delay;
+}
+
+@mixin transition_delay2($delay_a, $delay_b) {
+	-webkit-transition-delay: $delay_a, $delay_b;
+    		transition-delay: $delay_a, $delay_b;
+}
+
+$max-index: 10000;
+$local-max-index: 9000;

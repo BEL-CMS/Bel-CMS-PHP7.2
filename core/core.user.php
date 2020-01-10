@@ -168,6 +168,9 @@ class Users
 	#########################################
 	public static function logout()
 	{
+		if (isset($_SESSION['LOGIN_MANAGEMENT'])) {
+			unset($_SESSION['LOGIN_MANAGEMENT']);
+		}
 		unset($_SESSION['USER']);
 		setcookie('BEL-CMS-COOKIE', NULL, -1, '/');
 		$return['msg']  = 'Votre session est vos cookie de ce site sont effacés';
@@ -281,6 +284,28 @@ class Users
 			if (in_array(1, $groups)) {
 				return true;
 			}
+		}
+	}
+
+	public static function getUserName ($n = true)
+	{
+		if (isset($_SESSION['USER'])) {
+			$user = self::ifUserExist($_SESSION['USER']['HASH_KEY']);
+			if ($user == true) {
+				if ($n == true) {
+					$n = 'username';
+				} else {
+					$n = 'avatar';
+				}
+				$return = self::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY'], $n);
+			} else {
+				if ($user == true) {
+					$return = UNKNOWN;
+				} else {
+					$return = 'assets/images/default_avatar.jpg';
+				}
+			}
+			return $return;
 		}
 	}
 

@@ -53,6 +53,7 @@ Common::constant(array(
 	'VISITORS'               => 'Visiteurs',
 	'VALID'                  => 'Valider',
 	'SEE'                    => 'Voir',
+	'CATEGORY'               => 'Câtégorie',
 	'ADD'                    => 'Ajouter',
 	'EDIT'                   => 'Editer',
 	'MODIFY'                 => 'Modifier',

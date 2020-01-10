@@ -1,0 +1,96 @@
+.upload-file {
+    overflow: hidden;
+    margin-bottom: 34px;
+
+    &.multiupload {
+        .upload-file-actions {
+            .button {
+                visibility: hidden;
+            }
+        }
+    }
+
+    p {
+        font-size: $paragraph-fs-small;
+    }
+
+    .upload-file-actions {
+        float: left;
+        width: 50%;
+
+        .button {
+            float: left;
+            width: 120px;
+            margin-right: 25px;
+        }
+
+        p {
+            float: left;
+            line-height: 30px;
+        }
+    }
+
+    .upload-file-progress {
+        float: right;
+        width: 342px;
+
+        .upload-bar, .text-header {
+            float: left;
+        }
+
+        .upload-bar {
+            width: 240px;
+            top: 1px;
+        }
+
+        .text-header {
+            margin-left: 16px;
+            line-height: 30px;
+        }
+
+        .button {
+            float: right;
+            width: 30px;
+        }
+    }
+}
+
+/*-------------------
+  	MEDIA QUERIES
+-------------------*/
+@media screen and (max-width: 935px) {
+    .upload-file {
+        .upload-file-actions,
+        .upload-file-progress {
+            float: none;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .upload-file-progress {
+            margin-top: 20px;
+
+            .button {
+                float: none;
+                clear: left;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .upload-file {
+        .upload-file-progress {
+            .upload-bar {
+                width: 100%;
+            }
+
+            .text-header {
+                float: none;
+                line-height: 1em;
+                margin: 0;
+                text-align: center;
+            }
+        }
+    }
+}
