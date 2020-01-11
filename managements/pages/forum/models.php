@@ -277,7 +277,7 @@ class ModelsForum
 			$edit['subtitle']      = Common::VarSecure($data['subtitle'], '');
 			$edit['access_admin']  = implode('|', $data['access_admin']);
 			$edit['access_groups'] = implode('|', $data['access_groups']);
-			$edit['activate']      = (int) $data['activate'];
+			$edit['activate']      = isset($data['activate']) ? $data['activate'] : 0;
 			$edit['orderby']       = (int) $data['orderby'];
 			// SQL EDIT
 			$where = array('name' => 'id','value' => $id);
@@ -294,13 +294,13 @@ class ModelsForum
 				);
 			} else {
 				$return = array(
-					'type' => 'alert',
+					'type' => 'warning',
 					'text' => EDIT_CAT_ERROR
 				);
 			}
 		} else {
 			$return = array(
-				'type' => 'alert',
+				'type' => 'warning',
 				'text' => ERROR_ID_EMPTY_INT
 			);
 		}

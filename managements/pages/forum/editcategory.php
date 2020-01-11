@@ -48,12 +48,18 @@
 				</div>
 			</div>
 
-
+			<?php
+			if ($data->activate == 1) {
+				$checked = 'checked';
+			} else {
+				$checked = null;
+			}
+			?>
 			<div class="form-group">
 				<label for="label_icon" class="col-sm-2 control-label"><?=ACTIVE?></label>
 				<div class="col-sm-10">
 					<label>
-						<input value="1" type="checkbox" class="js-switch" name="activate" checked="checked"> <?=ACTIVATE?>
+						<input value="1" type="checkbox" class="js-switch" name="activate" <?=$checked?>> <?=ACTIVATE?>
 					</label>
 				</div>
 			</div>
@@ -107,10 +113,15 @@
 						</div>
 						<?php
 					endforeach;
+					if (in_array(0, $data->access_groups)) {
+						$checked = 'checked';
+					} else {
+						$checked = null;
+					}
 					?>
 						<div class="input-group">
 							<span class="input-group-addon">
-								<input name="access_groups[]" value="0" type="checkbox">
+								<input <?=$checked?> name="access_groups[]" value="0" type="checkbox">
 							</span>
 							<input type="text" class="form-control" disabled="disabled" value="<?=$visitor?>">
 						</div>

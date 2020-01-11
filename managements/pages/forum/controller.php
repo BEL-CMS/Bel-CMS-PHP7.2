@@ -100,6 +100,7 @@ class Forum extends AdminPages
 		} elseif ($_POST['send'] == 'editcat') {
 			$return = $this->ModelsForum->sendEditCat($_POST);
 			Common::Redirect('Forum/category?management&page=true', 2);
+			$this->error(get_class($this), $return['text'], $return['type']);
 			return;
 		}
 
