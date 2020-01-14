@@ -80,6 +80,7 @@ final class Managements extends Dispatcher
 						$page = defined(strtoupper($page)) ? constant(strtoupper($page)) : $page;
 						$Interaction = New Interaction;
 						$Interaction->user($_SESSION['USER']['HASH_KEY']);
+						$Interaction->title('Accès non autorisé');
 						$Interaction->type('error');
 						$Interaction->text('Accès non autorisé de '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' à la page '.$page.' : paramètre');
 						$Interaction->insert();
@@ -95,6 +96,7 @@ final class Managements extends Dispatcher
 						$page = defined(strtoupper($page)) ? constant(strtoupper($page)) : $page;
 						$Interaction = New Interaction;
 						$Interaction->user($_SESSION['USER']['HASH_KEY']);
+						$Interaction->title('Accès non autorisé');
 						$Interaction->type('error');
 						$Interaction->text('Accès non autorisé de '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' à la page '.$page.' : paramètre');
 						$Interaction->insert();
@@ -140,6 +142,7 @@ final class Managements extends Dispatcher
 						$Interaction = New Interaction;
 						$Interaction->user($_SESSION['USER']['HASH_KEY']);
 						$Interaction->type('error');
+						$Interaction->title('Accès non autorisé');
 						$Interaction->text('Accès non autorisé de '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' à la page '.$page.' : paramètre');
 						$Interaction->insert();
 					} else {
@@ -167,6 +170,7 @@ final class Managements extends Dispatcher
 						$Interaction = New Interaction;
 						$Interaction->user($_SESSION['USER']['HASH_KEY']);
 						$Interaction->type('error');
+						$Interaction->title('Accès non autorisé');
 						$Interaction->text('Accès non autorisé de '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' à la page '.$page.' : paramètre');
 						$Interaction->insert();
 					} else {
@@ -224,13 +228,30 @@ final class Managements extends Dispatcher
 
 				if (password_verify($_REQUEST['passwrd'], $data->password)) {
 					if ($_SESSION['USER']['HASH_KEY'] == $data->hash_key) {
+						$Interaction = New Interaction;
+						$Interaction->user($_SESSION['USER']['HASH_KEY']);
+						$Interaction->type('success');
+						$Interaction->title('Accès autorisé');
+						$Interaction->text('S\'est connecté au management');
+						$Interaction->insert();
 						$_SESSION['LOGIN_MANAGEMENT'] = true;
 						$return['ajax'] = 'login en cours...';
-						//New Interaction($_SESSION['USER']['HASH_KEY'], 'success', $data->username.' s\'est connecté au management');
 					} else {
+						$Interaction = New Interaction;
+						$Interaction->user($_SESSION['USER']['HASH_KEY']);
+						$Interaction->type('error');
+						$Interaction->title('Accès non autorisé');
+						$Interaction->text('À tenter de ce connecté avec un autre Hash Key !');
+						$Interaction->insert();
 						$return['ajax'] = 'Hash_key ne corespond pas au votre ?...';
 					}
 				} else {
+					$Interaction = New Interaction;
+					$Interaction->user($_SESSION['USER']['HASH_KEY']);
+					$Interaction->type('error');
+					$Interaction->title('Accès non autorisé');
+					$Interaction->text('Tentative d\'accès avec un mauvais mot de passe !');
+					$Interaction->insert();
 					$return['ajax'] = 'Le password n\'est pas le bon !!!';
 				}
 
