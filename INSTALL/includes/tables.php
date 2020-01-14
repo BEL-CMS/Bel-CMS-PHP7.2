@@ -164,6 +164,7 @@ switch ($table) {
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`author` varchar(32) DEFAULT NULL,
+			`title` varchar(255) DEFAULT NULL,
 			`date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 			`type` text NOT NULL,
 			`text` text,
