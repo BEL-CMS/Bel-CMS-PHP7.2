@@ -29,20 +29,16 @@
 	  <div class="main_container">
 		<div class="col-md-3 left_col">
 		  <div class="left_col scroll-view">
-			<div class="navbar nav_title" style="border: 0;">
-			  <a href="https://bel-cms.be" class="site_title"><span>Bel-CMS.be</span> Admin</a>
+			<div class="navbar nav_title" style="border: 0; height: auto !important;">
+			  <a href="https://bel-cms.be" style="text-align: center;display: block;"><img src="/assets/images/bel-cms-logo.png"></a>
 			</div>
-
 			<div class="clearfix"></div>
-
-			<!-- menu profile quick info -->
 			<div class="profile clearfix">
-			  <div class="profile_info" style="text-align: center;">
+			  <div class="profile_info" style="text-align: center;width: 100%;">
 				Welcome, <?=Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY'])?>
 			  </div>
 			  <div class="clearfix"></div>
 			</div>
-			<!-- /menu profile quick info -->
 
 			<br />
 
