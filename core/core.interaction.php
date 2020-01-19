@@ -19,6 +19,7 @@ final class Interaction
 	private $user,
 			$type,
 			$text,
+			$title,
 			$date;
 
 	public function user ($hash_key = null) {
@@ -61,6 +62,11 @@ final class Interaction
 		$this->date = date("Y-m-d H:i:s");
 	}
 
+	public function title ($text)
+	{
+		$this->title = Common::VarSecure($text, '');
+	}
+
 	public function insert ()
 	{
 		/* Data */
@@ -68,6 +74,7 @@ final class Interaction
 		$insert['type']   = $this->type;
 		$insert['text']   = $this->text;
 		$insert['date']   = $this->date;
+		$insert['title']  = $this->title;
 		/* BDD */
 		$sql = New BDD();
 		$sql->table('TABLE_INTERACTION');

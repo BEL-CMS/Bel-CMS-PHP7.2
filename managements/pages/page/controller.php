@@ -14,45 +14,34 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 
-class Page extends AdminPages
+class Page extends Pages
 {
-	var $active = true;
-	var $models = array('ModelsPage');
+	var $models  = array('ModelsPage');
+	private $php = true;
 
-	public function index ()
+	public function index ($page = false)
 	{
-		$set['data'] = $this->ModelsPage->getPages();
-		$this->set($set);
-		$this->render('index');
+		if (!empty($page) && $this->ModelsPage->TestExistPage($page) === true) {
+			$data['title']   = Common::MakeConstant($page);
+			$data['content'] = $this->ModelsPage->GetPage($page, $this->php)->content;
+			$this->set($data);
+			$this->render('index');
+		} else {
+			$this->error(INFO, 'La page demander n\'existe pas !', 'warning');
+		}
 	}
 
-	public function add ()
+	public function subPage ($name = null)
 	{
-		$data['groups'] = BelCMSConfig::getGroups();
-		$this->set($data);
-		$this->render('addpage');
-	}
-
-	public function edit ($id)
-	{
-		$id = (int) $id;
-		$set['groups'] = BelCMSConfig::getGroups();
-		$set['data']   = $this->ModelsPage->getPage($id);
-		$this->set($set);
-		$this->render('edit');
-	}
-
-	public function sendnew ()
-	{
-		$return = $this->ModelsPage->addNewPage($_POST);
-		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('page?management&page=true', 2);
-	}
-
-	public function sendedit ()
-	{
-		$return = $this->ModelsPage->sendedit ($_POST);
-		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('page?management&page=true', 2);
+		$page = Common::ScanFiles(ROOT.'pages/page/sub-page');
+		if (!empty($page)) {
+			$page = str_replace(".php", "", $page);
+		}
+		$full = Common::ScanFiles(ROOT.'pages/page/sub-page', true, true);
+		if (in_array(strtolower($name), $page)) {
+			require_once(ROOT.'pages/page/sub-page'.DS.$name.'.php');
+		} else {
+			$this->error(INFO, 'La page ('.$name.') demander n\'existe pas !', 'warning');
+		}
 	}
 }

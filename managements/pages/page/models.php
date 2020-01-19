@@ -16,114 +16,49 @@ if (!defined('CHECK_INDEX')) {
 
 class ModelsPage
 {
-	#####################################
-	# Infos tables
-	#####################################
-	# TABLE_PAGE
-	#####################################
-	public function addNewPage ($data)
-	{
-		if ($data !== false) {
-			// SECURE DATA
-			$send['name']    = Common::VarSecure($data['name'], ''); // autorise que du texte
-			$send['content'] = Common::VarSecure($data['content'], 'html'); // autorise que les balises HTML
-			if (!isset($data['groups'])) {
-				$send['groups'] = 0;
-			} else {
-				$send['groups'] = implode('|', $data['groups']);
-			}
-			// SQL INSERT
-			$sql = New BDD();
-			$sql->table('TABLE_PAGE');
-			$sql->sqlData($send);
-			$sql->insert();
-			// SQL RETURN NB INSERT
-			if ($sql->rowCount == 1) {
-				$return = array(
-					'type' => 'success',
-					'text' => SEND_PAGE_SUCCESS
-				);
-			} else {
-				$return = array(
-					'type' => 'warning',
-					'text' => SEND_PAGE_ERROR
-				);
-			}
-		} else {
-			$return = array(
-				'type' => 'warning',
-				'text' => ERROR_NO_DATA
-			);
-		}
-
-		return $return;
-	}
-
-	public function getPages ()
-	{
-		$return = array();
-		$sql = New BDD();
-		$sql->table('TABLE_PAGE');
-		$sql->queryAll();
-		$return = $sql->data;
-		return $return;
-	}
-
-	public function getPage ($id = false)
+	public function GetPage ($name = false, $php = false)
 	{
 		$return = null;
 
-		if ($id) {
+		if ($name !== false) {
 
 			$sql = New BDD();
 			$sql->table('TABLE_PAGE');
 			$where = array(
-				'name'  => 'id',
-				'value' => $id
+				'name'  => 'name',
+				'value' => Common::MakeConstant($name)
 			);
 			$sql->where($where);
 			$sql->queryOne();
 			$return = $sql->data;
+			if ($php === false) {
+				$return->content = Common::VarSecure($return->content, 'html');
+			}
+			$return->name = Common::MakeConstant($return->name);
 		}
 
 		return $return;
 	}
 
-	public function sendedit ($data)
-	{
-		if ($data && is_array($data)) {
-			// SECURE DATA
-			$edit['name']              = Common::VarSecure($data['name'], ''); // autorise que du texte
-			$edit['content']           = Common::VarSecure($data['content'], 'html'); // autorise que les balises HTML
-			if (!isset($data['groups'])) {
-				$edit['groups'] = 0;
-			} else {
-				$edit['groups'] = implode('|', $data['groups']);
-			}			// SQL UPDATE
-			$sql = New BDD();
-			$sql->table('TABLE_PAGE');
-			$id = Common::SecureRequest($data['id']);
-			$sql->where(array('name' => 'id', 'value' => $id));
-			$sql->sqlData($edit);
-			$sql->update();
-			// SQL RETURN NB UPDATE
-			if ($sql->rowCount == 1) {
-				$return = array(
-					'type' => 'success',
-					'text' => EDIT_PAGE_SUCCESS
-				);
-			} else {
-				$return = array(
-					'type' => 'warning',
-					'text' => EDIT_PAGE_ERROR
-				);
-			}
+	public function  TestExistPage ($name = false) {
+		$sql = New BDD();
+		$sql->table('TABLE_PAGE');
+		$where = array(
+			'name'  => 'name',
+			'value' => Common::MakeConstant($name)
+		);
+		$sql->fields(array('id'));
+		$sql->where($where);
+		$sql->queryOne();
+
+		$count  = $sql->rowCount;
+
+		if ($count == 1) {
+			$return = true;
 		} else {
-			$return = array(
-				'type' => 'warning',
-				'text' => ERROR_NO_DATA
-			);
+			$return = false;
 		}
+
 		return $return;
 	}
 }
