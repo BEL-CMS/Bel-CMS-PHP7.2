@@ -16,49 +16,306 @@ if (!defined('CHECK_INDEX')) {
 
 class ModelsPage
 {
-	public function GetPage ($name = false, $php = false)
+	#####################################
+	# Infos tables
+	#####################################
+	# TABLE_PAGE
+	# TABLE_PAGE_CONTENT
+	#####################################
+	public function addNewPage ($data)
 	{
-		$return = null;
-
-		if ($name !== false) {
-
+		if ($data !== false) {
+			// SECURE DATA
+			$send['name']    = Common::VarSecure($data['name'], ''); // autorise que du texte
+			if (!isset($data['groups'])) {
+				$send['groups'] = 0;
+			} else {
+				$send['groups'] = implode('|', $data['groups']);
+			}
+			// SQL INSERT
 			$sql = New BDD();
 			$sql->table('TABLE_PAGE');
-			$where = array(
-				'name'  => 'name',
-				'value' => Common::MakeConstant($name)
-			);
-			$sql->where($where);
-			$sql->queryOne();
-			$return = $sql->data;
-			if ($php === false) {
-				$return->content = Common::VarSecure($return->content, 'html');
+			$sql->sqlData($send);
+			$sql->insert();
+			// SQL RETURN NB INSERT
+			if ($sql->rowCount == 1) {
+				$return = array(
+					'type' => 'success',
+					'text' => SEND_PAGE_SUCCESS
+				);
+			} else {
+				$return = array(
+					'type' => 'warning',
+					'text' => SEND_PAGE_ERROR
+				);
 			}
-			$return->name = Common::MakeConstant($return->name);
+		} else {
+			$return = array(
+				'type' => 'warning',
+				'text' => ERROR_NO_DATA
+			);
 		}
 
 		return $return;
 	}
 
-	public function  TestExistPage ($name = false) {
+	public function getPages ()
+	{
+		$return = array();
 		$sql = New BDD();
 		$sql->table('TABLE_PAGE');
-		$where = array(
-			'name'  => 'name',
-			'value' => Common::MakeConstant($name)
-		);
-		$sql->fields(array('id'));
-		$sql->where($where);
-		$sql->queryOne();
+		$sql->queryAll();
+		foreach ($sql->data as $k => $v) {
+			$sql->data[$k]->count = self::countPages($v->id);
+		}
+		$return = $sql->data;
+		return $return;
+	}
 
-		$count  = $sql->rowCount;
+	public function getPage ($id = false)
+	{
+		$return = null;
 
-		if ($count == 1) {
-			$return = true;
-		} else {
-			$return = false;
+		if ($id) {
+			$sql = New BDD();
+			$sql->table('TABLE_PAGE');
+			$where = array(
+				'name'  => 'id',
+				'value' => $id
+			);
+			$sql->where($where);
+			$sql->queryOne();
+			$return = $sql->data;
 		}
 
+		return $return;
+	}
+
+	public function getPagecontent ($id = false)
+	{
+		$return = array();
+
+		if ($id && is_numeric($id)) {
+			$sql = New BDD();
+			$sql->table('TABLE_PAGE_CONTENT');
+			$where = array(
+				'name'  => 'number',
+				'value' => $id
+			);
+			$sql->where($where);
+			$sql->queryAll();
+			$return = $sql->data;
+		}
+
+		return $return;
+	}
+
+	public function getPagecontentId ($id = false)
+	{
+		$return = array();
+
+		if ($id && is_numeric($id)) {
+			$sql = New BDD();
+			$sql->table('TABLE_PAGE_CONTENT');
+			$where = array(
+				'name'  => 'id',
+				'value' => $id
+			);
+			$sql->where($where);
+			$sql->queryOne();
+			$return = $sql->data;
+		}
+
+		return $return;
+	}	#####################################
+	# Récupère le nombre de page
+	#####################################
+	public function countPages ($id)
+	{
+		$id = (int) $id;
+		$sql = New BDD();
+		$sql->table('TABLE_PAGE_CONTENT');
+		$where = array(
+			'name' => 'number',
+			'value' => $id
+		);
+		$sql->where($where);
+		$sql->count();
+		$return = $sql->data;
+		return $return;
+	}
+	public function sendedit ($data)
+	{
+		if ($data && is_array($data)) {
+			// SECURE DATA
+			$edit['name']              = Common::VarSecure($data['name'], ''); // autorise que du texte
+			$edit['content']           = Common::VarSecure($data['content'], 'html'); // autorise que les balises HTML
+			if (!isset($data['groups'])) {
+				$edit['groups'] = 0;
+			} else {
+				$edit['groups'] = implode('|', $data['groups']);
+			}			// SQL UPDATE
+			$sql = New BDD();
+			$sql->table('TABLE_PAGE');
+			$id = Common::SecureRequest($data['id']);
+			$sql->where(array('name' => 'id', 'value' => $id));
+			$sql->sqlData($edit);
+			$sql->update();
+			// SQL RETURN NB UPDATE
+			if ($sql->rowCount == 1) {
+				$return = array(
+					'type' => 'success',
+					'text' => EDIT_PAGE_SUCCESS
+				);
+			} else {
+				$return = array(
+					'type' => 'warning',
+					'text' => EDIT_PAGE_ERROR
+				);
+			}
+		} else {
+			$return = array(
+				'type' => 'warning',
+				'text' => ERROR_NO_DATA
+			);
+		}
+		return $return;
+	}
+
+	public function sendnewsub ($data)
+	{
+		if ($data && is_array($data)) {
+			$id = (int) $data['id'];
+			$count = self::countPages($id) + 1;
+			// SECURE DATA
+			$send['name']       = Common::VarSecure($data['name'], ''); // autorise que du texte
+			$send['content']    = Common::VarSecure($data['content'], 'html'); // autorise que du texte
+			$send['pagenumber'] = $count;
+			$send['number']     = $id;
+			// SQL INSERT
+			$sql = New BDD();
+			$sql->table('TABLE_PAGE_CONTENT');
+			$sql->sqlData($send);
+			$sql->insert();
+			// SQL RETURN NB INSERT
+			if ($sql->rowCount == 1) {
+				$return = array(
+					'type' => 'success',
+					'text' => SEND_PAGE_SUCCESS
+				);
+			} else {
+				$return = array(
+					'type' => 'warning',
+					'text' => SEND_PAGE_ERROR
+				);
+			}
+		} else {
+			$return = array(
+				'type' => 'warning',
+				'text' => ERROR_NO_DATA
+			);
+		}
+		return $return;
+	}
+
+	public function sendeditsub ($data = false)
+	{
+		if (is_array($data)) {
+			// SECURE DATA
+			$edit['name']              = Common::VarSecure($data['name'], ''); // autorise que du texte
+			$edit['content']           = Common::VarSecure($data['content'], 'html'); // autorise que les balises HTML
+			$sql = New BDD();
+			$sql->table('TABLE_PAGE_CONTENT');
+			$id = Common::SecureRequest($data['id']);
+			$sql->where(array('name' => 'id', 'value' => $id));
+			$sql->sqlData($edit);
+			$sql->update();
+			// SQL RETURN NB UPDATE
+			if ($sql->rowCount == 1) {
+				$return = array(
+					'type' => 'success',
+					'text' => EDIT_PAGE_SUCCESS
+				);
+			} else {
+				$return = array(
+					'type' => 'warning',
+					'text' => EDIT_PAGE_ERROR
+				);
+			}
+		} else {
+			$return = array(
+				'type' => 'warning',
+				'text' => ERROR_NO_DATA
+			);
+		}
+		return $return;
+	}
+
+	public function deletesub ($data)
+	{
+		if ($data && is_numeric($data)) {
+			// SECURE DATA
+			$delete = (int) $data;
+			// SQL DELETE
+			$sql = New BDD();
+			$sql->table('TABLE_PAGE_CONTENT');
+			$sql->where(array('name'=>'id','value' => $delete));
+			$sql->delete();
+			// SQL RETURN NB DELETE
+			if ($sql->rowCount == 1) {
+				$return = array(
+					'type' => 'success',
+					'text' => DEL_SUBPAGE_SUCCESS
+				);
+			} else {
+				$return = array(
+					'type' => 'warning',
+					'text' => DEL_SUBPAGE_ERROR
+				);
+			}
+		} else {
+			$return = array(
+				'type' => 'error',
+				'text' => ERROR_NO_DATA
+			);
+		}
+		return $return;
+	}
+
+	public function deleteAll ($id = false)
+	{
+		if (is_numeric($id)) {
+			// SECURE DATA
+			$delete = (int) $id;
+			// SQL DELETE
+			$sql = New BDD();
+			$sql->table('TABLE_PAGE');
+			$sql->where(array('name'=>'id','value' => $delete));
+			$sql->delete();
+
+			$del = New BDD();
+			$del->table('TABLE_PAGE_CONTENT');
+			$del->where(array('name'=>'number','value' => $delete));
+			$del->delete();
+		
+			// SQL RETURN NB DELETE
+			if ($sql->rowCount == 1) {
+				$return = array(
+					'type' => 'success',
+					'text' => DEL_PAGE_SUCCESS
+				);
+			} else {
+				$return = array(
+					'type' => 'warning',
+					'text' => DEL_SUBPAGE_ERROR
+				);
+			}
+		} else {
+			$return = array(
+				'type' => 'error',
+				'text' => ERROR_NO_DATA
+			);
+		}
 		return $return;
 	}
 }

@@ -14,34 +14,104 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 
-class Page extends Pages
+class Page extends AdminPages
 {
-	var $models  = array('ModelsPage');
-	private $php = true;
+	var $active = true;
+	var $models = array('ModelsPage');
 
-	public function index ($page = false)
+	public function index ()
 	{
-		if (!empty($page) && $this->ModelsPage->TestExistPage($page) === true) {
-			$data['title']   = Common::MakeConstant($page);
-			$data['content'] = $this->ModelsPage->GetPage($page, $this->php)->content;
-			$this->set($data);
-			$this->render('index');
-		} else {
-			$this->error(INFO, 'La page demander n\'existe pas !', 'warning');
+		$set['data'] = $this->ModelsPage->getPages();
+		foreach ($set['data'] as $key => $value) {
+			if (Secures::IsAcess($value->groups) == false) {
+				unset($set['data'][$key]);
+			}
 		}
+		$this->set($set);
+		$this->render('index');
 	}
 
-	public function subPage ($name = null)
+	public function getpage ($id = false)
 	{
-		$page = Common::ScanFiles(ROOT.'pages/page/sub-page');
-		if (!empty($page)) {
-			$page = str_replace(".php", "", $page);
-		}
-		$full = Common::ScanFiles(ROOT.'pages/page/sub-page', true, true);
-		if (in_array(strtolower($name), $page)) {
-			require_once(ROOT.'pages/page/sub-page'.DS.$name.'.php');
-		} else {
-			$this->error(INFO, 'La page ('.$name.') demander n\'existe pas !', 'warning');
-		}
+		$set['data'] = $this->ModelsPage->getPagecontent($id);
+		$set['name'] = $this->ModelsPage->getPage($id)->name;
+		$set['id']   = (int) $id;
+ 		$this->set($set);
+		$this->render('page');
+	}
+
+	public function add ()
+	{
+		$data['groups'] = BelCMSConfig::getGroups();
+		$this->set($data);
+		$this->render('addpage');
+	}
+
+	public function edit ($id)
+	{
+		$id = (int) $id;
+		$set['groups'] = BelCMSConfig::getGroups();
+		$set['data']   = $this->ModelsPage->getPage($id);
+		$this->set($set);
+		$this->render('edit');
+	}
+
+	public function sendnew ()
+	{
+		$return = $this->ModelsPage->addNewPage($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('page?management&page=true', 2);
+	}
+
+	public function sendedit ()
+	{
+		$return = $this->ModelsPage->sendedit ($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('page?management&page=true', 2);
+	}
+
+	public function addsubpage ($id)
+	{
+		$set['data'] = $this->ModelsPage->getPage($id);
+		$this->set($set);
+		$this->render('subpage');
+	}
+
+	public function sendnewsub ()
+	{
+		$return = $this->ModelsPage->sendnewsub ($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('page?management&page=true', 2);
+	}
+
+	public function subpageedit ($id)
+	{
+		$id = (int) $id;
+		$set['data'] = $this->ModelsPage->getPagecontentId($id);
+		$this->set($set);
+		$this->render('subpageedit');
+	}
+
+	public function sendeditsub ()
+	{
+		$return = $this->ModelsPage->sendeditsub ($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('page?management&page=true', 2);
+	}
+
+	public function delsubpage ($id = false)
+	{
+		$id = (int) $id;
+		$return = $this->ModelsPage->deletesub($id);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('page?management&page=true', 2);
+	}
+
+	public function deleteAll ($id)
+	{
+		$id  = (int) $id;
+		$return = $this->ModelsPage->deleteAll($id);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('page?management&page=true', 2);
 	}
 }
