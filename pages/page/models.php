@@ -16,31 +16,48 @@ if (!defined('CHECK_INDEX')) {
 
 class ModelsPage
 {
-	public function GetPage ($name = false, $php = false)
+	public function getPage ()
 	{
-		$return = null;
-
-		if ($name !== false) {
-
-			$sql = New BDD();
-			$sql->table('TABLE_PAGE');
+		$sql = New BDD;
+		$sql->table('TABLE_PAGE');
+		$sql->queryAll();
+		foreach ($sql->data as $k => $v) {
+			$get = New BDD();
+			$get->table('TABLE_PAGE_CONTENT');
 			$where = array(
-				'name'  => 'name',
-				'value' => Common::MakeConstant($name)
+				'name'  => 'number',
+				'value' => $v->id
+			);
+			$get->where($where);
+			$get->count();
+			$return = $get->data;
+			$sql->data[$k]->count = $return;
+		}
+
+		return $sql->data;
+	}
+
+	public function getPages ($id = null)
+	{
+		$return = array();
+
+		if (is_numeric($id)) {
+			$sql = New BDD;
+			$sql->table('TABLE_PAGE_CONTENT');
+			$where = array(
+				'name'  => 'id',
+				'value' => $id
 			);
 			$sql->where($where);
 			$sql->queryOne();
-			$return = $sql->data;
-			if ($php === false) {
-				$return->content = Common::VarSecure($return->content, 'html');
-			}
-			$return->name = Common::MakeConstant($return->name);
+
+		    $return = $sql->data;
 		}
 
 		return $return;
 	}
 
-	public function  TestExistPage ($name = false) {
+	public function  testExistPage ($name = false) {
 		$sql = New BDD();
 		$sql->table('TABLE_PAGE');
 		$where = array(

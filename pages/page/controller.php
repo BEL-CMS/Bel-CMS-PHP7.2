@@ -20,18 +20,22 @@ class Page extends Pages
 	private $php = true;
 
 	public function index ($page = false)
+	{	
+		$set['data'] = $this->ModelsPage->getPage();
+		$this->set($set);
+		$this->render('index');
+	}
+
+	public function read ($id = null)
 	{
-		if (!empty($page) && $this->ModelsPage->TestExistPage($page) === true) {
-			$data['title']   = Common::MakeConstant($page);
-			$data['content'] = $this->ModelsPage->GetPage($page, $this->php)->content;
-			$this->set($data);
-			$this->render('index');
-		} else {
-			$this->error(INFO, 'La page demander n\'existe pas !', 'warning');
+		if (!is_null($id) && is_numeric($id)) {
+			$set['data'] = $this->ModelsPage->getPages($id);
+			$this->set($set);
+			$this->render('read');	
 		}
 	}
 
-	public function subPage ($name = null)
+	public function intern ($name = null)
 	{
 		$page = Common::ScanFiles(ROOT.'pages/page/sub-page');
 		if (!empty($page)) {

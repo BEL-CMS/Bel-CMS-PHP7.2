@@ -14,21 +14,14 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<section id="bel_cms_page_index">
-	<table class="table table-striped jambo_table bulk_action">
-		<tr>
-		<th>Nom</th>
-		<th>Nombre de page(s)</th>
-	</tr>
-	<?php
-	foreach ($data as $k => $v):
-		?>
-		<tr>
-			<td><?=$v->name?></td>
-			<td><?=$v->count?></td>
-		</tr>
-		<?php
-	endforeach;
-	?>
-	</table>
-</section>
+<div class="card text-center">
+	<div class="card-header">
+		<h3><?=$data->name?></h3>
+	</div>
+	<div class="card-body">
+		<?=$data->content?>
+	</div>
+	<div class="card-footer text-muted">
+		<?=$data->publish?>
+	</div>
+</div>
