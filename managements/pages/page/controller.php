@@ -114,4 +114,19 @@ class Page extends AdminPages
 		$this->error(get_class($this), $return['text'], $return['type']);
 		$this->redirect('page?management&page=true', 2);
 	}
+
+	public function parameter ()
+	{
+		$data['groups'] = BelCMSConfig::getGroups();
+		$data['config'] = BelCMSConfig::GetConfigPage(get_class($this));
+		$this->set($data);
+		$this->render('parameter');
+	}
+
+	public function sendparameter ()
+	{
+		$return = $this->ModelsPage->sendparameter($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('Page?management&page=true', 2);
+	}
 }

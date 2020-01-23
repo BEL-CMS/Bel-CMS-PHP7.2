@@ -24,7 +24,7 @@ if (!defined('CHECK_INDEX')) {
 	foreach ($data as $k => $v):
 		?>
 		<tr>
-			<td><?=$v->name?></td>
+			<td><a href="page/read/<?=$v->id?>/<?=$v->name?>"><?=$v->name?></a></td>
 			<td><?=$v->count?></td>
 		</tr>
 		<?php

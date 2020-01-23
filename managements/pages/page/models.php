@@ -318,4 +318,38 @@ class ModelsPage
 		}
 		return $return;
 	}
+	public function sendparameter($data = null)
+	{
+		if ($data !== false) {
+			$data['admin']        = isset($data['admin']) ? $data['admin'] : array(1);
+			$data['groups']       = isset($data['groups']) ? $data['groups'] : array(1);
+			$upd['active']        = isset($data['active']) ? 1 : 0;
+			$upd['access_admin']  = implode("|", $data['admin']);
+			$upd['access_groups'] = implode("|", $data['groups']);
+			// SQL UPDATE
+			$sql = New BDD();
+			$sql->table('TABLE_PAGES_CONFIG');
+			$sql->where(array('name' => 'name', 'value' => 'page'));
+			$sql->sqlData($upd);
+			$sql->update();
+			if ($sql->rowCount == 1) {
+				$return = array(
+					'type' => 'success',
+					'text' => EDIT_PAGE_PARAM_SUCCESS
+				);
+			} else {
+				$return = array(
+					'type' => 'warning',
+					'text' => EDIT_PAGE_PARAM_ERROR
+				);
+			}
+		} else {
+			$return = array(
+				'type' => 'warning',
+				'text' => ERROR_NO_DATA
+			);
+		}
+		return $return;
+	}
+
 }

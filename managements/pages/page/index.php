@@ -29,10 +29,6 @@ if (!defined('CHECK_INDEX')) {
 		<a href="/page/add?management&page=true" class="btn btn-app">
 			<i class="fa fas fa-plus"></i> <?=ADD?>
 		</a>
-		<a class="btn btn-app">
-			<span class="badge bg-red"></span>
-			<i class="fa fa-bullhorn"></i> Pages
-		</a>
 	</div>
 </div>
 

@@ -37,6 +37,20 @@ class ModelsPage
 		return $sql->data;
 	}
 
+	public function getPageId ($id = false)
+	{
+		$sql = New BDD;
+		$sql->table('TABLE_PAGE');
+		$where = array(
+			'name'  => 'id',
+			'value' => $id
+		);
+		$sql->where($where);
+		$sql->queryOne();
+
+		return $sql->data;
+	}
+
 	public function getPages ($id = null)
 	{
 		$return = array();
