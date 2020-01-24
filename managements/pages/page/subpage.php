@@ -46,6 +46,20 @@ if (!defined('CHECK_INDEX')) {
 					</div>
 				</div>
 				<div class="form-group">
+					<label class="col-sm-2 control-label">Code Pur</label>
+					<div class="col-sm-10">
+						<label>
+							<input value="1" type="checkbox" class="js-switch" checked="checked" name="wysiwyg"> Editeur wysiwyg
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Code Pur</label>
+					<div class="col-sm-10">
+						<textarea style="width: 100%; min-height: 200px;" name="content_pur"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
 					<input type="hidden" name="id" value="<?=$data->id?>">
 					<button type="submit" class="btn btn-primary"><?=ADD?></button>
 				</div>

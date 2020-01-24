@@ -23,9 +23,6 @@ if (!defined('CHECK_INDEX')) {
 		<a href="/page?management&page=true" class="btn btn-app">
 			<i class="fa fas fa-home"></i> Accueil
 		</a>
-		<a href="page/parameter?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-cogs"></i> Configuration
-		</a>
 	</div>
 </div>
 
@@ -43,6 +40,20 @@ if (!defined('CHECK_INDEX')) {
 					<label class="col-sm-2 control-label"><?=TEXT?></label>
 					<div class="col-sm-10">
 						<textarea class="bel_cms_textarea_full" name="content"><?=$data->content?></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Code Pur</label>
+					<div class="col-sm-10">
+						<label>
+							<input value="1" type="checkbox" class="js-switch" checked="checked" name="wysiwyg"> Editeur wysiwyg
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Code Pur</label>
+					<div class="col-sm-10">
+						<textarea style="width: 100%; min-height: 200px;" name="content_pur"><?=$data->content?></textarea>
 					</div>
 				</div>
 				<div class="form-group">

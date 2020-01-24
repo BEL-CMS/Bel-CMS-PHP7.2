@@ -58,9 +58,14 @@ class Page extends AdminPages
 
 	public function sendnew ()
 	{
-		$return = $this->ModelsPage->addNewPage($_POST);
-		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('page?management&page=true', 2);
+		if (empty($_POST['name'])) {
+			$this->error(get_class($this), 'Aucun nom', 'error');
+			$this->redirect('page?management&page=true', 2);
+		} else {
+			$return = $this->ModelsPage->addNewPage($_POST);
+			$this->error(get_class($this), $return['text'], $return['type']);
+			$this->redirect('page?management&page=true', 2);			
+		}
 	}
 
 	public function sendedit ()
@@ -93,8 +98,8 @@ class Page extends AdminPages
 	}
 
 	public function sendeditsub ()
-	{
-		$return = $this->ModelsPage->sendeditsub ($_POST);
+	{	
+		$return = $this->ModelsPage->sendeditsub ($_POST);		
 		$this->error(get_class($this), $return['text'], $return['type']);
 		$this->redirect('page?management&page=true', 2);
 	}

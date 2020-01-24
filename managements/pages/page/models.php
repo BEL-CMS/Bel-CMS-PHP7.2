@@ -188,8 +188,12 @@ class ModelsPage
 			$id = (int) $data['id'];
 			$count = self::countPages($id) + 1;
 			// SECURE DATA
+			if (isset($data['wysiwyg']) && $data['wysiwyg'] == 1) {
+				$send['content'] = Common::VarSecure($data['content'], 'html'); // autorise que les balises HTML
+			} else {
+				$send['content'] = Common::VarSecure($data['content_pur'], 'html'); // autorise que les balises HTML
+			}
 			$send['name']       = Common::VarSecure($data['name'], ''); // autorise que du texte
-			$send['content']    = Common::VarSecure($data['content'], 'html'); // autorise que du texte
 			$send['pagenumber'] = $count;
 			$send['number']     = $id;
 			// SQL INSERT
@@ -221,9 +225,13 @@ class ModelsPage
 	public function sendeditsub ($data = false)
 	{
 		if (is_array($data)) {
+			if (isset($data['wysiwyg']) && $data['wysiwyg'] == 1) {
+				$edit['content'] = Common::VarSecure($data['content'], 'html'); // autorise que les balises HTML
+			} else {
+				$edit['content'] = Common::VarSecure($data['content_pur'], 'html'); // autorise que les balises HTML
+			}
 			// SECURE DATA
-			$edit['name']              = Common::VarSecure($data['name'], ''); // autorise que du texte
-			$edit['content']           = Common::VarSecure($data['content'], 'html'); // autorise que les balises HTML
+			$edit['name']    = Common::VarSecure($data['name'], ''); // autorise que du texte
 			$sql = New BDD();
 			$sql->table('TABLE_PAGE_CONTENT');
 			$id = Common::SecureRequest($data['id']);
