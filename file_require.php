@@ -37,6 +37,7 @@ final class RequireFiles
 			DIR_CORE.'core.comment.php',
 			DIR_CORE.'core.user.php',
 			DIR_CORE.'core.visitors.php',
+			DIR_CORE.'core.ban.php',
 			DIR_CORE.'core.config.page.php',
 			DIR_CORE.'core.assembly.pages.php',
 			DIR_CORE.'core.widgets.php',

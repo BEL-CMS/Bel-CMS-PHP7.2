@@ -26,6 +26,7 @@ Common::constant(array(
 	#########################################
 	# Tables
 	#########################################
+	'TABLE_BAN'              => $DB_PREFIX.'ban',
 	'TABLE_CODE'             => $DB_PREFIX.'code',
 	'TABLE_COMMENTS'         => $DB_PREFIX.'comments',
 	'TABLE_CONFIG'           => $DB_PREFIX.'config',
@@ -42,6 +43,7 @@ Common::constant(array(
 	'TABLE_MAINTENANCE'      => $DB_PREFIX.'maintenance',
 	'TABLE_PAGE'             => $DB_PREFIX.'page',
 	'TABLE_PAGES_BLOG'       => $DB_PREFIX.'page_blog',
+	'TABLE_PAGE_CONTENT'     => $DB_PREFIX.'page_content',
 	'TABLE_PAGES_BLOG_CAT'   => $DB_PREFIX.'page_blog_cat',
 	'TABLE_FORUM'            => $DB_PREFIX.'page_forum',
 	'TABLE_FORUM_POST'       => $DB_PREFIX.'page_forum_post',

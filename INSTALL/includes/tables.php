@@ -15,6 +15,20 @@ $insert     = null;
 $sql        = null;
 
 switch ($table) {
+
+	case 'ban':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`author` varchar(32) NOT NULL,
+			`ip` text NOT NULL,
+			`date` int(11) NOT NULL,
+			`reason` text NOT NULL,
+			PRIMARY KEY (`id`),
+			UNIQUE KEY `author` (`author`)
+		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
+	break;
+
 	case 'comments':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
@@ -76,39 +90,8 @@ switch ($table) {
 			(NULL, 'forum', 1, '0', '1', 'NB_MSG_FORUM=6'),
 			(NULL, 'user', 1, '0', '1', 'MAX_USER=5|MAX_USER_ADMIN=20'),
 			(NULL, 'page', 1, '0', '1', ''),
-			(NULL, 'inbox', 1, '0', '1', ''),
-			(NULL, 'downloads', 1, '0', '1', ''),
-			(NULL, 'games', 1, '0', '1', '');";
+			(NULL, 'inbox', 1, '0', '1', '');";
 	break;
-
-	case 'downloads':
-		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
-		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
-			`id` int(11) NOT NULL,
-			`name` varchar(128) NOT NULL,
-			`description` text,
-			`idcat` int(11) NOT NULL,
-			`size` varchar(8) NOT NULL,
-			`uploader` varchar(32) NOT NULL,
-			`date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-			`ext` text NOT NULL,
-			`view` int(11) NOT NULL,
-			`dls` int(11) NOT NULL,
-			`screen` text NOT NULL,
-			`download` text NOT NULL,
-			PRIMARY KEY (`id`)
-		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
-	break;
-
-	case 'downloads_cat':
-		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
-		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
-			`id` int(11) NOT NULL,
-			`name` varchar(128) DEFAULT NULL,
-			`description` text NOT NULL,
-			`groups` text,
-			PRIMARY KEY (`id`)
-		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
 
 	case 'games':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
@@ -155,19 +138,6 @@ switch ($table) {
 			`date_msg` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 			`message` text NOT NULL,
 			`status` tinyint(1) NOT NULL DEFAULT '0',
-			PRIMARY KEY (`id`)
-		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
-	break;
-
-	case 'interaction':
-		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
-		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
-			`id` int(11) NOT NULL AUTO_INCREMENT,
-			`author` varchar(32) DEFAULT NULL,
-			`title` varchar(255) DEFAULT NULL,
-			`date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-			`type` text NOT NULL,
-			`text` text,
 			PRIMARY KEY (`id`)
 		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
 	break;
@@ -229,30 +199,13 @@ switch ($table) {
 			(NULL, 'mail');";
 	break;
 
-	case 'maintenance':
-		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
-		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
-			`id` int(11) NOT NULL AUTO_INCREMENT,
-			`name` varchar(128) NOT NULL,
-			`value` varchar(256) NOT NULL,
-			PRIMARY KEY (`id`)
-		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-
-		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `name`, `value`) VALUES
-			('1', 'status', 'open'),
-			('2', 'title', 'Le site est temporairement inaccessible'),
-			('3', 'description', 'Le site est temporairement inaccessible en raison d’activités de maintenance planifiées');";
-	break;
-
 	case 'page':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
-			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`id` int(11) NOT NULL,
 			`name` varchar(64) NOT NULL,
-			`content` longtext NOT NULL,
-			PRIMARY KEY (`id`)
+			`content` longtext NOT NULL
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-	break;
 
 	case 'page_blog':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
@@ -279,7 +232,7 @@ switch ($table) {
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`title` varchar(64) NOT NULL,
-			`subtitle` varchar(128) DEFAULT NULL,
+			`subtitle` varchar(128) NOT NULL,
 			`access_groups` text NOT NULL,
 			`access_admin` text NOT NULL,
 			`activate` tinyint(1) DEFAULT '1',
@@ -407,6 +360,7 @@ switch ($table) {
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
 			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`game` int(11) NOT NULL,
 			`name` varchar(64) NOT NULL,
 			`description` text,
 			`img` text NOT NULL,

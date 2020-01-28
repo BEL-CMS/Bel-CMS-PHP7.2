@@ -77,13 +77,13 @@ final class Notification
 		$render .= '</section>';
 		return $render;
 	}
-	private static function renderFull ($type = null, $text = 'BEL-CMS : Alert neutral', $title = 'Alert !')
+	public static function renderFull ($type = null, $text = 'BEL-CMS : Alert neutral', $title = 'Alert !')
 	{
 		$render  = '<!DOCTYPE html>';
 		$render .= '<html lang="fr">';
 		$render .= '<head>';
 		$render .= '<meta charset="utf-8">';
-		$render .= '<title>Bel-CMS | Error</title>';
+		$render .= '<title>Error : '.$title.'</title>';
 		$render .= '<link rel="stylesheet" href="/assets/styles/belcms.notification.css">';
 		$render .= '<style type="text/css">';
 		$render .= 'body {background-color: #1a232f;background-image: -moz-radial-gradient(center center,circle cover,#273648,#0d1218 100%);background-image: -webkit-radial-gradient(center center,circle cover,#273648,#0d1218 100%);background-image: -o-radial-gradient(center center,circle cover,#273648,#0d1218 100%);background-image: -ms-radial-gradient(center center,circle cover,#273648,#0d1218 100%);background-image: radial-gradient(center center,circle cover,#273648,#0d1218 100%);}section#error {width: 100%;max-width: 700px;margin: 300px calc(50% - 350px) auto;height: 300px;}</style>';

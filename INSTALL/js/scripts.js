@@ -10,19 +10,15 @@ jQuery.noConflict();
 
 	var i = 1;
 	var tables 	=	new Array(
+						'ban',
 						'comments',
 						'config',
 						'config_pages',
-						'downloads',
-						'downloads_cat',
 						'games',
 						'groups',
 						'inbox',
 						'inbox_msg',
-						'interaction',
 						'mails_blacklist',
-						'maintenance',
-						'page',
 						'page_blog',
 						'page_forum',
 						'page_forum_post',
