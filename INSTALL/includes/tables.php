@@ -70,6 +70,34 @@ switch ($table) {
 			";
 	break;
 
+	case 'belcms_downloads':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `name` varchar(128) NOT NULL,
+		  `description` text,
+		  `idcat` int(11) NOT NULL,
+		  `size` varchar(8) NOT NULL,
+		  `uploader` varchar(32) NOT NULL,
+		  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		  `ext` text NOT NULL,
+		  `view` int(11) NOT NULL,
+		  `dls` int(11) NOT NULL,
+		  `screen` text NOT NULL,
+		  `download` text NOT NULL
+			PRIMARY KEY (`id`)
+		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
+
+	case 'belcms_downloads_cat':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+		  `id` int(10) NOT NULL AUTO_INCREMENT,
+		  `name` varchar(128) NOT NULL,
+		  `banner` text,
+		  `ico` text,
+		  PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
 	case 'config_pages':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
@@ -142,6 +170,19 @@ switch ($table) {
 		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
 	break;
 
+	case 'interaction':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`title` varchar(255) DEFAULT NULL,
+			`author` varchar(32) DEFAULT NULL,
+			`date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+			`type` text NOT NULL,
+			`text` text,
+			PRIMARY KEY (`id`)
+		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
+	break;
+
 	case 'mails_blacklist':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
@@ -199,10 +240,37 @@ switch ($table) {
 			(NULL, 'mail');";
 	break;
 
+	case 'maintenance':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`name` varchar(128) NOT NULL,
+			`content` varchar(256) NOT NULL,
+			PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
+	case 'newsletter':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`name` varchar(128) NOT NULL,
+			`email` varchar(256) NOT NULL,
+			`sendmail` int(11) NOT NULL,
+			PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
+	case 'newsletter_tpl':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`template` varchar(128) NOT NULL,
+			`date` date NOT NULL
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
 	case 'page':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
-			`id` int(11) NOT NULL,
+			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`name` varchar(64) NOT NULL,
 			`content` longtext NOT NULL
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
@@ -225,6 +293,19 @@ switch ($table) {
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
 		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `rewrite_name`, `name`, `date_create`, `author`, `authoredit`, `content`, `additionalcontent`, `tags`, `cat`, `view`) VALUES (NULL, 'Bienvenue_sur_votre_site_bel-cms', 'Bienvenue sur votre site bel-cms', '".date('Y-m-d H:i:s')."', NULL, NULL, 'Bienvenue sur votre site Bel-CMS, votre installation s\'est, à priori, bien déroulée, rendez-vous dans la partie administration pour commencer à utiliser votre site tout simplement en vous loguant avec le e-mail indiqué lors de l\'installation. En cas de problèmes, veuillez le signaler sur <a href=\"https://bel-cms.be\">https://bel-cms.be</a> dans le forum prévu à cet effet.', NULL, NULL, NULL, '0')";
+	break;
+
+	case 'page_content':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`number` tinyint(4) NOT NULL,
+			`name` varchar(128) NOT NULL,
+			`pagenumber` int(11) NOT NULL,
+			`content` longtext,
+			`publish` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+			PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	break;
 
 	case 'page_forum':
