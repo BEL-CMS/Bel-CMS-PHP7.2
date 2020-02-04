@@ -70,7 +70,7 @@ switch ($table) {
 			";
 	break;
 
-	case 'belcms_downloads':
+	case 'downloads':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -89,7 +89,7 @@ switch ($table) {
 		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
 	break;
 
-	case 'belcms_downloads_cat':
+	case 'downloads_cat':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
 		  `id` int(10) NOT NULL AUTO_INCREMENT,
