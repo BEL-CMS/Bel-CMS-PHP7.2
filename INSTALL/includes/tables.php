@@ -84,7 +84,7 @@ switch ($table) {
 		  `view` int(11) NOT NULL,
 		  `dls` int(11) NOT NULL,
 		  `screen` text NOT NULL,
-		  `download` text NOT NULL
+		  `download` text NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
 	break;
@@ -247,10 +247,10 @@ switch ($table) {
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`name` varchar(128) NOT NULL,
-			`content` varchar(256) NOT NULL,
+			`value` varchar(256) NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `name`) VALUES
+		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `name`, `value`) VALUES
 			(1, 'status', 'open'),
 			(2, 'title', 'Le site est temporairement inaccessible'),
 			(3, 'description', 'Le site est temporairement inaccessible en raison d’activités de maintenance planifiées');";
@@ -272,7 +272,8 @@ switch ($table) {
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`template` varchar(128) NOT NULL,
-			`date` date NOT NULL
+			`date` date NOT NULL,
+			PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	break;
 
@@ -281,7 +282,8 @@ switch ($table) {
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`name` varchar(64) NOT NULL,
-			`content` longtext NOT NULL
+			`content` longtext NOT NULL,
+			PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	break;
 
