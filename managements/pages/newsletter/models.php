@@ -13,16 +13,11 @@ if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
 	exit(ERROR_INDEX);
 }
-
-class PrefGen extends AdminPages
+###  TABLE_NEWSLETTER
+#->  id, name, email, sendmail
+#TABLE_NEWSLETTER_TPL
+#->  id, template, date
+class ModelsNewsletter
 {
-	var $active = true;
-	var $models = array('ModelsPref');
-	var $admin  = true;
-
-	public function index ()
-	{
-		$this->render('index');
-	}
-
+	
 }

@@ -17,7 +17,8 @@ if (!defined('CHECK_INDEX')) {
 class AdminPages
 {
 	var $active;
-	var $vars = array();
+	var $vars  = array();
+	var $admin = false;
 
 	public $render = null;
 
@@ -27,6 +28,10 @@ class AdminPages
 
 		if ($this->active === false) {
 			self::pageOff();
+		} else if ($this->admin === true) {
+			if (Users::isSuperAdmin() === false) {
+				self::superAdmin();
+			}	
 		}
 
 		if (isset($this->models)){
@@ -52,6 +57,22 @@ class AdminPages
 		return;
 	}
 	#########################################
+	# Page uniquement au admin supreme (grp 1)
+	#########################################
+	private function superAdmin ()
+	{
+		ob_start();
+
+		Notification::error('La page demander n\'est accesible qu\'aux administrateur suprême', 'Page');
+
+		$this->render = ob_get_contents();
+
+		if (ob_get_length() != 0) {
+			ob_end_clean();
+		}
+		return;
+	}
+	#########################################
 	# Enregsitre les variables dans vars
 	#########################################
 	function set ($d) {
@@ -64,6 +85,13 @@ class AdminPages
 	{
 		extract($this->vars);
 		ob_start();
+
+		if ($this->admin === true) {
+			if (Users::isSuperAdmin() === false) {
+				self::superAdmin();
+				return;
+			}
+		}
 
 		if (isset($_REQUEST['page']) and $_REQUEST['page'] == true) {
 			$filename = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.$filename.'.php';

@@ -14,15 +14,13 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 
-class PrefGen extends AdminPages
+class Themes extends AdminPages
 {
-	var $active = true;
-	var $models = array('ModelsPref');
-	var $admin  = true;
+	var $active    = true;
+	var $models    = array('ModelsThemes');
 
 	public function index ()
 	{
-		$this->render('index');
-	}
 
+	}
 }

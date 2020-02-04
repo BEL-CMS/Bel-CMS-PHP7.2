@@ -55,6 +55,7 @@ final class Managements extends Dispatcher
 	private function getLinksPages ($page = null)
 	{
 		$render = null;
+
 		ob_start();
 
 		$groups = Users::getGroups($_SESSION['USER']['HASH_KEY']);
@@ -76,7 +77,7 @@ final class Managements extends Dispatcher
 						$render = ob_get_contents();
 						if (ob_get_length() != 0) {
 							ob_end_clean();
-						}	
+						}
 						$page = defined(strtoupper($page)) ? constant(strtoupper($page)) : $page;
 						$Interaction = New Interaction;
 						$Interaction->user($_SESSION['USER']['HASH_KEY']);

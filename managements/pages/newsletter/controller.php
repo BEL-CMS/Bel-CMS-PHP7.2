@@ -14,15 +14,14 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 
-class PrefGen extends AdminPages
+class Newsletter extends AdminPages
 {
-	var $active = true;
-	var $models = array('ModelsPref');
 	var $admin  = true;
+	var $active = true; // activation manuel
+	var $models = array('ModelsNewsletter');
 
 	public function index ()
 	{
 		$this->render('index');
 	}
-
 }
