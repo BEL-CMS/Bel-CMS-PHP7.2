@@ -24,6 +24,7 @@ jQuery.noConflict();
 						'mails_blacklist',
 						'maintenance',
 						'newsletter',
+						'newsletter_send',
 						'newsletter_tpl',
 						'page',
 						'page_blog',

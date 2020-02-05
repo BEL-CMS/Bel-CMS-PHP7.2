@@ -14,10 +14,59 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ###  TABLE_NEWSLETTER
-#->  id, name, email, sendmail
-#TABLE_NEWSLETTER_TPL
-#->  id, template, date
+#-> id, name, email, sendmail
+#	TABLE_NEWSLETTER_TPL
+#-> id, name, template, author, date
+#	TABLE_NEWSLETTE_SEND
+#->	id, template, author, date 
 class ModelsNewsletter
 {
-	
+	public function addnewtpl ($data)
+	{
+		if ($data !== false) {
+			// SECURE DATA
+			$send['name']     = Common::VarSecure($data['name'], ''); // autorise que du texte
+			$send['template'] = Common::VarSecure($data['template'], 'html'); // autorise que les balises HTML
+			// SQL INSERT
+			$sql = New BDD();
+			$sql->table('TABLE_NEWSLETTER_TPL');
+			$sql->sqlData($send);
+			$sql->insert();
+			// SQL RETURN NB INSERT
+			if ($sql->rowCount == 1) {
+				$return = array(
+					'type' => 'success',
+					'text' => SEND_TEMPLATE_SUCCESS
+				);
+			} else {
+				$return = array(
+					'type' => 'warning',
+					'text' => SEND_TEMPLATE_ERROR
+				);
+			}
+		} else {
+			$return = array(
+				'type' => 'warning',
+				'text' => ERROR_NO_DATA
+			);
+		}
+
+		return $return;
+	}
+
+	public function getAllTpl ()
+	{
+		$return = array();
+
+		$sql = New BDD;
+		$sql->table('TABLE_NEWSLETTER_TPL');
+		$sql->queryAll();
+
+		if ($sql->data) {
+			$return = $sql->data;
+		}
+
+		return $return;
+	}
+
 }

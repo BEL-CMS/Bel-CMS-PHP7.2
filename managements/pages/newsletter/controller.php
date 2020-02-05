@@ -16,12 +16,31 @@ if (!defined('CHECK_INDEX')) {
 
 class Newsletter extends AdminPages
 {
-	var $admin  = true;
-	var $active = true; // activation manuel
+	var $admin  = true; // Admin suprême uniquement (Groupe 1);
+	var $active = true; // activation manuel;
 	var $models = array('ModelsNewsletter');
 
 	public function index ()
 	{
 		$this->render('index');
+	}
+
+	public function tpl ()
+	{
+		$set['data'] = $this->ModelsNewsletter->getAllTpl();
+		$this->set($set);
+		$this->render('templates');
+	}
+
+	public function addtpl ()
+	{
+		$this->render('addtemplate');
+	}
+
+	public function sendnewtpl ()
+	{
+		$return = $this->ModelsNewsletter->addnewtpl($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('newsletter/tpl?management&page=true', 2);
 	}
 }
