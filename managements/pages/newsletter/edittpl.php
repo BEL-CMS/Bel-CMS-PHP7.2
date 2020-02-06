@@ -14,21 +14,22 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === true):
+	debug($data);
 ?>
 <div class="col-md-12">
 	<div class="panel panel-white">
 		<div class="panel-body basic-form-panel">
-			<form action="/newsletter/sendnewtpl?management&page=true" method="post" class="form-horizontal">
+			<form action="/newsletter/sendedittpl?management&page=true" method="post" class="form-horizontal">
 				<div class="form-group">
 					<label for="input-Default" class="col-sm-2 control-label"><?=NAME?></label>
 					<div class="col-sm-10">
-						<input name="name" type="text" class="form-control" required="required" id="input-Default" value="">
+						<input name="name" type="text" class="form-control" id="input-Default" required="required" value="<?=$data->name?>">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label"><?=TEXT?></label>
 					<div class="col-sm-10">
-						<textarea class="bel_cms_textarea_full" name="template"></textarea>
+						<textarea class="bel_cms_textarea_full" name="template"><?=$data->template?></textarea>
 					</div>
 				</div>
 				<div class="form-group">
@@ -38,6 +39,7 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 					</div>
 				</div>		
 				<div class="form-group">
+					<input type="hidden" name="id" value="<?=$data->id?>">
 					<button type="submit" class="btn btn-primary"><?=ADD?></button>
 				</div>
 			</form>

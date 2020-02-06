@@ -20,4 +20,6 @@ Common::constant(array(
 	#####################################
 	'SEND_TEMPLATE_SUCCESS' => 'Ajout du template newsletter avec succès',
 	'SEND_TEMPLATE_ERROR'   => 'Erreur lors de l\'ajout du template newsletter',
+	'DEL_TEMPLATE_SUCCESS'  => 'Effacement du template éffectué avec succès',
+	'DEL_TEMPLATE_ERROR'    => 'Erreur lors de la suppression du templates',
 ));

@@ -67,7 +67,25 @@ if (!defined('CHECK_INDEX')) {
 							<td><?=$b->name?></td>
 							<td><?=$b->date?></td>
 							<td><?=Users::hashkeyToUsernameAvatar($b->author)?></td>
-							<td></td>
+							<td>
+								<a href="/newsletter/edittpl/<?=$b->id?>?management&page=true"><i class="fas fa-pen"></i></a> - 
+								<a href="#" data-toggle="modal" data-target="#modal_<?=$b->id?>"><i class="fas fa-trash-alt"></i></a>
+								<div class="modal fade" id="modal_<?=$b->id?>" tabindex="-1" role="dialog" aria-labelledby="DownloadsModalLabel">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="DownloadsModalLabel"><?=$b->name?></h4>
+											</div>
+											<div class="modal-body">Confirmer la suppression du fichier : <?=$b->name?></div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+												<button onclick="window.location.href='/newsletter/deltpl/<?=$b->id?>?management&page=true'" type="button" class="btn btn-primary">Supprimer</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
 						</tr>
 						<?php
 					endforeach;

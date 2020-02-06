@@ -29,9 +29,6 @@ if (!defined('CHECK_INDEX')) {
 		<a href="/newsletter/tpl?management&page=true" class="btn btn-app">
 			<i class="fa far fa-newspaper"></i> Templates
 		</a>
-		<a href="/newsletter/prepa?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-share-square"></i> Envoyer
-		</a>
 	</div>
 </div>
 
@@ -43,23 +40,18 @@ if (!defined('CHECK_INDEX')) {
 					<thead>
 						<tr>
 							<th># ID</th>
-							<th>Template</th>
-							<th>Date de publication</th>
 							<th>Auteur</th>
-							<th>Options</th>
+							<th>Send Ok</th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
 							<th># ID</th>
-							<th>Template</th>
-							<th>Date de publication</th>
 							<th>Auteur</th>
-							<th>Options</th>
+							<th>Send Ok</th>
 						</tr>
 					</tfoot>
 					<tbody>
-
 					</tbody>
 				</table>
 			</div>
