@@ -88,14 +88,25 @@ class BelCMS
 	public static function TABLES () {
 
 		$tables = array(
+			'ban',
 			'comments',
 			'config',
 			'config_pages',
+			'downloads',
+			'downloads_cat',
+			'games',
 			'groups',
 			'inbox',
 			'inbox_msg',
+			'interaction',
 			'mails_blacklist',
+			'maintenance',
+			'newsletter',
+			'newsletter_send',
+			'newsletter_tpl',
+			'page',
 			'page_blog',
+			'page_content',
 			'page_forum',
 			'page_forum_post',
 			'page_forum_posts',
@@ -104,6 +115,8 @@ class BelCMS
 			'page_users',
 			'page_users_profils',
 			'page_users_social',
+			'team',
+			'team_users',
 			'visitors',
 			'widgets'
 		);

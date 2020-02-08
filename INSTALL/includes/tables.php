@@ -66,8 +66,7 @@ switch ($table) {
 			(NULL, 'CMS_JQUERY_UI', 'on'),
 			(NULL, 'CMS_BOOTSTRAP', 'on'),
 			(NULL, 'DATE_INSTALL', '".time()."'),
-			(NULL, 'API_KEY', '".md5(uniqid(rand(), true))."');
-			";
+			(NULL, 'API_KEY', '".md5(uniqid(rand(), true))."');";
 	break;
 
 	case 'downloads':
@@ -79,7 +78,7 @@ switch ($table) {
 		  `idcat` int(11) NOT NULL,
 		  `size` varchar(8) NOT NULL,
 		  `uploader` varchar(32) NOT NULL,
-		  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		  `date` datetime DEFAULT CURRENT_TIMESTAMP,
 		  `ext` text NOT NULL,
 		  `view` int(11) NOT NULL,
 		  `dls` int(11) NOT NULL,
@@ -94,8 +93,8 @@ switch ($table) {
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
 		  `id` int(10) NOT NULL AUTO_INCREMENT,
 		  `name` varchar(128) NOT NULL,
-		  `banner` text,
-		  `ico` text,
+		  `banner` text NOT NULL,
+		  `ico` text NOT NULL,
 		  PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	break;
