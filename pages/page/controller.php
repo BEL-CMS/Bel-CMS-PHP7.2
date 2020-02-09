@@ -17,11 +17,15 @@ if (!defined('CHECK_INDEX')) {
 class Page extends Pages
 {
 	var $models  = array('ModelsPage');
-	private $php = true;
 
 	public function index ($page = false)
 	{	
 		$set['data'] = $this->ModelsPage->getPage();
+		foreach ($set['data'] as $k => $v) {
+			if (Secures::IsAcess($v->groups) == false) {
+				unset($set['data'][$k]);
+			}
+		}
 		$this->set($set);
 		$this->render('index');
 	}
@@ -29,13 +33,33 @@ class Page extends Pages
 	public function read ($id = null)
 	{
 		if (!is_null($id) && is_numeric($id)) {
-			$set['data'] = $this->ModelsPage->getPages($id);
+			$set['data'] = $this->ModelsPage->getPageContentId($id);
 			$get = $this->ModelsPage->getPageId($set['data']->number);
 			if (Secures::IsAcess($get->groups) == false) {
 				$this->error(get_class($this), NO_ACCESS_GROUP_PAGE, 'error');
 			} else {
 				$this->set($set);
-				$this->render('read');				
+				$this->render('read');	
+			}
+		} else {
+			$this->error(get_class($this), 'Aucun ID', 'warning');
+		}
+	}
+
+	public function subpage ($id)
+	{
+		if (!is_null($id) && is_numeric($id)) {
+			$set['data'] = $this->ModelsPage->getPages($id);
+			if (empty($set['data'])) {
+				Notification::warning('Aucune page dans la BDD');
+			} else {
+				$get = $this->ModelsPage->getPageId(current($set['data'])->number);
+				if (Secures::IsAcess($get->groups) == false) {
+					$this->error(get_class($this), NO_ACCESS_GROUP_PAGE, 'error');
+				} else {
+					$this->set($set);
+					$this->render('subpage');
+				}
 			}
 		} else {
 			$this->error(get_class($this), 'Aucun ID', 'warning');

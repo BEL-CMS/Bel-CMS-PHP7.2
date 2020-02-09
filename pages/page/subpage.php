@@ -14,19 +14,26 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 if (empty($data)):
-	Notification::warning('Erreur dans la page, imposssible de l\'afficher');
+	Notification::warning('Aucune page dans la BDD');
 else:
 ?>
-<div class="card">
-	<div class="card-header text-center">
-		<h3><?=$data->name?></h3>
-	</div>
-	<div class="card-body">
-		<?=$data->content?>
-	</div>
-	<div class="card-footer text-muted">
-		<?=$data->publish?>
-	</div>
-</div>
+<section id="bel_cms_page_index">
+	<table class="table table-striped jambo_table bulk_action">
+		<tr>
+		<th>Nom</th>
+		<th>Page publié</th>
+	</tr>
+	<?php
+	foreach ($data as $k => $v):
+		?>
+		<tr>
+			<td><a href="page/read/<?=$v->id?>/<?=$v->name?>"><?=$v->name?></a></td>
+			<td><?=$v->publish?></td>
+		</tr>
+		<?php
+	endforeach;
+	?>
+	</table>
+</section>
 <?php
 endif;

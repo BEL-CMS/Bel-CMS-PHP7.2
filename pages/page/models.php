@@ -59,6 +59,26 @@ class ModelsPage
 			$sql = New BDD;
 			$sql->table('TABLE_PAGE_CONTENT');
 			$where = array(
+				'name'  => 'number',
+				'value' => $id
+			);
+			$sql->where($where);
+			$sql->queryAll();
+
+			$return = $sql->data;
+		}
+
+		return $return;
+	}
+
+	public function getPageContentId ($id = null)
+	{
+		$return = array();
+
+		if (is_numeric($id)) {
+			$sql = New BDD;
+			$sql->table('TABLE_PAGE_CONTENT');
+			$where = array(
 				'name'  => 'id',
 				'value' => $id
 			);

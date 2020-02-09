@@ -57,7 +57,6 @@ final class Secures
 	#########################################
 	public static function getAccessPageAdmin ($page = null)
 	{
-		$return = false;
 		if ($page === null) {
 			return false;
 		} else {
@@ -78,6 +77,8 @@ final class Secures
 							if (in_array($v, $access)) {
 								return true;
 								break;
+							} else {
+								return false;
 							}
 						}
 					}
@@ -86,14 +87,12 @@ final class Secures
 				return true;
 			}
 		}
-		return $return;
 	}
 	#########################################
 	# Accès au widgets via les groupes
 	#########################################
 	public static function getAccessWidgets ($Widget = null)
 	{
-		$return = false;
 		if ($Widget === null) {
 			return false;
 		} else {
@@ -109,6 +108,8 @@ final class Secures
 						if (in_array($v, $access)) {
 							return true;
 							break;
+						} else {
+							return false;
 						}
 					} else {
 						return false;
@@ -116,7 +117,6 @@ final class Secures
 				}
 			}
 		}
-		return $return;
 	}
 	#########################################
 	# Accès aux page si activer
@@ -255,6 +255,11 @@ final class Secures
 		$return = (bool) false;
 
 		if ($data == null or $data == 0) {
+			return (bool) true;
+		}
+
+		$g = explode('|', $data);
+		if (in_array(0, $g)) {
 			return (bool) true;
 		}
 
