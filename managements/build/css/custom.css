@@ -4224,7 +4224,20 @@ ul.notifications {
    .dataTables_length { float:none; }
 }
 
-
+.main_menu span.fa,
+.main_menu span.fas,
+.main_menu span.far {
+    float: right;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 10px;
+    min-width: inherit;
+    color: #C4CFDA
+}
+.active a span.fa {
+    text-align: right !important;
+    margin-right: 4px
+}
 
 
 /* CSS3 Checkbox */

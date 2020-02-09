@@ -23,24 +23,37 @@ if (Users::isLogged()):
 else:
 ?>
 <section id="bel_cms_widget_users">
-	<div class="bel_cms_widget_users">
-		<img src="assets/images/default_avatar.jpg" alt="avatar_default">
-	</div>
 	<form id="Login" action="user/sendLogin" method="post">
-		<div class="form-row align-items-center">
-			<div class="col-auto" style="width: 100%;">
-				<div class="bel_cms_box_input">
-					<input name="username" required="required" autofocus="" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Nom D'utilisateur"><br>
+		<div>
+			<i class="fas fa-lock-open"></i> Connexion identifiant
+		</div>
+		<div class="login-form">
+			<div class="main-div">
+				<div class="panel">
+					<p>Please enter your email or username and password</p>
 				</div>
-			</div>
-			<div class="col-auto" style="width: 100%;">
-				<div class="bel_cms_box_input">
-					<input name="password" required="required" type="password" class="form-control" id="inlineFormInputGroup" placeholder="Mot de passe"><br>
-				</div>
-			</div>
-			<div class="col-auto" style="width: 100%;">
-				<input type="hidden" name="send" value="login">
-				<button type="submit" class="bel_cms_input" style="width: 100%;">Login</button>
+				<form id="Login" action="/user/sendLogin" method="post">
+					<div class="form-group">
+						<input name="username" required="required" autofocus="" type="text" class="form-control" id="inputEmail" placeholder="Email or username">
+					</div>
+					<div class="form-group">
+						<input name="password" required="required" type="password" class="form-control" id="inputPassword" placeholder="Password">
+					</div>
+					<div class="form-check">
+						<label class="form-check-label">
+							<input type="checkbox" class="form-check-input" name="remember" value="true" checked="checked">
+								Remember me on this computer
+						</label>
+					</div>
+					<div class="forgot">
+						<a href="user/lostpassword&echo">Forgot password?</a>
+					</div>
+					<div class="nouser">
+						<a href="User/register&echo">Don't have account?</a>
+					</div>
+					<input type="hidden" name="send" value="login">
+					<button type="submit" class="btn btn-primary">Login</button>
+				</form>
 			</div>
 		</div>
 	</form>

@@ -3,7 +3,13 @@
 	foreach ($data as $k => $v):
 	?>
 	<div class="card mb-4">
-		<img src="<?=$v->img?>" class="card-img-top" alt="><?=$v->name?>">
+		<?php
+		if (!empty($v->img)):
+		?>
+			<img src="<?=$v->img?>" class="card-img-top" alt="<?=$v->name?>">
+		<?php
+		endif;
+		?>
 		<div class="card-body">
 			<h5 class="card-title"><?=$v->name?></h5>
 			<p class="card-text"><?=$v->description?></p>

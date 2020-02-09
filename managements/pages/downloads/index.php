@@ -42,7 +42,7 @@ if (!defined('CHECK_INDEX')) {
 <div class="col-md-12">
 	<div class="panel panel-white">
 		<div class="panel-body">
-		   <div class="table-responsive">
+			<div class="table-responsive">
 			<table id="datatableDl" class="table table-striped jambo_table bulk_action">
 				<thead>
 					<tr>
@@ -72,7 +72,7 @@ if (!defined('CHECK_INDEX')) {
 							<td><?=Common::TransformDate($v->date, 'MEDIUM', 'SHORT')?></td>
 							<td><?=Users::hashkeyToUsernameAvatar($v->uploader)?></td>
 							<td>
-								<a href="blog/edit/<?=$v->id?>?management&page=true>"><i class="fas fa-pen"></i></a> - 
+								<a href="blog/edit/<?=$v->id?>?management&page=true"><i class="fas fa-pen"></i></a> - 
 								<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>"><i class="fas fa-trash-alt"></i></a>
 								<div class="modal fade" id="modal_<?=$v->id?>" tabindex="-1" role="dialog" aria-labelledby="DownloadsModalLabel">
 									<div class="modal-dialog" role="document">
@@ -95,7 +95,7 @@ if (!defined('CHECK_INDEX')) {
 					endforeach;
 					?>
 				</tbody>
-			   </table>  
+			   	</table>  
 			</div>
 		</div>
 	</div>

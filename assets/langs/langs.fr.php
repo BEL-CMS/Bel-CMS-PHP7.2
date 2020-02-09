@@ -206,4 +206,6 @@ Common::constant(array(
 	'ENGLISH'                => 'eng',
 	'NETHERLANDS'            => 'nl',
 	'DEUTCH'                 => 'de',
+	'FR_LANG'                => 'français',
+	'FR_ENGLISH'             => 'anglish',
 ));

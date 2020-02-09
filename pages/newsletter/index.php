@@ -13,13 +13,17 @@ if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
 	exit(ERROR_INDEX);
 }
-
-class WidgetConnected extends Widgets
-{
-	var $models = array('ModelsConnected');
-
-	public function index ()
-	{
-		$this->render('index');
-	}
-}
+?>
+<h5>Liste des utilisateurs de la newsletter</h5>
+<ul class="list-group">
+	<?php
+	foreach ($data as $b):
+		?>
+		<li class="list-group-item d-flex justify-content-between align-items-center">
+			<?=Users::hashkeyToUsernameAvatar($b->name)?>
+			<span class="badge badge-primary badge-pill"><?=$b->sendmail?></span>
+		</li>
+		<?php
+	endforeach;
+	?>
+</ul>

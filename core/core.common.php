@@ -402,7 +402,7 @@ final class Common
 	#########################################
 	public static function VarSecure ($data = null, $authorised = 'html') {
 		$return = null;
-		$base_html = '<p><hr><em><big><a><b><u><s><i><div><img><pre><br><ul><li><ol><tr><th><table><tbody><thead><tfoot><colgroup><span><strong><blockquote><iframe><font><h1><h2><h3><h4><h5><h6><font><sup><sub>';
+		$base_html = '<p><hr><em><big><a><b><u><s><i><div><img><pre><br><ul><li><ol><tr><td><th><table><tbody><thead><tfoot><colgroup><span><strong><blockquote><iframe><font><h1><h2><h3><h4><h5><h6><font><sup><sub><section><article><button><figure><form><input><video><code>';
 
 		if ($authorised == 'html') {
 			$authorised = $base_html;

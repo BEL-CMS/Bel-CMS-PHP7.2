@@ -152,9 +152,9 @@ class Forum extends Pages
 	{
 			if (self::accessLock($id)) {
 				$return = $this->ModelsForum->lock($id);
-				$this->error ('Forum', $return['msg'], $return['type']);
+				$this->error (get_class($this), $return['msg'], $return['type']);
 			} else {
-				$this->error ('Forum', NO_CLOSE_POST, 'error');
+				$this->error (get_class($this), NO_CLOSE_POST, 'error');
 			}
 			$this->redirect('Forum', 2);
 	}
@@ -163,20 +163,20 @@ class Forum extends Pages
 	{
 			if (self::accessLock($id)) {
 				$return = $this->ModelsForum->unlock($id);
-				$this->error ('Forum', $return['msg'], $return['type']);
+				$this->error (get_class($this), $return['msg'], $return['type']);
 			} else {
-				$this->error ('Forum', NO_ACCESS_POST, 'error');
+				$this->error (get_class($this), NO_ACCESS_POST, 'error');
 			}
 			$this->redirect('Forum', 2);
 	}
 
 	public function delpost ($id)
 	{
-		if (self::accessLock()) {
+		if (self::accessLock($id)) {
 			$return = $this->ModelsForum->delpost($id);
-			$this->error ('Forum', $return['msg'], $return['type']);
+			$this->error (get_class($this), $return['msg'], $return['type']);
 		} else {
-			$this->error ('Forum', NO_ACCESS_POST, 'error');
+			$this->error (get_class($this), NO_ACCESS_POST, 'error');
 		}
 		$this->redirect('Forum', 2);
 	}
@@ -199,7 +199,7 @@ class Forum extends Pages
 	private function NewPostThread ($data)
 	{
 		$insert = $this->ModelsForum->SubmitThread($data['id'], $data);
-		$this->error ('Forum', $insert['msg'], $insert['type']);
+		$this->error (get_class($this), $insert['msg'], $insert['type']);
 		$this->redirect('Forum', 2);
 	}
 
@@ -207,7 +207,7 @@ class Forum extends Pages
 	{
 		$referer = (!empty($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : 'Forum';
 		$insert  = $this->ModelsForum->SubmitPost($data);
-		$this->error ('Forum : Réponse', $insert['msg'], $insert['type']);
+		$this->error (get_class($this), $insert['msg'], $insert['type']);
 		$this->redirect('Forum', 2);
 	}
 }

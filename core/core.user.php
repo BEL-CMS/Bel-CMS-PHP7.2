@@ -279,12 +279,15 @@ class Users
 
 	public static function isSuperAdmin ($hashkey = null)
 	{
+		$return = false;
+		$hashkey = $hashkey == null ? $_SESSION['USER']['HASH_KEY'] : $hashkey;
 		if ($hashkey !== null && strlen($hashkey) == 32) {
 			$groups = self::getGroups($hashkey);
 			if (in_array(1, $groups)) {
-				return true;
+				$return = true;
 			}
 		}
+		return $return;
 	}
 
 	public static function getUserName ($n = true)

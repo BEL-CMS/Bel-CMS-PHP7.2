@@ -80,10 +80,10 @@ class User extends Pages
 			$this->render('lostpassword');
 		}
 	}
-	private function sendLostPassword ()
+	public function sendLostPassword ()
 	{
-		unset($this->data['send']);
-		$return = $this->ModelsUser->checkToken($this->data);
+		unset($_POST['send']);
+		$return = $this->ModelsUser->checkToken($_POST);
 		if (!isset($return['pass'])) {
 			$this->error('Password', $return['msg'], $return['type']);
 			$this->redirect('User/LostPassword', 3);

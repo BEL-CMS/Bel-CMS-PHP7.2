@@ -315,8 +315,6 @@ switch ($table) {
 			`view` int(11) DEFAULT '0',
 			PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-	break;
-
 		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `rewrite_name`, `name`, `date_create`, `author`, `authoredit`, `content`, `additionalcontent`, `tags`, `cat`, `view`) VALUES (NULL, 'Bienvenue_sur_votre_site_bel-cms', 'Bienvenue sur votre site bel-cms', '".date('Y-m-d H:i:s')."', NULL, NULL, 'Bienvenue sur votre site Bel-CMS, votre installation s\'est, à priori, bien déroulée, rendez-vous dans la partie administration pour commencer à utiliser votre site tout simplement en vous loguant avec le e-mail indiqué lors de l\'installation. En cas de problèmes, veuillez le signaler sur <a href=\"https://bel-cms.be\">https://bel-cms.be</a> dans le forum prévu à cet effet.', NULL, NULL, NULL, '0')";
 	break;
 
@@ -523,8 +521,9 @@ switch ($table) {
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `name`, `title`, `groups_access`, `groups_admin`, `active`, `pos`, `orderby`, `pages`, `config`) VALUES
 			(1, 'users', 'Utilisateurs', '0', '1', 1, 'left', 1, '', 'CSS=1|JS=1'),
-			(2, 'shoutbox', 'T\'chats', '0', '1', 1, 'top', 1, 'blog|forum', 'MAX_MSG=20|JS=1|CSS=1');";
-
+			(2, 'shoutbox', 'T\'chats', '0', '1', 1, 'top', 1, 'blog|forum', 'MAX_MSG=20|JS=1|CSS=1'),
+			(3, 'connected', 'Connecté', '0', '1', 1, 'left', 1, 'blog', 'CSS=1|JS=1'),
+			(4, 'lastconnected', 'Dernier connecté', '0', '1', 1, 'top', 1, 'blog', 'CSS=1|JS=1');";
 	break;
 }
 

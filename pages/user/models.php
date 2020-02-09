@@ -635,7 +635,7 @@ class ModelsUser
 				$return['type'] = 'success';
 			} else {
 				$return['msg']  = 'Le dossier ne vous appartient pas !';
-				$return['type'] = 'red';
+				$return['type'] = 'error';
 			}
 		} else {
 			$return['msg']  = 'Aucune données';
@@ -646,7 +646,7 @@ class ModelsUser
 	#####################################
 	# Generator password 8 default
 	#####################################
-	public static function generatePass ($height = 8){
+	public static function generatePass ($height = 6){
 		// initialiser la variable $return
 		$return = '';
 		// Définir tout les caractères possibles dans le mot de passe,
@@ -734,10 +734,10 @@ class ModelsUser
 						);
 
 						$return['msg']  = 'Un mail avec un token a été génère et envoyé par courriel';
-						$return['type'] = 'green';
+						$return['type'] = 'success';
 					} else {
 						$return['msg']  = 'Le mail n\'a pas pu être envoyé, veuillez-vous référer à l\'administrateur du site';
-						$return['type'] = 'red';
+						$return['type'] = 'error';
 					}
 				} else {
 					$explode = explode('|', $results['token']);
@@ -755,7 +755,7 @@ class ModelsUser
 					} else {
 						if (empty($data['token'])) {
 							$return['msg']  = 'Votre token est valide, veuillez l\'utiliser';
-							$return['type'] = 'red';
+							$return['type'] = 'error';
 						} else if ($data['token'] != $explode[0]) {
 							$dataAction = array(
 								'name'        => '',
@@ -765,7 +765,7 @@ class ModelsUser
 								'modules'     => 'User'
 							);
 							$return['msg']  = 'Ce token ne correspond pas avec celui du compte';
-							$return['type'] = 'red';
+							$return['type'] = 'error';
 						} else {
 							$generatePass = self::generatePass(8);
 							$password = password_hash($generatePass, PASSWORD_DEFAULT);
@@ -780,7 +780,7 @@ class ModelsUser
 							$contentMail .= '<p>Votre mot de passe  : <strong>' . $generatePass . '</strong></p>';
 							$mail = array(
 								'name'     => CMS_WEBSITE_NAME,
-								'mail'     => CMS_MAIL,
+								'mail'     => CMS_MAIL_WEBSITE,
 								'subject'  => 'Demande de nouveau mot de passe',
 								'content'  => self::contentMail('Mot de passe', $contentMail),
 								'sendMail' => $results['email']
@@ -789,18 +789,18 @@ class ModelsUser
 							$returnMail = Common::sendMail($mail);
 
 							$return['msg']  = 'Voici votre nouveau mot de passe : '. $generatePass;
-							$return['type'] = 'green';
+							$return['type'] = 'success';
 							$return['pass'] = true;
 						}
 					}
 				}
 			} else {
 				$return['msg']  = 'Aucun Nom et/ou pseudo connu';
-				$return['type'] = 'red';
+				$return['type'] = 'error';
 			}
 		} else {
 			$return['msg']  = 'Nom et/ou pseudo vide';
-			$return['type'] = 'red';
+			$return['type'] = 'error';
 		}
 		return $return;
 	}
@@ -831,9 +831,7 @@ class ModelsUser
 											</tr>
 										</table>
 									</td></tr>
-									<tr style="background:#6f6e70;text-align:center;border-top:1px solid #ccc; font-size:16px;line-height: 30px">
-										<td><a style="text-decoration: none; color:#FFFFFF; display:block" href="http://www.bel-cms.be/">BEL-CMS Mail</a></td>
-									</tr>
+									<tr style="background:#6f6e70;text-align:center;border-top:1px solid #ccc; font-size:16px;line-height: 30px"></tr>
 								</table>
 							</div>
 						</body>

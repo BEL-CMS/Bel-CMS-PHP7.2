@@ -221,7 +221,7 @@ function security ()
 		<div class="form-group row">
 			<label class="col-sm-2 col-form-label">Mot de passe</label>
 			<div class="col-sm-10">
-				<input name="password_new" type="text" class="form-control" value="" rel="gp" data-character-set="a-z,A-Z,0-9,#" data-size="16">
+				<input name="password_new" type="text" class="form-control" value="" rel="gp" data-character-set="a-z,A-Z,0-9,#" data-size="6">
 				<small id="passHelp" class="form-text text-muted">Entrer votre nouveau mot de passe (6 caractère minimum).</small>
 				<button type="button" class="btn btn-primary getNewPass">Générateur</button>
 			</div>

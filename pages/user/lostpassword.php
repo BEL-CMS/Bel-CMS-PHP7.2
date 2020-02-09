@@ -34,7 +34,7 @@ if (Users::isLogged() === false):
 						<h2>Recovery Password</h2>
 						<p>Please enter your email private or username</p>
 					</div>
-					<form id="Login" action="User/Send" method="post">
+					<form id="Login" action="/User/sendLostPassword" method="post">
 						<div class="form-group">
 							<input type="text" class="form-control" name="value" value="<?=$email?>" placeholder="Your name or private mail" required="required" autocomplete="off">
 						</div>

@@ -48,6 +48,7 @@ class ModelsTeam
 			'name' => 'teamid',
 			'value' => $id
 		);
+		$sql->where($where);
 		$sql->queryAll();
 
 		return $sql->data;
