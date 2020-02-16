@@ -95,6 +95,8 @@ switch ($table) {
 		  `name` varchar(128) NOT NULL,
 		  `banner` text NOT NULL,
 		  `ico` text NOT NULL,
+		  `description` text NOT NULL,
+		  `groups` text NOT NULL,
 		  PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	break;
@@ -119,6 +121,7 @@ switch ($table) {
 			(NULL, 'forum', 1, '0', '1', 'NB_MSG_FORUM=6'),
 			(NULL, 'user', 1, '0', '1', 'MAX_USER=5|MAX_USER_ADMIN=20'),
 			(NULL, 'page', 1, '0', '1', ''),
+			(NULL, 'downloads', 1, '0', '1', ''),
 			(NULL, 'inbox', 1, '0', '1', '');";
 	break;
 
@@ -399,6 +402,39 @@ switch ($table) {
 			`msg` text,
 			PRIMARY KEY (`id`),
 			FULLTEXT KEY `msg` (`msg`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+	break;
+
+	case 'page_survey':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`idvote` int(11) NOT NULL,
+			`number` varchar(256) NOT NULL,
+			`content` text NOT NULL,
+			`vote` int(11) DEFAULT NULL,
+			PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+	break;
+
+	case 'page_survey_author':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`idvote` int(11) NOT NULL,
+			`author` varchar(32) NOT NULL,
+			`date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+			PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+	break;
+
+	case 'page_survey_quest':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`name` text NOT NULL,
+			`date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+			PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	break;
 
