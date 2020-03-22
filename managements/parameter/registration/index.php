@@ -14,75 +14,60 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<div class="x_panel">
-	<div class="x_title">
-		<h2>Menu Page Blog</h2>
-		<div class="clearfix"></div>
-	</div>
-	<div class="x_content">
-		<a href="/registration?management&parameter=true" class="btn btn-app">
-			<i class="fa fas fa-home"></i> Accueil
-		</a>
-	</div>
-</div>
-
-<div class="col-md-12">
-	<div class="panel panel-white">
-		<div class="panel-body">
-		   <div class="table-responsive">
-			<table class="table table-striped jambo_table bulk_action">
-				<thead>
-					<tr>
-						<th># ID</th>
-						<th>Nom</th>
-						<th>Date d'inscription</th>
-						<th>Dernière visite</th>
-						<th>Options</th>
-					</tr>
-				</thead>
-				<tfoot>
-					<tr>
-						<th># ID</th>
-						<th>Nom</th>
-						<th>Date d'inscription</th>
-						<th>Dernière visite</th>
-						<th>Options</th>
-					</tr>
-				</tfoot>
-				<tbody>
-					<?php
-					foreach ($user as $k => $v):
-						?>
+<div class="row">
+	<div class="col-md-12 col-lg-12">
+	<div class="card">
+		<div class="card-header">
+			<div class="card-title">Centre utilisateurs</div>
+		</div>
+		<div class="card-body">
+        	<div class="table-responsive">
+				<table class="table table-striped table-bordered text-nowrap w-100">
+					<thead>
 						<tr>
-							<td><?=$v->id;?></td>
-							<td><?=$v->username;?></td>
-							<td><?=$v->date_registration;?></td>
-							<td><?=$v->last_visit;?></td>
-							<td>
-								<a href="registration/edit/<?=$v->id?>?management&page&parameter=true"><i class="fas fa-pen"></i></a> - 
-								<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>"><i class="fas fa-trash-alt"></i></a>
-								<div class="modal fade" id="modal_<?=$v->id?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h4 class="modal-title" id="exampleModalLabel"><?=$v->username?></h4>
-											</div>
-											<div class="modal-body">Confirmer la suppression de l'utilisateur : <?=$v->username?></div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-												<button onclick="window.location.href='/registration/del/<?=$v->id?>?management&parameter=true'" type="button" class="btn btn-primary">Confirmer</button>
+							<th class="wd-5p">#ID</th>
+							<th class="wd-20p">Nom</th>
+							<th class="wd-20p">e-mail</th>
+							<th class="wd-15p">Dernière visite</th>
+							<th class="wd-15p">Date d'inscription</th>
+							<th class="wd-25p">Options</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						foreach ($user as $k => $v):
+							?>
+							<tr>
+								<td><?=$v->id;?></td>
+								<td><?=$v->username;?></td>
+								<td><?=$v->email?></td>
+								<td><?=$v->last_visit;?></td>
+								<td><?=$v->date_registration;?></td>
+								<td>
+									<a href="/registration/edit/<?=$v->id?>?management&page&parameter=true" class="btn btn btn-primary btn-sm mb-1">Edit</a>
+									<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>" class="btn btn btn-danger btn-sm mb-1">Supprimer</a>
+									<div class="modal fade" id="modal_<?=$v->id?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title" id="exampleModalLabel"><?=$v->username?></h4>
+												</div>
+												<div class="modal-body">Confirmer la suppression de l'utilisateur : <?=$v->username?></div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+													<button onclick="window.location.href='/registration/del/<?=$v->hash_key?>?management&parameter=true'" type="button" class="btn btn-primary">Confirmer</button>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							</td>
-						</tr>
-						<?php
-					endforeach;
-					?>
-				</tbody>
-			   </table>  
+								</td>
+							</tr>
+							<?php
+						endforeach;
+						?>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>

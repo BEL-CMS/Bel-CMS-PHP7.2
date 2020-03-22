@@ -36,6 +36,16 @@ class Registration extends AdminPages
 		$this->render('edition');
 	}
 
+	public function del ($id)
+	{
+		if (Common::hash_key($id)) {
+			if ($id == $_SESSION['USER']['HASH_KEY']) {
+				$this->error(get_class($this), 'Vous ne pouvez pas vous efacer vous m\'aimee', 'error');
+				return;
+			}
+		}
+	}
+
 	public function sendPrivate ($id = null)
 	{
 		if ($id !== null && is_numeric($id)) {
