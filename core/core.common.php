@@ -143,7 +143,7 @@ final class Common
 				while (($file = readdir($dh)) !== false) {
 					if ($file != '.' && $file != '..') {
 						if ($ext) {
-							$fileExt = substr ($file, -3);
+							$fileExt = substr ($file, -4);
 							if (is_array($ext)) {
 								if (array_search($fileExt, $ext)) {
 									$return[] = ($full_access) ? $dir.$file : $file;
@@ -491,6 +491,17 @@ final class Common
 
 		return $return;
 	}
+	#########################################
+	# Request ID hash_key
+	#########################################
+	public static function hash_key ($data = false) {
+		if ($data) {
+			if (ctype_alnum($data) && strlen($data) == 32) {
+				return true;
+			} else return false;
+		}
+	}
+
 	#########################################
 	# Check exist page
 	#########################################
