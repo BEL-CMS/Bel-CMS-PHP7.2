@@ -18,8 +18,11 @@ if (!defined('CHECK_INDEX')) {
 	<div class="card-header"><?=INBOX?></div>
 	<div class="card-body">
 		<header>
-			<img src="<?=$inbox[0]->origin->avatar?>" alt="avatar_user_<?=$inbox[0]->origin->username?>" class="rounded-circle">
-			<span><?=$inbox[0]->origin->username?></span>
+			<ul>
+				<li>De : <?=$inbox[0]->origin->username?></li>
+				<li>A : <?=$inbox[0]->to?></li>
+				<li>Date : <?=$inbox[0]->date_msg?></li>
+			</ul>
 		</header>
 		<?php
 		foreach ($inbox as $k => $v):

@@ -240,6 +240,7 @@ class ModelsInbox
 				$user->username = Users::hashkeyToUsernameAvatar($get->data->usersend);
 				$user->avatar = Users::hashkeyToUsernameAvatar($get->data->usersend, 'avatar');
 				$sql->data[$k]->origin = $user;
+				$sql->data[$k]->to = Users::hashkeyToUsernameAvatar($get->data->username);
 			}
 		}
 		self::changeStatus($id);

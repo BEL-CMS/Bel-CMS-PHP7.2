@@ -73,7 +73,7 @@ function inboxFormNew ()
 				<input autocomplete="off" type="text" name="username" class="form-control" id="bel_cms_inbox_get_users" placeholder="<?=ENTER_USERNAME?>">
 			</div>
 			<div class="form-group">
-				<textarea class="bel_cms_textarea_inbox" name="message" placeholder="<?=ENTER_MESSAGE?>"></textarea>
+				<textarea class="bel_cms_textarea_simple" name="message" placeholder="<?=ENTER_MESSAGE?>"></textarea>
 			</div>
 			<div class="form-group">
 				<input type="hidden" name="send" value="new">
