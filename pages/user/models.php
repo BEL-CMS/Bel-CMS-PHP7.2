@@ -168,7 +168,7 @@ class ModelsUser
 						}
 					}
 					$return['list_avatar'] = array();
-					$getListAvatar = Common::scanFiles('uploads/users/'.$hash_key.'/', array('.gif', 'gif', 'jpg', 'jpeg', 'png'), true);
+					$getListAvatar = Common::scanFiles('uploads/users/'.$hash_key.'/', array('gif', 'jpg', 'jpeg', 'png'), true);
 					foreach ($getListAvatar as $valueListAvatar) {
 						$return['list_avatar'][] = $valueListAvatar;
 					}

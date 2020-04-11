@@ -143,7 +143,7 @@ final class Common
 				while (($file = readdir($dh)) !== false) {
 					if ($file != '.' && $file != '..') {
 						if ($ext) {
-							$fileExt = substr ($file, -4);
+							$fileExt = substr ($file, -3);
 							if (is_array($ext)) {
 								if (array_search($fileExt, $ext)) {
 									$return[] = ($full_access) ? $dir.$file : $file;

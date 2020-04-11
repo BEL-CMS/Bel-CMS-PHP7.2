@@ -93,8 +93,8 @@ switch ($table) {
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
 		  `id` int(10) NOT NULL AUTO_INCREMENT,
 		  `name` varchar(128) NOT NULL,
-		  `banner` text NOT NULL,
-		  `ico` text NOT NULL,
+		  `banner` text DEFAULT NULL,
+		  `ico` text DEFAULT NULL,
 		  `description` text NOT NULL,
 		  `groups` text NOT NULL,
 		  PRIMARY KEY (`id`)
