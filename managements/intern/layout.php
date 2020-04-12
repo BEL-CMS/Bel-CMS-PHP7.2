@@ -124,8 +124,8 @@
 					<footer class="footer">
 						<div class="container">
 							<div class="row align-items-center flex-row-reverse">
-								<div class="col-lg-12 col-sm-12   text-center">
-									Copyright © 20120 <a href="https://bel-cms.be">Bel-CMS</a> All rights reserved.
+								<div class="col-lg-12 col-sm-12 text-center">
+									Copyright © <?=date('Y')?> <a href="https://bel-cms.be">Bel-CMS</a> All rights reserved.
 								</div>
 							</div>
 						</div>

@@ -70,6 +70,8 @@ class ModelsDownloads
 			$send['description']       = Common::VarSecure($data['description'], 'html'); // autorise que les balises HTML
 			$data['groups']            = isset($data['groups']) ? $data['groups'] : array(1);
 			$send['groups']            = implode("|", $data['groups']);
+			$send['banner']            = isset($data['banner']) ? $data['banner'] : null;
+			$send['ico']               = isset($data['ico']) ? $data['ico'] : null;
 			// SQL INSERT
 			$sql = New BDD();
 			$sql->table('TABLE_DOWNLOADS_CAT');

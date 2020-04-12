@@ -14,35 +14,28 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<div class="x_panel">
-	<div class="x_title">
-		<h2>Menu Page téléchargements</h2>
-		<div class="clearfix"></div>
+<div class="row">
+	<div class="col-lg-4 col-md-12 col-sm-12">
+		<div class="card">
+			<div class="list-group list-group-transparent mb-0 mail-inbox">
+				<div class="mt-4 mb-4 ml-4 mr-4 text-center">
+					<a href="/downloads/add?management&page=true" class="btn btn-primary btn-lg btn-block"><?=ADD?></a>
+				</div>
+				<a href="/downloads?management&page=true" class="list-group-item list-group-item-action d-flex align-items-center active">
+					<span class="icon mr-3"><i class="fa fas fa-home"></i></span>Accueil
+				</a>
+				<a href="/downloads/cat?management&page=truee" class="list-group-item list-group-item-action d-flex align-items-center">
+					<span class="icon mr-3"><i class="fa fas fa-cogs"></i></span><?=CATEGORY?>
+				</a>
+				<a href="/downloads/parameter?management&page=true" class="list-group-item list-group-item-action d-flex align-items-center">
+					<span class="icon mr-3"><i class="fa fas fa-cogs"></i></span>Configuration
+				</a>
+			</div>
+		</div>
 	</div>
-	<div class="x_content">
-		<a href="/downloads?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-home"></i> Accueil
-		</a>
-		<a href="downloads/parameter?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-cogs"></i> Configuration
-		</a>
-		<a href="/downloads/cat?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-plus"></i> <?=CATEGORY?>
-		</a>
-		<a href="/downloads/add?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-plus"></i> <?=ADD?>
-		</a>
-		<a class="btn btn-app">
-			<span class="badge bg-red"><?=$count?></span>
-			<i class="fa fa-bullhorn"></i> Téléchargements
-		</a>
-	</div>
-</div>
 
-<div class="col-md-12">
-	<div class="panel panel-white">
-		<div class="panel-body">
-			<div class="table-responsive">
+	<div class="col-lg-8 col-md-12 col-sm-12">
+		<div class="card">
 			<table id="datatableDl" class="table table-striped jambo_table bulk_action">
 				<thead>
 					<tr>
@@ -95,46 +88,7 @@ if (!defined('CHECK_INDEX')) {
 					endforeach;
 					?>
 				</tbody>
-			   	</table>  
-			</div>
+			</table>  
 		</div>
 	</div>
 </div>
-
-<script src="/assets/plugins/jquery-3.3.1/jquery-3.3.1.min.js"></script>
-<script src="/managements/assets/datatables/js/jquery.datatables.min.js"></script>
-<script>
-	(function($){
-		$('#datatableDl').dataTable( {
-			"language": {
-				"sProcessing":     "Traitement en cours...",
-				"sSearch":         "Rechercher&nbsp;:",
-				"sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
-				"sInfo":           "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-				"sInfoEmpty":      "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
-				"sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
-				"sInfoPostFix":    "",
-				"sLoadingRecords": "Chargement en cours...",
-				"sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-				"sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
-				"oPaginate": {
-					"sFirst":      "Premier",
-					"sPrevious":   "Pr&eacute;c&eacute;dent",
-					"sNext":       "Suivant",
-					"sLast":       "Dernier"
-				},
-				"oAria": {
-					"sSortAscending":  ": activer pour trier la colonne par ordre croissant",
-					"sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
-				},
-				"select": {
-						"rows": {
-							_: "%d lignes séléctionnées",
-							0: "Aucune ligne séléctionnée",
-							1: "1 ligne séléctionnée"
-						} 
-				}
-			}
-		} );
-	})(jQuery);
-</script>

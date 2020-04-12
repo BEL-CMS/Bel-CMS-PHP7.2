@@ -14,43 +14,24 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<div class="x_panel">
-	<div class="x_title">
-		<h2>Menu Page téléchargements</h2>
-		<div class="clearfix"></div>
-	</div>
-	<div class="x_content">
-		<a href="/Blog?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-home"></i> Accueil
-		</a>
-		<a href="Blog/parameter?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-cogs"></i> Configuration
-		</a>
-	</div>
-</div>
-
-<div class="col-md-12">
-	<div class="panel panel-white">
-		<div class="panel-heading clearfix">
-			<h4 class="panel-title"><?=BLOG?></h4>
-		</div>
-		<div class="panel-body basic-form-panel">
-			<form action="/downloads/sendadd?management&page=true" enctype="multipart/form-data" method="post" class="form-horizontal">
-				<div class="form-group">
-					<label for="input-Default" class="col-sm-2 control-label"><?=NAME?></label>
-					<div class="col-sm-10">
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12">
+		<div class="card">
+			<div class="card-header">
+				<div class="card-title"><?=DOWNLOADS?> - Catégories - Edition</div>
+			</div>
+			<div class="card_body">
+				<form action="/downloads/sendadd?management&page=true" enctype="multipart/form-data" method="post" class="form-horizontal">
+					<div style="margin-bottom: 0 !important;" class="card-alert alert alert-primary mb-0"><?=NAME?></div>
+					<div class="card-body">
 						<input name="name" type="text" class="form-control" id="input-Default" required="required">
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label"><?=TEXT?></label>
-					<div class="col-sm-10">
-						<textarea class="bel_cms_textarea_full" name="description"></textarea>
+					<div style="margin-bottom: 0 !important;" class="card-alert alert alert-primary mb-0"><?=TEXT?></div>
+					<div class="card-body">
+						<textarea class="ckeditor" name="description"></textarea>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label"><?=CATEGORY?></label>
-					<div class="col-sm-10">
+					<div style="margin-bottom: 0 !important;" class="card-alert alert alert-primary mb-0"><?=CATEGORY?></div>
+					<div class="card-body">
 						<select name="idcat" class="select2_single form-control">
 						<?php
 						foreach ($cat as $a => $b):
@@ -61,23 +42,21 @@ if (!defined('CHECK_INDEX')) {
 						?>
 						</select>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label">Fichier (<?=Common::ConvertSize(Common::GetMaximumFileUploadSize())?> max)</label>
-					<div class="col-sm-10">
-						<input name="download" type="file" class="form-control" required="required">
+					<div style="margin-bottom: 0 !important;" class="card-alert alert alert-primary mb-0">Fichier (<?=Common::ConvertSize(Common::GetMaximumFileUploadSize())?> max)</div>
+					<div class="card-body">
+						<div class="col-sm-10">
+							<input name="download" type="file" class="form-control" required="required">
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label">Image</label>
-					<div class="col-sm-10">
-						<input name="screen" type="file" class="form-control">
+					<div style="margin-bottom: 0 !important;" class="card-alert alert alert-primary mb-0">Image</div>
+					<div class="card-body">
+							<input name="screen" type="file" class="form-control">
 					</div>
-				</div>
-				<div class="form-group">
-					<button type="submit" class="btn btn-primary"><?=ADD?></button>
-				</div>
-			</form>
+					<div class="card-footer">
+						<button type="submit" class="btn btn-primary"><?=ADD?></button>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>

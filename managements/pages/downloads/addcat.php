@@ -14,63 +14,46 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<div class="x_panel">
-	<div class="x_title">
-		<h2>Menu Page téléchargements</h2>
-		<div class="clearfix"></div>
-	</div>
-	<div class="x_content">
-		<a href="/downloads?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-home"></i> Accueil
-		</a>
-		<a href="downloads/parameter?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-cogs"></i> Configuration
-		</a>
-	</div>
-</div>
-
-<div class="col-md-12">
-	<div class="panel panel-white">
-		<div class="panel-heading clearfix">
-			<h4 class="panel-title"><?=DOWNLOADS?></h4>
-		</div>
-		<div class="panel-body basic-form-panel">
-			<form action="/downloads/sendnewcat?management&page=true" method="post" class="form-horizontal">
-				<div class="form-group">
-					<label class="col-sm-2 control-label"><?=NAME?></label>
-					<div class="col-sm-10">
-						<input name="name" type="text" class="form-control" required="required">
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12">
+		<div class="card">
+			<div class="card-header">
+				<div class="card-title"><?=DOWNLOADS?> - Catégories</div>
+			</div>
+			<div class="card_body">
+				<form action="/downloads/sendnewcat?management&page=true" method="post" class="form-horizontal">
+					<div style="margin-bottom: 0 !important;" class="card-alert alert alert-primary mb-0"><?=NAME?></div>
+					<div class="card-body">
+						<input name="name" type="text" class="form-control" value="">
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label"><?=TEXT?></label>
-					<div class="col-sm-10">
-						<textarea class="bel_cms_textarea_full" name="description"></textarea>
+					<div style="margin-bottom: 0 !important;" class="card-alert alert alert-primary mb-0"><?=TEXT?></div>
+					<div class="card-body">
+						<textarea class="ckeditor" name="description"></textarea>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label">Accès aux groupes</label>
-					<div class="col-sm-10">
-						<?php
-						$visitor = constant('VISITORS');
-						$groups->$visitor = 0;
-						foreach ($groups as $k => $v):
-							?>
-							<div class="input-group">
-								<span class="input-group-addon">
-									<input name="groups[]" value="<?=$v?>" type="checkbox">
-								</span>
-								<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
-							</div>
+					<div style="margin-bottom: 0 !important;" class="card-alert alert alert-primary mb-0">Accès aux groupes</div>
+					<div class="card-body">
+						<div class="col-sm-12">
 							<?php
-						endforeach;
-						?>
+							$visitor = constant('VISITORS');
+							$groups->$visitor = 0;
+							foreach ($groups as $k => $v):
+								?>
+								<div class="input-group">
+									<span class="input-group-addon">
+										<input name="groups[]" value="<?=$v?>" type="checkbox">
+									</span>
+									<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
+								</div>
+								<?php
+							endforeach;
+							?>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<button type="submit" class="btn btn-primary"><?=ADD?></button>
-				</div>
-			</form>
+					<div class="card-footer">
+						<button type="submit" class="btn btn-primary"><?=EDIT?></button>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
