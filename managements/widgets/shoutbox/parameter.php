@@ -15,6 +15,7 @@ if (!defined('CHECK_INDEX')) {
 }
 if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === true):
 ?>
+
 <form action="/shoutbox/sendparameter?management&widgets=true" method="post" class="form-horizontal">
 <div class="x_panel">
 	<div class="x_title">
