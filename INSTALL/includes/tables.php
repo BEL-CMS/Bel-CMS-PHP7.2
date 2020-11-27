@@ -69,6 +69,31 @@ switch ($table) {
 			(NULL, 'API_KEY', '".md5(uniqid(rand(), true))."');";
 	break;
 
+	case 'config_pages':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`name` varchar(50) NOT NULL,
+			`active` tinyint(1) NOT NULL,
+			`access_groups` text NOT NULL,
+			`access_admin` text NOT NULL,
+			`config` text,
+			PRIMARY KEY (`id`),
+			UNIQUE KEY `name` (`name`)
+		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
+		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `name`, `active`, `access_groups`, `access_admin`, `config`) VALUES
+			(NULL, 'blog', 1, '0', '1', 'MAX_BLOG=2|MAX_BLOG_ADMIN=25'),
+			(NULL, 'members', 1, '0', '1', 'MAX_USER=10'),
+			(NULL, 'team', 1, '0', '1', 'MAX_USER=10'),
+			(NULL, 'shoutbox', 1, '0', '1', 'MAX_MSG=15'),
+			(NULL, 'forum', 1, '0', '1', 'NB_MSG_FORUM=6'),
+			(NULL, 'user', 1, '0', '1', 'MAX_USER=5|MAX_USER_ADMIN=20'),
+			(NULL, 'page', 1, '0', '1', ''),
+			(NULL, 'downloads', 1, '0', '1', ''),
+			(NULL, 'inbox', 1, '0', '1', ''),
+			(NULL, 'managements', 1, '1', '1', '');";
+	break;
+
 	case 'downloads':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
@@ -99,30 +124,6 @@ switch ($table) {
 		  `groups` text NOT NULL,
 		  PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-	break;
-
-	case 'config_pages':
-		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
-		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
-			`id` int(11) NOT NULL AUTO_INCREMENT,
-			`name` varchar(50) NOT NULL,
-			`active` tinyint(1) NOT NULL,
-			`access_groups` text NOT NULL,
-			`access_admin` text NOT NULL,
-			`config` text,
-			PRIMARY KEY (`id`),
-			UNIQUE KEY `name` (`name`)
-		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
-		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `name`, `active`, `access_groups`, `access_admin`, `config`) VALUES
-			(NULL, 'blog', 1, '0', '1', 'MAX_BLOG=2|MAX_BLOG_ADMIN=25'),
-			(NULL, 'members', 1, '0', '1', 'MAX_USER=10'),
-			(NULL, 'team', 1, '0', '1', 'MAX_USER=10'),
-			(NULL, 'shoutbox', 1, '0', '1', 'MAX_MSG=15'),
-			(NULL, 'forum', 1, '0', '1', 'NB_MSG_FORUM=6'),
-			(NULL, 'user', 1, '0', '1', 'MAX_USER=5|MAX_USER_ADMIN=20'),
-			(NULL, 'page', 1, '0', '1', ''),
-			(NULL, 'downloads', 1, '0', '1', ''),
-			(NULL, 'inbox', 1, '0', '1', '');";
 	break;
 
 	case 'games':
