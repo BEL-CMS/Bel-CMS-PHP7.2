@@ -20,9 +20,11 @@ class WidgetSurvey extends Widgets
 
 	public function index ()
 	{	
-		$set['data'] = $this->ModelsSurvey->getLastSurvey();
-		$set['count'] = $this->ModelsSurvey->countVote($set['data']->id);
-		$set['vote'] = $this->ModelsSurvey->getNumberVote($set['data']->id);
+		$set['data']  = $this->ModelsSurvey->getLastSurvey();
+		if (!empty($set['data'])) {
+			$set['count'] = $this->ModelsSurvey->countVote($set['data']->id);
+			$set['vote']  = $this->ModelsSurvey->getNumberVote($set['data']->id);
+		}
 		$this->set($set);
 		$this->render('index');
 	}
