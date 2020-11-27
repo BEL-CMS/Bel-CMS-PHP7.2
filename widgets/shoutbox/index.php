@@ -71,6 +71,21 @@ if (!defined('CHECK_INDEX')) {
 		</form>
 	</div>
 	<?php
+	else:
+	?>
+	<div class="card-footer text-muted">
+		<form id="Login" action="/user/sendLogin" method="post">
+			<div class="form-group">
+				<input name="username" required="required" autofocus="" type="text" class="form-control" id="inputEmail" placeholder="Email or username">
+			</div>
+			<div class="form-group">
+				<input name="password" required="required" type="password" class="form-control" id="inputPassword" placeholder="Password">
+			</div>
+			<input type="hidden" name="send" value="login">
+			<button type="submit" class="btn btn-primary">Login</button>
+		</form>
+	</div>
+	<?php
 	endif;
 	?>
 </div>
