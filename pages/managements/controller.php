@@ -73,4 +73,44 @@ class Managements extends Pages
 		$this->error('Logout', $return['msg'], $return['type']);
 		$this->redirect('user', 3);
 	}
+
+	public function sendPrivate ($id = null)
+	{
+		if ($id !== null && is_numeric($id)) {
+			$_POST['id'] = (int) $id;
+			$return = $this->ModelsManagements->sendPrivate($_POST);
+			$this->error(get_class($this), $return['text'], $return['type']);
+		} else {
+			$this->error(get_class($this), 'No is valid', 'error');
+		}
+		$this->redirect('managements', 2);
+	}
+
+	public function sendMainGroup ()
+	{
+		$return = $this->ModelsManagements->sendMainGroup($_POST['main']);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('managements', 2);
+	}
+
+	public function sendSecondGroup ()
+	{
+		$return = $this->ModelsManagements->sendSecondGroup($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('managements', 2);
+	}
+
+	public function sendSocial ()
+	{
+		$return = $this->ModelsManagements->sendSocial($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('managements', 2);
+	}
+
+	public function sendInfoPublic ()
+	{
+		$return = $this->ModelsManagements->sendInfoPublic($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('managements', 2);
+	}
 }

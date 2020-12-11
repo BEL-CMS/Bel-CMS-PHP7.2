@@ -18,7 +18,7 @@ if (Users::isLogged() === true):
 		<div class="card-header">
 			<h3 class="card-title">Informations Confidentiel</h3>
 		</div>
-		<form action="/registration/sendPrivate/<?=$user->id?>?management&page&parameter=true" method="post" class="form-horizontal form-label-left">
+		<form action="managements/sendPrivate/<?=$user->id?>" method="post" class="form-horizontal">
 			<div style="margin-bottom: 0 !important;" class="card-alert alert alert-primary mb-0"><?=NAME?></div>
 			<div class="card-body">
 				<input value="<?=$user->username?>" type="text" class="form-control has-feedback-left" placeholder="userName" readonly="readonly">
@@ -44,7 +44,7 @@ if (Users::isLogged() === true):
 		<div class="card-header">
 			<h3 class="card-title">Gestions du groupe <small>Principale</small></h3>
 		</div>
-		<form action="/registration/sendMainGroup?management&page&parameter=true" method="post" class="form-horizontal form-label-left">
+		<form action="managements/sendMainGroup" method="post" class="form-horizontal">
 			<div style="margin-bottom: 0 !important;" class="card-alert alert alert-primary mb-0">Principale</div>
 			<div class="card-body">
 				<select name="main" class="select2_single form-control" tabindex="-1">
@@ -68,7 +68,7 @@ if (Users::isLogged() === true):
 		<div class="card-header">
 			<h3 class="card-title">Gestions du groupe <small>Secondaire</small></h3>
 		</div>
-		<form action="/registration/sendMainGroup?management&page&parameter=true" method="post" class="form-horizontal form-label-left">
+		<form action="managements/sendMainGroup" method="post" class="form-horizontal">
 			<div style="margin-bottom: 0 !important;" class="card-alert alert alert-primary mb-0">Secondaire</div>
 			<div class="card-body">
 				<?php
@@ -103,7 +103,7 @@ if (Users::isLogged() === true):
 		<div class="card-header">
 			<h3 class="card-title">Information <small>public</small></h3>
 		</div>
-		<form action="/registration/sendInfoPublic?management&page&parameter=true" method="post">
+		<form action="managements/sendInfoPublic" method="post">
 			<div style="margin-bottom: 0 !important;" class="card-alert alert alert-primary mb-0">Anniversaire</div>
 			<div class="card-body">
 				<?php
@@ -163,7 +163,7 @@ if (Users::isLogged() === true):
 		<div class="card-header">
 			<h3 class="card-title">Gestion Social</h3>
 		</div>
-		<form action="/registration/sendSocial?management&page&parameter=true" method="post">
+		<form action="managements/sendSocial" method="post">
 			<?php
 			foreach ($social as $key => $value):
 			  if ($key != 'id' && $key != 'hash_key'):
