@@ -14,7 +14,7 @@ if (Users::isLogged()):
 				<a class="simple-tooltip" title="<?=MESSAGING_PRIVATE?>" href="Inbox"><i class="fas fa-envelope"></i></a>
 			</li>
 			<li>
-				<a class="simple-tooltip" title="<?=ADMIN?>" href="Dashboard?Management"><i class="fas fa-user-cog"></i></a>
+				<a class="simple-tooltip" title="<?=ADMIN?>" href="?admin"><i class="fas fa-user-cog"></i></a>
 			</li>
 		</ul>
 	</nav>

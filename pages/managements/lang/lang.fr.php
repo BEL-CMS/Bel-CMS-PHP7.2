@@ -32,4 +32,8 @@ Common::constant(array(
 	'ADMIN_CMS_BOOTSTRAP'           => 'Activer : Bootstrap (4.1.3)',
 	'ADMIN_BELCMS_DEBUG'            => 'Activer les erreur',
 	'ADMIN_API_KEY'                 => 'API clé externe',
+	'ALLOW'					 		=> "Accorder",
+	'REFUSE'				 		=> 'Refusé',
+
+	'COMPLEMENT'                    => 'Complèments', 
 ));

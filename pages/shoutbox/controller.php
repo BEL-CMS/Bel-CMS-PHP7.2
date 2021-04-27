@@ -18,6 +18,11 @@ class Shoutbox extends Pages
 {
 	var $models = array('ModelsShoutbox');
 
+	public function index ()
+	{
+		$this->render('index');
+	}
+
 	public function send ()
 	{
 		$return = self::insertMsg();

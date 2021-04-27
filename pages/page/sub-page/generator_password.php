@@ -54,7 +54,7 @@ if (isset($_POST) && empty($_POST)):
 		}
 	});
 </script>
-<form id="ajaxgenerator" action="page/subPage/generator_password&json" method="post" style="width: 100%;">
+<form id="ajaxgenerator" action="page/intern/generator_password&json" method="post" style="width: 100%;">
 <div class="card text-center">
 	<div class="card-header">Générateur de mot de passe sûr !</div>
 	<div class="card-body">

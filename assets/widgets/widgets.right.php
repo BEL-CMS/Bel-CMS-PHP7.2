@@ -16,7 +16,5 @@ if (!defined('CHECK_INDEX')) {
 ?>
 <div class="card bel-cms-widgets">
 	<div class="card-header"><?=$title?></div>
-	<div class="card-body">
-		<?=$content?>
-	</div>
+	<?=$content?>
 </div>

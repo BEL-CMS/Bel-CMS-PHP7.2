@@ -28,9 +28,11 @@ class Newsletter extends Pages
 				$this->render('index');
 			} else {
 				$this->error(get_class($this), NO_ACCESS_GROUP_PAGE, 'error');
+				$this->redirect('blog', 2);
 			}
 		} else {
 			$this->error(get_class($this), NO_ACCESS_GROUP_PAGE, 'error');
+			$this->redirect('blog', 2);
 		}
 	}
 
@@ -40,10 +42,13 @@ class Newsletter extends Pages
 			if (Users::isLogged()) {
 				$return = $this->ModelsNewsletter->sendNew($_POST);
 				$this->error (get_class($this), $return['text'], $return['type']);
+				$this->redirect('blog', 2);
 			} else {
 				$this->error(get_class($this), NO_ACCESS_GROUP_PAGE, 'error');
+				$this->redirect('blog', 2);
 			}
 		} else {
+			$this->redirect('blog', 2);
 			$this->error(get_class($this), NO_ACCESS_GROUP_PAGE, 'error');
 		}
 	}

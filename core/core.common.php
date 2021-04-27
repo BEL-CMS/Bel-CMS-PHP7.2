@@ -80,6 +80,13 @@ final class Common
 		}
 		return $return;
 	}
+
+	public static function RemoveAccents ($chaine = '')
+	{
+         return strtr($chaine,
+         	"ÀÁÂàÄÅàáâàäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏ" ."ìíîïÙÚÛÜùúûüÿÑñ", "aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
+	}
+
 	#########################################
 	# Redirect
 	#########################################
@@ -143,7 +150,7 @@ final class Common
 				while (($file = readdir($dh)) !== false) {
 					if ($file != '.' && $file != '..') {
 						if ($ext) {
-							$fileExt = substr ($file, -3);
+							$fileExt = substr ($file, -4);
 							if (is_array($ext)) {
 								if (array_search($fileExt, $ext)) {
 									$return[] = ($full_access) ? $dir.$file : $file;

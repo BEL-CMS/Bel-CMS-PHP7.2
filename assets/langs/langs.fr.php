@@ -104,6 +104,7 @@ Common::constant(array(
 	'NOW'                    => 'Maintenant',
 	'ADMINISTRATOR'          => 'Administrateur',
 	'ADMINISTRATORS'         => 'Administrateurs',
+	'MANAGEMENTS'            => 'Managements',
 	'FILE_ATTACHMENT'        => 'Pièce jointe',
 	'TEXT'                   => 'Texte',
 	'AUTHOR'                 => 'Auteur',
@@ -111,6 +112,9 @@ Common::constant(array(
 	'ADMIN'                  => 'Administration',
 	'GAME'                   => 'Jeu',
 	'GAMES'                  => 'Jeux',
+	'OPEN'                   => 'Ouvert',
+	'CLOSE'                  => 'Fermer',
+	'NB_BLOG'                => 'Nombre de blog',
 	#####################################
 	# UPLOAD
 	#####################################
@@ -136,6 +140,8 @@ Common::constant(array(
 	#####################################
 	# Management
 	#####################################
+	'NO_ACCESS_MANAGEMENTS'  => 'Login sécurisé requis',
+	'ERROR_MANAGEMENTS_MAIL' => 'Login avec email uniquement !',
 	'TITLE_MANAGEMENT'       => 'Management',
 	'PREFGEN'                => 'Préférences Générales',
 	'ERROR_NO_DATA'          => 'Erreur aucune données !',
@@ -181,6 +187,7 @@ Common::constant(array(
 	'READMORE'               => 'Lire la suite',
 	'NEWTHREAD'              => 'Nouveau Post',
 	'INBOX'                  => 'Boîte de réception',
+	'MANAGEMENTS'            => 'Administration',
 	#####################################
 	# USER
 	#####################################
@@ -207,5 +214,5 @@ Common::constant(array(
 	'NETHERLANDS'            => 'nl',
 	'DEUTCH'                 => 'de',
 	'FR_LANG'                => 'français',
-	'FR_ENGLISH'             => 'anglish',
+	'FR_ENGLISH'             => 'english',
 ));

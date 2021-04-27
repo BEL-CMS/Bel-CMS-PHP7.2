@@ -1003,13 +1003,10 @@ class ModelsUser
 	#########################################
 	# Enregistre le nouveau avatar (upload)
 	#########################################
-	public function sendNewAvatar ($data)
+	public function sendNewAvatar ()
 	{
 		if (!empty($_FILES['avatar'])) {
 			$dir = 'uploads/users/'.$_SESSION['USER']['HASH_KEY'].'/';
-			if (is_file($dir)) {
-				 mkdir ($dir,0700);
-			}
 			$extensions = array('.png', '.gif', '.jpg', '.jpeg');
 			$extension = strrchr($_FILES['avatar']['name'], '.');
 			if (!in_array($extension, $extensions)) {

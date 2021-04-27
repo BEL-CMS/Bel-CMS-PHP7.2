@@ -20,7 +20,17 @@ class Survey extends Pages
 
 	public function index ()
 	{
-
+		$set['data'] = $this->ModelsSurvey->getSurvey();
+		foreach ($set['data'] as $k => $v) {
+			$set['data'][$k]->vote = $this->ModelsSurvey->checkVote($v->id);
+			if ($set['data'][$k]->vote == false) {
+				$set['data'][$k]->vote = '/pages/survey/img/green.png';
+			} else {
+				$set['data'][$k]->vote = '/pages/survey/img/red.png';
+			}
+		}
+		$this->set($set);
+		$this->render('index');
 	}
 
 	public function send ()

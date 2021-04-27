@@ -26,6 +26,10 @@ class Page extends Pages
 				unset($set['data'][$k]);
 			}
 		}
+		$page = Common::ScanFiles(ROOT.'pages/page/sub-page');
+		if (!empty($page)) {
+			$set['sub'] = str_replace(".php", "", $page);
+		}
 		$this->set($set);
 		$this->render('index');
 	}

@@ -404,3 +404,10 @@ button:active {
 	footer.bel_cms-footer:last-child {
 		border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px);
 	}
+
+.dataTables_wrapper {
+	padding: 10px;
+}
+textarea {
+	width: 100%;
+}

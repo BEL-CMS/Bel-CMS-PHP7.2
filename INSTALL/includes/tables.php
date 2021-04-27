@@ -559,8 +559,11 @@ switch ($table) {
 		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `name`, `title`, `groups_access`, `groups_admin`, `active`, `pos`, `orderby`, `pages`, `config`) VALUES
 			(1, 'users', 'Utilisateurs', '0', '1', 1, 'left', 1, '', 'CSS=1|JS=1'),
 			(2, 'shoutbox', 'T\'chats', '0', '1', 1, 'top', 1, 'blog|forum', 'MAX_MSG=20|JS=1|CSS=1'),
-			(3, 'connected', 'Connecté', '0', '1', 1, 'left', 1, 'blog', 'CSS=1|JS=1'),
-			(4, 'lastconnected', 'Dernier connecté', '0', '1', 1, 'top', 1, 'blog', 'CSS=1|JS=1');";
+			(3, 'connected', 'Connecté', '0', '1', 1, 'left', 2, 'blog', 'CSS=1|JS=1'),
+			(4, 'lastconnected', 'Dernier connecté', '0', '1', 3, 'top', 1, 'blog', 'CSS=1|JS=1'),
+			(5, 'donates', 'Paypal', '0', '1', 1, 'right', 1, '', 'CSS=1|JS=1'),
+			(6, 'newsletter', 'Newsletter', '0', '1', 1, 'right', 2, '', 'CSS=1|JS=1');";
+
 	break;
 }
 

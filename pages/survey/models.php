@@ -64,7 +64,7 @@ class ModelsSurvey
 		return $return;
 	}
 
-	private function checkVote ($id = null)
+	public function checkVote ($id = null)
 	{
 		if ($id != null && is_numeric($id)) {
 			$sql = New BDD();
@@ -80,5 +80,20 @@ class ModelsSurvey
 				return true;
 			}
 		}
+	}
+
+	public function getSurvey ()
+	{
+		$return = array();
+
+		$sql = New BDD();
+		$sql->table('TABLE_SURVEY_QUEST');
+		$sql->orderby(array(array('name' => 'id', 'type' => 'DESC')));
+		$sql->queryAll();
+		if (!empty($sql->data)) {
+			$return = $sql->data;
+		}
+
+		return $return;
 	}
 }

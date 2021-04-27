@@ -23,16 +23,28 @@ if (Users::isLogged() === true):
 	<div id="belcms_main_managements_left">
 		<nav id="belcms_main_user_left_menu">
 			<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+				<?php
+				if (Users::isSuperAdmin()):
+				?>
 				<a class="nav-link active" id="v-pills-prefGeneral-tab" data-toggle="pill" href="#v-pills-prefGeneral" role="tab" aria-controls="v-pills-prefGeneral" aria-selected="true">Gestion Générales
 					<i class="fas fa-angle-right"></i>
 				</a>
 				<a class="nav-link" id="v-pills-prefMembers-tab" data-toggle="pill" href="#v-pills-prefMembers" role="tab" aria-controls="v-pills-prefMembers" aria-selected="false">Gestion des membres
 					<i class="fas fa-angle-right"></i>
 				</a>
+				<a class="nav-link" id="v-pills-page-tab" data-toggle="pill" href="#v-pills-page" role="tab" aria-controls="v-pills-page" aria-selected="false">Gestions des pages
+					<i class="fas fa-angle-right"></i>
+				</a>
 				<a class="nav-link" id="v-pills-tpl-tab" data-toggle="pill" href="#v-pills-tpl" role="tab" aria-controls="v-pills-tpl" aria-selected="false">Gestions des Thèmes
 					<i class="fas fa-angle-right"></i>
 				</a>
 				<a class="nav-link" id="v-pills-close-tab" data-toggle="pill" href="#v-pills-close" role="tab" aria-controls="v-pills-close" aria-selected="false">Maintenance
+					<i class="fas fa-angle-right"></i>
+				</a>
+				<?php
+				endif;
+				?>
+				<a class="nav-link" id="v-pills-page-tab" data-toggle="pill" href="#v-pills-page" role="tab" aria-controls="v-pills-page" aria-selected="false">Pages
 					<i class="fas fa-angle-right"></i>
 				</a>
 				<a class="nav-link" href="managements/logout">Déconnexion
@@ -45,10 +57,13 @@ if (Users::isLogged() === true):
 	<div id="belcms_main_managements_right">
 		<div class="tab-content" id="v-pills-tabContent">
 		<?php
+		if (Users::isSuperAdmin()):
 		prefGeneral ($config);
 		close ($update);
 		prefMembers ($members);
 		prefTpl ();
+		endif;
+		page($pages);
 		?>	
 		</div>
 	</div>
@@ -142,6 +157,54 @@ function prefMembers ($d)
 			</tfoot> 
 		</table>
 	</div>
+<?php
+}
+
+function page ($d)
+{
+?>
+		<div class="tab-pane fade" id="v-pills-page" role="tabpanel" aria-labelledby="v-pills-page-tab">
+			<table cellpadding="0" cellspacing="0" border="0" class="DataTableBelCMS display"> 
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nom</th>
+						<th>Actif</th>
+						<th>Accès</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					foreach ($d as $k => $v):
+					?>
+					<tr>
+						<td><?=$v->id?></td>
+						<td><a href="managements/pages/<?=$v->name?>/index"><?=$v->name?></td>
+						<td><?=$v->active?></td>
+						<td>
+						<?php
+						if (Secures::getAccessPageAdmin($v->name) == true):
+							echo ALLOW;
+						else:
+							echo REFUSE;
+						endif;
+						?>
+						</td>
+					</tr>
+					<?php
+					endforeach;
+					?>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th>ID</th>
+						<th>Nom</th>
+						<th>Actif</th>
+						<th>Accès</th>
+					</tr>
+				</tfoot> 
+			</table>
+		</div>
 <?php
 }
 

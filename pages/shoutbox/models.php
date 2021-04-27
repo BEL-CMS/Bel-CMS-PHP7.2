@@ -73,7 +73,7 @@ class ModelsShoutbox
 			$return['type']	= 'success';
 		} else {
 			$return['text']	= 'Problème d\'accès à la BDD';
-			$return['type']	= 'error';		
+			$return['type']	= 'error';
 		}
 
 		return $return;

@@ -21,6 +21,12 @@ class User extends Pages
 
 	public function index ()
 	{
+		$dir = 'uploads/users/'.$_SESSION['USER']['HASH_KEY'].'/';
+		if (!is_dir($dir)) {
+		    mkdir($dir, 0777, true);
+		}
+		$fopen = fopen($dir.'/index.html', 'a+');
+		$fclose = fclose($fopen);
 		if (Users::isLogged() === true) {
 			$d = array();
 			$d['user'] = $this->ModelsUser->getDataUser($_SESSION['USER']['HASH_KEY']);
@@ -45,12 +51,23 @@ class User extends Pages
 	public function login ()
 	{
 		if (Users::isLogged() === false) {
-			$this->render('login');
+			if (!isset($_REQUEST['echo'])) {
+				$this->redirect('user/login&echo', 0);
+			} else {
+				$this->render('login');
+			}
 		} else {
 			$d = array();
 			$d['user'] = $this->ModelsUser->getDataUser($_SESSION['USER']['HASH_KEY']);
 			$this->set($d);
 			$this->render('index');
+		}
+	}
+	public function loginSecure ()
+	{
+		if (Users::isLogged() === false) {
+			$this->redirect('user/login&echo', 0);
+		} else {
 		}
 	}
 	public function register ()
@@ -124,28 +141,83 @@ class User extends Pages
 			}
 		}
 	}
-	public function sendLogin ()
+	public function sendSecurelogin ()
 	{
-			if (empty($this->data)){
-				$this->error(ERROR, 'Field Empty', 'error');
-				$this->redirect('User/Login', 3);
-			} else {
-				$return = Users::login($this->data['username'], $this->data['password']);
+		if (isset($_REQUEST['umal']) && isset($_REQUEST['passwrd'])) {
+			if (!empty($_REQUEST['umal']) && !empty($_REQUEST['passwrd'])) {
 
-				if ($return['type'] == 'error') {
-					Notification::error($return['msg']);
-					$this->redirect('User/Login&echo', 3);
-				} else if ($return['type'] == 'warning') {
-					$this->redirect('User/Login&echo', 3);
-					Notification::warning($return['msg']);
-				} else if ($return['type'] == 'success') {
-					$this->redirect('User/Profil', 3);
-					Notification::success($return['msg']);
+				if (Secure::isMail($_REQUEST['umal']) === false) {
+					$return['text'] = 'Veuillez entrer votre e-mail';
+					$return['type']	= 'warning';
+					$this->error('Managements', $return['text'], $return['type']);
+					$this->redirect('managements', 2);
+					return;
+				}
+
+				$return = array();
+
+				$sql = New BDD();
+				$sql->table('TABLE_USERS');
+				$sql->where(array('name' => 'email', 'value' => $_REQUEST['umal']));
+				$sql->queryOne();
+				$data = $sql->data;
+
+				if (password_verify($_REQUEST['passwrd'], $data->password)) {
+					if ($_SESSION['USER']['HASH_KEY'] == $data->hash_key) {
+						$Interaction = New Interaction;
+						$Interaction->user($_SESSION['USER']['HASH_KEY']);
+						$Interaction->type('success');
+						$Interaction->title('Accès autorisé');
+						$Interaction->text('S\'est connecté au management');
+						$Interaction->insert();
+						$_SESSION['LOGIN_MANAGEMENT'] = true;
+						$return['text'] = 'login en cours...';
+						$return['type']	= 'success';
+					} else {
+						$Interaction = New Interaction;
+						$Interaction->user($_SESSION['USER']['HASH_KEY']);
+						$Interaction->type('error');
+						$Interaction->title('Accès non autorisé');
+						$Interaction->text('À tenter de ce connecté avec un autre Hash Key !');
+						$Interaction->insert();
+						$return['text'] = 'Hash_key ne corespond pas au votre ?...';
+						$return['type']	= 'danger';
+					}
 				} else {
-					$this->redirect('User/login&echo', 3);
-					Notification::warning('Erreur inconnu');
+					$Interaction = New Interaction;
+					$Interaction->user($_SESSION['USER']['HASH_KEY']);
+					$Interaction->type('error');
+					$Interaction->title('Accès non autorisé');
+					$Interaction->text('Tentative d\'accès avec un mauvais mot de passe !');
+					$Interaction->insert();
+					$return['text'] = 'Le password n\'est pas le bon !!!';
+					$return['type']	= 'warning';
 				}
 			}
+		}
+		$this->error('Managements', $return['text'], $return['type']);
+		$this->redirect('managements', 2);
+	}
+	public function sendLogin ()
+	{
+		if (empty($this->data)) {
+			$this->error(ERROR, 'Field Empty', 'error');
+		} else {
+			$return = Users::login($this->data['username'], $this->data['password']);
+			if ($return['type'] == 'error') {
+				Notification::error($return['msg']);
+				$this->redirect('User/Login&echo', 3);
+			} else if ($return['type'] == 'warning') {
+				$this->redirect('User/Login&echo', 3);
+				Notification::warning($return['msg']);
+			} else if ($return['type'] == 'success') {
+				$this->redirect('User/Profil', 3);
+				Notification::success($return['msg']);
+			} else {
+				$this->redirect('User/login&echo', 3);
+				Notification::warning('Erreur inconnu');
+			}
+		}
 	}
 
 	private function mailpassword ()
@@ -207,7 +279,7 @@ class User extends Pages
 	#########################################
 	public function newavatar ()
 	{
-		$return = $this->ModelsUser->sendNewAvatar($this->data);
+		$return = $this->ModelsUser->sendNewAvatar();
 		$this->error($return['ext'], $return['msg'], $return['type']);
 		$this->redirect('User', 2);
 	}

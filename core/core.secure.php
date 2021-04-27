@@ -29,20 +29,22 @@ final class Secures
 				if (in_array(0, $bdd[$page]->access_groups)) {
 					return true;
 				} else {
-					foreach ($bdd[$page]->access_groups as $k => $v) {
-						$user = self::accessSqlUser();
-						$user = $user[$_SESSION['USER']['HASH_KEY']];
-						$access = $user->access;
-						if (isset($_SESSION['USER']['HASH_KEY']) && strlen($_SESSION['USER']['HASH_KEY']) == 32) {
-							if (in_array(1, $access)) {
-								return true;
-								break;
-							}
-							if (in_array($v, $access)) {
-								return true;
-								break;
-							} else {
-								return false;
+					if ($_SESSION['USER']['HASH_KEY']) {
+						foreach ($bdd[$page]->access_groups as $k => $v) {
+							$user = self::accessSqlUser();
+							$user = $user[$_SESSION['USER']['HASH_KEY']];
+							$access = $user->access ? $user->access : array(0);
+							if (isset($_SESSION['USER']['HASH_KEY']) && strlen($_SESSION['USER']['HASH_KEY']) == 32) {
+								if (in_array(1, $access)) {
+									return true;
+									break;
+								}
+								if (in_array($v, $access)) {
+									return true;
+									break;
+								} else {
+									return false;
+								}
 							}
 						}
 					}

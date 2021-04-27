@@ -5,7 +5,13 @@ if (typeof jQuery === 'undefined') {
 	console.log("Chargement BEL-CMS script Ok");
 	"use strict";
 
-	Tipped.create('.simple-tooltip');
+	if ($("textarea").hasClass("bel_cms_textarea_simple")) {
+		_initTinymceSimple();
+	}
+
+	if ($("textarea").hasClass("bel_cms_textarea_full")) {
+		_initTinymceFull();
+	}
 
 	if ($("#bel_cms_copyleft").length) {
 		$('body').append('<a id="bel_cms_copyleft" style="display:none" href="https://bel-cms.be" title="BEL-CMS">Powered by Bel-CMS</a>');
@@ -25,13 +31,6 @@ if (typeof jQuery === 'undefined') {
 
 	bel_cms_private_message();
 
-	if ($("textarea").hasClass("bel_cms_textarea_simple")) {
-		_initTinymceSimple();
-	}
-
-	if ($("textarea").hasClass("bel_cms_textarea_full")) {
-		_initTinymceFull();
-	}
 
 	function disableselect(e){
 		return false
@@ -46,6 +45,40 @@ if (typeof jQuery === 'undefined') {
 		//document.onmousedown = disableselect
 		document.onclick = reEnable
 	}
+    $('.DataTableBelCMS').DataTable({
+        "language":
+			{
+				"sEmptyTable":     "Aucune donnée disponible dans le tableau",
+				"sInfo":           "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+				"sInfoEmpty":      "Affichage de l'élément 0 à 0 sur 0 élément",
+				"sInfoFiltered":   "(filtré à partir de _MAX_ éléments au total)",
+				"sInfoThousands":  ",",
+				"sLengthMenu":     "Afficher _MENU_ éléments",
+				"sLoadingRecords": "Chargement...",
+				"sProcessing":     "Traitement...",
+				"sSearch":         "Rechercher :",
+				"sZeroRecords":    "Aucun élément correspondant trouvé",
+				"oPaginate": {
+					"sFirst":    "Premier",
+					"sLast":     "Dernier",
+					"sNext":     "Suivant",
+					"sPrevious": "Précédent"
+				},
+				"oAria": {
+					"sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+					"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+				},
+				"select": {
+			        	"rows": {
+			         		"_": "%d lignes sélectionnées",
+			         		"0": "Aucune ligne sélectionnée",
+			        		"1": "1 ligne sélectionnée"
+			        	}  
+				}
+			}
+    });
+
+    	Tipped.create('.simple-tooltip');
 
 })(jQuery);
 

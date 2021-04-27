@@ -31,4 +31,18 @@ if (!defined('CHECK_INDEX')) {
 	endforeach;
 	?>
 	</table>
+	<table class="table table-striped jambo_table bulk_action">
+		<tr>
+		<th>Nom</th>
+	</tr>
+	<?php
+	foreach ($sub as $k => $v):
+		?>
+		<tr>
+			<td><a href="page/intern/<?=$v?>"><?=$v?></a></td>
+		</tr>
+		<?php
+	endforeach;
+	?>
+	</table>
 </section>

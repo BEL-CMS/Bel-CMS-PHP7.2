@@ -24,7 +24,7 @@ if (!defined('CHECK_INDEX')) {
 				<div class="form-group row">
 					<label for="thread" class="col-2 col-form-label"><?=TITLE_POST?></label>
 					<div class="col-10">
-						<input type="text" name="title" class="form-control" id="thread" placeholder="<?=ADD_A_TITLE?>">
+						<input type="text" required="required" name="title" class="form-control" id="thread" placeholder="<?=ADD_A_TITLE?>">
 					</div>
 				</div>
 				<div class="form-group row">

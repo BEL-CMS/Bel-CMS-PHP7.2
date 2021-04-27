@@ -12,7 +12,7 @@ if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
 	exit(ERROR_INDEX);
 }
-if (Users::isLogged() === true):
+if (Users::isLogged() === true && Users::isSuperAdmin() === true):
 ?>
 	<div class="card" style="margin-bottom: 20px;">
 		<div class="card-header">

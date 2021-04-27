@@ -16,15 +16,15 @@ if (!defined('CHECK_INDEX')) {
 
 class ModelsManagements
 {
-	#####################################
+	#########################################
 	# Infos tables
-	#####################################
+	#########################################
 	# TABLE_CONFIG
 	# TABLE_USERS
 	# TABLE_USERS_PROFILS
 	# TABLE_USERS_SOCIAL
 	# TABLE_MAINTENANCE
-	#####################################
+	#########################################
 	#########################################
 	# recupere la configuration
 	#########################################
@@ -136,6 +136,9 @@ class ModelsManagements
 
 		return $save;
 	}
+	#########################################
+	# recupere user par hash_key
+	#########################################
 	public function getUsers ($id = null)
 	{
 		$sql = New BDD;
@@ -148,6 +151,9 @@ class ModelsManagements
 
 		return $return;
 	}
+	#########################################
+	# recupere user profil par hash_key
+	#########################################
 	public function getUsersProfils ($id = null)
 	{
 		$sql = New BDD;
@@ -160,6 +166,9 @@ class ModelsManagements
 
 		return $return;
 	}
+	#########################################
+	# recupere user social par hash_key
+	#########################################
 	public function getUsersSocial ($id = null)
 	{
 		$sql = New BDD;
@@ -172,6 +181,9 @@ class ModelsManagements
 
 		return $return;
 	}
+	#########################################
+	# enregsitre email
+	#########################################
 	public function sendPrivate ($data)
 	{
 		$sql = New BDD;
@@ -183,7 +195,9 @@ class ModelsManagements
 		$return = array('type' => 'success', 'text' => 'le e-mail privé à été changé', 'title' => 'Paramètre privé');
 		return $return;
 	}
-
+	#########################################
+	# enregsitre groupe principale
+	#########################################
 	public function sendMainGroup ($data = null)
 	{
 		$update['main_groups'] = (int) $data;
@@ -195,7 +209,9 @@ class ModelsManagements
 		$return = array('type' => 'success', 'text' => 'le groupe principal à été changer', 'title' => 'Groupe primaire');
 		return $return;
 	}
-
+	#########################################
+	# enregsitre groupe secondaire
+	#########################################
 	public function sendSecondGroup ($data = null)
 	{
 		$update['groups'] = null;
@@ -214,7 +230,9 @@ class ModelsManagements
 		$return = array('type' => 'success', 'text' => 'les groupes secondaire ont été changer', 'title' => 'Groupe seconaire');
 		return $return;
 	}
-
+	#########################################
+	# enregsitre social
+	#########################################
 	public function sendSocial ($data = null)
 	{
 		if ($data != null) {
@@ -241,7 +259,9 @@ class ModelsManagements
 			return $return;
 		}
 	}
-
+	#########################################
+	# enregsitre infos public
+	#########################################
 	public function sendInfoPublic ($data)
 	{
 		if ($data && is_array($data)) {
@@ -268,4 +288,74 @@ class ModelsManagements
 			return $return;
 		}
 	}
+
+	public function getPages ()
+	{
+		$return = array();
+
+		$sql = New BDD;
+		$sql->table('TABLE_PAGES_CONFIG');
+		$sql->queryAll();
+
+		foreach ($sql->data as $k => $v) {
+			$return[$v->name] = $v;
+		}
+
+		unset($return['managements']);
+
+		return $return;
+	}
+	#########################################
+	# PAGE !
+	#########################################
+	public function blogconfig ()
+	{
+		$data['groups'] = BelCMSConfig::getGroups();
+		$data['config'] = BelCMSConfig::GetConfigPage("blog");
+		return $data;
+	}
+	#########################################
+	# PAGE BLOG
+	#########################################
+	public function blogindex ()
+	{
+		$data['data'] = self::getAllBlog();
+		$data['count'] = self::getNbBlog();
+		return $data;
+	}
+	public function getNbBlog ()
+	{
+		$return = 0;
+
+		$sql = New BDD();
+		$sql->table('TABLE_PAGES_BLOG');
+		$sql->count();
+
+		if (!empty($sql->data)) {
+			$return = $sql->data;
+		}
+
+		return $return;
+	}
+	public function getAllBlog ()
+	{
+		$return = array();
+
+		$sql = New BDD;
+		$sql->table('TABLE_PAGES_BLOG');
+		$sql->queryAll();
+
+		if ($sql->data) {
+			$return = $sql->data;
+		}
+
+		return $return;
+	}
+	public function blogadd ()
+	{
+		return array();
+	}
+	#########################################
+	# PAGE !
+	#########################################
 }

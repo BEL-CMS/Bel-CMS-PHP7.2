@@ -237,20 +237,41 @@ function security ()
 
 function avatars  ($user)
 {
+	$list = array();
+	$path = "uploads/users/".$user->hash_key."/";
+	if($dossier = opendir($path))
+	{
+	    while(($fichier = readdir($dossier)))
+	    {
+
+	        if($fichier != '.' && $fichier != '..' && $fichier != 'index.php')
+	        {
+	            $pattern = '/(gif|jpg|png)$/i'; //extension d'image accepter
+
+	            $matche = preg_match($pattern, $fichier);
+	            if ($matche)
+	            {
+	                $list[] = $fichier;
+	            }
+
+	        }
+	    }
+
+	}
 ?>
 <div class="tab-pane fade" id="v-pills-avatars" role="tabpanel" aria-labelledby="v-pills-avatars-tab">
 	<h2>Avatars</h2>
 	<form id="avatarSubmit" method="post" action="user/avatarsubmit">
 		<ul id="bel_cms_user_ul_avatar">
 			<?php
-			foreach ($user->list_avatar as $k => $v):
-				$alt = str_replace('uploads/users/'.$user->hash_key.'/', '', $v);
+			foreach ($list as $k => $v):
+				$alt = 'uploads/users/'.$user->hash_key.'/'.$v;
 			?>
 			<li>
 				<label for="sel_avatar_<?=$k?>">
 				<a href="#<?=$v?>" class="bel_cms_jquery_avatar_sel" data-id="<?=$k?>">
-					<input class="select_avatar" id="sel_avatar_<?=$k?>" type="radio" name="avatar" value="<?=$v?>">
-					<img width="100" height="100" class="bel_cms_jquery_avatar_sel" src="<?=$v?>" alt="<?=$alt?>">
+					<input class="select_avatar" id="sel_avatar_<?=$k?>" type="radio" name="avatar" value="<?=$alt?>">
+					<img width="100" height="100" class="bel_cms_jquery_avatar_sel" src="<?=$alt?>" alt="<?=$alt?>">
 					<span>Selectionner</span>
 				</a>
 				</label>

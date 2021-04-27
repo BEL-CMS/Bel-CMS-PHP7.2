@@ -45,4 +45,5 @@
 	border: 1px solid rgba(209, 207, 207, 1);
 	background-color: rgba(244, 242, 242, 1);
 	font-weight: 13px;
+	color: var(--gray-dark);
 }
