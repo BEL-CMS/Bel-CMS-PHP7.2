@@ -16,6 +16,7 @@ if (!defined('CHECK_INDEX')) {
 
 class Games extends AdminPages
 {
+	var $admin  = true; // Admin suprême uniquement (Groupe 1);
 	var $active = true;
 	var $models = array('ModelsGames');
 
@@ -24,7 +25,10 @@ class Games extends AdminPages
 		$data['data'] = $this->ModelsGames->getGames();
 		$data['count'] = count($data['data']);
 		$this->set($data);
-		$this->render('index');
+		$menu[] = array('Accueil'=> array('href'=>'/games?management&gaming=true','icon'=>'fa fa-home'));
+		$menu[] = array('Ajouter'=> array('href'=>'/games/add?management&gaming=true','icon'=>'fa fa-plus'));
+		$menu[] = array('Configurations'=> array('href'=>'Team/addTeam?management&gaming=true','icon'=>'fa fa-cubes'));
+		$this->render('index', $menu);;
 	}
 
 	public function add ()

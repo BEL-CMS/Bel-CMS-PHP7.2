@@ -15,25 +15,13 @@ if (!defined('CHECK_INDEX')) {
 }
 if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === true):
 ?>
-<form action="/Team/sendAdd?management&gaming=true" enctype="multipart/form-data" method="post" class="form-horizontal">
-<div class="x_panel">
-	<div class="x_title">
-		<h2>Menu Page Team</h2>
-		<div class="clearfix"></div>
-	</div>
-	<div class="x_content">
-		<a href="/team?management&gaming=true" class="btn btn-app">
-			<i class="fa fas fa-home"></i> Accueil
-		</a>
-		<a href="/Team/addTeam?management&gaming=true" class="btn btn-app">
-			<i class="fa fas fa-plus"></i> <?=ADD?>
-		</a>
-	</div>
-</div>
-
-<div class="col-md-12">
-	<div class="panel panel-white">
-		<div class="panel-body basic-form-panel">
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="block">
+            <div class="block-title">
+                <h2>Ajouter une team</h2>
+            </div>
+			<form action="/Team/sendAdd?management&gaming=true" enctype="multipart/form-data" method="post" class="form-horizontal form-bordered">
 				<div class="form-group">
 					<label for="input-Default" class="col-sm-2 control-label"><?=NAME?></label>
 					<div class="col-sm-10">
@@ -82,9 +70,9 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary"><?=EDIT?></button>
 				</div>
+			</form>
 		</div>
 	</div>
 </div>
-</form>
 <?php
 endif;

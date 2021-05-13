@@ -15,41 +15,33 @@ if (!defined('CHECK_INDEX')) {
 }
 if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === true):
 ?>
-<form action="/Team/playeredit?management&gaming=true" method="post" class="form-horizontal">
-<div class="x_panel">
-	<div class="x_title">
-		<h2>Menu Page Team</h2>
-		<div class="clearfix"></div>
-	</div>
-	<div class="x_content">
-		<a href="/team?management&gaming=true" class="btn btn-app">
-			<i class="fa fas fa-home"></i> Accueil
-		</a>
-		<a href="/Team/addTeam?management&gaming=true" class="btn btn-app">
-			<i class="fa fas fa-plus"></i> <?=ADD?>
-		</a>
-	</div>
-</div>
-
-<div class="x_panel">
-	<div class="x_title">
-		<h2>Team <small><?=$team->name?></small></h2>
-		<div class="clearfix"></div>
-	</div>
-	<div class="x_content">
-		<label>Selectionner le ou les joueurs qui feront partie de la team : <?=$team->name?></label>
-		<?php
-		foreach ($user as $k => $v):
-			$checked = in_array($v->hash_key, $userTeam) ? 'checked="checked"' : '';
-			?>
-			<p><input <?=$checked?> type="checkbox" name="team[]" value="<?=$v->hash_key?>" class="flat"> <?=$v->username?></p>
-			<?php
-		endforeach;
-		?>
-		<div class="form-group">
-			<input type="hidden" name="id" value="<?=$team->id?>">
-			<button type="submit" class="btn btn-primary"><?=EDIT?></button>
-		</div>
+<div class="col-sm-12">
+	<div class="block">
+	    <div class="block-title">
+	        <h2><strong>Selectionner le ou les joueurs qui feront partie de la team :</strong> <?=$team->name?></h2>
+	    </div>
+	    <form action="/Team/playeredit?management&gaming=true" method="post" class="form-horizontal form-bordered">
+	        <div class="form-group">
+				<?php
+				foreach ($user as $k => $v):
+					$checked = in_array($v->hash_key, $userTeam) ? 'checked="checked"' : '';
+					?>
+		                <div class="input-group">
+		                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+		                    <input type="text" id="example-input<?=$checked?>" name="example-input<?=$checked?>" class="form-control" value="<?=$v->username?>" disabled>
+		                    <span class="input-group-addon"><input <?=$checked?> type="checkbox" name="team[]" value="<?=$v->hash_key?>" class="flat"></span>
+		                </div>
+					<?php
+				endforeach;
+				?>
+	        </div>
+	        <div class="form-group form-actions">
+	            <div class="col-xs-12">
+	            	<input type="hidden" name="id" value="<?=$team->id?>">
+	                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Submit</button>
+	            </div>
+	        </div>
+	    </form>
 	</div>
 </div>
 <?php

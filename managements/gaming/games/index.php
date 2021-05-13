@@ -14,29 +14,14 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<div class="x_panel">
-	<div class="x_title">
-		<h2>Menu Page Team</h2>
-		<div class="clearfix"></div>
-	</div>
-	<div class="x_content">
-		<a href="/games?management&gaming=true" class="btn btn-app">
-			<i class="fa fas fa-home"></i> Accueil
-		</a>
-		<a href="/games/add?management&gaming=true" class="btn btn-app">
-			<i class="fa fas fa-plus"></i> <?=ADD?>
-		</a>
-		<a class="btn btn-app">
-			<span class="badge bg-red"><?=$count?></span>
-			<i class="fa fa-bullhorn"></i> Jeu(x)
-		</a>
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="panel panel-white">
-		<div class="panel-body">
-		   <div class="table-responsive">
-				<table id="datatableTeam" class="table table-striped jambo_table bulk_action">
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12">
+		<div class="block full">
+		    <div class="block-title">
+		        <h2><strong>Menu Page Team</strong></h2>
+		    </div>
+			<div class="table-responsive">
+				<table  class="DataTableBelCMS table table-vcenter table-condensed table-bordered">
 					<thead>
 						<tr>
 							<th># ID</th>

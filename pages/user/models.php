@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 0.3.0
- * @link http://www.bel-cms.be
- * @link http://www.stive.eu
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
- * @copyright 2014-2016 Bel-CMS
- * @author Stive - mail@stive.eu
+ * @version 1.0.0
+ * @link https://bel-cms.be
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @copyright 2014-2019 Bel-CMS
+ * @author as Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -684,17 +684,6 @@ class ModelsUser
 				$type = 'username';
 			}
 
-			/*
-			$check =    array(
-				'table'      => TABLE_USERS,
-				'where'      => array(
-					 'name'  => $type,
-					 'value' => $data['value']
-				)
-			);
-			$results = BDD::getInstance()->select($check, false);
-			*/
-
 			$sql = New BDD();
 			$sql->table('TABLE_USERS');
 			$sql->where(array('name'=>$type,'value'=>$data['value']));
@@ -1111,5 +1100,25 @@ class ModelsUser
 		}
 
 		return $return;
+	}
+	#########################################
+	# Recuperer tout les jeux depuis la BDD
+	#########################################
+	public function getGaming ()
+	{
+		$sql = New BDD();
+		$sql->table('TABLE_TEAM');
+		$sql->queryAll();
+		return $sql->data;
+	}
+	#########################################
+	# Récupère touts auteurs
+	#########################################
+	public function getTeamUsers ()
+	{
+		$sql = New BDD();
+		$sql->table('TABLE_TEAM_USERS');
+		$sql->queryAll();
+		return $sql->data;
 	}
 }

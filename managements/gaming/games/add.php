@@ -14,33 +14,13 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<div class="x_panel">
-	<div class="x_title">
-		<h2>Menu Page Team</h2>
-		<div class="clearfix"></div>
-	</div>
-	<div class="x_content">
-		<a href="/games?management&gaming=true" class="btn btn-app">
-			<i class="fa fas fa-home"></i> Accueil
-		</a>
-		<a href="/games/add?management&gaming=true" class="btn btn-app">
-			<i class="fa fas fa-plus"></i> <?=ADD?>
-		</a>
-	</div>
-</div>
-
-<div class="col-md-12 col-sm-12 col-xs-12">
-	<div class="x_panel">
-		<div class="x_title">
-			<h2>Jeu<small>ajouté un jeu</small></h2>
-			<ul class="nav navbar-right panel_toolbox">
-				<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-			</ul>
-			<div class="clearfix"></div>
-		</div>
-		<div class="x_content">
-			<br>
-			<form action="/games/addGame?management&gaming=true" data-parsley-validate enctype="multipart/form-data" method="post" class="form-horizontal form-label-left">
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="block">
+            <div class="block-title">
+                <h2>Ajouté un jeu</h2>
+            </div>
+			<form action="/games/addGame?management&gaming=true" data-parsley-validate enctype="multipart/form-data" method="post" class="form-horizontal form-bordered">
 				<div class="form-group">
 					<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Titre du jeu <span class="required">*</span></label>
 					<div class="col-md-6 col-sm-6 col-xs-12">

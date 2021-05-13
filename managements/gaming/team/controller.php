@@ -16,6 +16,7 @@ if (!defined('CHECK_INDEX')) {
 
 class Team extends AdminPages
 {
+	var $admin  = true; // Admin suprême uniquement (Groupe 1);
 	var $active = true;
 	var $models = array('ModelsTeam');
 
@@ -24,7 +25,10 @@ class Team extends AdminPages
 		$data['data'] = $this->ModelsTeam->getTeam ();
 		$data['count'] = count($data['data']);
 		$this->set($data);
-		$this->render('index');
+		$menu[] = array('Accueil'=> array('href'=>'team?management&gaming=true','icon'=>'fa fa-home'));
+		$menu[] = array('Ajouter'=> array('href'=>'Team/addTeam?management&gaming=true','icon'=>'fa fa-plus'));
+		$menu[] = array('Configurations'=> array('href'=>'Team/addTeam?management&gaming=true','icon'=>'fa fa-cubes'));
+		$this->render('index', $menu);
 	}
 
 	public function addTeam ()
@@ -75,7 +79,9 @@ class Team extends AdminPages
 				$data['userTeam'] = array();
 			}
 			$this->set($data);
-			$this->render('player');
+			$menu[] = array('Accueil'=> array('href'=>'/team?management&gaming=true','icon'=>'fa fa-home'));
+			$menu[] = array('Configurations'=> array('href'=>'/Team/cobfig?management&gaming=true','icon'=>'fa fas fa-plus'));
+			$this->render('player', $menu);
 		}
 	}
 

@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 0.3.0
- * @link http://www.bel-cms.be
- * @link http://www.stive.eu
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
- * @copyright 2014-2016 Bel-CMS
- * @author Stive - mail@stive.eu
+ * @version 1.0.0
+ * @link https://bel-cms.be
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @copyright 2014-2019 Bel-CMS
+ * @author as Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -18,7 +18,9 @@ class User extends Pages
 {
 	var $models = array('ModelsUser');
 	private $_error = false;
-
+	#########################################
+	# Index de la page utilisateur
+	#########################################
 	public function index ()
 	{
 		$dir = 'uploads/users/'.$_SESSION['USER']['HASH_KEY'].'/';
@@ -29,7 +31,9 @@ class User extends Pages
 		$fclose = fclose($fopen);
 		if (Users::isLogged() === true) {
 			$d = array();
-			$d['user'] = $this->ModelsUser->getDataUser($_SESSION['USER']['HASH_KEY']);
+			$d['user']   = $this->ModelsUser->getDataUser ($_SESSION['USER']['HASH_KEY']);
+			$d['gaming'] = $this->ModelsUser->getGaming ();
+			$d['gamers'] = $this->ModelsUser->getTeamUsers ();
 			$this->set($d);
 			$this->render('index');
 		} else {
@@ -37,17 +41,16 @@ class User extends Pages
 			Notification::warning(LOGIN_REQUIRE);
 		}
 	}
+	#########################################
+	# copy index
+	#########################################
 	public function profil ()
 	{
-		if (Users::isLogged() === false) {
-			$this->render('login');
-		} else {
-			$d = array();
-			$d['user'] = $this->ModelsUser->getDataUser($_SESSION['USER']['HASH_KEY']);
-			$this->set($d);
-			$this->render('index');
-		}
+		self::index();
 	}
+	#########################################
+	# Page login
+	#########################################
 	public function login ()
 	{
 		if (Users::isLogged() === false) {
@@ -70,6 +73,9 @@ class User extends Pages
 		} else {
 		}
 	}
+	#########################################
+	# S'enregistree
+	#########################################	
 	public function register ()
 	{
 		if (Users::isLogged() === false) {
@@ -84,6 +90,9 @@ class User extends Pages
 			$this->redirect('user', 0);
 		}
 	}
+	#########################################
+	# Deconnexion
+	#########################################
 	public function logout ()
 	{
 		$return = Users::logout();

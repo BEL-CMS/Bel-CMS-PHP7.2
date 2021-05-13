@@ -39,6 +39,9 @@ if (Users::isLogged() === true):
 				<a class="nav-link" id="v-pills-social-tab" data-toggle="pill" href="#v-pills-social" role="tab" aria-controls="v-pills-social" aria-selected="false">Social
 					<i class="fas fa-angle-right"></i>
 				</a>
+				<a class="nav-link" id="v-pills-gaming-tab" data-toggle="pill" href="#v-pills-gaming" role="tab" aria-controls="v-pills-gaming" aria-selected="false">Jeux
+					<i class="fas fa-angle-right"></i>
+				</a>
 				<a class="nav-link" id="v-pills-mobile-tab" data-toggle="pill" href="#v-pills-mobile" role="tab" aria-controls="v-pills-mobile" aria-selected="false">Mobile
 					<i class="fas fa-angle-right"></i>
 				</a>
@@ -60,6 +63,7 @@ if (Users::isLogged() === true):
 		security();
 		avatars($user);
 		social($user);
+		gaming($gaming, $gamers);
 		mobile();
 		connexion();
 		?>	
@@ -313,6 +317,43 @@ function avatars  ($user)
 		<button type="submit" class="btn btn-primary">Ajouter</button>
 	</form>
 </div>
+<?php
+}
+function gaming ($d, $gamers)
+{
+?>
+<div class="tab-pane fade show" id="v-pills-gaming" role="tabpanel" aria-labelledby="v-pills-gaming-tab">
+	<h2>Vos jeux</h2>
+	<div style="padding: 15px;">
+	<?php
+	foreach ($gamers as $k => $v) {
+		$team[$v->teamid][] = $v->author;
+	}
+
+	foreach ($d as $k => $v) {
+		if (isset($team[$v->game])) {
+			$checked = (in_array($_SESSION['USER']['HASH_KEY'], $team[$v->game])) ? 'checked="checked"' : '';
+		} else {
+			$checked = '';
+		}
+		?>
+		<div class="form-group">
+			<img src="<?=$v->img?>" class="img-thumbnail" alt="banner" style="width: 100%;">
+			<div class="input-group mb-3">
+			  <div class="input-group-text">
+			    <input class="" type="checkbox" <?=$checked?> >
+			  </div>
+			  <input type="text" class="form-control"value="<?=$v->name?>" disabled>
+			</div>
+		</div>
+		<hr>
+	<?php
+	unset($checked);
+	}
+	?>
+</div>
+	<?php
+	?>
 <?php
 }
 
