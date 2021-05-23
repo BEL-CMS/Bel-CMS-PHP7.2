@@ -40,12 +40,12 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 									<div class="col-sm-10">
 										<?php
 										foreach ($groups as $k => $v):
-											$checked = in_array($v, $config->access_admin) ? 'checked' : '';
-											$checked = $v == 1 ? 'checked' : $checked;
+											$checked = in_array($v['id'], $config->access_admin) ? 'checked' : '';
+											$checked = $v['id'] == 1 ? 'checked' : $checked;
 											?>
 											<div class="input-group">
 												<span class="input-group-addon">
-													<input name="admin[]" value="<?=$v?>" type="checkbox" <?=$checked?>>
+													<input name="admin[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
 												</span>
 												<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
 											</div>
@@ -61,12 +61,12 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 										$visitor = constant('VISITORS');
 										$groups->$visitor = 0;
 										foreach ($groups as $k => $v):
-											$checked = in_array($v, $config->access_groups) ? 'checked' : '';
-											$checked = $v == 1 ? 'checked' : $checked;
+											$checked = in_array($v['id'], $config->access_groups) ? 'checked' : '';
+											$checked = $v['id'] == 1 ? 'checked' : $checked;
 											?>
 											<div class="input-group">
 												<span class="input-group-addon">
-													<input name="groups[]" value="<?=$v?>" type="checkbox" <?=$checked?>>
+													<input name="groups[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
 												</span>
 												<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
 											</div>

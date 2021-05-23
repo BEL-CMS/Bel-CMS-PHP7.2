@@ -145,11 +145,12 @@ switch ($table) {
 			`id_group` int(2) NOT NULL,
 			PRIMARY KEY (`id`),
 			UNIQUE KEY `name` (`name`),
-			UNIQUE KEY `id_group` (`id_group`)
+			UNIQUE KEY `id_group` (`id_group`),
+			`color` varchar(128) NOT NULL DEFAULT '#000000'
 		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
-		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `name`, `id_group`) VALUES
-			(NULL, 'ADMINISTRATORS', 1),
-			(NULL, 'MEMBERS', 2);";
+		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `name`, `id_group`, `color`) VALUES
+			(NULL, 'ADMINISTRATORS', 1, '#ff6e00'),
+			(NULL, 'MEMBERS', 2, '#052ba0');";
 	break;
 
 	case 'inbox':

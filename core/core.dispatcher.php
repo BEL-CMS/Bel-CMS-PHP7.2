@@ -100,6 +100,10 @@ class Dispatcher
 						$return = 'blog';
 					break;
 
+					case 'index.php':
+						$return = 'blog';
+					break;
+
 					case 'forum.html':
 						$return = 'forum';
 					break;

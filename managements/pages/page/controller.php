@@ -28,7 +28,10 @@ class Page extends AdminPages
 			}
 		}
 		$this->set($set);
-		$this->render('index');
+		$menu[] = array('Accueil'=> array('href'=>'/page?management&page=true','icon'=>'fa fa-home'));
+		$menu[] = array('Configuration'=> array('href'=>'/page/parameter?management&page=true','icon'=>'fa fa-cubes'));
+		$menu[] = array(ADD=> array('href'=>'/page/add?management&page=true','icon'=>'fa fa-plus'));
+		$this->render('index', $menu);
 	}
 
 	public function getpage ($id = false)

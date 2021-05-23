@@ -31,4 +31,6 @@ Common::constant(array(
 	'THEMES'       => 'Gestions des Thèmes',
 	'NEWSLETTER'   => 'Newsletter',
 	'SURVEY'       => 'Sondage',
+	'MONITORING'   => 'Monitoring',
+	'GROUPS'	   => 'Gestion des groupes',
 ));

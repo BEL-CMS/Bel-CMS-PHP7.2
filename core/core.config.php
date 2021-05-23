@@ -88,12 +88,12 @@ final class BelCMSConfig extends Dispatcher
 
 		$sql = New BDD;
 		$sql->table('TABLE_GROUPS');
-		$sql->fields(array('name', 'id_group'));
+		$sql->fields(array('name', 'id_group', 'color'));
 		$sql->queryAll();
 
 		foreach ($sql->data as $k => $v) {
 			$a = defined(strtoupper($v->name)) ? constant(strtoupper($v->name)) : ucfirst(strtolower($v->name));
-			$return->$a = $v->id_group;
+			$return->$a = array('id' => $v->id_group, 'color' => $v->color);
 		}
 
 		return $return;

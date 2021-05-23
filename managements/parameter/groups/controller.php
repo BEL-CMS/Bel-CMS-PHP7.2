@@ -58,14 +58,9 @@ class Groups extends AdminPages
 	public function edit ($id)
 	{
 		$id = (int) $id;
-		if ($id == 1 or $id == 2) {
-			$this->error(get_class($this), 'Impossible d\'editer ce groupe', 'error');
-			$this->redirect('groups?management&parameter=true', '1');
-		} else {
-			$data['data'] = $this->ModelGroups->edit($id);
-			$this->set($data);
-			$this->render('edit');
-		}
+		$data['data'] = $this->ModelGroups->edit($id);
+		$this->set($data);
+		$this->render('edit');
 	}
 
 	public function sendedit ()

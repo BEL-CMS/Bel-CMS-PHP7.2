@@ -13,7 +13,6 @@ if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
 	exit(ERROR_INDEX);
 }
-
 $count = BelCMSConfig::getGroups();
 $i = 0;
 foreach ($count as $key => $value) {
@@ -32,6 +31,7 @@ foreach ($count as $key => $value) {
 					<tr>
 						<th># ID</th>
 						<th>Nom</th>
+						<th>Couleur</th>
 						<th>Options</th>
 					</tr>
 				</thead>
@@ -39,28 +39,30 @@ foreach ($count as $key => $value) {
 					<tr>
 						<th># ID</th>
 						<th>Nom</th>
+						<th>Couleur</th>
 						<th>Options</th>
 					</tr>
 				</tfoot>
 				<tbody>
 				<?php
 				foreach (BelCMSConfig::getGroups() as $k => $v):
-					if ($v == 1 and $v == 2) {
+					if ($v['id'] == 1 and $v['id'] == 2) {
 						$colspan = 'colspan="2"';
 					} else {
 						$colspan = '';
 					}
 					?>
-					<tr>
-						<td><?=$v?></td>
+					<tr style="background-color: <?=$v['color'];?>; vertical-align:center;">
+						<td><?=$v['id']?></td>
 						<td><?=$k?></td>
+						<td><?=$v['color']?></td>
 						<td <?=$colspan?>>
+							<a href="/groups/edit/<?=$v['id']?>?management&parameter=true" class="btn btn btn-primary btn-sm mb-1">Edit</a>
 							<?php
-							if ($v != 1 and $v != 2):
+							if ($v['id'] != 1 and $v['id'] != 2):
 							?>
-							<a href="/groups/edit/<?=$v?>?management&parameter=true" class="btn btn btn-primary btn-sm mb-1">Edit</a>
-							<a href="#" data-toggle="modal" data-target="#modal_<?=$v?>" class="btn btn btn-danger btn-sm mb-1">Supprimer</a>
-							<div class="modal fade" id="modal_<?=$v?>" tabindex="-1" role="dialog">
+							<a href="#" data-toggle="modal" data-target="#modal_<?=$v['id']?>" class="btn btn btn-danger btn-sm mb-1">Supprimer</a>
+							<div class="modal fade" id="modal_<?=$v['id']?>" tabindex="-1" role="dialog">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -70,7 +72,7 @@ foreach ($count as $key => $value) {
 										<div class="modal-body">Confirmer du groupe : <?=$k?></div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-											<button onclick="window.location.href='/groups/detele/<?=$v?>?management&parameter=true'" type="button" class="btn btn-primary">Supprimer</button>
+											<button onclick="window.location.href='/groups/detele/<?=$v['id']?>?management&parameter=true'" type="button" class="btn btn-primary">Supprimer</button>
 										</div>
 									</div>
 								</div>

@@ -23,7 +23,7 @@ if ($last !== null):
 		<li>
 			<img data-toggle="tooltip" title="<?=$v->username?>" src="<?=$v->avatar?>" alt="avatar_<?=$v->username?>" style="max-width: 50px; max-height: 50px;">
 			<span>
-				<p><?=$v->username?></p>
+				<p style="color: <?=Users::colorUsername(null,$v->username)?>"><?=$v->username;?></p>
 				<p><?=Common::transformDate($v->last_visit, 'MEDIUM', 'SHORT') ?></p>
 			</span>
 		</li>

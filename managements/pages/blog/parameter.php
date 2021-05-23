@@ -33,13 +33,13 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 				</div>
 				<?php
 				foreach ($groups as $k => $v):
-					$checked = in_array($v, $config->access_admin) ? 'checked' : '';
-					$checked = $v == 1 ? 'checked' : $checked;
+					$checked = in_array($v['id'], $config->access_admin) ? 'checked' : '';
+					$checked = $v['id'] == 1 ? 'checked' : $checked;
 				?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="<?=$v?>"><?=$k?></label>
+					<label class="col-sm-3 control-label" for="<?=$v['id']?>"><?=$k?></label>
 					<div class="col-sm-9">
-						<input id="<?=$v?>" name="admin[]" value="<?=$v?>" type="checkbox" style="vertical-align: -moz-middle-with-baseline;" <?=$checked?>>
+						<input id="<?=$v['id']?>" name="admin[]" value="<?=$v['id']?>" type="checkbox" style="vertical-align: -moz-middle-with-baseline;" <?=$checked?>>
 					</div>
 				</div>
 				<?php
@@ -53,12 +53,12 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 				$groups->$visitor = 0;
 				foreach ($groups as $k => $v):
 					$checked = in_array($v, $config->access_admin) ? 'checked' : '';
-					$checked = $v == 1 ? 'checked' : $checked;
+					$checked = $v['id'] == 1 ? 'checked' : $checked;
 					?>
 					<div class="form-group">
-						<label class="col-sm-3 control-label" for="<?=$v?>"><?=$k?></label>
+						<label class="col-sm-3 control-label" for="<?=$v['id']?>"><?=$k?></label>
 						<div class="col-sm-9">
-							<input name="admin[]" value="<?=$v?>" type="checkbox" <?=$checked?>>
+							<input name="admin[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
 						</div>
 					</div>
 					<?php

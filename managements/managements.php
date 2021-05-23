@@ -231,7 +231,6 @@ final class Managements extends Dispatcher
 						echo $this->controller->render;
 					}
 				} else {
-					Notification::error('Fichier controller de la page : <strong> '.$page.'</strong> non disponible...', 'Fichier');
 				}
 			} else if (isset($_REQUEST['gaming']) and $_REQUEST['gaming'] == true) {
 				$scan = Common::ScanDirectory(MANAGEMENTS.'gaming');

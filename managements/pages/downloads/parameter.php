@@ -15,75 +15,64 @@ if (!defined('CHECK_INDEX')) {
 }
 if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === true):
 ?>
-<form action="/downloads/sendparameter?management&page=true" method="post" class="form-horizontal">
-
-<div class="x_panel">
-	<div class="x_title">
-		<h2>Menu Page Blog</h2>
-		<div class="clearfix"></div>
-	</div>
-	<div class="x_content">
-		<a href="/downloads?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-home"></i> Accueil
-		</a>
-		<button type="submit" class="btn btn-app">
-			<i class="fa fa-save"></i> <?=SAVE?>
-		</button>
-	</div>
-</div>
-
-
-<div class="col-md-12">
-	<div class="panel panel-white">
-		<div class="panel-body">
-			<div class="form-group">
-				<label class="col-sm-2 control-label">Page Activer</label>
-				<div class="col-sm-10">
-					<label>
-						<input value="1" type="checkbox" class="js-switch" <?=$config->active == 1 ? 'checked' : ''?> name="active"> Activer
-					</label>
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="block">
+            <div class="block-title">
+                <h2>Paramètre du téléchargement</h2>
+            </div>
+			<form action="/downloads/sendparameter?management&page=true" method="post" class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Page Activer</label>
+					<div class="col-sm-10">
+						<label>
+							<input value="1" type="checkbox" class="js-switch" <?=$config->active == 1 ? 'checked' : ''?> name="active"> Activer
+						</label>
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-2 control-label">Accès aux Administrateurs</label>
-				<div class="col-sm-10">
-					<?php
-					foreach ($groups as $k => $v):
-						$checked = in_array($v, $config->access_admin) ? 'checked' : '';
-						$checked = $v == 1 ? 'checked' : $checked;
-						?>
-						<div class="input-group">
-							<span class="input-group-addon">
-								<input name="admin[]" value="<?=$v?>" type="checkbox" <?=$checked?>>
-							</span>
-							<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
-						</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Accès aux Administrateurs</label>
+					<div class="col-sm-10">
 						<?php
-					endforeach;
-					?>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-2 control-label">Accès aux groupes</label>
-				<div class="col-sm-10">
-					<?php
-					$visitor = constant('VISITORS');
-					$groups->$visitor = 0;
-					foreach ($groups as $k => $v):
-						$checked = in_array($v, $config->access_groups) ? 'checked' : '';
-						$checked = $v == 1 ? 'checked' : $checked;
+						foreach ($groups as $k => $v):
+							$checked = in_array($v['id'], $config->access_admin) ? 'checked' : '';
+							$checked = $v['id'] == 1 ? 'checked' : $checked;
+							?>
+							<div class="input-group">
+								<span class="input-group-addon">
+									<input name="admin[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
+								</span>
+								<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
+							</div>
+							<?php
+						endforeach;
 						?>
-						<div class="input-group">
-							<span class="input-group-addon">
-								<input name="groups[]" value="<?=$v?>" type="checkbox" <?=$checked?>>
-							</span>
-							<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
-						</div>
-						<?php
-					endforeach;
-					?>
+					</div>
 				</div>
-			</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Accès aux groupes</label>
+					<div class="col-sm-10">
+						<?php
+						$visitor = constant('VISITORS');
+						$groups->$visitor = 0;
+						foreach ($groups as $k => $v):
+							$checked = in_array($v['id'], $config->access_groups) ? 'checked' : '';
+							$checked = $v['id'] == 1 ? 'checked' : $checked;
+							?>
+							<div class="input-group">
+								<span class="input-group-addon">
+									<input name="groups[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
+								</span>
+								<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
+							</div>
+							<?php
+						endforeach;
+						?>
+					</div>
+				</div>
+				<div class="card-footer">
+					<button type="submit" class="btn btn-primary"><?=SAVE?></button>
+				</div>
 		</div>
 	</div>
 </div>

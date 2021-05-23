@@ -19,7 +19,7 @@ if (!defined('CHECK_INDEX')) {
         <h2><strong>Télécharments</strong></h2>
     </div>
 	<div class="table-responsive">
-		<table  class="DataTableBelCMS table table-vcenter table-condensed table-bordered">
+		<table class="DataTableBelCMS table table-vcenter table-condensed table-bordered">
 			<thead>
 				<tr>
 					<th># ID</th>

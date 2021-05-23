@@ -45,8 +45,9 @@ class ModelGroups
 
 		$insert = New BDD();
 		$insert->table('TABLE_GROUPS');
-		$d['name']     = $data['name'];
-		$d['id_group'] = $lastid;
+		$d['name']     = Common::VarSecure($data['name']);
+		$d['color']    = Common::VarSecure($data['color']);
+		$d['id_group'] = Common::SecureRequest($lastid);
 		$insert->sqldata($d);
 		$insert->insert();
 		# check insert new group
@@ -105,7 +106,8 @@ class ModelGroups
 		$s = New BDD;
 		$s->table(TABLE_GROUPS);
 		$s->where(array('name' => 'id_group','value' => $_POST['id']));
-		$d['name'] = $_POST['name'];
+		$d['name']  = Common::VarSecure($_POST['name']);
+		$d['color'] = Common::VarSecure($_POST['color']);
 		$s->sqldata($d);
 		$s->update();
 		// SQL RETURN NB DELETE

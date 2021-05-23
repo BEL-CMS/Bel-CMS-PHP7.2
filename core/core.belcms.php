@@ -25,6 +25,7 @@ final class BelCMS extends Dispatcher
 		if ($this->controller != 'shoutbox') {
 			new Visitors;
 		}
+
 		new BelCMSConfig;
 		new Users;
 

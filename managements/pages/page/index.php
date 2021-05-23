@@ -14,35 +14,37 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<div class="x_panel">
-	<div class="x_title">
-		<h2>Menu Page</h2>
-		<div class="clearfix"></div>
-	</div>
-	<div class="x_content">
-		<a href="/page?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-home"></i> Accueil
-		</a>
-		<a href="page/parameter?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-cogs"></i> Configuration
-		</a>
-		<a href="/page/add?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-plus"></i> <?=ADD?>
-		</a>
-	</div>
-</div>
 
-<div class="col-md-12">
-	<div class="x_content">
-		<?php
-		foreach ($data as $key => $value):
-		?>
-			<a href="/page/getpage/<?=$value->id?>?management&page=true" class="btn btn-app">
-				<span class="badge bg-red"><?=$value->count?></span>
-				<i class="fa far fa-file-alt"></i> <?=$value->name?>
-			</a>
-		<?php
-		endforeach;
-		?>
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12">
+		<div class="block full">
+		    <div class="block-title">
+		        <h2><strong>Menu page</strong></h2>
+		    </div>
+			<div class="table-responsive">
+			<!-- fin des boutton action -->
+			<table  class="DataTableBelCMS table table-vcenter table-condensed table-bordered">
+				<thead>
+					<th>Pages</th>
+				</thead>
+				<?php
+				foreach ($data as $key => $value):
+				?>
+				<tr>
+					<a href="/page/getpage/<?=$value->id?>?management&page=true" class="btn btn-app">
+						<span class="badge bg-red"><?=$value->count?></span>
+						<i class="fa far fa-file-alt"></i> <?=$value->name?>
+					</a>
+				<?php
+				endforeach;
+				?>
+				</tr>
+				<tfoot>
+					<th>Pages</th>
+				</tfoot>
+					
+				</tr>
+			</table>
+		</div>
 	</div>
 </div>

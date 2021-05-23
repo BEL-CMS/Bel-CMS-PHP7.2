@@ -23,7 +23,7 @@
 				<input type="hidden" name="business" value="stivedeterme@msn.com">
 				<input type="hidden" name="item_name" value="don pour: palacewar.eu">
 				<input type="hidden" name="currency_code" value="EUR">
-				<input type="hidden" name="notify_url"  value="https://palacewar.eu/donation/verify">
+				<input type="hidden" name="notify_url"  value="https://palacewar.eu/Paypal/verify">
 				<input type="hidden" name="return" value="https://palacewar.eu">				
 				<div class="input-group">
 					<input type="text" class="form-control" name="amount" placeholder="Montant en euros">

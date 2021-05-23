@@ -40,13 +40,11 @@
 					<div class="col-sm-10">
 						<?php
 						foreach ($groups as $k => $v):
-							if ($v == 1) {
-								$checked = 'checked';
-							}
+							$checked = ($v['id'] == 1) ? 'checked="checked"' : '';
 							?>
 							<div class="input-group">
 								<span class="input-group-addon">
-									<input name="access_admin[]" value="<?=$v?>" type="checkbox" <?=$checked?>>
+									<input name="access_admin[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
 								</span>
 								<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
 							</div>
@@ -62,13 +60,11 @@
 						$visitor = constant('VISITORS');
 						//$groups->$visitor = 0;
 						foreach ($groups as $k => $v):
-							if ($v == 1) {
-								$checked = 'checked';
-							}
+							$checked = ($v['id'] == 1) ? 'checked="checked"' : '';
 							?>
 							<div class="input-group">
 								<span class="input-group-addon">
-									<input name="access_groups[]" value="<?=$v?>" type="checkbox" <?=$checked?>>
+									<input name="access_groups[]" value="<?=$v["id"]?>" type="checkbox" <?=$checked?>>
 								</span>
 								<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
 							</div>

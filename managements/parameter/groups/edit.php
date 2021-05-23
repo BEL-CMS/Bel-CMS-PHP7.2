@@ -15,24 +15,37 @@ if (!defined('CHECK_INDEX')) {
 }
 if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === true):
 ?>
-<form action="/groups/sendedit?management&parameter=true" method="post" class="form-horizontal">
-	<div class="card">
-		<div class="card-header">
-			<h3 class="card-title"><?=GROUPS?></h3>
-		</div>
-		<div class="card-body">
-			<div class="form-group">
-				<label for="input-Default" class="col-sm-2 control-label"><?=NAME?></label>
-				<div class="col-sm-10">
-					<input name="name" type="text" class="form-control" id="input-Default" value="<?=$data->name?>">
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="block">
+            <div class="block-title">
+                <h2>Editer un groupes</h2>
+            </div>
+			<form action="/groups/sendedit?management&parameter=true" method="post" class="form-horizontal form-label-left">
+				<div class="form-group">
+					<label for="input-Default" class="col-sm-2 control-label"><?=NAME?></label>
+					<div class="col-sm-10">
+						<input name="name" type="text" class="form-control" id="input-Default" value="<?=$data->name?>">
+					</div>
 				</div>
-			</div>
-		</div>
-		<div class="card-footer">
-			<input type="hidden" name="id" value="<?=$data->id_group?>">
-			<button type="submit" class="btn btn-primary"><?=EDIT?></button>
+				<div class="form-group">
+				    <label class="col-md-2 control-label" for="colr">Couleur du groupe</label>
+				    <div class="col-md-10">
+				        <div class="input-group input-colorpicker">
+				            <input type="text" id="example-colorpicker2" name="color" class="form-control" value="<?=$data->color?>">
+				            <span class="input-group-addon"><i></i></span>
+				        </div>
+				    </div>
+				</div>
+				<div class="form-group form-actions">
+					<div class="col-sm-9 col-sm-offset-3">
+						<input type="hidden" name="id" value="<?=$data->id_group?>">
+						<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> <?=SAVE?></button>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
-</form>
+</div>
 <?php
 endif;

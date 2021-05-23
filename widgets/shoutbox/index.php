@@ -31,9 +31,11 @@ if (!defined('CHECK_INDEX')) {
 							$infosUser = Users::getInfosUser($v->hash_key);
 							$username  = $infosUser[$v->hash_key]->username;
 							$avatar    = empty($infosUser[$v->hash_key]->avatar) ? 'assets/images/default_avatar.jpg' : $infosUser[$v->hash_key]->avatar;
+							$color     = Users::colorUsername($v->hash_key);
 						} else {
 							$username  = 'Inconnu';
 							$avatar    = 'assets/images/default_avatar.jpg';
+							$color     = '#000000';
 						}
 
 						$msg = ' ' . $v->msg;
@@ -46,7 +48,7 @@ if (!defined('CHECK_INDEX')) {
 								<img src="<?=$avatar?>">
 							</a>
 							<div class="message_wrap"> <span class="arrow"></span>
-								<div class="info"> <a data-toggle="tooltip" title="<?=$username?>" href="Members/View/<?=$username?>" class="name"><?=$username?></a> <span class="time"><?=$v->date_msg?></span>
+								<div class="info"> <a style="color: <?=$color?>" data-toggle="tooltip" title="<?=$username?>" href="Members/View/<?=$username?>" class="name"><?=$username?></a> <span class="time"><?=$v->date_msg?></span>
 								</div>
 								<div class="text"><?=$msg?></div>
 							</div>

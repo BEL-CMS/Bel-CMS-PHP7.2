@@ -15,6 +15,8 @@
 			<ul class="bel_cms_content">
 				<li><a href="Blog">Home</a></li>
 				<li><a href="Forum">Forum</a></li>
+				<li><a href="Team">Team</a></li>
+				<li><a href="inbox">Inbox</a></li>
 				<li><a href="User"><i class="fas fa-user-tie"></i> User</a></li>
 			</ul>
 		</nav>
@@ -53,8 +55,7 @@
 		<!-- Footer -->
 		<footer id="footer">
 			<div class="bel_cms_content">
-				<span>Copyright 2019 | By <a href="https://bel-cms.be">Bel-CMS</a></span>
-				<span>Chargement en 0.001s</span>
+				<span>Copyright 2019 > <?=(date('Y'))?> | By <a href="https://bel-cms.be">Bel-CMS</a></span>
 		</footer>
 		<!-- / Footer -->
 		{js}

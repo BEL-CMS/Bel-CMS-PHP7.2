@@ -60,6 +60,7 @@ Common::constant(array(
 	'TABLE_USERS_PROFILS'    => $DB_PREFIX.'page_users_profils',
 	'TABLE_USERS_SOCIAL'     => $DB_PREFIX.'page_users_social',
 	'TABLE_STATS'            => $DB_PREFIX.'stats',
+	'TABLE_PAYPAL_ACCEPTE'   => $DB_PREFIX.'paypal_accepte',
 	'TABLE_TEAM'             => $DB_PREFIX.'team',
 	'TABLE_TEAM_USERS'       => $DB_PREFIX.'team_users',
 	'TABLE_VISITORS'         => $DB_PREFIX.'visitors',

@@ -311,3 +311,52 @@
     text-decoration: none;
     transition: all 0.25s ease 0s;
 }
+
+
+
+#belcms_forum {
+
+}
+	#belcms_forum > .forum {
+		background: #ffffff;
+		border: 1px solid #d8d8d8;
+		border-radius: 4px;
+		margin-top: 25px;
+		padding: 10px 20px;
+		border-spacing: 5px;
+	}
+		.belcms_forum_h1 {
+			margin: 0 0 4px 0;
+		}
+
+		#belcms_forum > article .belcms_forum_category_description {
+
+		}
+
+	.belcms_forum_table {
+		margin-top: 15px;
+	}
+		.belcms_forum_table tr {
+			background-color: #F9FAF4;
+			line-height: 35px;
+		}
+		td.belcms_f_td {
+			width: 25px;
+			padding-left: 10px;
+			border-spacing: 5px;
+			text-align: center;
+		}
+		.belcms_forum_table tr td img {
+			width: 25px;
+			height: 25px;
+		}
+		.belcms_f_a {
+			padding: 15px 0;
+			word-break: break-word;
+			color: var(--primary);
+		}
+
+.espace
+{
+ height : 10px;
+}

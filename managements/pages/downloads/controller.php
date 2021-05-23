@@ -131,7 +131,8 @@ class Downloads extends AdminPages
 		$data['groups'] = BelCMSConfig::getGroups();
 		$data['config'] = BelCMSConfig::GetConfigPage(get_class($this));
 		$this->set($data);
-		$this->render('parameter');
+		$menu[] = array('Accueil'=> array('href'=>'/downloads?management&page=true','icon'=>'fa fa-home'));
+		$this->render('parameter', $menu);
 	}
 
 	public function sendparameter ()

@@ -24,7 +24,7 @@ $countComment = Comment::countComments('blog', $v->id);
 		<div class="card-header"><h1><a href="<?php echo $v->link; ?>"><?=$v->name?></a></h1></div>
 		<div class="card-body">
 			<ul class="bel_cms_blog_userdate">
-				<li><?=BY?> : <a href="Members/View/<?=$v->username?>" title="<?=POST_BY?> <?=$v->username?>"><?=$v->username?></a></li>
+				<li><?=BY?> : <a style="color: <?=Users::colorUsername(null,$v->username)?>" href="Members/View/<?=$v->username?>" title="<?=POST_BY?> <?=$v->username?>"><?=$v->username?></a></li>
 				<li><?=DATE?> : <?=Common::transformDate($v->date_create, 'FULL', 'NONE')?></li>
 			</ul>
 			<div class="bel_cms_blog_content">

@@ -46,11 +46,11 @@ if (!defined('CHECK_INDEX')) {
 						$visitor = constant('VISITORS');
 						$groups->$visitor = 0;
 						foreach ($groups as $k => $v):
-							$checked = $v == 1 ? "checked" : "";
+							$checked = $v['id'] == 1 ? "checked" : "";
 							?>
 							<div class="input-group">
 								<span class="input-group-addon">
-									<input name="groups[]" value="<?=$v?>" type="checkbox" <?=$checked?>>
+									<input name="groups[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
 								</span>
 								<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
 							</div>

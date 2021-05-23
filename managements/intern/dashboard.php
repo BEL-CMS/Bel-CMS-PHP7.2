@@ -135,6 +135,9 @@ function lastInteraction ()
 		<div class="col-md-6">
 			<div class="block">
 				<div class="block-title">
+					<div class="block-options pull-right">
+						 <a href="activites?management&parameter=true" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="" data-original-title="Activities plus"><i class="fa fa-plus-circle"></i></a>
+					</div>
 					<h2>Activities</h2>
 				</div>
 				<div class="table-responsive">
@@ -155,7 +158,7 @@ function lastInteraction ()
 						<tr>
 							<td><?=$timeline?></td>
 							<td><?=Common::TransformDate($v->date, 'MEDIUM', 'NONE')?></td>
-							<td><a href="#"><?=Users::hashkeyToUsernameAvatar($v->author)?></a></td>
+							<td><a style="color: <?php echo Users::colorUsername($v->author)?>" href="#"><?=Users::hashkeyToUsernameAvatar($v->author)?></a></td>
 							<td><?=$v->text?></td>
 						</tr>
 						<?php
@@ -184,7 +187,7 @@ function lastInteraction ()
 					foreach (lastConnected() as $k => $v):
 					?>
 					<tr>
-						<td><?=$v->username?></td>
+						<td style="color: <?=Users::colorUsername(null, $v->username)?>"><?=$v->username?></td>
 						<td><?=$v->last_visit?></td>
 					</tr>
 					<?php

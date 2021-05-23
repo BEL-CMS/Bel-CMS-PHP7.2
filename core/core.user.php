@@ -312,4 +312,51 @@ class Users
 		}
 	}
 
+	public static function colorUsername ($hash_key = null, $username = null)
+	{
+		if ($hash_key == null and $username)
+		{
+			$sql = New BDD();
+			$sql->table('TABLE_USERS');
+			$sql->where(array(
+				'name'  => 'username',
+				'value' => Common::VarSecure($username)
+			));
+			$sql->fields(array('main_groups'));
+			$sql->queryOne();
+			if (!empty($sql->data)) {
+				foreach (BelCMSConfig::getGroups() as $k => $v) {
+					if ($sql->data->main_groups == $v['id']) {
+						$color = $v['color'];
+						break;
+					}
+				}
+			} else {
+				$color = "#000000";
+			}
+		} elseif (Common::hash_key($hash_key)) {
+			$sql = New BDD();
+			$sql->table('TABLE_USERS');
+			$sql->where(array(
+				'name'  => 'hash_key',
+				'value' => $hash_key
+			));
+			$sql->fields(array('main_groups'));
+			$sql->queryOne();
+
+			if (!empty($sql->data)) {
+				foreach (BelCMSConfig::getGroups() as $k => $v) {
+					if ($sql->data->main_groups == $v['id']) {
+						$color = $v['color'];
+						break;
+					}
+				}
+			} else {
+				$color = "#000000";
+			}
+		}
+
+		return $color;
+
+	}
 }
