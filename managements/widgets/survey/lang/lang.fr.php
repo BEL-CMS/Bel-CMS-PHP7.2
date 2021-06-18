@@ -18,5 +18,10 @@ Common::constant(array(
 	#####################################
 	# Fichier lang en français - Pages Shoutbox
 	#####################################
-	'ADD_SONDAGE_SUCCESS' => 'Ajout du sondage avec succès',
+	'ADD_SONDAGE_SUCCESS'         => 'Ajout du sondage avec succès',
+	'JS'                          => 'JavaScript',
+	'CSS'                         => 'Cascading Style Sheets',
+	'EDIT_SURVEY_PARAM_SUCCESS'   => 'les paramètres du widgets shoutbox sont sauvegarder avec succès',
+	'EDIT_SURVEY_PARAM_ERROR'     => 'Erreur durant la sauvegarde des paramètres du widgets : shoutbox',
+	'ERROR_NO_DATA'               => 'Erreur de transfert de données',
 ));

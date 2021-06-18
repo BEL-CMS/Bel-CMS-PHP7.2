@@ -84,13 +84,20 @@ class Forum extends Pages
 				}
 			}
 		}
-
-		if ($access === false) {
+/*
+##### Consomme trop de resource #####
+		if ($access === false and isset($_SESSION['USER']['HASH_KEY'])) {
 			$this->error('Forum', 'Tentative accès non autorisé, un administrateur à été prévenue.', 'error');
+			$Interaction = New Interaction;
+			$Interaction->user($_SESSION['USER']['HASH_KEY']);
+			$Interaction->title('Accès non autorisé');
+			$Interaction->type('error');
+			$Interaction->text('Accès non autorisé de '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' à la page Forum: threads');
+			$Interaction->insert();
 			$this->redirect(true, 2);
 			return false;
 		}
-
+*/
 		foreach ($data['threads'] as $k => $v) {
 			$data['threads'][$k]->options = Common::transformOpt($v->options);
 			$last = $this->ModelsForum->getLastPostsForum($v->id);
@@ -101,6 +108,14 @@ class Forum extends Pages
 			}
 			
 		}
+
+
+		foreach ($data['threads'] as $key => $value) {
+			$v = $value->id_threads;
+		}
+
+		$data['name'] = $this->ModelsForum->GetThreadName($v);
+		$data['name']->title;
 
 		$this->set($data);
 		$this->render('threads');
@@ -121,12 +136,42 @@ class Forum extends Pages
 		$this->ModelsForum->addView($id);
 		$d['post'] = $this->ModelsForum->GetPosts($name, $id);
 		if (count($d['post']) == 0) {
-			$this->error('Forum', 'Page manquante...', 'error');
+			$this->error(get_class($this), 'Page manquante...', 'error');
 			return;
 		} else {
 			$this->set($d);
 			$this->render('post');
 		}
+	}
+
+	public function sendeditmessage ()
+	{
+		$forum = $this->ModelsForum->sendEditPost($_POST);
+		$this->redirect('Forum/allMsg?management&page=true', 2);
+		$this->error(get_class($this), $forum["msg"], $forum["type"]);
+	}
+
+	public function EditPost ($id = null)
+	{
+		$id = Common::SecureRequest($id);
+		$d['d'] = $this->ModelsForum->editpost($id);
+		if (Users::isSuperAdmin($_SESSION['USER']['HASH_KEY']) or $d['d']->author == $_SESSION['USER']['HASH_KEY']) {
+			$this->set($d);
+			$this->render('editpost');			
+		} else {
+			$this->error(FORUM, NO_ACCESS_POST, 'error');
+		}
+	}
+
+	public function SendEditPost ()
+	{
+		if (Users::isSuperAdmin($_SESSION['USER']['HASH_KEY']) or $d['d']->author == $_SESSION['USER']['HASH_KEY']) {
+		$return = $this->ModelsForum->sendEditPost($_POST);
+		$this->error (get_class($this), $return['msg'], $return['type']);
+		} else {
+			$this->error(FORUM, NO_ACCESS_POST, 'error');
+		}
+		$this->redirect('Forum', 2);
 	}
 
 	private function accessLock ($id)

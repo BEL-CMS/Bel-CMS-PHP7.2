@@ -45,6 +45,36 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 			</form>
 		</div>
 	</div>
+    <div class="col-md-6">
+        <!-- Basic Form Elements Block -->
+        <div class="block">
+            <!-- Basic Form Elements Title -->
+            <div class="block-title">
+                <h2><strong>Large Full pages</strong></h2>
+            </div>
+			<form action="themes/sendpages?management&parameter=true" method="post" class="form-horizontal form-bordered">
+				<?php
+				foreach ($scan as $k => $v):
+					$chcked = in_array($v, $pages) ? 'checked="checked"': '';
+					$vname = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
+					?>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="<?=$k?>"><?=$vname?></label>
+						<div class="col-sm-9">
+							<input value="<?=$v?>" type="checkbox" id="<?=$k?>" name="full[]" class="form-control input-sm" <?=$chcked?>>
+						</div>
+					</div>
+					<?php
+				endforeach;
+				?>
+				<div class="form-group form-actions">
+					<div class="col-sm-9 col-sm-offset-3">
+						<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> <?=SAVE?></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 <?php
 endif;

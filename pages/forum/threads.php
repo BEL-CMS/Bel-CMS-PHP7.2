@@ -14,58 +14,56 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<section id="bel_cms_forum_threads">
+<section id="belcms_forum">
 	<?php
-		if (Users::getInfosUser($_SESSION['USER']['HASH_KEY']) !== false):
-			?>
-			<div class="headline">
-				<div class="pull-right">
-					<a data-toggle="tooltip" title="<?=NEW_THREAD?>" href="Forum/NewThread/<?=$id?>" class="btn btn-info btn-icon-left"><i class="fas fa-plus"></i> <?=NEW_THREAD?></a>
-				</div>
+	if (Users::getInfosUser($_SESSION['USER']['HASH_KEY']) !== false):
+		?>
+		<div class="headline">
+			<div class="pull-right">
+				<a data-toggle="tooltip" title="<?=NEW_THREAD?>" href="Forum/NewThread/<?=$id?>" class="btn btn-info btn-icon-left"><i class="fas fa-plus"></i> <?=NEW_THREAD?></a>
 			</div>
-		<?php	
-		endif;
+		</div>
+	<?php	
+	endif;
 	if (empty($threads)):
 		Notification::infos('Aucun sujet disponible dans la base de données', 'Forum');
 	else:
 	?>
-	<div class="bel_cms_forum_main_cat">
-		<div class="bel_cms_forum_main_cat_title">
-			<h1>kjhyikyhik</h1>
-		</div>
-		<div style="padding: 10px;">
+	<div class="forum">
+		<h1 class="belcms_forum_h1"><?=$name->title?></h1>
+		<table class="belcms_forum_table table table-bordered">
+			<thead>
+				<th>Titres</th>
+				<th style="text-align: center;">infos</th>
+				<th>Dernier post</th>
+			</thead>
+			<tr class="espace"></tr>
+			<tbody>
 			<?php
-				foreach ($threads as $k => $v):
-					?>
-					<div class="bel_cms_forum_main_cat_inc">
-						<div class="bel_cms_forum_main_cat_inc_ico">
-							<i class="fa fa-comments"></i>
-						</div>
-						<div class="bel_cms_forum_main_cat_inc_title">
-							<h3><a href="Forum/Post/<?=$v->title?>/<?=$v->id?>"><?=$v->title?></a></h3>
-							<span><i class="fa fa-user-circle"></i> <?=Users::hashkeyToUsernameAvatar($v->author)?> <i class="fa fa-clock-o" aria-hidden="true"></i> <?=Common::TransformDate($v->date_post, 'MEDIUM', 'SHORT')?></span>
-						</div>
-						<div class="bel_cms_forum_main_cat_inc_activity">
-							<div class="bel_cms_forum_main_cat_inc_activity_avatar">
-								<img src="<?=Users::hashkeyToUsernameAvatar($v->author, 'avatar')?>">
-							</div>
-							<div class="bel_cms_forum_main_cat_inc_activity_sujet">
-								<span><?=LAST_POST.' '.BY?> <?=Users::hashkeyToUsernameAvatar($v->last->author)?></span>
-								<span><i class="fa fa-clock-o"></i> <?=Common::TransformDate($v->last->date_post, 'MEDIUM', 'SHORT')?></span>
-							</div>
-						</div>
-						<div class="bel_cms_forum_main_cat_inc_sj">
-							<span><i class="fa fa-eye"></i> <?=$v->options['view']?></span>
-							<span><i class="fas fa-exchange-alt"></i> <?=$v->options['post']?></span>
-						</div>
-					</div>
-					<?php
-				endforeach;
+			foreach ($threads as $key => $value):
 			?>
-		</div>
+			<tr>
+				<td>
+					<a style="display: block;line-height: 15px;" href="Forum/Post/<?=$value->title?>/<?=$value->id?>"><?=$value->title?></a>
+					 <span style="color: <?=Users::colorUsername($value->author)?>"><i class="fa fa-user-circle"></i> <?=Users::hashkeyToUsernameAvatar($value->author)?> <i class="fa fa-clock-o" aria-hidden="true"></i> <?=Common::TransformDate($value->date_post, 'MEDIUM', 'SHORT')?></span>
+				</td>
+				<td>
+					<span style="display: block;line-height: 15px; text-align: center;"><i class="fa fa-eye"></i> <?=$value->options['view']?></span>
+					<span style="display: block;line-height: 35px; text-align: center;"><i class="fas fa-exchange-alt"></i> <?=$value->options['post']?></span>
+				</td>
+				<td>
+					<span style="display: block;line-height: 15px;color: <?=Users::colorUsername($value->last->author)?>">Dernier message par <?=Users::hashkeyToUsernameAvatar($value->last->author)?></span>
+					14 avr. 2021 à 00:33
+				</td>
+			</tr>
+			<tr class="espace"></tr>
+			<?php
+			endforeach;
+			?>
+			</tbody>
+		</table>
 	</div>
-	<?php
-	endif;
-	?>
 </section>
 <?php
+	endif; ?>
+

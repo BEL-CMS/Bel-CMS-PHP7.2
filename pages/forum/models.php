@@ -161,6 +161,21 @@ class ModelsForum
 		$return = $sql->data;
 		return $return;
 	}
+	public function GetThreadName ($id = null)
+	{
+			$sql = New BDD();
+			$sql->table('TABLE_FORUM_THREADS');
+			$whereThreads = array(
+				'name'  => 'id',
+				'value' => (int) $id
+			);
+			$sql->where($whereThreads);
+			$sql->fields('title');
+			$sql->queryOne();
+			$return = $sql->data;
+			return $return;		
+	}
+	
 	#####################################
 	# Récupère le dernier posts
 	#####################################
@@ -170,7 +185,7 @@ class ModelsForum
 		$return = array();
 		$sql = New BDD();
 		$sql->table('TABLE_FORUM_POSTS');
-		$sql->orderby(array(array('name' => 'id', 'type' => 'ASC')));
+		$sql->orderby(array(array('name' => 'id', 'type' => 'DESC')));
 		$where = array(
 			'name' => 'id_post',
 			'value' => $id
@@ -185,7 +200,7 @@ class ModelsForum
 	#####################################
 	public function getLastPostsOriginForum ($id, $id_threads)
 	{
-		$id = (int) $id;
+		$id = Common::SecureRequest($id);
 		$return = array();
 		$sql = New BDD();
 		$sql->table('TABLE_FORUM_POST');
@@ -201,6 +216,45 @@ class ModelsForum
 		$sql->queryOne();
 		$return = $sql->data;
 		return $return;
+	}
+	public function editpost ($id = null)
+	{
+		$return = null;
+		if ($id != null) {
+			$id = Common::SecureRequest($id);
+			$sql = New BDD();
+			$sql->table('TABLE_FORUM_POSTS');
+			$sql->where(array('name' => 'id', 'value' => $id));
+			$sql->queryOne();
+			$return = $sql->data;
+		}
+		return $return;
+	}
+	public function sendEditPost ($d)
+	{
+		$data['info_text'] = Common::VarSecure($d['info_text']);
+		$update = New BDD();
+		$update->table('TABLE_FORUM_POSTS');
+		$where[] = array(
+			'name'  => 'id',
+			'value' => Common::SecureRequest($d['id'])
+		);
+		$where[] = array(
+			'name'  => 'id_post',
+			'value' => Common::SecureRequest($d['id_post'])
+		);
+		$update->where($where);
+		$options = $data['info_text'];
+		$update->sqlData(array('content' => $options));
+		$update->update();
+		if ($update->rowCount == 1) {
+			$return['msg']  = EDIT_SUCCESS;
+			$return['type'] = 'success';
+		} else {
+			$return['msg']  = EDIT_FALSE;
+			$return['type'] = 'error';
+		}
+		return $return;	
 	}
 	#####################################
 	# Récupère les posts
@@ -286,7 +340,7 @@ class ModelsForum
 	public function lock ($id = false)
 	{
 		if ($id) {
-			$id = (int) $id;
+			$id = Common::SecureRequest($id);
 			$where = array('name' => 'id', 'value' => $id);
 			# recupere le post
 			$get = New BDD();

@@ -51,4 +51,27 @@ final class ModelsThemes
 		$return = array('type' => 'success', 'text' => 'le Theme principale a été changé', 'title' => 'Templates');
 		return $return;
 	}
+
+	public function sendPages ()
+	{
+		$data = implode(',', $_POST['full']);
+		$sql = New BDD;
+		$sql->table('TABLE_CONFIG');
+		$sql->where(array('name'=>'name','value'=>'CMS_TPL_FULL'));
+		$sql->sqlData(array('value' => $data));
+		$sql->update();
+		$return = array('type' => 'success', 'text' => 'les templates en full ont été changer', 'title' => 'Templates');
+		return $return;
+	}
+
+	public function searchPages ()
+	{
+		$sql = New BDD;
+		$sql->table('TABLE_CONFIG');
+		$sql->where(array('name'=>'name','value'=>'CMS_TPL_FULL'));
+		$sql->queryOne();
+		$data = $sql->data;
+		$return = explode(',', $data->value);
+		return $return;
+	}
 }

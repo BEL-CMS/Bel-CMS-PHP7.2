@@ -31,6 +31,7 @@ Common::constant(array(
 	'DEL_THRAD'           => 'Supprimer le sujet',
 	'LIKE'                => 'Aimer',
 	'REPORT_POST'         => 'Reporter ce sujet',
+	'EDIT_POST'           => 'Editer ce post',
 	'LAST_POST'           => 'Dernier message',
 	'BY'                  => 'par',
 	'CATEGORY'            => 'Catégories',
@@ -65,5 +66,8 @@ Common::constant(array(
 	'ERROR_UNLOCK_BDD'    => 'Erreur BDD: impossible d\'ouvrir le sujet',
 	'NO_OPEN_POST'        => 'Vous ne pouvez pas ouvrir ce sujet',
 	'NO_CLOSE_POST'       => 'Vous ne pouvez pas fermer ce sujet',
-
+	'EDIT_REPLY'          => 'Edition du post',
+	'EDIT_POST'           => 'Editer ce post',
+	'EDIT_SUCCESS'        => 'Edition du post avec succès',
+	'EDIT_FALSE'          => 'Erreur durant le processus de sauvegarde',
 ));

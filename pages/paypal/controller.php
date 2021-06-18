@@ -23,8 +23,8 @@ class PayPal extends Pages
 		$this->render('index');
 	}
 
-	public function PayPalmysql ()
+	public function verify ()
 	{
-		$this->render('mysql');
+		$this->render('verify');
 	}
 }

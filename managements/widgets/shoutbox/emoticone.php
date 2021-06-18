@@ -1,0 +1,117 @@
+<?php
+/**
+ * Bel-CMS [Content management system]
+ * @version 1.0.0
+ * @link https://bel-cms.be
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @copyright 2014-2019 Bel-CMS
+ * @author as Stive - stive@determe.be
+ */
+
+if (!defined('CHECK_INDEX')) {
+	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
+	exit(ERROR_INDEX);
+}
+if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === true):
+?>
+<div class="row">
+	<div class="col-lg-8 col-md-8 col-sm-8">
+		<div class="block">
+			<div class="block-title">
+				<h2>Listes Emoticônes</h2>
+			</div>
+			<div class="table-responsive">
+				<table  class="DataTableBelCMS table table-vcenter table-condensed table-bordered">
+					<thead>
+						<tr>
+							<th>Emoticônes</th>
+							<th>Noms</th>
+							<th>Codes</th>
+							<th>Emplacements</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th>Emoticônes</th>
+							<th>Noms</th>
+							<th>Codes</th>
+							<th>Emplacements</th>
+						</tr>
+					</tfoot>
+					<tbody>
+					<?php
+					foreach ($imo as $k => $v):
+						?>
+						<tr>
+							<td><img src="<?=$v->dir?>"></td>
+							<td><?=$v->name?></td>
+							<td><?=$v->code?></td>
+							<td><?=$v->dir?></td>
+							<td>
+								<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>" class="btn btn-danger btn-small"><i class="fa fas fa-trash"></i></a>
+								<div class="modal fade" id="modal_<?=$v->id?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="exampleModalLabel"><?=$v->name?></h4>
+											</div>
+											<div class="modal-body">Confirmer la suppression de l'emoticône : <?=$v->name?></div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+												<button onclick="window.location.href='/shoutbox/delimo/<?=$v->id?>?management&gaming=true'" type="button" class="btn btn-primary">Supprimer</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<?php
+					endforeach;
+					?>
+					</tbody>
+				</table>  
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-4 col-md-4 col-sm-4">
+		<div class="block">
+			<div class="block-title">
+				<h2>Ajouter une Emoticône</h2>
+			</div>
+			<form action="/shoutbox/sendemo?management&widgets=true" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Nom de l'emoticône</label>
+					<div class="col-sm-10">
+						<div class="checkbox">
+							<input class="form-control" name="name" type="text" value="">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Upload</label>
+					<div class="col-sm-10">
+						<input type="file" id="last-name" name="dir" class="form-control col-md-7 col-xs-12">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Code</label>
+					<div class="col-sm-10">
+						<div class="checkbox">
+							<input class="form-control" name="code" type="text" value="" placeholder="format court sans espace">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+						<button type="submit" class="btn btn-success">Submit</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</form>
+<?php
+endif;

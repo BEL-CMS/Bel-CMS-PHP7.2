@@ -218,4 +218,34 @@ class ModelsShoutbox
 
 		return $return;
 	}
+
+	public function sendemo ($data)
+	{
+		$return = Common::Upload('dir', 'emoticone');
+		$return = array(
+			'type' => 'warning',
+			'text' => $return
+		);
+
+		$dir          = 'emoticone/';
+		$send['dir']  = '/uploads/'.$dir.$_FILES['dir']['name'];
+		$send['name'] = Common::VarSecure($data['name']);
+		$send['code'] = Common::VarSecure($data['code']);
+		$send['name'] = $_FILES['dir']['name'];
+		// SQL INSERT
+		$sql = New BDD();
+		$sql->table('TABLE_EMOTICONES');
+		$sql->sqlData($send);
+		$sql->insert();
+
+		return $return;
+	}
+
+	public function getImo ()
+	{
+		$sql = New BDD();
+		$sql->table('TABLE_EMOTICONES');
+		$sql->queryAll();
+		return $sql->data;
+	}
 }

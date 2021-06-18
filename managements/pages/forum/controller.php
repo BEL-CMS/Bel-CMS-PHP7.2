@@ -27,6 +27,7 @@ class Forum extends AdminPages
 		$menu[] = array('Configuration'=> array('href'=>'/Forum/parameter?management&page=true','icon'=>'fa fa-cubes'));
 		$menu[] = array(CATEGORY=> array('href'=>'/Forum/category?management&page=true','icon'=>'fa fa-th-large'));
 		$menu[] = array(ADD=> array('href'=>'/Forum/AddForum?management&page=true','icon'=>'fa fa-plus'));
+		$menu[] = array(ALL=> array('href'=>'/Forum/allMsg?management&page=true','icon'=>'fa fa-pencil'));
 		$this->render('index', $menu);
 	}
 
@@ -38,7 +39,41 @@ class Forum extends AdminPages
 		$menu[] = array('Configuration'=> array('href'=>'/Forum/parameter?management&page=true','icon'=>'fa fa-cubes'));
 		$menu[] = array(CATEGORY=> array('href'=>'/Forum/category?management&page=true','icon'=>'fa fa-th-large'));
 		$menu[] = array(ADD=> array('href'=>'/Forum/addcategory?management&page=true','icon'=>'fa fa-plus'));
+		$menu[] = array(ALL=> array('href'=>'/Forum/allMsg?management&page=true','icon'=>'fa fa-pencil'));
 		$this->render('category', $menu);
+	}
+
+	public function allMsg ()
+	{
+		$data['data'] = $this->ModelsForum->GettAllPosts();
+		$this->set($data);
+		$menu[] = array('Accueil'=> array('href'=>'/Forum?management&page=true','icon'=>'fa fa-home'));
+		$menu[] = array('Configuration'=> array('href'=>'/Forum/parameter?management&page=true','icon'=>'fa fa-cubes'));
+		$menu[] = array(CATEGORY=> array('href'=>'/Forum/category?management&page=true','icon'=>'fa fa-th-large'));
+		$menu[] = array(ADD=> array('href'=>'/Forum/addcategory?management&page=true','icon'=>'fa fa-plus'));
+		$menu[] = array(ALL=> array('href'=>'/Forum/allMsg?management&page=true','icon'=>'fa fa-pencil'));
+		$this->render('allmsg', $menu);
+	}
+
+	public function editmessage ($id)
+	{	
+		$data['data'] = $this->ModelsForum->GetEditPost($id);
+		$this->set($data);
+		$this->render('editmessage');
+	}
+
+	public function sendeditmessage ()
+	{
+		$forum = $this->ModelsForum->sendEditPost($_POST);
+		$this->redirect('Forum/allMsg?management&page=true', 2);
+		$this->error(get_class($this), $forum["msg"], $forum["type"]);
+	}
+
+	public function delMessage ($id)
+	{
+		$forum = $this->ModelsForum->sendDelPost($id);
+		$this->redirect('Forum/allMsg?management&page=true', 2);
+		$this->error(get_class($this), $forum["text"], $forum["type"]);
 	}
 
 	public function addcategory ()
@@ -49,6 +84,7 @@ class Forum extends AdminPages
 		$menu[] = array('Configuration'=> array('href'=>'/Forum/parameter?management&page=true','icon'=>'fa fa-cubes'));
 		$menu[] = array(CATEGORY=> array('href'=>'/Forum/category?management&page=true','icon'=>'fa fa-th-large'));
 		$menu[] = array(ADD=> array('href'=>'/Forum/addcategory?management&page=true','icon'=>'fa fa-plus'));
+		$menu[] = array(ALL=> array('href'=>'/Forum/allMsg?management&page=true','icon'=>'fa fa-pencil'));
 		$this->render('addcategory', $menu);
 	}
 

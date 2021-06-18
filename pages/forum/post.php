@@ -73,6 +73,13 @@ if (!empty($post)):
 				<div class="forum-footer hidden-xs">
 					<ul class="post-action">
 						<li><a href="Forum/ReportPost/<?=$v->id?>"><i class="fa fa-flag"></i> <?=REPORT_POST?></a></li>
+						<?php
+						if (Users::isSuperAdmin($_SESSION['USER']['HASH_KEY']) or Users::UsernameToHashkey($v->author)->hash_key == $_SESSION['USER']['HASH_KEY']):
+							?>
+							<li><a href="Forum/EditPost/<?=$v->id?>"><i class="fas fa-pencil-alt"></i> <?=EDIT_POST?></a></li>
+							<?php
+						endif
+						?>
 					</ul>
 					<ul class="post-meta">
 						<li><i class="fa fa-calendar-o"></i> <?=Common::transformDate($v->date_post, 'FULL', 'SHORT')?></li>

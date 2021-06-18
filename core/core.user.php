@@ -312,8 +312,26 @@ class Users
 		}
 	}
 
+	public static function UsernameToHashkey ($username = null)
+	{
+		$return = null;
+		if ($username != null) {
+			$sql = New BDD();
+			$sql->table('TABLE_USERS');
+			$sql->where(array(
+				'name'  => 'username',
+				'value' => Common::VarSecure($username)
+			));
+			$sql->fields(array('hash_key'));
+			$sql->queryOne();
+			$return = $sql->data;
+		}
+		return $return;
+	}
+
 	public static function colorUsername ($hash_key = null, $username = null)
 	{
+		$color = "#000000";
 		if ($hash_key == null and $username)
 		{
 			$sql = New BDD();

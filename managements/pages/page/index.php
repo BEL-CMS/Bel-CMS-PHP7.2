@@ -21,30 +21,17 @@ if (!defined('CHECK_INDEX')) {
 		    <div class="block-title">
 		        <h2><strong>Menu page</strong></h2>
 		    </div>
-			<div class="table-responsive">
-			<!-- fin des boutton action -->
-			<table  class="DataTableBelCMS table table-vcenter table-condensed table-bordered">
-				<thead>
-					<th>Pages</th>
-				</thead>
-				<?php
-				foreach ($data as $key => $value):
-				?>
-				<tr>
-					<a href="/page/getpage/<?=$value->id?>?management&page=true" class="btn btn-app">
-						<span class="badge bg-red"><?=$value->count?></span>
-						<i class="fa far fa-file-alt"></i> <?=$value->name?>
-					</a>
-				<?php
-				endforeach;
-				?>
-				</tr>
-				<tfoot>
-					<th>Pages</th>
-				</tfoot>
-					
-				</tr>
-			</table>
+			<?php
+			foreach ($data as $key => $value):
+			?>
+			<tr>
+				<a href="/page/getpage/<?=$value->id?>?management&page=true" class="btn btn-app">
+					<span class="badge bg-red"><?=$value->count?></span>
+					<i class="fa far fa-file-alt"></i> <?=$value->name?>
+				</a>
+			<?php
+			endforeach;
+			?>
 		</div>
 	</div>
 </div>

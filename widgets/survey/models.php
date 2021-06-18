@@ -19,7 +19,7 @@ if (!defined('CHECK_INDEX')) {
 #->	id, name, date
 #	TABLE_SURVEY_AUTHOR
 #->	id, idvote, author, date
-class ModelsSurvey
+class ModelsSurveyWidgets
 {
 	public function getLastSurvey ()
 	{

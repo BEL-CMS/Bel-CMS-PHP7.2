@@ -5,7 +5,7 @@
  * @link https://bel-cms.be
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2014-2019 Bel-CMS
+ * @copyright 2014-2021 Bel-CMS
  * @author as Stive - stive@determe.be
  */
 
@@ -128,6 +128,37 @@ class ModelsBlog
 		return $return;
 	}
 
+	public function sendEditPost ($d)
+	{
+		$data['info_text'] = Common::VarSecure($d['info_text']);
+		$update = New BDD();
+		$update->table('TABLE_FORUM_POSTS');
+		$where = array(
+			'name'  => 'id',
+			'value' => Common::SecureRequest($d['id'])
+		);
+		$update->where($where);
+		$options = $data['info_text'];
+		$update->sqlData(array('content' => $options));
+		$update->update();
+		if ($update->rowCount == 1) {
+			$return['msg']  = EDIT_SUCCESS;
+			$return['type'] = 'success';
+			############ Interaction ############ 
+			$Interaction = New Interaction;
+			$Interaction->user($_SESSION['USER']['HASH_KEY']);
+			$Interaction->title('News editer avec succès');
+			$Interaction->type('success');
+			$Interaction->text('News editer par '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' avec succès');
+			$Interaction->insert();
+			############ Interaction ############ 
+		} else {
+			$return['msg']  = EDIT_FALSE;
+			$return['type'] = 'error';
+		}
+		return $return;	
+	}
+
 	public function sendnew ($data = false)
 	{
 		if (empty($data['name'])) {
@@ -167,6 +198,14 @@ class ModelsBlog
 					'type' => 'success',
 					'text' => SEND_BLOG_SUCCESS
 				);
+				############ Interaction ############ 
+				$Interaction = New Interaction;
+				$Interaction->user($_SESSION['USER']['HASH_KEY']);
+				$Interaction->title('News ajouter avec succès');
+				$Interaction->type('success');
+				$Interaction->text('News ajouter par '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' avec succès');
+				$Interaction->insert();
+				############ Interaction ############
 			} else {
 				$return = array(
 					'type' => 'warning',
@@ -251,6 +290,14 @@ class ModelsBlog
 					'type' => 'success',
 					'text' => DEL_BLOG_SUCCESS
 				);
+				############ Interaction ############ 
+				$Interaction = New Interaction;
+				$Interaction->user($_SESSION['USER']['HASH_KEY']);
+				$Interaction->title('News effacer avec succès');
+				$Interaction->type('success');
+				$Interaction->text('News effacer par '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' avec succès');
+				$Interaction->insert();
+				############ Interaction ############
 			} else {
 				$return = array(
 					'type' => 'warning',

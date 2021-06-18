@@ -126,6 +126,17 @@ switch ($table) {
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	break;
 
+	case 'belcms_emoticones':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+		  `id` int(10) NOT NULL AUTO_INCREMENT,
+		  `name` varchar(64) NOT NULL,
+		  `dir` text NOT NULL,
+		  `code` varchar(16) NOT NULL,
+		  PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+	break;
+
 	case 'games':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
@@ -563,7 +574,8 @@ switch ($table) {
 			(3, 'connected', 'Connecté', '0', '1', 1, 'left', 2, 'blog', 'CSS=1|JS=1'),
 			(4, 'lastconnected', 'Dernier connecté', '0', '1', 3, 'top', 1, 'blog', 'CSS=1|JS=1'),
 			(5, 'donates', 'Paypal', '0', '1', 1, 'right', 1, '', 'CSS=1|JS=1'),
-			(6, 'newsletter', 'Newsletter', '0', '1', 1, 'right', 2, '', 'CSS=1|JS=1');";
+			(6, 'newsletter', 'Newsletter', '0', '1', 1, 'right', 2, '', 'CSS=1|JS=1');
+			(7, 'survey', 'Sondages', '0', '1', 1, 'right', 2, '', 'CSS=1|JS=1');";
 
 	break;
 }

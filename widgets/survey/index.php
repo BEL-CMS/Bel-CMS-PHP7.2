@@ -1,7 +1,7 @@
 <?php
 if (!empty($data)) {
 ?>
-<section id="bel_cms_widgets_survey">
+<section id="bel_cms_widgets_survey" class="widget">
 	<div id="bel_cms_widgets_survey_name"><?=$data->name?></div>
 	<form action="Survey/send" method="post">
 	<?php
@@ -18,16 +18,14 @@ if (!empty($data)) {
 			</div>
 			<input type="text" class="form-control" disabled="disabled" aria-label="Text input with radio button" value="<?=$v->content?>">
 		</div>
-
 		<?php
-	endforeach
+	endforeach;
 	?>
 	<br>
 	<?php if(Users::isLogged()): ?>
 	<input type="hidden" name="id" value="<?=$data->id?>">
 	<button class="btn btn-primary">Envoyer</button>
 	<?php endif; ?>
-	</form>
 	<?php
 	else:
 	?>
@@ -44,6 +42,7 @@ if (!empty($data)) {
 	endif;
 	?>
 	<a href="Survey">voir la liste des sondages</a>
+	</form>
 </section>
 <?php
 } else {

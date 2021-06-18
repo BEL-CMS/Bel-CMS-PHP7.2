@@ -74,7 +74,7 @@ final class ModelsUsers
 
 	public function sendMainGroup ($data = null)
 	{
-		$update['main_groups'] = (int) $data;
+		$update['main_groups'] = (int) $data['main'];
 		$sql = New BDD;
 		$sql->table('TABLE_USERS');
 		$sql->where(array('name' => 'hash_key', 'value' => $data['hash_key']));

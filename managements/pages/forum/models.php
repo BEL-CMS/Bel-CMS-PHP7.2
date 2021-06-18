@@ -104,6 +104,14 @@ class ModelsForum
 					'type' => 'success',
 					'text' => NEW_THREADS_SUCCESS
 				);
+				############ Interaction ############ 
+				$Interaction = New Interaction;
+				$Interaction->user($_SESSION['USER']['HASH_KEY']);
+				$Interaction->title('Ajout du forum avec succès');
+				$Interaction->type('success');
+				$Interaction->text('Ajout du forum '.$insert['title'].' par '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' avec succès');
+				$Interaction->insert();
+				############ Interaction ############
 			} else {
 				$return = array(
 					'type' => 'alert',
@@ -327,6 +335,85 @@ class ModelsForum
 					break;
 				}
 			}
+		}
+		return $return;
+	}
+
+	public function GettAllPosts()
+	{
+		$sql = New BDD();
+		$sql->table('TABLE_FORUM_POSTS');
+		$sql->orderby(array(array('name' => 'id', 'type' => 'DESC')));
+		$sql->queryAll();
+		$return = $sql->data;
+		foreach ($return as $key => $value) {
+			$return[$key]->options = Common::transformOpt($value->options);
+		}
+		return $return;
+	}
+
+	public function GetEditPost ($id)
+	{
+		$id  = Common::SecureRequest($id);
+		$sql = New BDD();
+		$sql->table('TABLE_FORUM_POSTS');
+		$sql->where(array('name' => 'id', 'value' => $id));
+		$sql->queryOne();
+		$return = $sql->data;
+		return $return;
+	}
+
+	public function sendEditPost ($d)
+	{
+		$data['info_text'] = Common::VarSecure($d['info_text']);
+		$update = New BDD();
+		$update->table('TABLE_FORUM_POSTS');
+		$where = array(
+			'name'  => 'id',
+			'value' => Common::SecureRequest($d['id'])
+		);
+		$update->where($where);
+		$options = $data['info_text'];
+		$update->sqlData(array('content' => $options));
+		$update->update();
+		if ($update->rowCount == 1) {
+			$return['msg']  = EDIT_SUCCESS;
+			$return['type'] = 'success';
+		} else {
+			$return['msg']  = EDIT_FALSE;
+			$return['type'] = 'error';
+		}
+		return $return;	
+	}
+
+	public function sendDelPost ($id)
+	{
+		if ($id !== false) {
+			// Secure ID
+			$id = (int) $id;
+			// SQL DELETE
+			$where = array('name' => 'id','value' => $id);
+			$sql = New BDD();
+			$sql->table('TABLE_FORUM_POSTS');
+			$sql->where($where);
+			$sql->delete();
+			// SQL RETURN NB INSERT
+			if ($sql->rowCount == 1) {
+				$return = array(
+					'type' => 'success',
+					'text' => SUPP_SUCCESS
+				);
+			} else {
+				$return = array(
+					'type' => 'alert',
+					'text' => SUPP_FALSE
+				);
+			}
+		} else {
+			$return = array(
+				'type' => 'alert',
+				'text' => ERROR_ID_EMPTY_INT
+			);
 		}
 		return $return;
 	}

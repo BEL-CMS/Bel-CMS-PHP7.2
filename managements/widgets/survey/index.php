@@ -9,47 +9,29 @@
  * @author as Stive - stive@determe.be
  */
 ?>
-<div class="x_panel">
-	<div class="x_title">
-		<h2>Menu Widgets Sondage</h2>
-		<div class="clearfix"></div>
-	</div>
-	<div class="x_content">
-		<a href="survey?management&widgets=true" class="btn btn-app">
-			<i class="fa fas fa-home"></i> Accueil
-		</a>
-		<a href="survey/parameter?management&widgets=true" class="btn btn-app">
-			<i class="fa fas fa-cogs"></i> Configuration
-		</a>
-		<a href="survey/add?management&widgets=true" class="btn btn-app">
-			<i class="fa fas fa-plus"></i> <?=ADD?>
-		</a>
-		<a class="btn btn-app">
-			<span class="badge bg-red"> <?=$count?></span>
-			<i class="fa fa-bullhorn"></i> Message
-		</a>
-	</div>
-</div>
-
-<div class="col-md-12">
-	<div class="panel panel-white">
-		<div class="panel-body">
-			<table id="datatableblog" class="table table-striped jambo_table bulk_action">
-				<thead>
-					<tr>
-						<th>Titre</th>
-						<th>Date</th>
-						<th>Options</th>
-					</tr>
-				</thead>
-				<tfoot>
-					<tr>
-						<th>Titre</th>
-						<th>Date</th>
-						<th>Options</th>
-					</tr>
-				</tfoot>
-				<tbody>
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12">
+		<div class="block full">
+		    <div class="block-title">
+		        <h2><strong>Menu Widgets Sondage</strong></h2>
+		    </div>
+			<div class="table-responsive">
+				<table class="DataTableBelCMS table table-vcenter table-condensed table-bordered">
+					<thead>
+						<tr>
+							<th>Titre</th>
+							<th>Date</th>
+							<th>Options</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th>Titre</th>
+							<th>Date</th>
+							<th>Options</th>
+						</tr>
+					</tfoot>
+					<tbody>
 					<?php
 					foreach ($data as $k => $v):
 						?>
@@ -57,8 +39,8 @@
 							<td><?=$v->name?></td>
 							<td><?=$v->date?></td>
 							<td>
-								<a href="survey/edit/<?=$v->id?>?management&widgets=true>"><i class="fas fa-pen"></i></a> - 
-								<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>"><i class="fas fa-trash-alt"></i></a>
+								<a href="survey/edit/<?=$v->id?>?management&widgets=true" class="btn btn btn-primary btn-sm mb-1">Edit</a>
+								<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>" class="btn btn btn-danger btn-sm mb-1">Supprimer</a>
 								<div class="modal fade" id="modal_<?=$v->id?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
@@ -79,8 +61,9 @@
 						<?php
 					endforeach;
 					?>
-				</tbody>
-			</table>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>

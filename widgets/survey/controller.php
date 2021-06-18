@@ -16,14 +16,14 @@ if (!defined('CHECK_INDEX')) {
 
 class WidgetSurvey extends Widgets
 {
-	var $models = array('ModelsSurvey');
+	var $models = array('ModelsSurveyWidgets');
 
 	public function index ()
 	{	
-		$set['data']  = $this->ModelsSurvey->getLastSurvey();
+		$set['data']  = $this->ModelsSurveyWidgets->getLastSurvey();
 		if (!empty($set['data'])) {
-			$set['count'] = $this->ModelsSurvey->countVote($set['data']->id);
-			$set['vote']  = $this->ModelsSurvey->getNumberVote($set['data']->id);
+			$set['count'] = $this->ModelsSurveyWidgets->countVote($set['data']->id);
+			$set['vote']  = $this->ModelsSurveyWidgets->getNumberVote($set['data']->id);
 		}
 		$this->set($set);
 		$this->render('index');

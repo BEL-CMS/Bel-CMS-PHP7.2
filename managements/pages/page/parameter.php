@@ -17,25 +17,6 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 ?>
 <form action="/page/sendparameter?management&page=true" method="post" class="form-horizontal">
 
-<div class="x_panel">
-	<div class="x_title">
-		<h2>Menu Page</h2>
-		<div class="clearfix"></div>
-	</div>
-	<div class="x_content">
-		<a href="/Page?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-home"></i> Accueil
-		</a>
-		<a href="Page/parameter?management&page=true" class="btn btn-app">
-			<i class="fa fas fa-cogs"></i> Configuration
-		</a>
-		<button type="submit" class="btn btn-app">
-			<i class="fa fa-save"></i> <?=SAVE?>
-		</button>
-	</div>
-</div>
-
-
 <div class="col-md-12">
 	<div class="panel panel-white">
 		<div class="panel-body">

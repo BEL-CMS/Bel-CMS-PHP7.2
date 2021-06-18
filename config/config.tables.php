@@ -34,6 +34,7 @@ Common::constant(array(
 	'TABLE_PAGES_GAMES'      => $DB_PREFIX.'games',
 	'TABLE_DOWNLOADS'        => $DB_PREFIX.'downloads',
 	'TABLE_DOWNLOADS_CAT'    => $DB_PREFIX.'downloads_cat',
+	'TABLE_EMOTICONES'       => $DB_PREFIX.'emoticones',
 	'TABLE_GROUPS'           => $DB_PREFIX.'groups',
 	'TABLE_INBOX'            => $DB_PREFIX.'inbox',
 	'TABLE_INBOX_MSG'        => $DB_PREFIX.'inbox_msg',

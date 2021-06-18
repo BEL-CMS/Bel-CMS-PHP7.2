@@ -438,6 +438,23 @@ final class Common
 		}
 		return $return;
 	}
+
+	public static function getSmiley ($text)
+	{
+		$smiley = array();
+		$img    = array();
+		$sql    = New BDD();
+		$sql->table('TABLE_EMOTICONES');
+		$sql->queryAll();
+		$data   = $sql->data;
+
+		foreach ($data as $key => $value) {
+			$smiley[] = $value->code;
+			$img[]    = '<img src="'.$value->dir.'" alt="emoticone">';
+		}
+        $text = str_replace($smiley,$img,$text);
+        return $text;
+    }
 	#########################################
 	# Test table if exists
 	#########################################
@@ -708,7 +725,7 @@ final class Common
 			if ($ext !== false) {
 				$extensions = $ext;
 			} else {
-				$extensions = array('.png', '.gif', '.jpg', '.jpeg', '.doc', '.txt', '.pdf', '.rar', '.zip', '.7zip');
+				$extensions = array('.png', '.gif', '.jpg', '.ico', '.jpeg', '.doc', '.txt', '.pdf', '.rar', '.zip', '.7zip');
 			}
 
 			$extension = strrchr($_FILES[$name]['name'], '.');

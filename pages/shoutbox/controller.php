@@ -79,7 +79,7 @@ class Shoutbox extends Pages
 				<div class="message_wrap"> <span class="arrow"></span>
 					<div class="info"> <a data-toggle="tooltip" title="'.$username.'" href="Members/View/'.$username.'" class="name">'.$username.'</a> <span class="time">'.$v->date_msg.'</span>
 					</div>
-					<div class="text">'.$msg.'</div>
+					<div class="text">'.debug(Common::getSmiley($msg)).'</div>
 				</div>
 			</li>';
 		endforeach;

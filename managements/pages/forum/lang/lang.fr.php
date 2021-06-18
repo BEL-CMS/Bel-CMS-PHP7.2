@@ -44,4 +44,9 @@ Common::constant(array(
 	'NB_MSG_FORUM'             => 'Nombre de message dans la page forum',
 	'EDIT_FORUM_PARAM_SUCCESS' => 'Édition des paramètres avec succès',
 	'EDIT_FORUM_PARAM_ERROR'   => 'Erreur lors de l\'édition des parametres',
+	'ALL'                      => 'Tout les messages',
+	'EDIT_SUCCESS'             => 'Edition du post avec succès',
+	'EDIT_FALSE'               => 'Erreur durant le processus de sauvegarde',
+	'SUPP_SUCCESS'             => 'Supression du message avec succès',
+	'SUPP_FALSE'               => 'Erreur lors de la suppression du message',
 ));

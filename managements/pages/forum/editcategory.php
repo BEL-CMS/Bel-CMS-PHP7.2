@@ -44,18 +44,18 @@
 					<div class="col-sm-9">
 						<?php
 						foreach ($groups as $k => $v):
-							if (in_array($v, $data->access_admin)) {
+							if (in_array($v['id'], $data->access_admin)) {
 								$checked = 'checked';
 							} else {
 								$checked = null;
 							}
-							if ($v == 1) {
+							if ($v['id'] == 1) {
 								$checked = 'checked';
 							}
 							?>
 							<div class="input-group">
 								<span class="input-group-addon">
-									<input name="access_admin[]" value="<?=$v?>" type="checkbox" <?=$checked?>>
+									<input name="access_admin[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
 								</span>
 								<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
 							</div>
@@ -71,18 +71,18 @@
 						$visitor = constant('VISITORS');
 						//$groups->$visitor = 0;
 						foreach ($groups as $k => $v):
-							if (in_array($v, $data->access_groups)) {
+							if (in_array($v['id'], $data->access_groups)) {
 								$checked = 'checked';
 							} else {
 								$checked = null;
 							}
-							if ($v == 1) {
+							if ($v['id'] == 1) {
 								$checked = 'checked';
 							}
 							?>
 							<div class="input-group">
 								<span class="input-group-addon">
-									<input name="access_groups[]" value="<?=$v?>" type="checkbox" <?=$checked?>>
+									<input name="access_groups[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
 								</span>
 								<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
 							</div>

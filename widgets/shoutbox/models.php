@@ -32,4 +32,12 @@ class ModelsShoutbox
 		}
 		return $return;
 	}
+
+	public function getsmiley ()
+	{
+		$sql = New BDD();
+		$sql->table('TABLE_EMOTICONES');
+		$sql->queryAll();
+		return $sql->data;
+	}
 }

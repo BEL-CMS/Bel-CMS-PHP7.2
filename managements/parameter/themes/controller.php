@@ -23,14 +23,31 @@ class Themes extends AdminPages
 	public function index ()
 	{
 		$data['active'] = $this->ModelsThemes->getTplActive();
-		$data['tpl'] = $this->ModelsThemes->getTpl();
+		$data['tpl']    = $this->ModelsThemes->getTpl();
+		foreach ($this->ModelsThemes->searchPages() as $key => $value) {
+			$p[] = trim($value);
+		}
+		$data['pages'] = $p;
+		$scan           = Common::ScanDirectory('pages', true);
+		foreach ($scan as $key => $value) {
+			$d[] = trim($value);
+		}
+		$data['scan']   = $d;
 		$this->set($data);
 		$this->render('index');
 	}
+
 	public function send ()
 	{
 		$return = $this->ModelsThemes->sendTpl($_POST);
 		$this->error(get_class($this), $return['text'], $return['type']);
 		$this->redirect('themes?management&parameter=true', 2);
+	}
+
+	public function sendpages ()
+	{
+		$return = $this->ModelsThemes->sendPages($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('themes?management&parameter=true', 2);	
 	}
 }
