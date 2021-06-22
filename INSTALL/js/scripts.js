@@ -16,7 +16,7 @@ jQuery.noConflict();
 					'config_pages',
 					'downloads',
 					'downloads_cat',
-					'belcms_emoticones',
+					'emoticones',
 					'games',
 					'groups',
 					'inbox',

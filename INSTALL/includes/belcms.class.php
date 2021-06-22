@@ -94,6 +94,7 @@ class BelCMS
 			'config_pages',
 			'downloads',
 			'downloads_cat',
+			'emoticones',
 			'games',
 			'groups',
 			'inbox',

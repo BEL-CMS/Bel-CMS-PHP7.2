@@ -126,7 +126,7 @@ switch ($table) {
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	break;
 
-	case 'belcms_emoticones':
+	case 'emoticones':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
 		  `id` int(10) NOT NULL AUTO_INCREMENT,
