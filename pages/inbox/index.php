@@ -14,7 +14,7 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<div id="bel_cms_inbox_index" class="card">
+<div id="bel_cms_inbox_index" class="section_bg card">
 	<div class="card-header"><?=INBOX?></div>
 	<div class="card-body">
 		<div id="bel_cms_inbox_index_left" class="row">
@@ -65,12 +65,11 @@ function inboxFormNew ()
 ?>
 	<form method="post" id="bel_cms_inbox_form_new" action="inbox/send">
 		<header>
-			<i class="fa fa-user-circle"></i>
 			<span><?=NEW_MESSAGE?></span>
 		</header>
 		<div id="bel_cms_inbox_form_new_body">
 			<div class="form-group">
-				<input autocomplete="off" type="text" name="username" class="form-control" id="bel_cms_inbox_get_users" placeholder="<?=ENTER_USERNAME?>">
+				<input autocomplete="off" type="search" name="username" class="form-control" id="bel_cms_inbox_get_users" placeholder="<?=ENTER_USERNAME?>">
 			</div>
 			<div class="form-group">
 				<textarea class="bel_cms_textarea_simple" name="message" placeholder="<?=ENTER_MESSAGE?>"></textarea>

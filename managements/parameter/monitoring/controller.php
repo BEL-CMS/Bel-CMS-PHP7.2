@@ -21,8 +21,8 @@ class monitoring extends AdminPages
 
 	public function index ()
 	{
-		$d['data'] = $this->ModelsMonitoring->lastInteraction();
-		$this->set($d);
+		//$d['data'] = $this->ModelsMonitoring->lastInteraction();
+		//$this->set($d);
 		$menu[] = array('Accueil'=> array('href'=>'prefgen?management&parameter=true','icon'=>'fa fa-home'));
 		$this->render('index', $menu);
 	}

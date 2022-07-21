@@ -1,4 +1,4 @@
-<section id="bel_cms_team">
+<section class="section_bg" id="bel_cms_team">
 	<?php
 	foreach ($data as $k => $v):
 	?>

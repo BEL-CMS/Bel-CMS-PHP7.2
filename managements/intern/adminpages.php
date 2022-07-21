@@ -65,22 +65,17 @@ class AdminPages
 		?>
 		<div id="page-content">
 
-		    <div class="content-header">
-		        <ul class="nav-horizontal text-center">
-		        	<?php
-		Notification::error('La page demander n\'est accesible qu\'aux administrateur suprême', 'Page');
+			<div class="content-header">
+			<?php
+				Notification::error('La page demander n\'est accesible qu\'aux administrateur de niveau 1', 'Page');
+				$this->render = ob_get_contents();
 
-		$this->render = ob_get_contents();
-
-		if (ob_get_length() != 0) {
-			ob_end_clean();
-		}
-		?>
-		        </ul>
-		    </div>
-		    <ul class="breadcrumb breadcrumb-top">
-		        <li>Index</li>
-		    </ul>
+			if (ob_get_length() != 0) {
+				ob_end_clean();
+			}
+			?>
+			</div>
+		</div>
 		<?php	
 		return;
 	}
@@ -105,37 +100,49 @@ class AdminPages
 			}
 		}
 
-		if (isset($_REQUEST['page']) and $_REQUEST['page'] == true) {
+		if (isset($_REQUEST['pages'])) {
 			$filename = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.$filename.'.php';
-		} else if (isset($_REQUEST['widgets']) && $_REQUEST['widgets'] == true) {
+		} else if (isset($_REQUEST['widgets'])) {
 			$filename = MANAGEMENTS.'widgets'.DS.strtolower(get_class($this)).DS.$filename.'.php';
-		} else if (isset($_REQUEST['parameter']) && $_REQUEST['parameter'] == true) {
+		} else if (isset($_REQUEST['parameter'])) {
 			$filename = MANAGEMENTS.'parameter'.DS.strtolower(get_class($this)).DS.$filename.'.php';
-		} else if (isset($_REQUEST['gaming']) && $_REQUEST['gaming'] == true) {
+		} else if (isset($_REQUEST['gaming'])) {
 			$filename = MANAGEMENTS.'gaming'.DS.strtolower(get_class($this)).DS.$filename.'.php';
+		} else if (isset($_REQUEST['templates'])) {
+			$filename = MANAGEMENTS.'templates'.DS.strtolower(get_class($this)).DS.$filename.'.php';
+		} else if (isset($_REQUEST['users'])) {
+			$filename = MANAGEMENTS.'users'.DS.strtolower(get_class($this)).DS.$filename.'.php';
 		}
 
 		?>
-		<div id="page-content">
-		    <div class="content-header">
-		        <ul class="nav-horizontal text-center">
-		        	<?php
-		        	foreach ($menu as $k => $v) {
-		        		foreach ($v as $key => $value) {
-		        		?>
-			            <li class="active">
-			                <a href="<?=$value['href']?>"><i class="<?=$value['icon']?>"></i> <?=$key?></a>
-			            </li>
-			            <?php
-		        		}  		
-		        	}
-		        	?>
-		        </ul>
-		    </div>
-		    <ul class="breadcrumb breadcrumb-top">
-		        <li>Index</li>
-		    </ul>
-		<?php		
+			<?php
+			if (!empty($menu)):
+				$title = defined(strtoupper(get_class($this))) ? constant(strtoupper(get_class($this))) : get_class($this);
+			?>
+			<div class="card mt-3">
+				<div class="card-header">
+					<h3 style="padding: 0;margin: 0;" class="card-title">Menu Principal : <?=$title;?></h3>
+			  	</div>
+			  	<div class="card-body">
+					<?php
+					foreach ($menu as $k => $v) {
+						foreach ($v as $key => $value) {
+							if (empty($value['color'])) {
+								$value['color'] = '';
+							}
+						?>
+					<a class="btn btn-app <?=$value['color']?>" href="<?=$value['href']?>">
+						<i class="<?=$value['icon']?>"></i>
+							<?=$key?>
+					</a>
+						<?php
+						}  		
+					}
+					?>
+				</div>
+			</div>
+			<?php
+			endif;		
 		if (is_file($filename)) {
 			require $filename;
 		} else {
@@ -155,14 +162,18 @@ class AdminPages
 	#########################################
 	private function loadModel ($name)
 	{
-		if (isset($_REQUEST['page']) and $_REQUEST['page'] == true) {
-			$dir = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.'models.php';
-		} else if (isset($_REQUEST['widgets']) && $_REQUEST['widgets'] == true) {
-			$dir = MANAGEMENTS.'widgets'.DS.strtolower(get_class($this)).DS.'models.php';
-		} else if (isset($_REQUEST['gaming']) && $_REQUEST['gaming'] == true) {
-			$dir = MANAGEMENTS.'gaming'.DS.strtolower(get_class($this)).DS.'models.php';
-		} else if ($_REQUEST['parameter'] == true) {
-			$dir = MANAGEMENTS.'parameter'.DS.strtolower(get_class($this)).DS.'models.php';
+		if (isset($_REQUEST['pages'])) {
+			$dir = self::getDir('pages');
+		} else if (isset($_REQUEST['widgets'])) {
+			$dir = self::getDir('widgets');
+		} else if (isset($_REQUEST['gaming'])) {
+			$dir = self::getDir('gaming');
+		} else if (isset($_REQUEST['templates'])) {
+			$dir = self::getDir('templates');
+		} else if (isset($_REQUEST['parameter'])) {
+			$dir = self::getDir('parameter');
+		} else if (isset($_REQUEST['users'])) {
+			$dir = self::getDir('users');
 		}
 
 		if (is_file($dir)) {
@@ -172,19 +183,28 @@ class AdminPages
 			Notification::error('Fichier models manquant', 'Models');
 		}
 	}
+
+	private function getDir ($data = null)
+	{
+		return MANAGEMENTS.$data.DS.strtolower(get_class($this)).DS.'models.php';
+	}
 	#########################################
 	# récupère le fichier lang
 	#########################################
 	private function loadLang ()
 	{
-		if (isset($_REQUEST['page']) and $_REQUEST['page'] == true) {
+		if (isset($_REQUEST['pages'])) {
 			$dir = MANAGEMENTS.'pages'.DS.strtolower(get_class($this)).DS.'lang'.DS.'lang.'.CMS_WEBSITE_LANG.'.php';
-		} else if (isset($_REQUEST['widgets']) && $_REQUEST['widgets'] == true) {
+		} else if (isset($_REQUEST['widgets'])) {
 			$dir = MANAGEMENTS.'widgets'.DS.strtolower(get_class($this)).DS.'lang'.DS.'lang.'.CMS_WEBSITE_LANG.'.php';
-		} else if (isset($_REQUEST['gaming']) && $_REQUEST['gaming'] == true) {
+		} else if (isset($_REQUEST['gaming'])) {
 			$dir = MANAGEMENTS.'gaming'.DS.strtolower(get_class($this)).DS.'lang'.DS.'lang.'.CMS_WEBSITE_LANG.'.php';
-		} else if ($_REQUEST['parameter'] == true) {
+		} else if (isset($_REQUEST['templates'])) {
+			$dir = MANAGEMENTS.'templates'.DS.strtolower(get_class($this)).DS.'lang'.DS.'lang.'.CMS_WEBSITE_LANG.'.php';
+		} else if (isset($_REQUEST['parameter'])) {
 			$dir = MANAGEMENTS.'parameter'.DS.strtolower(get_class($this)).DS.'lang'.DS.'lang.'.CMS_WEBSITE_LANG.'.php';
+		} else if (isset($_REQUEST['users'])) {
+			$dir = MANAGEMENTS.'users'.DS.strtolower(get_class($this)).DS.'lang'.DS.'lang.'.CMS_WEBSITE_LANG.'.php';
 		}
 
 		if (is_file($dir)) {
@@ -202,10 +222,10 @@ class AdminPages
 			<ul class="breadcrumb breadcrumb-top">
 				<li>Index</li>
 			</ul>
-		<?php
-		Notification::$type($msg, $title);
-		$this->render = ob_get_contents();
-		?>
+			<?php
+			Notification::$type($msg, $title);
+			$this->render = ob_get_contents();
+			?>
 		</div>
 		<?php
 		ob_end_clean();

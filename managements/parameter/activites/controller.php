@@ -1,11 +1,11 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 1.0.0
+ * @version 2.0.0
  * @link https://bel-cms.be
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2014-2019 Bel-CMS
+ * @copyright 2014-2022 Bel-CMS
  * @author as Stive - stive@determe.be
  */
 
@@ -23,7 +23,6 @@ class activites extends AdminPages
 	{
 		$d['data'] = $this->Modelsactivites->interaction();
 		$this->set($d);
-		$menu[] = array('Accueil'=> array('href'=>'/?management','icon'=>'fa fa-home'));
-		$this->render('index', $menu);
+		$this->render('index');
 	}
 }

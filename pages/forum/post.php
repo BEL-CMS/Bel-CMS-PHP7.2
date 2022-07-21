@@ -16,7 +16,7 @@ if (!defined('CHECK_INDEX')) {
 if (!empty($post)):
 	$user = Users::getInfosUser($_SESSION['USER']['HASH_KEY']);
 ?>
-<section id="bel_cms_forum_post" class="padding-bottom-60">
+<section id="bel_cms_forum_post" class="section_bg padding-bottom-60">
 	<div class="">
 		<?php
 		$k = 0;

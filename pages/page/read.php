@@ -17,10 +17,8 @@ if (empty($data)):
 	Notification::warning('Erreur dans la page, imposssible de l\'afficher');
 else:
 ?>
-<div class="card">
-	<div class="card-header text-center">
-		<h3><?=$data->name?></h3>
-	</div>
+<div id="belcms_subpage" class="card">
+	<div class="card-header"><?=$data->name?></div>
 	<div class="card-body">
 		<?=$data->content?>
 	</div>

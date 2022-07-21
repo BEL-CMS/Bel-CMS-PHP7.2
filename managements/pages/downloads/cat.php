@@ -14,71 +14,62 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<div class="row">
-	<div class="col-lg-4 col-md-12 col-sm-12">
-		<div class="card">
-			<div class="list-group list-group-transparent mb-0 mail-inbox">
-				<div class="mt-4 mb-4 ml-4 mr-4 text-center">
-					<a href="/downloads/addcat?management&page=true" class="btn btn-primary btn-lg btn-block"><?=ADD?></a>
-				</div>
-				<a href="#" class="list-group-item list-group-item-action d-flex align-items-center active">
-					<span class="icon mr-3"><i class="fa fas fa-home"></i></span><?=CATEGORY?>
-				</a>
-				<a href="/downloads?management&page=true" class="list-group-item list-group-item-action d-flex align-items-center">
-					<span class="icon mr-3"><i class="fa fas fa-home"></i></span>Accueil
-				</a>
-			</div>
+<div class="card">
+	<div class="card-header">
+		<h3 class="card-title"><?=DOWNLOADS?> - <?=CATEGORY?></h3>
+		<div class="card-tools">
+			<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+				<i class="fas fa-minus"></i>
+			</button>
 		</div>
 	</div>
-	<div class="col-lg-8 col-md-12 col-sm-12">
-		<div class="card">
-			<table id="datatableDl" class="table table-striped jambo_table bulk_action">
-				<thead>
+	<div class="card-body">
+		<table id="datatableDl" class="table table-striped jambo_table bulk_action">
+			<thead>
+				<tr>
+					<th># ID</th>
+					<th>Nom</th>
+					<th>Options</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th># ID</th>
+					<th>Nom</th>
+					<th>Options</th>
+				</tr>
+			</tfoot>
+			<tbody>
+				<?php
+				foreach ($data as $k => $v):
+					?>
 					<tr>
-						<th># ID</th>
-						<th>Nom</th>
-						<th>Options</th>
-					</tr>
-				</thead>
-				<tfoot>
-					<tr>
-						<th># ID</th>
-						<th>Nom</th>
-						<th>Options</th>
-					</tr>
-				</tfoot>
-				<tbody>
-					<?php
-					foreach ($data as $k => $v):
-						?>
-						<tr>
-							<td><?=$v->id?></td>
-							<td><?=$v->name?></td>
-							<td>
-								<a href="/downloads/editcat/<?=$v->id?>?management&page=true" class="btn btn btn-primary btn-sm mb-1">Edit</a>
-								<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>" class="btn btn btn-danger btn-sm mb-1">Supprimer</a>
-								<div class="modal fade" id="modal_<?=$v->id?>" tabindex="-1" role="dialog" aria-labelledby="DownloadsModalLabel">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h4 class="modal-title" id="DownloadsModalLabel"><?=$v->name?></h4>
-											</div>
-											<div class="modal-body">Confirmer la suppression de la catégorie : <?=$v->name?></div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-												<button onclick="window.location.href='/downloads/delcat/<?=$v->id?>?management&page=true'" type="button" class="btn btn-primary">Supprimer</button>
-											</div>
+						<td><?=$v->id;?></td>
+						<td><?=$v->name;?></td>
+						<td>
+							<a href="/downloads/editcat/<?=$v->id;?>?management&pages" class="btn btn btn-primary btn-sm mb-1">Edit</a>
+							<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id;?>" class="btn btn btn-danger btn-sm mb-1">Supprimer</a>
+							<div class="modal fade" id="modal_<?=$v->id;?>" tabindex="-1" role="dialog" aria-labelledby="DownloadsModalLabel">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="DownloadsModalLabel"><?=$v->name;?></h4>
+										</div>
+										<div class="modal-body">Confirmer la suppression de la catégorie : <?=$v->name;?></div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+											<button onclick="window.location.href='/downloads/delcat/<?=$v->id?>?management&pages'" type="button" class="btn btn-primary">Supprimer</button>
 										</div>
 									</div>
 								</div>
-							</td>
-						</tr>
-						<?php
-					endforeach;
-					?>
-				</tbody>
-			</table>  
-		</div>
-	</div>
+							</div>
+						</td>
+					</tr>
+					<?php
+				endforeach;
+				?>
+			</tbody>
+		</table> 
+	</div> 
 </div>

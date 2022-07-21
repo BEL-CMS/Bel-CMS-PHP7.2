@@ -14,7 +14,7 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<div id="bel_cms_inbox_show" class="card">
+<div id="bel_cms_inbox_show" class="section_bg card">
 	<div class="card-header"><?=INBOX?></div>
 	<div class="card-body">
 		<header>

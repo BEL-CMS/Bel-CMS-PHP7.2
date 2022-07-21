@@ -14,24 +14,20 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-
-<div class="row">
-	<div class="col-lg-12 col-md-12 col-sm-12">
-		<div class="block full">
-		    <div class="block-title">
-		        <h2><strong>Menu page</strong></h2>
-		    </div>
-			<?php
-			foreach ($data as $key => $value):
-			?>
-			<tr>
-				<a href="/page/getpage/<?=$value->id?>?management&page=true" class="btn btn-app">
-					<span class="badge bg-red"><?=$value->count?></span>
-					<i class="fa far fa-file-alt"></i> <?=$value->name?>
-				</a>
-			<?php
-			endforeach;
-			?>
-		</div>
+<div class="card">
+	<div class="card-header">
+		<h3 class="card-title">Menu page</h3>
+	</div>
+	<div class="card-body">
+		<?php
+		foreach ($data as $key => $value):
+		?>
+			<a href="/page/getpage/<?=$value->id?>?management&pages" class="btn btn-app">
+				<span class="badge bg-red"><?=$value->count?></span>
+				<i class="fa far fa-file-alt"></i> <?=$value->name?>
+			</a>
+		<?php
+		endforeach;
+		?>
 	</div>
 </div>

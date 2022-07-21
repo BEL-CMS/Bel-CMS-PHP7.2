@@ -47,15 +47,17 @@ class ModelsDownloads
 	public function getCat ($id = null)
 	{
 		$sql = New BDD();
+		$sql->table('TABLE_DOWNLOADS_CAT');
 		if ($id != null && is_numeric($id)) {
 			$where = array(
 				'name'  => 'id',
 				'value' => $id
 			);
 			$sql->where($where);
+			$sql->queryAll();
+		} else {
+			$sql->queryAll();
 		}
-		$sql->table('TABLE_DOWNLOADS_CAT');
-		$sql->queryAll();
 		return $sql->data;
 	}
 
@@ -80,12 +82,12 @@ class ModelsDownloads
 	{
 		if ($data !== false) {
 			// SECURE DATA
-			$send['name']              = Common::VarSecure($data['name'], ''); // autorise que du texte
-			$send['description']       = Common::VarSecure($data['description'], 'html'); // autorise que les balises HTML
-			$data['groups']            = isset($data['groups']) ? $data['groups'] : array(1);
-			$send['groups']            = implode("|", $data['groups']);
-			$send['banner']            = isset($data['banner']) ? $data['banner'] : null;
-			$send['ico']               = isset($data['ico']) ? $data['ico'] : null;
+			$send['name']        = Common::VarSecure($data['name'], ''); // autorise que du texte
+			$send['description'] = Common::VarSecure($data['description'], 'html'); // autorise que les balises HTML
+			$data['groups']      = isset($data['groups']) ? $data['groups'] : array(1);
+			$send['groups']      = implode("|", $data['groups']);
+			$send['banner']      = isset($data['banner']) ? $data['banner'] : null;
+			$send['ico']         = isset($data['ico']) ? $data['ico'] : null;
 			// SQL INSERT
 			$sql = New BDD();
 			$sql->table('TABLE_DOWNLOADS_CAT');
@@ -218,17 +220,23 @@ class ModelsDownloads
 		$insert['view']        = 0;
 		$insert['dls']         = 0;
 
+
 		if (isset($_FILES['screen'])) {
-			$screen = Common::Upload('screen', 'downloads'.DS.'screen', array('.png', '.gif', '.jpg', '.jpeg'));
+			$screen = Common::Upload('screen', '/uploads/downloads'.DS.'screen', array('.png', '.gif', '.jpg', '.jpeg'));
 			if ($screen = UPLOAD_FILE_SUCCESS) {
-				$insert['screen'] = 'uploads'.DS.'downloads'.DS.'screen'.DS.$_FILES['screen']['name'];
+				$insert['screen'] = 'uploads'.DS.'/uploads/downloads'.DS.'screen'.DS.$_FILES['screen']['name'];
 			}
 		} else {
 			$insert['screen'] = '';
 		}
-		$dl = Common::Upload('download', 'downloads', array('.png', '.gif', '.jpg', '.jpeg', '.doc', '.txt', '.pdf', '.rar', '.zip', '.7zip', '.exe','.rtf'));
-		if ($dl = UPLOAD_FILE_SUCCESS) {
-			$insert['download'] = 'uploads'.DS.'downloads'.DS.$_FILES['download']['name'];
+
+		if (empty($_FILES['url'])) {
+			$insert['download'] = Common::VarSecure($data['url'], 'html');
+		} else {
+			$dl = Common::Upload('download', '/uploads/downloads', array('.png', '.gif', '.jpg', '.jpeg', '.doc', '.txt', '.pdf', '.rar', '.zip', '.7zip', '.exe','.rtf'));
+			if ($dl = UPLOAD_FILE_SUCCESS) {
+				$insert['download'] = '/uploads'.DS.'downloads'.DS.$_FILES['download']['name'];
+			}
 		}
 
 		$sql = New BDD();

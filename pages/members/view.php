@@ -14,7 +14,7 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<section id="bel_cms_members_view">
+<section class="section_bg" id="bel_cms_members_view">
 	<div id="bel_cms_members_view_lt">
 		<div id="bel_cms_members_view_lt_atr">
 			<img src="<?=$data->avatar?>" alt="avatar_<?=$data->username?>">

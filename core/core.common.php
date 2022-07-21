@@ -347,7 +347,7 @@ final class Common
 	public static function SendMail (array $data)
 	{
 		$fromName = (isset($data['name']) AND !empty($data['name'])) ? $data['name'] : 'Bel-CMS MAIL';
-		$fromMail = (isset($data['mail']) AND !empty($data['mail'])) ? $data['mail'] : 'no-reply@bel-cms.be';
+		$fromMail = (isset($data['mail']) AND !empty($data['mail'])) ? $data['mail'] : 'no-reply@bel-cms.dev';
 		$subject  = (isset($data['subject']) AND !empty($data['subject'])) ? $data['subject'] : 'Bel-CMS MAIL';
 		$content  = (isset($data['content']) AND !empty($data['content'])) ? $data['content'] : 'Testing Website mail';
 		$sendMail = (isset($data['sendMail']) AND !empty($data['sendMail'])) ? $data['sendMail'] : false;
@@ -709,7 +709,7 @@ final class Common
 	{
 		if ($_FILES[$name]['error'] != 4) {
 			$return  = '';
-			$dir     = DIR_UPLOADS.$dir;
+			$dir     = $dir;
 			$file    = basename($_FILES[$name]['name']);
 			$sizeMax = self::GetMaximumFileUploadSize();
 			$size    = filesize($_FILES[$name]['tmp_name']);
@@ -738,7 +738,7 @@ final class Common
 			}
 
 			if (!isset($err)) {
-				if (move_uploaded_file($_FILES[$name]['tmp_name'], $dir .'/'. self::FormatName($file))) {
+				if (move_uploaded_file($_FILES[$name]['tmp_name'], $dir .'/'. ($file))) {
 					$return = UPLOAD_FILE_SUCCESS;
 				} else {
 					$return = UPLOAD_ERROR;

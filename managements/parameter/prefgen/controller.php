@@ -21,7 +21,13 @@ class prefgen extends AdminPages
 
 	public function index ()
 	{
-		$menu[] = array('Accueil'=> array('href'=>'prefgen?management&parameter=true','icon'=>'fa fa-home'));
+		$menu[] = array(
+			'Accueil'=> 
+				array(
+					'href'=>'prefgen?management&parameter=true',
+					'icon'=>'fa fa-home',
+					'color' => 'bg-info'
+				));
 		$data['form'] = $this->ModelsPrefGen->getData();
 		$this->set($data);
 		$this->render('index', $menu);

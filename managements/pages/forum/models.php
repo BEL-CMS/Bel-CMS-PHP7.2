@@ -104,14 +104,6 @@ class ModelsForum
 					'type' => 'success',
 					'text' => NEW_THREADS_SUCCESS
 				);
-				############ Interaction ############ 
-				$Interaction = New Interaction;
-				$Interaction->user($_SESSION['USER']['HASH_KEY']);
-				$Interaction->title('Ajout du forum avec succès');
-				$Interaction->type('success');
-				$Interaction->text('Ajout du forum '.$insert['title'].' par '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' avec succès');
-				$Interaction->insert();
-				############ Interaction ############
 			} else {
 				$return = array(
 					'type' => 'alert',

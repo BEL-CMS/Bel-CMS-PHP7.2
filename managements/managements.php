@@ -1,11 +1,11 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 1.0.0
- * @link https://bel-cms.be
+ * @version 2.0.0
+ * @link https://bel-cms.dev
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2014-2019 Bel-CMS
+ * @copyright 2015-2022 Bel-CMS
  * @author as Stive - stive@determe.be
  */
 
@@ -44,10 +44,12 @@ final class Managements extends Dispatcher
 	public function base ()
 	{
 		$render        = self::getLinksPages ($this->controller);
-		$menuPage      = self::menuPage();
-		$menuWidget    = self::menuWidget();
-		$menuGaming    = self::menuGaming();
-		$menuParameter = self::menuParameter();
+		$menuPage      = self::menuPage ();
+		$menuWidget    = self::menuWidget ();
+		$menuGaming    = self::menuGaming ();
+		$menuParameter = self::menuParameter ();
+		$menuTemplates = self::menuTemplates ();
+		$menuUsers     = self::menuUsers ();
 		require_once MANAGEMENTS.'intern'.DS.'layout.php';
 	}
 	#########################################
@@ -62,217 +64,111 @@ final class Managements extends Dispatcher
 		$groups = Users::getGroups($_SESSION['USER']['HASH_KEY']);
 
 		require_once MANAGEMENTS.'intern'.DS.'adminpages.php';
-
-		if ($page == 'dashboard') {
-			if (in_array(1, $groups)) {
-				include MANAGEMENTS.'intern'.DS.'dashboard.php';
-			} else {
-						?>
-				<div id="page-content">				        
-				        	<?php
-				Notification::error(NO_ACCESS_GROUP_PAGE, 'Page');
-				?></div><?php
-			}
-			$render = ob_get_contents();
-		} else {
-			if (isset($_REQUEST['parameter'])) {
-				if ($this->view == 'parameter' or $this->view == 'sendparameter' or $page == 'parameter' or $_REQUEST['parameter'] == true) {
-					if (!in_array(1, $groups)) {
-						?>
-						<div id="page-content">
-
-							<ul class="breadcrumb breadcrumb-top">
-								<li>Index</li>
-							</ul>
-						<?php
-						Notification::error(NO_ACCESS_GROUP_PAGE, 'Page');
-						?></div><?php
-						$render = ob_get_contents();
-						if (ob_get_length() != 0) {
-							ob_end_clean();
-						}
-						$page = defined(strtoupper($page)) ? constant(strtoupper($page)) : $page;
-						$Interaction = New Interaction;
-						$Interaction->user($_SESSION['USER']['HASH_KEY']);
-						$Interaction->title('Accès non autorisé');
-						$Interaction->type('error');
-						$Interaction->text('Accès non autorisé de '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' à la page '.$page.' : paramètre');
-						$Interaction->insert();
-						return $render;
-					}
-				}
-			}
-			if (isset($_REQUEST['page']) and $_REQUEST['page'] == true) {
-				$scan = Common::ScanDirectory(MANAGEMENTS.'pages');
-				if (in_array($page, $scan)) {
-					if (Secures::getAccessPageAdmin($page) === false) {
-						?>
-						<div id="page-content">
-
-							<ul class="breadcrumb breadcrumb-top">
-								<li>Index</li>
-							</ul>
-						<?php
-						Notification::error(NO_ACCESS_GROUP_PAGE, 'Page');
-						?></div><?php
-						$page = defined(strtoupper($page)) ? constant(strtoupper($page)) : $page;
-						$Interaction = New Interaction;
-						$Interaction->user($_SESSION['USER']['HASH_KEY']);
-						$Interaction->title('Accès non autorisé');
-						$Interaction->type('error');
-						$Interaction->text('Accès non autorisé de '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' à la page '.$page.' : paramètre');
-						$Interaction->insert();
-					} else {
-						include MANAGEMENTS.'pages'.DS.$page.DS.'controller.php';
-						$this->controller = new $this->controller();
-						if ($this->controller->active === true) {
-							if (method_exists($this->controller, $this->view)) {
-								unset($this->links[0], $this->links[1]);
-								call_user_func_array(array($this->controller,$this->view),$this->links);
-							} else {
-							?>
-								<div id="page-content">
-
-									<ul class="breadcrumb breadcrumb-top">
-										<li>Index</li>
-									</ul>
-								<?php
-								Notification::error('La sous-page demander <strong>'.$this->view.'</strong> n\'est pas disponible dans la page <strong>'.$page.'</strong>', 'Fichier');
-								?></div><?php
-							}
-						}
-						echo $this->controller->render;
-					}
-				} else {
-				?>
-					<div id="page-content">
-
-						<ul class="breadcrumb breadcrumb-top">
-							<li>Index</li>
-						</ul>
-					<?php
-					Notification::error('Fichier controller de la page : <strong> '.$page.'</strong> non disponible...', 'Fichier');
-					?></div><?php
-				}
-			} else if (isset($_REQUEST['widgets']) and $_REQUEST['widgets'] == true) {
-				$scan = Common::ScanDirectory(MANAGEMENTS.'widgets');
-				if (in_array($page, $scan)) {
-					include MANAGEMENTS.'widgets'.DS.$page.DS.'controller.php';
-					$this->controller = new $this->controller();
-					if ($this->controller->active === true) {
-						if (method_exists($this->controller, $this->view)) {
-							unset($this->links[0], $this->links[1]);
-							call_user_func_array(array($this->controller,$this->view),$this->links);
-						} else {
-							?>
-							<div id="page-content">
-
-								<ul class="breadcrumb breadcrumb-top">
-									<li>Index</li>
-								</ul>
-							<?php
-							Notification::error('La sous-page demander <strong>'.$this->view.'</strong> n\'est pas disponible dans la page : <strong>'.$page.'</strong>', 'Fichier');
-							?></div><?php
-						}
-					}
-					echo $this->controller->render;
-				} else {
+		#####################################
+		# Accessible Uniquement aux administrateurs de 1er niveau
+		#####################################
+		if (isset($_REQUEST['parameter'])) {
+			if ($this->view == 'parameter' or $this->view == 'sendparameter' or $page == 'parameter' or isset($_REQUEST['parameter'])) {
+				if (!in_array(1, $groups)) {
 					?>
 					<div id="page-content">
-
-						<ul class="breadcrumb breadcrumb-top">
-							<li>Index</li>
-						</ul>
 					<?php
-					Notification::error('Fichier controller de la page : <strong> '.$page.'</strong> non disponible...', 'Fichier');
+					Notification::error(NO_ACCESS_GROUP_PAGE, 'Page');
 					?></div><?php
-				}
-			} else if (isset($_REQUEST['parameter']) and $_REQUEST['parameter'] == true) {
-				$scan = Common::ScanDirectory(MANAGEMENTS.'parameter');
-				if (in_array($page, $scan)) {
-					if (Secures::getAccessPageAdmin($page) === false) {
-						?>
-						<div id="page-content">
-
-							<ul class="breadcrumb breadcrumb-top">
-								<li>Index</li>
-							</ul>
-						<?php
-						Notification::error(NO_ACCESS_GROUP_PAGE, 'Page');
-						?></div><?php
-						$page = defined(strtoupper($page)) ? constant(strtoupper($page)) : $page;
-						$Interaction = New Interaction;
-						$Interaction->user($_SESSION['USER']['HASH_KEY']);
-						$Interaction->type('error');
-						$Interaction->title('Accès non autorisé');
-						$Interaction->text('Accès non autorisé de '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' à la page '.$page.' : paramètre');
-						$Interaction->insert();
-					} else {
-						include MANAGEMENTS.'parameter'.DS.$page.DS.'controller.php';
-						$this->controller = new $this->controller();
-						if ($this->controller->active === true) {
-							if (method_exists($this->controller, $this->view)) {
-								unset($this->links[0], $this->links[1]);
-								call_user_func_array(array($this->controller,$this->view),$this->links);
-							} else {
-								?>
-								<div id="page-content">
-
-									<ul class="breadcrumb breadcrumb-top">
-										<li>Index</li>
-									</ul>
-								<?php
-								Notification::error('La sous-page demander <strong>'.$this->view.'</strong> n\'est pas disponible dans la page : <strong>'.$page.'</strong>', 'Fichier');
-								?>
-								</div>
-								<?php
-							}
-						}
-						echo $this->controller->render;
+					$render = ob_get_contents();
+					if (ob_get_length() != 0) {
+						ob_end_clean();
 					}
-				} else {
+					$page = defined(strtoupper($page)) ? constant(strtoupper($page)) : $page;
+					$Interaction = New Interaction;
+					$Interaction->user($_SESSION['USER']['HASH_KEY']);
+					$Interaction->title('Accès non autorisé');
+					$Interaction->type('error');
+					$Interaction->text('Accès non autorisé de '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' à la page '.$page.' : paramètre');
+					$Interaction->insert();
+					return $render;
 				}
-			} else if (isset($_REQUEST['gaming']) and $_REQUEST['gaming'] == true) {
-				$scan = Common::ScanDirectory(MANAGEMENTS.'gaming');
-				if (in_array($page, $scan)) {
-					if (Secures::getAccessPageAdmin($page) === false) {
-						Notification::error(NO_ACCESS_GROUP_PAGE, 'Page');
-						$page = defined(strtoupper($page)) ? constant(strtoupper($page)) : $page;
-						$Interaction = New Interaction;
-						$Interaction->user($_SESSION['USER']['HASH_KEY']);
-						$Interaction->type('error');
-						$Interaction->title('Accès non autorisé');
-						$Interaction->text('Accès non autorisé de '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' à la page '.$page.' : paramètre');
-						$Interaction->insert();
-					} else {
-						include MANAGEMENTS.'gaming'.DS.$page.DS.'controller.php';
-						$this->controller = new $this->controller();
-						if ($this->controller->active === true) {
-							if (method_exists($this->controller, $this->view)) {
-								unset($this->links[0], $this->links[1]);
-								call_user_func_array(array($this->controller,$this->view),$this->links);
-							} else {
-								Notification::error('La sous-page demander <strong>'.$this->view.'</strong> n\'est pas disponible dans la page : <strong>'.$page.'</strong>', 'Fichier');
-							}
-						}
-						echo $this->controller->render;
-					}
-				} else {
-					Notification::error('Fichier controller de la page : <strong> '.$page.'</strong> non disponible...', 'Fichier');
-				}
-			} else {
-				include MANAGEMENTS.'intern'.DS.'dashboard.php';
-				$render = ob_get_contents();
 			}
 		}
-
+		#####################################
+		# End
+		#####################################
+		# requete page
+		#####################################
+		if (isset($_REQUEST['parameter'])) {
+			echo self::request('parameter', $page);
+		} else if (isset($_REQUEST['templates'])) {
+			echo self::request('templates', $page);
+		} else if (isset($_REQUEST['users'])) {
+			echo self::request('users', $page);
+		} else if (isset($_REQUEST['pages'])) {
+			echo self::request('pages', $page);
+		} else if (isset($_REQUEST['widgets'])) {
+			echo self::request('widgets', $page);
+		} else if (isset($_REQUEST['gaming'])) {
+			echo self::request('gaming', $page);
+		} else {
+			include MANAGEMENTS.'intern'.DS.'dashboard.php';
+			$render = ob_get_contents();
+		}
+		#####################################
+		# end requete page
+		#####################################
+		# Mise en mémoire tempon
+		#####################################
 		$render = ob_get_contents();
-
+		#####################################
+		# reset le tempon
+		#####################################
 		if (ob_get_length() != 0) {
 			ob_end_clean();
 		}
-
+		#####################################
+		# Retourne le rendu de la page
+		#####################################
 		return $render;
+	}
+	#########################################
+	# Requete des pages = menu
+	#########################################
+	private function request ($request, $page) {
+		$scan = Common::ScanDirectory(MANAGEMENTS.$request);
+		if (in_array($page, $scan)) {
+			if (Secures::getAccessPageAdmin($page) === false) {
+			?>
+				<div id="page-content">
+			<?php
+				Notification::error(NO_ACCESS_GROUP_PAGE, 'Page');
+			?>
+				</div>
+			<?php
+				$page = defined(strtoupper($page)) ? constant(strtoupper($page)) : $page;
+				$Interaction = New Interaction;
+				$Interaction->user($_SESSION['USER']['HASH_KEY']);
+				$Interaction->title('Accès non autorisé');
+				$Interaction->type('error');
+				$Interaction->text('Accès non autorisé de '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' à la page '.$page.' : paramètre');
+				$Interaction->insert();
+			} else {
+				include MANAGEMENTS.$request.DS.$page.DS.'controller.php';
+				$this->controller = new $this->controller();
+				if ($this->controller->active === true) {
+					if (method_exists($this->controller, $this->view)) {
+						unset($this->links[0], $this->links[1]);
+						call_user_func_array(array($this->controller,$this->view),$this->links);
+					} else {
+					?>
+					<div id="page-content">
+					<?php
+						Notification::error('La sous-page demander <strong>'.$this->view.'</strong> n\'est pas disponible dans la page <strong>'.$page.'</strong>', 'Fichier');
+							?>
+					</div>
+					<?php
+					}
+					echo $this->controller->render;
+				}
+			}
+		}
 	}
 	#########################################
 	# Page Login
@@ -343,7 +239,7 @@ final class Managements extends Dispatcher
 		$return = array();
 
 		foreach ($pages as $k => $v) {
-			$return['/'.$v.'?management&page=true'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
+			$return['/'.$v.'?management&pages'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
 		}
 		return $return;
 	}
@@ -356,7 +252,33 @@ final class Managements extends Dispatcher
 		$return   = array();
 
 		foreach ($widgets as $k => $v) {
-			$return['/'.$v.'?management&widgets=true'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
+			$return['/'.$v.'?management&widgets'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
+		}
+		return $return;
+	}
+	#########################################
+	# Menu des Widgets
+	#########################################
+	private function menuTemplates ()
+	{
+		$templates = self::getTemplates ();
+		$return    = array();
+
+		foreach ($templates as $k => $v) {
+			$return['/'.$v.'?management&templates'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
+		}
+		return $return;
+	}
+	#########################################
+	# Menu Utilisateurs
+	#########################################
+	private function menuUsers ()
+	{
+		$users  = self::getUsers ();
+		$return = array();
+
+		foreach ($users as $k => $v) {
+			$return['/'.$v.'?management&users'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
 		}
 		return $return;
 	}
@@ -366,10 +288,10 @@ final class Managements extends Dispatcher
 	private function menuGaming ()
 	{
 		$gaming  = self::getGaming ();
-		$return   = array();
+		$return  = array();
 
 		foreach ($gaming as $k => $v) {
-			$return['/'.$v.'?management&gaming=true'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
+			$return['/'.$v.'?management&gaming'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
 		}
 		return $return;
 	}
@@ -379,10 +301,10 @@ final class Managements extends Dispatcher
 	private function menuParameter ()
 	{
 		$parameter  = self::getParameter ();
-		$return   = array();
+		$return     = array();
 
 		foreach ($parameter as $k => $v) {
-			$return['/'.$v.'?management&parameter=true'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
+			$return['/'.$v.'?management&parameter'] = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
 		}
 		return $return;
 	}
@@ -400,6 +322,22 @@ final class Managements extends Dispatcher
 	private function getWidgets ()
 	{
 		$scan = Common::ScanDirectory(MANAGEMENTS.'widgets', true);
+		return $scan;
+	}
+	#########################################
+	# Scan le dossier d'utilisateurs
+	#########################################
+	private function getUsers ()
+	{
+		$scan = Common::ScanDirectory(MANAGEMENTS.'users', true);
+		return $scan;
+	}
+	#########################################
+	# Scan le dossier du templates
+	#########################################
+	private function getTemplates ()
+	{
+		$scan = Common::ScanDirectory(MANAGEMENTS.'templates', true);
 		return $scan;
 	}
 	#########################################

@@ -34,6 +34,7 @@ Common::constant(array(
 	'PUBLISH'                => 'Publier',
 	'YOUR_COMMENT'           => 'Votre commentaire',
 	'COMMENT_EMPTY'          => 'Commentaire vide',
+	'NO_COMMENT'             => 'Pas de commentaire',
 	'URL_EMPTY'              => 'URL vide',
 	'COMMENT_SEND_TRUE'      => 'Le commentaire a été posté avec succès.',
 	'COMMENT_SEND_FALSE'     => 'Le commentaire n\'a pas pu être envoyé.',

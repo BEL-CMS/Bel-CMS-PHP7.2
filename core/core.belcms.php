@@ -20,8 +20,13 @@ final class BelCMS extends Dispatcher
 
 	function __construct ()
 	{
+#########################################
+# Constructeur
+#########################################
 		parent::__construct();
-
+#########################################
+# Nouveau utilisateurs mise à jour
+#########################################
 		if ($this->controller != 'shoutbox') {
 			new Visitors;
 		}

@@ -18,7 +18,7 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 <div class="col-md-12">
 	<div class="panel panel-white">
 		<div class="panel-body basic-form-panel">
-			<form action="/newsletter/sendnewtpl?management&page=true" method="post" class="form-horizontal">
+			<form action="/newsletter/sendnewtpl?management&pages" method="post" class="form-horizontal">
 				<div class="form-group">
 					<label for="input-Default" class="col-sm-2 control-label"><?=NAME?></label>
 					<div class="col-sm-10">

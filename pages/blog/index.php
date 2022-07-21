@@ -14,14 +14,14 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<section id="bel_cms_blog_main">
+<section class="section_bg" id="bel_cms_blog_main">
 <?php
 foreach ($blog as $k => $v):
 $countComment = Comment::countComments('blog', $v->id);
 ?>
 <article class="bel_cms_blog">
 	<div class="card">
-		<div class="card-header"><h1><a href="<?php echo $v->link; ?>"><?=$v->name?></a></h1></div>
+		<div class="card-header"><h1><a href="<?=$v->link; ?>"><?=$v->name?></a></h1></div>
 		<div class="card-body">
 			<ul class="bel_cms_blog_userdate">
 				<li><?=BY?> : <a style="color: <?=Users::colorUsername(null,$v->username)?>" href="Members/View/<?=$v->username?>" title="<?=POST_BY?> <?=$v->username?>"><?=$v->username?></a></li>

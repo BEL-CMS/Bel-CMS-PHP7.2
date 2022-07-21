@@ -109,13 +109,14 @@ class Forum extends Pages
 			
 		}
 
-
-		foreach ($data['threads'] as $key => $value) {
-			$v = $value->id_threads;
+		if (!empty($data['threads'])) {
+			foreach ($data['threads'] as $key => $value) {
+				$v = $value->id_threads;
+			}
+			$data['name'] = $this->ModelsForum->GetThreadName($v);
+		} else {
+			$data['name'] = null;
 		}
-
-		$data['name'] = $this->ModelsForum->GetThreadName($v);
-		$data['name']->title;
 
 		$this->set($data);
 		$this->render('threads');

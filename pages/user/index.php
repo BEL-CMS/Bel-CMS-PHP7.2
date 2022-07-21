@@ -15,7 +15,7 @@ if (!defined('CHECK_INDEX')) {
 }
 if (Users::isLogged() === true):
 ?>
-<section id="belcms_main_user">
+<section class="section_bg" id="belcms_main_user">
 
 	<div id="belcms_main_user_left">
 		<div id="belcms_main_user_left_avatar">
@@ -42,12 +42,6 @@ if (Users::isLogged() === true):
 				<a class="nav-link" id="v-pills-gaming-tab" data-toggle="pill" href="#v-pills-gaming" role="tab" aria-controls="v-pills-gaming" aria-selected="false">Jeux
 					<i class="fas fa-angle-right"></i>
 				</a>
-				<a class="nav-link" id="v-pills-mobile-tab" data-toggle="pill" href="#v-pills-mobile" role="tab" aria-controls="v-pills-mobile" aria-selected="false">Mobile
-					<i class="fas fa-angle-right"></i>
-				</a>
-				<a class="nav-link" id="v-pills-connexion-tab" data-toggle="pill" href="#v-pills-connexion" role="tab" aria-controls="v-pills-connexion" aria-selected="false">Connexion
-					<i class="fas fa-angle-right"></i>
-				</a>
 				<a class="nav-link" href="User/Logout">Déconnexion
 					<i class="fas fa-angle-right"></i>
 				</a>
@@ -64,8 +58,8 @@ if (Users::isLogged() === true):
 		avatars($user);
 		social($user);
 		gaming($gaming, $gamers);
-		mobile();
-		connexion();
+		//mobile();
+		//connexion();
 		?>	
 		</div>
 	</div>
@@ -86,35 +80,35 @@ function account ($user)
 	<h2>Votre Compte</h2>
 	<form action="user/sendaccount" method="post">
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Username</label>
-			<div class="col-sm-10">
+			<label class="col-sm-12 col-form-label">Username</label>
+			<div class="col-sm-12">
 				<input class="form-control" name="username" type="text" placeholder="<?=constant('ENTER_NAME_PSEUDO')?>" required="required" value="<?=$user->username?>" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$">
 			</div>
 		</div>
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Email</label>
-			<div class="col-sm-10">
+			<label class="col-sm-12 col-form-label">Email</label>
+			<div class="col-sm-12">
 				<input type="email" name="mail" class="form-control" placeholder="Enter email" value="<?=$user->email?>">
 				<small id="emailHelp" class="form-text text-muted">L'adresse email ne sera pas affichée publiquement.</small>
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="birthday" class="col-sm-2 col-form-label">Anniversaire</label>
-			<div class="col-sm-10">
+			<label for="birthday" class="col-sm-12 col-form-label">Anniversaire</label>
+			<div class="col-sm-12">
 				<input id="birthday" class="form-control" type="date" name="birthday" value="<?=$user->birthday?>">
 			</div>
 		</div>
 
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">SiteWeb</label>
-			<div class="col-sm-10">
+			<label class="col-sm-12 col-form-label">SiteWeb</label>
+			<div class="col-sm-12">
 				<input class="form-control" name="websites" type="text" placeholder="Votre Site Web" value="<?=$user->websites?>" pattern="https?://.+">
 			</div>
 		</div>
 
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Pays</label>
-			<div class="col-sm-10">
+			<label class="col-sm-12 col-form-label">Pays</label>
+			<div class="col-sm-12">
 				<select name="country" class="form-control">
 					<?php
 					foreach (Common::contryList() as $k => $v):
@@ -128,7 +122,7 @@ function account ($user)
 
 		<div class="form-group row">
 			<label class="col-sm-2 col-form-label">Genre</label>
-			<div class="col-sm-10">
+			<div class="col-sm-12">
 				<div class="form-check">
 					<input <?=$genderM?> class="form-check-input" type="radio" name="gender" id="male" value="male">
 					<label class="form-check-label" for="male"><?=MALE?></label>
@@ -160,38 +154,38 @@ function sefety ($user)
 	<h2>Confidentialité</h2>
 	<form>
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Email</label>
-			<div class="col-sm-10">
+			<label class="col-sm-12 col-form-label">Email</label>
+			<div class="col-sm-12">
 				<input disabled type="email" class="form-control" value="<?=$user->email?>">
 				<small id="emailHelp" class="form-text text-muted">L'adresse email priver ne sera pas affichée publiquement.</small>
 			</div>
 		</div>
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Date D'enregistrement</label>
-			<div class="col-sm-10">
+			<label class="col-sm-12 col-form-label">Date D'enregistrement</label>
+			<div class="col-sm-12">
 				<input disabled type="datetime" class="form-control" value="<?=$user->date_registration?>">
 				<small id="emailHelp" class="form-text text-muted">la date d'inscription au site, il est possible qu'il soit utiliser publiquement.</small>
 			</div>
 		</div>
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Dernère visite</label>
-			<div class="col-sm-10">
+			<label class="col-sm-12 col-form-label">Dernère visite</label>
+			<div class="col-sm-12">
 				<input disabled type="datetime" class="form-control" value="<?=$user->last_visit?>">
 				<small id="emailHelp" class="form-text text-muted">la date de la dernière visite au site, il est possible qu'il soit utiliser publiquement.</small>
 			</div>
 		</div>
 		<hr>
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Groupe principal</label>
-			<div class="col-sm-10">
+			<label class="col-sm-12 col-form-label">Groupe principal</label>
+			<div class="col-sm-12">
 				<select disabled class="form-control">
 					<option value="<?=$user->main_groups?>"><?=$user->main_groups?></option>
 				</select>
 			</div>
 		</div>
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Groupe Secondaire</label>
-			<div class="col-sm-10">
+			<label class="col-sm-12 col-form-label">Groupe Secondaire</label>
+			<div class="col-sm-12">
 				<select class="form-control">
 					<?php
 					sort($user->groups);
@@ -216,15 +210,15 @@ function security ()
 	<h2>Sécurité</h2>
 	<form action="user/sendsecurity" method="post">
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Mot de passe</label>
-			<div class="col-sm-10">
+			<label class="col-sm-12 col-form-label">Mot de passe</label>
+			<div class="col-sm-12">
 				<input name="password_old" type="password" class="form-control" value="">
 				<small id="passHelp" class="form-text text-muted">Entrer votre ancien mot de passe.</small>
 			</div>
 		</div>
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Mot de passe</label>
-			<div class="col-sm-10">
+			<label class="col-sm-12 col-form-label">Mot de passe</label>
+			<div class="col-sm-12">
 				<input name="password_new" type="text" class="form-control" value="" rel="gp" data-character-set="a-z,A-Z,0-9,#" data-size="6">
 				<small id="passHelp" class="form-text text-muted">Entrer votre nouveau mot de passe (6 caractère minimum).</small>
 				<button type="button" class="btn btn-primary getNewPass">Générateur</button>
@@ -364,36 +358,36 @@ function social ($user)
 	<h2>Liens Social</h2>
 	<form action="user/submitsocial" method="post">
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label"><i class="fab fa-facebook-square"></i> Facebook</label>
-			<div class="col-sm-10">
+			<label class="col-sm-12 col-form-label"><i class="fab fa-facebook-square"></i> Facebook</label>
+			<div class="col-sm-12">
 				<input class="form-control" name="facebook" type="text" placeholder="<?=constant('ENTER_YOUR');?> facebook" value="<?=$user->facebook?>" pattern="^[a-z\d\.]{5,}$">
 			</div>
 		</div>
 
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label"><i class="fab fa-twitter-square"></i> Twitter</label>
-			<div class="col-sm-10">
+			<label class="col-sm-12 col-form-label"><i class="fab fa-twitter-square"></i> Twitter</label>
+			<div class="col-sm-12">
 				<input class="form-control" name="twitter" type="text" placeholder="<?=constant('ENTER_YOUR');?> twitter" value="<?=$user->twitter?>" pattern="^[A-Za-z0-9_]{1,15}$">
 			</div>
 		</div>
 
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label"><i class="fab fa-google-plus-square"></i> Google+</label>
-			<div class="col-sm-10">
+			<label class="col-sm-12 col-form-label"><i class="fab fa-google-plus-square"></i> Google+</label>
+			<div class="col-sm-12">
 				<input class="form-control" name="googleplus" type="text" placeholder="<?=constant('ENTER_YOUR');?> gplus" value="<?=$user->googleplus?>">
 			</div>
 		</div>
 
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label"><i class="fab fa-pinterest-square"></i> Pinterest</label>
-			<div class="col-sm-10">
+			<label class="col-sm-12 col-form-label"><i class="fab fa-pinterest-square"></i> Pinterest</label>
+			<div class="col-sm-12">
 				<input class="form-control" name="pinterest" type="text" placeholder="<?=constant('ENTER_YOUR');?> pinterest" value="<?=$user->pinterest?>">
 			</div>
 		</div>
 
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label"><i class="fab fa-linkedin"></i> Linkedin</label>
-			<div class="col-sm-10">
+			<label class="col-sm-12 col-form-label"><i class="fab fa-linkedin"></i> Linkedin</label>
+			<div class="col-sm-12">
 				<input class="form-control" name="linkedin" type="text" placeholder="<?=constant('ENTER_YOUR');?> linkedin" value="<?=$user->linkedin?>">
 			</div>
 		</div>

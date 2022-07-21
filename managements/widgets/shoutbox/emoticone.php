@@ -13,15 +13,19 @@ if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
 	exit(ERROR_INDEX);
 }
-if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === true):
 ?>
-<div class="row">
-	<div class="col-lg-8 col-md-8 col-sm-8">
-		<div class="block">
-			<div class="block-title">
-				<h2>Listes Emoticônes</h2>
-			</div>
-			<div class="table-responsive">
+<div class="card">
+	<div class="card-header">
+		<h3 class="card-title">Liste des blog</h3>
+		<div class="card-tools">
+			<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+				<i class="fas fa-minus"></i>
+			</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="card-body">
+			<div class="table-responsive col-lg-12 col-md-12 col-sm-12">
 				<table  class="DataTableBelCMS table table-vcenter table-condensed table-bordered">
 					<thead>
 						<tr>
@@ -75,29 +79,36 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-4 col-md-4 col-sm-4">
-		<div class="block">
-			<div class="block-title">
-				<h2>Ajouter une Emoticône</h2>
-			</div>
+</div>
+<div class="card">
+	<div class="card-header">
+		<h3 class="card-title">Ajouter une Emoticône</h3>
+		<div class="card-tools">
+			<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+				<i class="fas fa-minus"></i>
+			</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="card-body">
 			<form action="/shoutbox/sendemo?management&widgets=true" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
 				<div class="form-group">
-					<label class="col-sm-2 control-label">Nom de l'emoticône</label>
-					<div class="col-sm-10">
+					<label class="col-sm-12 control-label">Nom de l'emoticône</label>
+					<div class="col-sm-12">
 						<div class="checkbox">
 							<input class="form-control" name="name" type="text" value="">
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">Upload</label>
-					<div class="col-sm-10">
+					<label class="col-sm-12 control-label">Upload</label>
+					<div class="col-sm-12">
 						<input type="file" id="last-name" name="dir" class="form-control col-md-7 col-xs-12">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">Code</label>
-					<div class="col-sm-10">
+					<label class="col-sm-12 control-label">Code</label>
+					<div class="col-sm-12">
 						<div class="checkbox">
 							<input class="form-control" name="code" type="text" value="" placeholder="format court sans espace">
 						</div>
@@ -112,6 +123,3 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 		</div>
 	</div>
 </div>
-</form>
-<?php
-endif;

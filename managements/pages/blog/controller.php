@@ -23,9 +23,9 @@ class Blog extends AdminPages
 	{
 		$data['data'] = $this->ModelsBlog->getAllBlog();
 		$this->set($data);
-		$menu[] = array('Accueil'=> array('href'=>'/blog?management&page=true','icon'=>'fa fa-home'));
-		$menu[] = array('Ajouter'=> array('href'=>'/blog/add?management&page=true','icon'=>'fa fa-plus'));
-		$menu[] = array('Configuration'=> array('href'=>'/Blog/parameter?management&page=true','icon'=>'fa fa-cubes'));
+		$menu[] = array('Accueil'=> array('href'=>'/blog?management&pages','icon'=>'fa fa-home'));
+		$menu[] = array('Ajouter'=> array('href'=>'/blog/add?management&pages','icon'=>'fa fa-plus'));
+		$menu[] = array('Configuration'=> array('href'=>'/Blog/parameter?management&pages','icon'=>'fa fa-cubes'));
 		$this->render('index', $menu);
 	}
 
@@ -33,9 +33,9 @@ class Blog extends AdminPages
 	{
 		$data['data'] = $this->ModelsBlog->getBlog($id);
 		$this->set($data);
-		$menu[] = array('Accueil'=> array('href'=>'/blog?management&page=true','icon'=>'fa fa-home'));
-		$menu[] = array('Ajouter'=> array('href'=>'/blog/add?management&page=true','icon'=>'fa fa-plus'));
-		$menu[] = array('Configuration'=> array('href'=>'/Blog/parameter?management&page=true','icon'=>'fa fa-cubes'));
+		$menu[] = array('Accueil'=> array('href'=>'/blog?management&pages','icon'=>'fa fa-home'));
+		$menu[] = array('Ajouter'=> array('href'=>'/blog/add?management&pages','icon'=>'fa fa-plus'));
+		$menu[] = array('Configuration'=> array('href'=>'/Blog/parameter?management&pages','icon'=>'fa fa-cubes'));
 		$this->render('edit', $menu);
 	}
 
@@ -43,7 +43,7 @@ class Blog extends AdminPages
 	{
 		$return = $this->ModelsBlog->sendEdit($_POST);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('/blog?management&page=true', 2);
+		$this->redirect('/blog?management&pages=true', 2);
 	}
 
 	public function parameter ()
@@ -51,9 +51,9 @@ class Blog extends AdminPages
 		$data['groups'] = BelCMSConfig::getGroups();
 		$data['config'] = BelCMSConfig::GetConfigPage(get_class($this));
 		$this->set($data);
-		$menu[] = array('Accueil'=> array('href'=>'/blog?management&page=true','icon'=>'fa fa-home'));
-		$menu[] = array('Ajouter'=> array('href'=>'/blog/add?management&page=true','icon'=>'fa fa-plus'));
-		$menu[] = array('Configuration'=> array('href'=>'/Blog/parameter?management&page=true','icon'=>'fa fa-cubes'));
+		$menu[] = array('Accueil'=> array('href'=>'/blog?management&pages','icon'=>'fa fa-home'));
+		$menu[] = array('Ajouter'=> array('href'=>'/blog/add?management&pages','icon'=>'fa fa-plus'));
+		$menu[] = array('Configuration'=> array('href'=>'/Blog/parameter?management&pages','icon'=>'fa fa-cubes'));
 		$this->render('parameter', $menu);
 	}
 
@@ -61,14 +61,14 @@ class Blog extends AdminPages
 	{
 		$return = $this->ModelsBlog->sendparameter($_POST);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('/Blog/parameter?management&page=true', 2);
+		$this->redirect('/Blog/parameter?management&pages', 2);
 	}
 
 	public function add ()
 	{
-		$menu[] = array('Accueil'=> array('href'=>'/blog?management&page=true','icon'=>'fa fa-home'));
-		$menu[] = array('Ajouter'=> array('href'=>'/blog/add?management&page=true','icon'=>'fa fa-plus'));
-		$menu[] = array('Configuration'=> array('href'=>'/Blog/parameter?management&page=true','icon'=>'fa fa-cubes'));
+		$menu[] = array('Accueil'=> array('href'=>'/blog?management&pages','icon'=>'fa fa-home'));
+		$menu[] = array('Ajouter'=> array('href'=>'/blog/add?management&pages','icon'=>'fa fa-plus'));
+		$menu[] = array('Configuration'=> array('href'=>'/Blog/parameter?management&pages','icon'=>'fa fa-cubes'));
 		$this->render('new',$menu);
 	}
 
@@ -76,13 +76,13 @@ class Blog extends AdminPages
 	{
 		$return = $this->ModelsBlog->sendnew($_POST);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('/blog?management&page=true', 2);
+		$this->redirect('/blog?management&page', 2);
 	}
 
 	public function del ($id)
 	{
 		$return = $this->ModelsBlog->delete($id);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('/blog?management&page=true', 2);
+		$this->redirect('/blog?management&pages', 2);
 	}
 }

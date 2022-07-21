@@ -1,55 +1,56 @@
-<?php
-/**
- * Bel-CMS [Content management system]
- * @version 0.0.1
- * @link http://www.bel-cms.be
- * @link http://www.stive.eu
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
- * @copyright 2014-2019 Bel-CMS
- * @author Stive - mail@stive.eu
- */
-
-if (!defined('CHECK_INDEX')) {
-	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit(ERROR_INDEX);
-}
-?>
-<section id="belcms_forum">
+<section id="belcms_main_forum">
 	<?php
-	foreach ($forum as $k => $v):
+	foreach ($forum as $k => $v):			
 	?>
-	<div class="forum">
-		<h1 class="belcms_forum_h1"><?=$v->title?></h1>
-		<div class="belcms_forum_category_description"><?=$v->subtitle?></div>
-		<table class="belcms_forum_table table table-bordered">
+	<div id="belcms_main_cadre">
+		<div class="container">
+			<div class="row">
 			<?php
 			$count = (count($v->category));
 			foreach ($v->category as $cat_k => $cat_v):
-				?>
-			<tr>
-				<td class="belcms_f_td">
-					<i class="<?=$cat_v->icon?>"></i>
-				</td>
-				<td>
-					<a class="belcms_f_a"><a href="Forum/Threads/<?=$cat_v->title?>/<?=$cat_v->id?>"><?=$cat_v->title?></a></a>
-				</td>
-				<td>
-					Dernier post en date : <?php if (empty($cat_v->last->date_post)) { echo 'Aucun post'; } else { echo Common::TransformDate($cat_v->last->date_post, 'MEDIUM', 'NONE'); ?>par <span style="color: <?php echo Users::colorUsername($cat_v->last->author)?>"><?php echo Users::hashkeyToUsernameAvatar($cat_v->last->author); ?></span><?php } ?>
-				</td>
-				<td style="text-align: center;">
-					<?=$cat_v->count?> post
-				</td>
-			</tr>
-			<?php
-			if ($count <= count($v->category)):
+				debug($cat_v);
 			?>
-				<tr class="espace"></tr>
+				<div class="col-4 belcms_cadre_content">
+					<div class="row">
+						<div class="belcms_cadre_title">
+							<img src="https://img.freepik.com/photos-gratuite/perspective-exterieure-personne-boite-vide_1258-260.jpg?t=st=1658067322~exp=1658067922~hmac=26" alt="..." class="rounded-circle belcms_circle">
+
+							<span class="belcms_main_forum_description">
+								<h3><a href="Forum/Threads/<?=$cat_v->title?>/<?=$cat_v->id?>"><?=$v->title?></a></h3>
+								<p><?=Common::truncate('This forum demonstrates different topic types (Stickies, attachments, polls, long posts etc...', 50);?></p>
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<span class="spanHr"></span>
+						<div class="col-4 align-center">
+							<p class="belcms_main_content_p"><?=$cat_v->last->id;?></p>
+							<p class="belcms_main_content_p">Topics</p>
+						</div>
+						<div class="col-4 align-center">
+							<p class="belcms_main_content_p"><?=$cat_v->count?></p>
+							<p class="belcms_main_content_p">Posts</p>
+						</div>
+						<div class="col-4 align-center">
+							<p class="belcms_main_content_p">
+								<?php if(empty($cat_v->last->date_post))
+								{
+									echo 'Aucun';
+								} else {
+									echo Common::TransformDate($cat_v->last->date_post, 'SHORT', 'NONE');
+								}
+								?>
+								<p class="belcms_main_content_p">174</p>
+							</p>
+						</div>
+					</div>
+				</div>
 			<?php
-			endif;
 			endforeach;
-			?>
-		</table>
-	</div>	
+			?>		
+			</div>
+		</div>
+	</div>
 	<?php
 	endforeach;
 	?>

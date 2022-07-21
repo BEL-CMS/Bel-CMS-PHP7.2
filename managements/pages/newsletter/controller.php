@@ -31,7 +31,7 @@ class Newsletter extends AdminPages
 		$_SESSION['NEWSLETTER']['USER'] = $this->ModelsNewsletter->getAllNewser();
 		$_SESSION['NEWSLETTER']['TPL']  = $this->ModelsNewsletter->getTpl($id);
 		$this->error(get_class($this), 'Démarrage des e-mails dans 3 secondes', 'warning');
-		$this->redirect('newsletter/start?management&page=true', 3);
+		$this->redirect('newsletter/start?management&pages', 3);
 	}
 
 	public function start ()
@@ -47,18 +47,18 @@ class Newsletter extends AdminPages
 			);
 			if (Common::SendMail($mail) != false) {
 				$this->error(get_class($this), 'Newslleter envoyer avec succès à : '.$value->email, 'success');
-				$this->redirect('newsletter/start?management&page=true', 0);
+				$this->redirect('newsletter/start?management&pages', 0);
 				unset($_SESSION['NEWSLETTER']['USER'][$key]);
 				return true;
 			} else {
 				$this->error(get_class($this), 'impossible d\'envoyer la Newslleter : '.$value->email, 'error');
-				$this->redirect('newsletter?management&page=true', 3);
+				$this->redirect('newsletter?management&pages', 3);
 				return false;
 			}
 		}
 		if (empty($_SESSION['NEWSLETTER']['USER'])) {
 			$this->error(get_class($this), 'Tout les emails ont été envoyer avec succès', 'success');
-			$this->redirect('newsletter?management&page=true', 3);
+			$this->redirect('newsletter?management&pages', 3);
 		}
 	}
 
@@ -85,7 +85,7 @@ class Newsletter extends AdminPages
 	{
 		$return = $this->ModelsNewsletter->addnewtpl($_POST);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('newsletter/tpl?management&page=true', 2);
+		$this->redirect('newsletter/tpl?management&pages', 2);
 	}
 
 	public function edittpl ($id)
@@ -99,13 +99,13 @@ class Newsletter extends AdminPages
 	{
 		$return = $this->ModelsNewsletter->sendEdit($_POST);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('newsletter/tpl?management&page=true', 2);
+		$this->redirect('newsletter/tpl?management&pages', 2);
 	}
 
 	public function deltpl ($id)
 	{
 		$return = $this->ModelsNewsletter->deletetpl($id);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('newsletter/tpl?management&page=true', 2);
+		$this->redirect('newsletter/tpl?management&pages', 2);
 	}
 }

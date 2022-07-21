@@ -20,13 +20,13 @@ if (!defined('CHECK_INDEX')) {
 		<div class="clearfix"></div>
 	</div>
 	<div class="x_content">
-		<a href="/page?management&page=true" class="btn btn-app">
+		<a href="/page?management&pages" class="btn btn-app">
 			<i class="fa fas fa-home"></i> Accueil
 		</a>
-		<a href="/page/deleteAll/<?=$id?>?management&page=true" class="btn btn-app">
+		<a href="/page/deleteAll/<?=$id?>?management&pages" class="btn btn-app">
 			<i class="fa fas fa-eraser "></i> <?=DELETE?> Tout !
 		</a>
-		<a href="/page/addsubpage/<?=$id?>?management&page=true" class="btn btn-app">
+		<a href="/page/addsubpage/<?=$id?>?management&pages" class="btn btn-app">
 			<i class="fa fas fa-plus"></i> <?=ADD?>
 		</a>
 	</div>
@@ -65,7 +65,7 @@ if (!defined('CHECK_INDEX')) {
 							<td><?=$v->pagenumber?></td>
 							<td><?=Common::TransformDate($v->publish, 'LONG', 'SHORT')?></td>
 							<td>
-								<a href="/page/subpageedit/<?=$v->id?>?management&page=true>"><i class="fas fa-pen"></i></a> - 
+								<a href="/page/subpageedit/<?=$v->id?>?management&pages"><i class="fas fa-pen"></i></a> - 
 								<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>"><i class="fas fa-trash-alt"></i></a>
 								<div class="modal fade" id="modal_<?=$v->id?>" tabindex="-1" role="dialog">
 									<div class="modal-dialog" role="document">
@@ -77,7 +77,7 @@ if (!defined('CHECK_INDEX')) {
 											<div class="modal-body">Confirmer la suppression de la page : <?=$v->name?></div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-												<button onclick="window.location.href='/page/delsubpage/<?=$v->id?>?management&page=true'" type="button" class="btn btn-primary">Supprimer</button>
+												<button onclick="window.location.href='/page/delsubpage/<?=$v->id?>?management&pages'" type="button" class="btn btn-primary">Supprimer</button>
 											</div>
 										</div>
 									</div>

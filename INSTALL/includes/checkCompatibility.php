@@ -110,11 +110,11 @@ function configIncPhp ()
 	$content  = "<?php".PHP_EOL;
 	$content .= "/**".PHP_EOL;
 	$content .= "* Bel-CMS [Content management system]".PHP_EOL;
-	$content .= "* @version 1.0.0".PHP_EOL;
+	$content .= "* @version 2.0.0".PHP_EOL;
 	$content .= "* @link https://bel-cms.be".PHP_EOL;
 	$content .= "* @link https://determe.be".PHP_EOL;
 	$content .= "* @license http://opensource.org/licenses/GPL-3.0 copyleft".PHP_EOL;
-	$content .= "* @copyright 2014 Bel-CMS".PHP_EOL;
+	$content .= "* @copyright 2022 Bel-CMS".PHP_EOL;
 	$content .= "* @author Stive - stive@determe.be".PHP_EOL;
 	$content .= "*/".PHP_EOL;
 	$content .= "\$BDD = 'server';".PHP_EOL;

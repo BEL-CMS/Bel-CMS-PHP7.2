@@ -14,49 +14,62 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<div class="row">
-	<div class="col-lg-12 col-md-12 col-sm-12">
-		<div class="card">
-			<div class="card-header">
-				<div class="card-title"><?=DOWNLOADS?> - Catégories - Edition</div>
-			</div>
-			<div class="card_body">
-				<form action="/downloads/sendeditcat?management&page=true" method="post" class="form-horizontal">
-					<div style="margin-bottom: 0 !important;" class="card-alert alert alert-primary mb-0"><?=NAME?></div>
-					<div class="card-body">
-						<input name="name" type="text" class="form-control" required="required" value="<?=$data->name?>">
-					</div>
-					<div style="margin-bottom: 0 !important;" class="card-alert alert alert-primary mb-0"><?=TEXT?></div>
-					<div class="card-body">
-						<textarea class="ckeditor" name="description"><?=$data->description?></textarea>
-					</div>
-					<div style="margin-bottom: 0 !important;" class="card-alert alert alert-primary mb-0">Accès aux groupes</div>
-					<div class="card-body">
-						<div class="col-sm-12">
-							<?php
-							$visitor = constant('VISITORS');
-							$groups->$visitor = 0;
-							$ex = explode('|', $data->groups);
-							foreach ($groups as $k => $v):
-								$checked = in_array($v, $ex) ? 'checked="checked"' : '';
-								?>
-								<div class="input-group">
-									<span class="input-group-addon">
-										<input name="groups[]" value="<?=$v?>" type="checkbox" <?=$checked?>>
-									</span>
-									<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
-								</div>
-								<?php
-							endforeach;
-							?>
-						</div>
-					</div>
-					<div class="card-footer">
-						<input type="hidden" name="id" value="<?=$data->id?>">
-						<button type="submit" class="btn btn-primary"><?=EDIT?></button>
-					</div>
-				</form>
+<form action="/downloads/sendeditcat?management&pages" method="post" class="form-horizontal">
+	<div class="card">
+		<div class="card-header">
+			<h3 class="card-title"><?=DOWNLOADS?> - Catégories Edition</h3>
+			<div class="card-tools">
+				<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+					<i class="fas fa-minus"></i>
+				</button>
 			</div>
 		</div>
+		<div class="card-body">
+			<div class="form-group">
+				<label class="col-sm-12 control-label" for="checkbox"><?=NAME?></label>
+				<div class="col-sm-12">
+					<input name="name" type="text" class="form-control" required="required" value="<?=$data->name?>">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-12 control-label" for="checkbox"><?=TEXT?></label>
+				<div class="col-sm-12">
+					<textarea class="bel_cms_textarea_full" name="description"><?=$data->description?></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="card-header">
+				<h3 class="card-title">Accès aux groupes</h3>
+				<div class="card-tools">
+					<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+						<i class="fas fa-minus"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<?php
+			$visitor = constant('VISITORS');
+			$groups->$visitor = array('id' => 0, 'color' => '', 'image' => '');
+			$data->groups = explode("|", $data->groups);
+			foreach ($groups as $key => $value):
+			$checked = in_array($value['id'], $data->groups) ? 'checked' : '';
+			$checked = $value['id'] == 1 ? 'checked readonly' : $checked;	
+			?>
+			<div class="form-group">
+				<div class="icheck-primary d-inline">
+					<input class="col-sm-4" data-bootstrap-switch name="groups[]" value="<?=$value['id']?>" type="checkbox" <?=$checked?>>
+					<label class="col-sm-8 control-label" for="<?=$value['id']?>"><?=$key?></label>
+				</div>
+			</div>			
+			<?php
+			endforeach;
+			?>
+		</div>
+		<div class="card-footer">
+			<input type="hidden" name="id" value="<?=$data->id?>">
+			<button type="submit" class="btn btn-primary"><?=EDIT?></button>
+		</div>
 	</div>
-</div>
+</form>

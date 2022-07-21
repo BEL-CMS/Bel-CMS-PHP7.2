@@ -68,7 +68,7 @@ final class Notification
 
 		$render  = '<section class="belcms_notification">';
 		$render .= '<header class="belcms_notification_header '.$type.'">';
-		$render .= '<i class="fas fa-exclamation-triangle"></i>';
+		//$render .= '<i class="fas fa-exclamation-triangle"></i>';
 		$render .= '<span>'.$title.'</span>';
 		$render .= '</header>';
 		$render .= '<div class="belcms_notification_msg">';
@@ -92,7 +92,7 @@ final class Notification
 		$render .= '<section id="error">';
 		$render .= '<section class="belcms_notification">';
 		$render .= '<header class="belcms_notification_header '.$type.'">';
-		$render .= '<i class="fas fa-exclamation-triangle"></i>';
+		//$render .= '<i class="fas fa-exclamation-triangle"></i>';
 		$render .= '<span>'.$title.'</span>';
 		$render .= '</header>';
 		$render .= '<div class="belcms_notification_msg">';

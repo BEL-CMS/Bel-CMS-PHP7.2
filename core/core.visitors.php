@@ -201,7 +201,12 @@ final class Visitors extends Dispatcher
 	}
 
 	private function selfURL () {
-		$s = empty($_SERVER["HTTPS"]) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "";
+		//$s = empty($_SERVER["HTTPS"]) ? '' : $_SERVER["HTTPS"] == "on" ? "s" : "";
+		if (empty($_SERVER["HTTPS"])) {
+			$s = '';
+		} else if ($_SERVER["HTTPS"] == "on") {
+			$s = 's';
+		}
 		$protocol = self::strleft(strtolower($_SERVER["SERVER_PROTOCOL"]), "/").$s;
 		$port = ($_SERVER["SERVER_PORT"] == "80") ? "" : (":".$_SERVER["SERVER_PORT"]);
 		return $protocol."://".$_SERVER['SERVER_NAME'].$port.$_SERVER['REQUEST_URI'];

@@ -28,9 +28,9 @@ class Page extends AdminPages
 			}
 		}
 		$this->set($set);
-		$menu[] = array('Accueil'=> array('href'=>'/page?management&page=true','icon'=>'fa fa-home'));
-		$menu[] = array('Configuration'=> array('href'=>'/page/parameter?management&page=true','icon'=>'fa fa-cubes'));
-		$menu[] = array(ADD=> array('href'=>'/page/add?management&page=true','icon'=>'fa fa-plus'));
+		$menu[] = array('Accueil'=> array('href'=>'/page?management&pages','icon'=>'fa fa-home'));
+		$menu[] = array('Configuration'=> array('href'=>'/page/parameter?management&pages','icon'=>'fa fa-cubes'));
+		$menu[] = array(ADD=> array('href'=>'/page/add?management&pages','icon'=>'fa fa-plus'));
 		$this->render('index', $menu);
 	}
 
@@ -45,9 +45,13 @@ class Page extends AdminPages
 
 	public function add ()
 	{
+		$menu[] = array('Accueil'=> array('href'=>'/page?management&pages','icon'=>'fa fa-home'));
+		$menu[] = array('Configuration'=> array('href'=>'/page/parameter?management&pages','icon'=>'fa fa-cubes'));
+		$menu[] = array(ADD=> array('href'=>'/page/add?management&pages','icon'=>'fa fa-plus'));
 		$data['groups'] = BelCMSConfig::getGroups();
+		$data['data']   = $this->ModelsPage->getPages();
 		$this->set($data);
-		$this->render('addpage');
+		$this->render('addpage', $menu);
 	}
 
 	public function edit ($id)
@@ -63,11 +67,11 @@ class Page extends AdminPages
 	{
 		if (empty($_POST['name'])) {
 			$this->error(get_class($this), 'Aucun nom', 'error');
-			$this->redirect('page?management&page=true', 2);
+			$this->redirect('page?management&pages', 2);
 		} else {
 			$return = $this->ModelsPage->addNewPage($_POST);
 			$this->error(get_class($this), $return['text'], $return['type']);
-			$this->redirect('page?management&page=true', 2);			
+			$this->redirect('page?management&pages', 2);			
 		}
 	}
 
@@ -75,7 +79,7 @@ class Page extends AdminPages
 	{
 		$return = $this->ModelsPage->sendedit ($_POST);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('page?management&page=true', 2);
+		$this->redirect('page?management&pages', 2);
 	}
 
 	public function addsubpage ($id)
@@ -89,7 +93,7 @@ class Page extends AdminPages
 	{
 		$return = $this->ModelsPage->sendnewsub ($_POST);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('page?management&page=true', 2);
+		$this->redirect('page?management&pages', 2);
 	}
 
 	public function subpageedit ($id)
@@ -104,7 +108,7 @@ class Page extends AdminPages
 	{	
 		$return = $this->ModelsPage->sendeditsub ($_POST);		
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('page?management&page=true', 2);
+		$this->redirect('page?management&pages', 2);
 	}
 
 	public function delsubpage ($id = false)
@@ -112,7 +116,7 @@ class Page extends AdminPages
 		$id = (int) $id;
 		$return = $this->ModelsPage->deletesub($id);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('page?management&page=true', 2);
+		$this->redirect('page?management&pages', 2);
 	}
 
 	public function deleteAll ($id)
@@ -120,21 +124,22 @@ class Page extends AdminPages
 		$id  = (int) $id;
 		$return = $this->ModelsPage->deleteAll($id);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('page?management&page=true', 2);
+		$this->redirect('page?management&pages', 2);
 	}
 
 	public function parameter ()
 	{
 		$data['groups'] = BelCMSConfig::getGroups();
 		$data['config'] = BelCMSConfig::GetConfigPage(get_class($this));
+		$menu[] = array('Accueil'=> array('href'=>'/page?management&pages','icon'=>'fa fa-home'));
 		$this->set($data);
-		$this->render('parameter');
+		$this->render('parameter', $menu);
 	}
 
 	public function sendparameter ()
 	{
 		$return = $this->ModelsPage->sendparameter($_POST);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('Page?management&page=true', 2);
+		$this->redirect('Page?management&pages', 2);
 	}
 }

@@ -14,7 +14,7 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<section id="belcms_forum">
+<section class="section_bg" id="belcms_forum">
 	<?php
 	if (Users::getInfosUser($_SESSION['USER']['HASH_KEY']) !== false):
 		?>

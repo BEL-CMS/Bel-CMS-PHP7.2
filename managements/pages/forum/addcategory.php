@@ -1,91 +1,116 @@
-<div class="row">
-	<div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="block">
-            <div class="block-title">
-                <h2>Edition <?=CATEGORY?></h2>
-            </div>
-			<form action="/Forum/send?management&page=true" method="post" class="form-horizontal form-bordered">
-				<div class="form-group">
-					<label for="input-title" class="col-sm-2 control-label"><?=TITLE?></label>
-					<div class="col-sm-10">
-						<input name="title" placeholder="Titre de la catégorie" type="text" class="form-control" id="input-title" equired="required">
+<?php
+/**
+ * Bel-CMS [Content management system]
+ * @version 1.0.0
+ * @link https://bel-cms.be
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @copyright 2014-2019 Bel-CMS
+ * @author as Stive - stive@determe.be
+ */
+
+if (!defined('CHECK_INDEX')) {
+	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
+	exit(ERROR_INDEX);
+}
+?>
+<form action="/Forum/send?management&pages" method="post">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">Ajouter une Catégories</h3>
+					<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+							<i class="fas fa-minus"></i>
+						</button>
 					</div>
 				</div>
-
-				<div class="form-group">
-					<label for="input-subtitle" class="col-sm-2 control-label"><?=SUBTITLE?></label>
-					<div class="col-sm-10">
+				<div class="card-body">
+					<div class="form-group">
+						<label for="input-title" class="control-label"><?=TITLE?></label>
+						<input name="title" placeholder="Titre de la catégorie" type="text" class="form-control" id="input-title" required="required">
+					</div>
+					<div class="form-group">
+						<label for="input-subtitle" class="control-label"><?=SUBTITLE?></label>
 						<input name="subtitle" placeholder="Sous-titre de la catégorie" type="text" class="form-control" id="input-subtitle">
 					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="input-orderby" class="col-sm-2 control-label"><?=ORDER?></label>
-					<div class="col-sm-10">
+					<div class="form-group">
+						<label for="input-orderby" class="control-label"><?=ORDER?></label>
 						<input name="orderby" placeholder="1" min="1" type="number" class="form-control" id="input-orderby">
 					</div>
-				</div>
-
-
-				<div class="form-group">
-					<label for="label_icon" class="col-sm-2 control-label"><?=ACTIVE?></label>
-					<div class="col-sm-10">
-						<input checked="checked" name="activate" id="label_actif" value="1" type="radio"><?=ACTIVATE?>
-						<input name="activate" id="label_actif" value="0" type="radio"><?=DISABLE?>
+					<div class="form-group">
+						<div class="icheck-primary d-inline"></div>
+						<input data-bootstrap-switch value="1" type="checkbox" name="activate">
 					</div>
 				</div>
-
-				<div class="form-group">
-					<label class="col-sm-2 control-label">Accès aux Administrateurs</label>
-					<div class="col-sm-10">
-						<?php
-						foreach ($groups as $k => $v):
-							$checked = ($v['id'] == 1) ? 'checked="checked"' : '';
-							?>
-							<div class="input-group">
-								<span class="input-group-addon">
-									<input name="access_admin[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
-								</span>
-								<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
-							</div>
-							<?php
-						endforeach;
-						?>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">Accès aux Administrateurs</h3>
+					<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+							<i class="fas fa-minus"></i>
+						</button>
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label">Accès aux groupes</label>
-					<div class="col-sm-10">
-						<?php
-						$visitor = constant('VISITORS');
-						//$groups->$visitor = 0;
-						foreach ($groups as $k => $v):
-							$checked = ($v['id'] == 1) ? 'checked="checked"' : '';
-							?>
-							<div class="input-group">
-								<span class="input-group-addon">
-									<input name="access_groups[]" value="<?=$v["id"]?>" type="checkbox" <?=$checked?>>
-								</span>
-								<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
-							</div>
-							<?php
-						endforeach;
-						?>
-							<div class="input-group">
-								<span class="input-group-addon">
-									<input name="access_groups[]" value="0" type="checkbox">
-								</span>
-								<input type="text" class="form-control" disabled="disabled" value="<?=$visitor?>">
-							</div>
+				<div class="card-body">
+					<?php
+					foreach ($groups as $k => $v):
+						$checked = $v['id'] == 1 ? 'checked readonly' : '';
+					?>
+					<div class="form-group">
+						<div class="icheck-primary d-inline">
+							<input data-bootstrap-switch id="<?=$v['id']?>" name="access_admin[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
+							<label class="control-label" for="<?=$v['id']?>"><?=$k?></label>
+						</div>
+					</div>
+					<?php
+					endforeach;
+					?>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">Accès aux groupes</h3>
+					<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+							<i class="fas fa-minus"></i>
+						</button>
 					</div>
 				</div>
+				<div class="card-body">
+				<?php
+				$visitor = constant('VISITORS');
+				$groups->$visitor = 0;
+				foreach ($groups as $k => $v):
+					$checked = $v['id'] == 1 ? 'checked readonly' : '';
+					?>
+					<div class="form-group">
+						<div class="icheck-primary d-inline">
+							<input data-bootstrap-switch name="access_groups[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
+							<label control-label" for="<?=$v['id']?>"><?=$k?></label>
+						</div>
+					</div>
+					<?php
+				endforeach;
+				?>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
 				<div class="form-group form-actions">
 					<div class="col-sm-9 col-sm-offset-3">
 						<input type="hidden" name="send" value="addcat">
 						<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> <?=SAVE?></button>
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
 	</div>
-</div>
+</form>

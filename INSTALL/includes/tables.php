@@ -157,11 +157,12 @@ switch ($table) {
 			PRIMARY KEY (`id`),
 			UNIQUE KEY `name` (`name`),
 			UNIQUE KEY `id_group` (`id_group`),
-			`color` varchar(128) NOT NULL DEFAULT '#000000'
+			`color` varchar(128) NOT NULL DEFAULT '#000000',
+			`image` text
 		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
-		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `name`, `id_group`, `color`) VALUES
-			(NULL, 'ADMINISTRATORS', 1, '#ff6e00'),
-			(NULL, 'MEMBERS', 2, '#052ba0');";
+		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `name`, `id_group`, `color`, `image`) VALUES
+			(1, 'ADMINISTRATORS', 1, '#ff6e00', 'NULL'),
+			(2, 'MEMBERS', 2, '#052ba0', 'NULL');";
 	break;
 
 	case 'inbox':
@@ -310,7 +311,7 @@ switch ($table) {
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`name` varchar(64) NOT NULL,
-			`content` longtext NOT NULL,
+			`groups` int(11) NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	break;

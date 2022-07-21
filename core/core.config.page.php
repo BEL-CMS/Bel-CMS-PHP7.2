@@ -156,7 +156,7 @@ class Pages
 		return $return;
 	}
 
-	function pagination ($nbpp = 5, $page, $table, $where = false)
+	function pagination ($nbpp = '5', $page, $table, $where = false)
 	{
 		$management  = defined('MANAGEMENT') ? '?management&' : '?';
 		$current     = (int) Dispatcher::RequestPages();

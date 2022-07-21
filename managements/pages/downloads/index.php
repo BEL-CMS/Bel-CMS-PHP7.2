@@ -14,11 +14,11 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<div class="block full">
-    <div class="block-title">
-        <h2><strong>Télécharments</strong></h2>
-    </div>
-	<div class="table-responsive">
+<div class="card">
+	<div class="card-header">
+		<h3 class="card-title">Télécharments</h3>
+	</div>
+	<div class="card-body">
 		<table class="DataTableBelCMS table table-vcenter table-condensed table-bordered">
 			<thead>
 				<tr>
@@ -48,7 +48,7 @@ if (!defined('CHECK_INDEX')) {
 						<td><?=Common::TransformDate($v->date, 'MEDIUM', 'SHORT')?></td>
 						<td><?=Users::hashkeyToUsernameAvatar($v->uploader)?></td>
 						<td>
-							<a href="/downloads/edit/<?=$v->id?>?management&page=true" class="btn btn btn-primary btn-sm mb-1">Edit</a>
+							<a href="/downloads/edit/<?=$v->id?>?management&pages" class="btn btn btn-primary btn-sm mb-1">Edit</a>
 							<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>" class="btn btn btn-danger btn-sm mb-1">Supprimer</a>
 							<div class="modal fade" id="modal_<?=$v->id?>" tabindex="-1" role="dialog" aria-labelledby="DownloadsModalLabel">
 								<div class="modal-dialog" role="document">
@@ -60,7 +60,7 @@ if (!defined('CHECK_INDEX')) {
 										<div class="modal-body">Confirmer la suppression du fichier : <?=$v->name?></div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-											<button onclick="window.location.href='/downloads/del/<?=$v->id?>?management&page=true'" type="button" class="btn btn-primary">Supprimer</button>
+											<button onclick="window.location.href='/downloads/del/<?=$v->id?>?management&pages'" type="button" class="btn btn-primary">Supprimer</button>
 										</div>
 									</div>
 								</div>
@@ -71,6 +71,6 @@ if (!defined('CHECK_INDEX')) {
 				endforeach;
 				?>
 			</tbody>
-		</table>  
+		</table>
 	</div>
 </div>

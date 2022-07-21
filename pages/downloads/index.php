@@ -14,7 +14,7 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<section id="section_bel_cms_donwloads">
+<section class="section_bg" id="section_bel_cms_donwloads">
 	<div class="card mb-3">
 		<div class="card-body"><?=DOWNLOADS?></div>
 	</div>

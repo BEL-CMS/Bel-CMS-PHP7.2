@@ -163,17 +163,20 @@ class ModelsForum
 	}
 	public function GetThreadName ($id = null)
 	{
-			$sql = New BDD();
-			$sql->table('TABLE_FORUM_THREADS');
-			$whereThreads = array(
-				'name'  => 'id',
-				'value' => (int) $id
-			);
-			$sql->where($whereThreads);
-			$sql->fields('title');
-			$sql->queryOne();
-			$return = $sql->data;
-			return $return;		
+		$sql = New BDD();
+		$sql->table('TABLE_FORUM_THREADS');
+		$whereThreads = array(
+			'name'  => 'id',
+			'value' => (int) $id
+		);
+		$sql->where($whereThreads);
+		$sql->fields('title');
+		$sql->queryOne();
+		$return = $sql->data;
+		if (empty($return)) {
+			$return = null;
+		}
+		return $return;
 	}
 	
 	#####################################

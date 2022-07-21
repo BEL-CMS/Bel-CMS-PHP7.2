@@ -1,60 +1,73 @@
-<div class="row">
-	<div class="col-lg-12 col-md-12 col-sm-12">
-		<div class="block full">
-		    <div class="block-title">
-		        <h2><strong>Menu page</strong> forum</h2>
-		    </div>
-			<div class="table-responsive">
-				<form action="/Forum/send?management&page=true" method="post" class="form-horizontal">
+<?php
+/**
+ * Bel-CMS [Content management system]
+ * @version 1.0.0
+ * @link https://bel-cms.be
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @copyright 2014-2019 Bel-CMS
+ * @author as Stive - stive@determe.be
+ */
+
+if (!defined('CHECK_INDEX')) {
+	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
+	exit(ERROR_INDEX);
+}
+?>
+<form action="/Forum/send?management&pages" method="post" class="form-horizontal">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">Forum</h3>
+					<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+							<i class="fas fa-minus"></i>
+						</button>
+					</div>
+				</div>
+				<div class="card-body">
 					<div class="form-group">
-						<label for="label_title" class="col-sm-2 control-label"><?=TITLE?></label>
-						<div class="col-sm-10">
-							<input name="title" class="form-control" id="label_title" type="text" required="required" placeholder="Titre du forum">
-						</div>
+						<label for="label_title" control-label"><?=TITLE?></label>
+						<input name="title" class="form-control" id="label_title" type="text" required="required" placeholder="Titre du forum">
 					</div>
 
 					<div class="form-group">
-						<label for="label_subtitle" class="col-sm-2 control-label"><?=SUBTITLE?></label>
-						<div class="col-sm-10">
-							<input name="subtitle" class="form-control" id="label_subtitle" type="text" required="required" placeholder="Sous-titre du forum">
-						</div>
+						<label for="label_subtitle" control-label"><?=SUBTITLE?></label>
+						<input name="subtitle" class="form-control" id="label_subtitle" type="text" required="required" placeholder="Sous-titre du forum">
 					</div>
 
 					<div class="form-group">
 						<label for="label_orderby" class="col-sm-2 control-label"><?=ORDER?></label>
-						<div class="col-sm-10">
-							<input name="orderby" class="form-control" id="label_orderby" type="number" required="required" placeholder="1" min="1">
-						</div>
+						<input name="orderby" class="form-control" id="label_orderby" type="number" required="required" placeholder="1" min="1">
 					</div>
 
 					<div class="form-group">
 						<label for="label_icon" class="col-sm-2 control-label"><?=VIEW?> <a target="_blank" href="https://fontawesome.com/icons?d=gallery&m=free"><?=ICON?></a></label>
-						<div class="col-sm-10">
-							<input name="icon" class="form-control" id="label_icon" type="text" placeholder="fa fa-code">
-						</div>
+						<input name="icon" class="form-control" id="label_icon" type="text" placeholder="fa fa-code">
 					</div>
 
 					<div class="form-group">
 						<label for="label_orderby" class="col-sm-2 control-label"><?=CATEGORY?></label>
-						<div class="col-sm-10">
-							<select required="required" name="id_forum" class="form-control">
-								<?php
-								foreach ($data as $v):
-									echo '<option value="'.$v->id.'">'.$v->title.'</option>';
-								endforeach;
-								?>
-							</select>
-						</div>
+						<select required="required" name="id_forum" class="form-control">
+							<?php
+							foreach ($data as $v):
+								echo '<option value="'.$v->id.'">'.$v->title.'</option>';
+							endforeach;
+							?>
+						</select>
 					</div>
+
 					<div class="form-actions">
 						<input type="hidden" name="send" value="addforum">
 					</div>
-					<div class="form-group form-actions">
+
+					<div class="card-footer">
 						<div class="col-sm-9 col-sm-offset-3">
 							<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> <?=SAVE?></button>
 						</div>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>

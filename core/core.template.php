@@ -200,14 +200,17 @@ final class Template  extends Dispatcher
 		$files[] = 'assets/styles/belcms.notification.css';
 		/* BOOTSTRAP 4.1.3 */
 		$files[] = 'assets/plugins/bootstrap-4.1.3/css/bootstrap.min.css';
-		/* FONTAWASOME 5.4.2 ALL */
-		$files[] = 'assets/plugins/fontawesome-5.8.2/css/all.min.css';
+		/* FONTAWASOME 6.1.1 ALL */
+		$files[] = 'assets/plugins/fontawesome-6.1.1/css/all.min.css';
 		/* Jquery UI 1.12.1 */
 		$files[] = 'assets/plugins/jquery_ui-1.12.1/css/jquery-ui.min.css';
 		$files[] = 'assets/plugins/jquery_ui-1.12.1/css/jquery-ui.structure.min.css';
 		/* tipped 4.6.1 */
 		$files[] = 'assets/plugins/tipped/tipped.css';
-
+		/* custom css template */
+		if (is_file(DIR_TPL.CMS_TPL_WEBSITE.DS.'custom/custom.css')) {
+			$files[] = DIR_TPL.CMS_TPL_WEBSITE.DS.'custom/custom.css';
+		}
 		/* WIDGETS STYLE */
 		$widgets = Widgets::getCssStyles ();
 		foreach ($widgets  as $v) {
@@ -240,8 +243,14 @@ final class Template  extends Dispatcher
 		$files[] = 'assets/plugins/bootstrap-4.1.3/js/bootstrap.min.js';
 		/* Jquery UI 1.12.1 */
 		$files[] = 'assets/plugins/jquery_ui-1.12.1/js/jquery-ui.min.js';
+		/* FONTAWASOME 6.1.1 ALL */
+		$files[] = 'assets/plugins/fontawesome-6.1.1/js/all.min.js';
 		/* tipped 4.6.1 */
 		$files[] = 'assets/plugins/tipped/tipped.js';
+		/* custom css template */
+		if (is_file(DIR_TPL.CMS_TPL_WEBSITE.DS.'custom/custom.js')) {
+			$files[] = DIR_TPL.CMS_TPL_WEBSITE.DS.'custom/custom.js';
+		}
 		/* WIDGETS Javascript (jquery) */
 		$widgets = Widgets::getJsJavascript ();
 		foreach ($widgets  as $v) {

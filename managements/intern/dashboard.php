@@ -1,4 +1,5 @@
 <?php
+$microTime = microtime(true);
 /**
  * Bel-CMS [Content management system]
  * @version 1.0.0
@@ -14,6 +15,9 @@ $ds = disk_total_space(ROOT);
 $resultat_space = (100 - ($df *100/$ds));
 $pourcent_space = round($resultat_space); // Arrondi la valeur
 $false = true;
+//echo Common::ConvertSize($df);
+//echo Common::ConvertSize($ds);
+
 /* end usage disk */
 /* usage ram */
 	function getServerMemoryUsage($getPercentage=true)
@@ -126,105 +130,154 @@ function lastInteraction ()
 		$sql->queryAll();
 		return $sql->data;
 }
+function getNbVisitors()
+{
+	$result = 0;
+
+	$sql = New BDD();
+	$sql->table('TABLE_USERS');
+	$sql->count();
+	return $sql->data;
+}
+function getNbNews()
+{
+	$result = 0;
+
+	$sql = New BDD();
+	$sql->table('TABLE_PAGES_BLOG');
+	$sql->count();
+	return $sql->data;
+}
+function getNbComments()
+{
+	$result = 0;
+
+	$sql = New BDD();
+	$sql->table('TABLE_COMMENTS');
+	$sql->count();
+	return $sql->data;
+}
+function getNbDl()
+{
+	$result = 0;
+
+	$sql = New BDD();
+	$sql->table('TABLE_DOWNLOADS');
+	$sql->count();
+	return $sql->data;
+}
+
 ?>
-<div id="page-content">
-	<ul class="breadcrumb breadcrumb-top">
-		<li>Index</li>
-	</ul>
-	<div class="row">
-		<div class="col-md-6">
-			<div class="block">
-				<div class="block-title">
-					<div class="block-options pull-right">
-						 <a href="activites?management&parameter=true" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="" data-original-title="Activities plus"><i class="fa fa-plus-circle"></i></a>
-					</div>
-					<h2>Activities</h2>
-				</div>
-				<div class="table-responsive">
-					<table  class="table table-vcenter table-striped">
-						<thead>
-							<tr>
-								<th></th>
-								<th>Date</th>
-								<th>Utilisateurs</th>
-								<th>Sujet</th>
-							</tr>
-						</thead>
-						<tbody>
-						<?php
-						foreach (lastInteraction() as $k => $v):
-							$timeline = ($v->type == 'success') ? '<i class="fa fas fa-check-circle bg-success"></i>' : '<i class="fa fas fa-exclamation-circle bg-error"></i>';
-						?>
-						<tr>
-							<td><?=$timeline?></td>
-							<td><?=Common::TransformDate($v->date, 'MEDIUM', 'NONE')?></td>
-							<td><a style="color: <?php echo Users::colorUsername($v->author)?>" href="#"><?=Users::hashkeyToUsernameAvatar($v->author)?></a></td>
-							<td><?=$v->text?></td>
-						</tr>
-						<?php
-						endforeach;
-						?>
-						</tbody>
-					</table>
-				</div>
-			</div>
+<div class="row">
+  <div class="col-md-4" style="margin: 25px;">
+	<div class="card card-widget widget-user-2">
+	  <div class="widget-user-header bg-warning">
+		<div class="widget-user-image">
+			<?php
+			if (Users::getUserName(false)) {
+				$avatar = Users::getUserName(false);
+			} else {
+				$avatar = '/assets/images/default_avatar.jpg';
+			}
+			?>
+		  <img class="img-circle elevation-2" src="/<?=$avatar?>">
 		</div>
-		<div class="col-md-6">
-			<div class="block">
-				<div class="block-title">
-					<h2>Login récents</h2>
-				</div>
-				<div class="table-responsive">
-				<table  class="table table-vcenter table-striped">
-					<thead>
-						<tr>
-							<th>Utilisateurs</th>
-							<th>Date</th>
-						</tr>
-					</thead>
-					<tbody>
-					<?php
-					foreach (lastConnected() as $k => $v):
-					?>
-					<tr>
-						<td style="color: <?=Users::colorUsername(null, $v->username)?>"><?=$v->username?></td>
-						<td><?=$v->last_visit?></td>
-					</tr>
-					<?php
-					endforeach;
-					?>
-					</tbody>
-				</table>
-				</div>
-			</div>
-		</div>
+	  </div>
+	  <div class="card-footer p-0">
+		<ul class="nav flex-column">
+		  <li class="nav-item">
+			<a href="#" class="nav-link">
+			  Pseudo <span class="float-right badge"><?=Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY'])?></span>
+			</a>
+		  </li>
+		  <li class="nav-item">
+			<a href="#" class="nav-link">
+			  Votre IP <span class="float-right badge"><?=Common::GetIp();?></span>
+			</a>
+		  </li>
+		  <li class="nav-item">
+			<a href="#" class="nav-link">
+			  Port <span class="float-right badge"><?=$_SERVER['SERVER_PORT'];?></span>
+			</a>
+		  </li>
+		  <li class="nav-item">
+			<a href="#" class="nav-link">
+			  Chargement de la page
+			  <span class="float-right badge">
+				<?php
+				$time = (microtime(true) - $microTime);
+				echo round($time, 3);?> Secondes</span>
+			</a>
+		  </li>
+		</ul>
+	  </div>
 	</div>
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="card">
-				<div class="row">
-					<div class="col-6 border-right">
-						<div class="card-body iconfont text-center">
-							<h5 class="text-muted">Resource de la machine</h5>
-							<h1 class="mt-4 text-dark mainvalue"><?=Common::ConvertSize($ds)?></h1>
-							<p><span class="text-purple"><i class="fa fa-arrow-up text-success mr-1"> </i><?=Common::ConvertSize($df)?> (<?=100-$pourcent_space?>%) </span> restant</p>
-						</div>
-					</div>
-					<div class="col-6">
-						<div class="card-body iconfont text-center">
-						<?php
-						echo sprintf("Mémoire utiliser: %s / %s (%s%%)",
-						getNiceFileSize($memUsage["total"] - $memUsage["free"]),
-						getNiceFileSize($memUsage["total"]),
-						getServerMemoryUsage(true));
-						if (PHP_OS == 'Linux') {
-							exec("free -mtl", $output);
-							debug($output);
-						}
-						?>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+  </div>
+
+ </div>
+<div class="row">
+  <div class="col-lg-3 col-6">
+	<!-- small card -->
+	<div class="small-box bg-info">
+	  <div class="inner">
+		<h3><?=getNbVisitors();?></h3>
+		<p>Membres</p>
+	  </div>
+	  <div class="icon">
+		<i class="fas fa-user-plus"></i>
+	  </div>
+	  <a href="/users?management&page=true" class="small-box-footer">
+		Voir tout les utilisateurs <i class="fas fa-arrow-circle-right"></i>
+	  </a>
 	</div>
+  </div>
+  <!-- ./col -->
+  <div class="col-lg-3 col-6">
+	<!-- small card -->
+	<div class="small-box bg-success">
+	  <div class="inner">
+		<h3><?=getNbNews();?></h3>
+		<p>News</p>
+	  </div>
+	  <div class="icon">
+		<i class="fa-solid fa-file-circle-plus"></i>
+	  </div>
+	  <a href="/blog/add?management&page=true" class="small-box-footer">
+		Ajouté une news <i class="fas fa-arrow-circle-right"></i>
+	  </a>
+	</div>
+  </div>
+  <!-- ./col -->
+  <div class="col-lg-3 col-6">
+	<!-- small card -->
+	<div class="small-box bg-warning">
+	  <div class="inner">
+		<h3><?=getNbComments();?></h3>
+		<p>Commentaires</p>
+	  </div>
+	  <div class="icon">
+		<i class="fa-solid fa-comment-dots"></i>
+	  </div>
+	  <a href="#" class="small-box-footer">
+		Voir les commentaires <i class="fas fa-arrow-circle-right"></i>
+	  </a>
+	</div>
+  </div>
+  <!-- ./col -->
+  <div class="col-lg-3 col-6">
+	<!-- small card -->
+	<div class="small-box bg-danger">
+	  <div class="inner">
+		<h3><?=getNbDl();?></h3>
+		<p>Téléchargements</p>
+	  </div>
+	  <div class="icon">
+		<i class="fa-solid fa-download"></i>
+	  </div>
+	  <a href="/downloads/add?management&page=true" class="small-box-footer">
+		Ajouter <i class="fas fa-arrow-circle-right"></i>
+	  </a>
+	</div>
+  </div>
+  <!-- ./col -->
+</div>

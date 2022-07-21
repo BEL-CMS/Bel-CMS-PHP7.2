@@ -14,16 +14,16 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<div id="bel_cms_members_index" class="card">
-	<div class="card-header"><?=MEMBERS?></div>
-	<div class="card-body">
-		<table class="table table-striped table-bordered">
+<div id="bel_cms_members_index" class="section_bg card">
+	<div class="card-header" style="background-color:<?=COLOR_TOP;?>"><?=MEMBERS?></div>
+	<div class="card-body" style="background-color:<?=COLOR_BODY;?>">
+		<table class="table <?=TYPE_TABLE;?>" style="color:<?=COLOR_TEXT;?>">
 			<thead>
 				<tr>
 					<th><?=USERNAME?></th>
-					<th class="d-none d-lg-block"><?=LAST_VISIT?></th>
+					<th><?=LAST_VISIT?></th>
 					<th><?=LOCATION?></th>
-					<th class="d-none d-lg-block"><?=GENDER?></th>
+					<th><?=GENDER?></th>
 					<th><?=WEBSITE?></th>
 				</tr>
 			</thead>
@@ -58,9 +58,9 @@ if (!defined('CHECK_INDEX')) {
 						?>
 						<tr>
 							<td><a href="Members/View/<?=$v->username?>"><?=$v->username?></a></td>
-							<td class="d-none d-lg-block"><?=Common::TransformDate($v->last_visit, 'FULL', 'MEDIUM')?></td>
+							<td><?=Common::TransformDate($v->last_visit, 'FULL', 'MEDIUM')?></td>
 							<td><span class="<?=$flag?>"></span><span style="padding-left: 10px;"><?=$country?></span></td>
-							<td class="d-none d-lg-block"><?=$gender?></td>
+							<td><?=$gender?></td>
 							<td><?=$websites?></td>
 						</tr>
 					<?php

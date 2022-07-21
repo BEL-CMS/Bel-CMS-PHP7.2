@@ -24,10 +24,10 @@ class Downloads extends AdminPages
 		$d['data']  = $this->ModelsDownloads->getAllDl();
 		$d['count'] = count($d['data']);
 		$this->set($d);
-		$menu[] = array('Accueil'=> array('href'=>'/downloads?management&page=true','icon'=>'fa fa-home'));
-		$menu[] = array('Ajouter'=> array('href'=>'/downloads/add?management&page=true','icon'=>'fa fa-plus'));
-		$menu[] = array('Câtegories'=> array('href'=>'/downloads/cat?management&page=true','icon'=>'fa fa-cogs'));
-		$menu[] = array('Configuration'=> array('href'=>'/downloads/parameter?management&page=true','icon'=>'fa fa-cubes'));
+		$menu[] = array('Accueil'=> array('href'=>'/downloads?management&pages','icon'=>'fa fa-home'));
+		$menu[] = array('Ajouter'=> array('href'=>'/downloads/add?management&pages','icon'=>'fa fa-plus'));
+		$menu[] = array('Catégories'=> array('href'=>'/downloads/cat?management&pages','icon'=>'fa fa-cogs'));
+		$menu[] = array('Configuration'=> array('href'=>'/downloads/parameter?management&pages','icon'=>'fa fa-cubes'));
 		$this->render('index', $menu);
 	}
 
@@ -38,7 +38,7 @@ class Downloads extends AdminPages
 
 		if ($countCat == 0) {
 			$this->error(get_class($this), 'Une catégorie est obligatoire', 'warning');
-			$this->redirect('/downloads/addcat?management&page=true', 2);
+			$this->redirect('/downloads/addcat?management&pages', 2);
 
 		} else {
 			$d['cat'] = $cat;
@@ -53,7 +53,7 @@ class Downloads extends AdminPages
 		$countCat = count($cat);
 		if ($countCat == 0) {
 			$this->error(get_class($this), 'Une catégorie est obligatoire', 'warning');
-			$this->redirect('/downloads/addcat?management&page=true', 2);
+			$this->redirect('/downloads/addcat?management&pages', 2);
 
 		} else {
 			$d['data'] = $this->ModelsDownloads->getDL($id);
@@ -67,7 +67,7 @@ class Downloads extends AdminPages
 	{
 		$return = $this->ModelsDownloads->sendadd ($_POST);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('/downloads?management&page=true', 2);
+		$this->redirect('/downloads?management&pages', 2);
 	}
 
 	public function del ($id)
@@ -75,15 +75,20 @@ class Downloads extends AdminPages
 		$id = (int) $id;
 		$return = $this->ModelsDownloads->del($id);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('/downloads?management&page=true', 2);
+		$this->redirect('/downloads?management&pages', 2);
 	}
 
 	public function cat ()
 	{
+		$menu[] = array('Accueil'=> array('href'=>'/downloads?management&pages','icon'=>'fa fa-home'));
+		$menu[] = array('Ajouter Catégorie'=> array('href'=>'/downloads/addcat?management&page=true','icon'=>'fa fa-plus'));
+		$menu[] = array('Catégories'=> array('href'=>'/downloads/cat?management&page=true','icon'=>'fa fa-cogs'));
+		$menu[] = array('Configuration'=> array('href'=>'/downloads/parameter?management&pages','icon'=>'fa fa-cubes'));
+
 		$d['data']  = $this->ModelsDownloads->getCat();
 		$d['count'] = count($d['data']);
 		$this->set($d);
-		$this->render('cat');
+		$this->render('cat', $menu);
 	}
 
 	public function addcat ()
@@ -101,7 +106,7 @@ class Downloads extends AdminPages
 		} else {
 			$this->error(get_class($this), 'Le nom de la catégorie à déjà été pris', 'warning');
 		}
-		$this->redirect('/downloads/cat?management&page=true', 2);
+		$this->redirect('/downloads/cat?management&pages', 2);
 	}
 
 	public function editcat ($id)
@@ -116,14 +121,14 @@ class Downloads extends AdminPages
 	{
 		$return = $this->ModelsDownloads->sendeditcat($_POST);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('/downloads/cat?management&page=true', 2);
+		$this->redirect('/downloads/cat?management&pages', 2);
 	}
 
 	public function delcat ($id)
 	{
 		$return = $this->ModelsDownloads->delcat($id);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('/downloads/cat?management&page=true', 2);
+		$this->redirect('/downloads/cat?management&pages', 2);
 	}
 
 	public function parameter ()
@@ -131,7 +136,7 @@ class Downloads extends AdminPages
 		$data['groups'] = BelCMSConfig::getGroups();
 		$data['config'] = BelCMSConfig::GetConfigPage(get_class($this));
 		$this->set($data);
-		$menu[] = array('Accueil'=> array('href'=>'/downloads?management&page=true','icon'=>'fa fa-home'));
+		$menu[] = array('Accueil'=> array('href'=>'/downloads?management&pages','icon'=>'fa fa-home'));
 		$this->render('parameter', $menu);
 	}
 
@@ -139,7 +144,7 @@ class Downloads extends AdminPages
 	{
 		$return = $this->ModelsDownloads->sendparameter($_POST);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('/downloads?management&page=true', 2);
+		$this->redirect('/downloads?management&pages', 2);
 	}
 
 }

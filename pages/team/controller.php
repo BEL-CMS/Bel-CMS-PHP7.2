@@ -21,7 +21,11 @@ class Team extends Pages
 	public function index ()
 	{
 		$set['data'] = $this->ModelsTeam->getTeam();
-		$this->set($set);
-		$this->render('index');
+		if (empty($set['data'])) {
+			Notification::warning('Aucune Team enregistrer');
+		} else {
+			$this->set($set);
+			$this->render('index');
+		}
 	}
 }

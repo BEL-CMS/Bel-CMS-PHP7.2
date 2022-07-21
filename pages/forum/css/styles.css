@@ -1,3 +1,68 @@
+#belcms_main_forum {
+	display: block;
+	width: 100%;
+}
+
+#belcms_main_cadre {
+	display: block;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: #252F39;
+}
+.belcms_cadre_content {
+	border: 5px solid #1C262F;
+}
+.belcms_circle {
+	width: 65px;
+	height: 65px;
+	margin-left: 3px;
+}
+.belcms_main_forum_description {
+
+}
+.belcms_cadre_title {
+	color: #90a3c0;
+	font-weight: 300;
+	overflow: hidden;
+	font-size: 14px;
+	max-height: 100px;
+}
+.belcms_cadre_title h3 {
+	font-size: 15px;
+	font-weight: bold;
+	color: #D8335B;
+	margin: 0 !important;
+	padding-top: 15px;
+}
+.belcms_cadre_title img {
+	float: left;
+}
+.belcms_cadre_title span {
+	float: left;
+	position: absolute;
+	margin-left: 15px;
+	margin-right: 10px;
+	max-height: 50px;
+}
+.belcms_cadre_title hr {
+	color: #90a3c0;
+	background-color: #90a3c0;
+	border-color: #90a3c0;
+}
+.belcms_cadre_title .spanHr {
+ background: #f15f79;
+  background: -moz-linear-gradient(left, #f15f79 0%, #b24592 100%);
+  background: -webkit-linear-gradient(left, #f15f79 0%,#b24592 100%);
+  background: linear-gradient(to right, #f15f79 0%,#b24592 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f15f79', endColorstr='#b24592',GradientType=1 );
+}
+.belcms_cadre_title .spanHr:before {
+content: '';
+display: block;
+width: 60px;
+height: 2px;
+margin-bottom: 10px;
+}
 .clear_forum {
 	display: block;
 	clear: both;
@@ -6,7 +71,27 @@
 	margin: 3px;
 	padding: 0;
 	background: transparent;
+	background-color: #f15f79;
 }
+.belcms_main_content_p {
+	color: #90a3c0;
+	margin: 0;
+	margin-bottom: 5px;
+}
+.belcms_main_content_p:first-child {
+	font-weight: bold;
+	color: #f15f79;
+}
+
+
+
+
+
+
+
+
+
+
 .last_no {
 	line-height: 40px;
 }

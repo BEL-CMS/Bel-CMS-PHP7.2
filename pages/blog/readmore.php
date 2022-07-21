@@ -15,7 +15,7 @@ if (!defined('CHECK_INDEX')) {
 }
 $countComment = Comment::countComments('blog', $blog->id);
 ?>
-<article class="bel_cms_blog_readmore">
+<article class="section_bg bel_cms_blog_readmore">
 	<div class="card">
 		<div class="card-header"><h1><?=$blog->name?></h1></div>
 		<div class="card-body">

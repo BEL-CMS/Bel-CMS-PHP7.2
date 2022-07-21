@@ -20,10 +20,14 @@
 .pull-right {
 	float: right;
 }
+code,
 pre {
+	display: block;
 	background: rgb(66,66,66) !important;
 	color: rgb(232, 232, 232) !important;
 	padding: 20px;
+	width: 100% !important;
+	border-radius: .25rem;
 }
 section {
 	width: 100%;
@@ -32,6 +36,7 @@ section {
 /* ==========================================================================
    BEL-CMS # Alert
    ========================================================================== */
+#siteloader,
 #alrt_bel_cms {
 	background: rgba(0, 0, 0, 0.8);
 	text-align: center;
@@ -410,4 +415,33 @@ button:active {
 }
 textarea {
 	width: 100%;
+}
+/*#########################################
+# Arrow - fleche
+#########################################*/
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.arrow .right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.arrow .left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.arrow .up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.arrow .down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
 }

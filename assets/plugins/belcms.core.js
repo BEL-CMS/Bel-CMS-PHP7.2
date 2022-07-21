@@ -2,7 +2,6 @@ if (typeof jQuery === 'undefined') {
 	throw new Error('BEL-CMS requires jQuery')
 }
 (function($) {
-	console.log("Chargement BEL-CMS script Ok");
 	"use strict";
 
 	if ($("textarea").hasClass("bel_cms_textarea_simple")) {
@@ -31,7 +30,6 @@ if (typeof jQuery === 'undefined') {
 
 	bel_cms_private_message();
 
-
 	function disableselect(e){
 		return false
 	}
@@ -45,6 +43,9 @@ if (typeof jQuery === 'undefined') {
 		//document.onmousedown = disableselect
 		document.onclick = reEnable
 	}
+	
+	$('.tooltip').tooltip();
+
     $('.DataTableBelCMS').DataTable({
         "language":
 			{
@@ -75,10 +76,18 @@ if (typeof jQuery === 'undefined') {
 			        		"1": "1 ligne sélectionnée"
 			        	}  
 				}
-			}
+			},
+			order: [[0, 'desc']],
     });
 
-    	Tipped.create('.simple-tooltip');
+    $('.colorpicker').colorpicker();
+
+	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+	  return new bootstrap.Tooltip(tooltipTriggerEl)
+	})
+
+    console.log("Chargement BEL-CMS script Ok");
 
 })(jQuery);
 
