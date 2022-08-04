@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 1.0.0
- * @link https://bel-cms.be
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2014-2019 Bel-CMS
- * @author as Stive - stive@determe.be
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @copyright 2015-2022 Bel-CMS
+ * @author Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -14,7 +14,7 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<form action="/calendar/sendadd?management&pageS" enctype="multipart/form-data" method="post" class="form-horizontal">
+<form action="/calendar/sendadd?management&pages" enctype="multipart/form-data" method="post" class="form-horizontal">
 	<div class="card">
 		<div class="card-header">
 			<h3 class="card-title">Evénement</h3>
@@ -91,7 +91,7 @@ if (!defined('CHECK_INDEX')) {
 				<label class="col-sm-12 control-label padding-cell"></label>
 				<div class="col-sm-12 padding-cell">
 					<button name="save" type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> <?=SAVE?></button>
-					<a class="btn btn-default" href="/calendar?management&page=true"><i class="fa fa-times"></i> Annulé</a>
+					<a class="btn btn-default" href="/calendar?management&pages"><i class="fa fa-times"></i> Annulé</a>
 				</div>
 			</div>
 		</div>

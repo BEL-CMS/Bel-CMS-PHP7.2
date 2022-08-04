@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 1.0.0
- * @link https://bel-cms.be
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2014-2019 Bel-CMS
- * @author as Stive - stive@determe.be
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @copyright 2015-2022 Bel-CMS
+ * @author Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -207,9 +207,10 @@ final class Template  extends Dispatcher
 		$files[] = 'assets/plugins/jquery_ui-1.12.1/css/jquery-ui.structure.min.css';
 		/* tipped 4.6.1 */
 		$files[] = 'assets/plugins/tipped/tipped.css';
+		$files[] = 'assets/plugins/jquery.magnific-popup/magnific-popup.css';
 		/* custom css template */
 		if (is_file(DIR_TPL.CMS_TPL_WEBSITE.DS.'custom/custom.css')) {
-			$files[] = DIR_TPL.CMS_TPL_WEBSITE.DS.'custom/custom.css';
+			$files[] = DIR_TPL.CMS_TPL_WEBSITE.DS.'custom/custom.css?';
 		}
 		/* WIDGETS STYLE */
 		$widgets = Widgets::getCssStyles ();
@@ -217,11 +218,11 @@ final class Template  extends Dispatcher
 			$files[] = $v;
 		}
 		if (is_file(ROOT.'pages'.DS.$this->controller.DS.'css'.DS.'styles.css')) {
-			$files[] = 'pages'.DS.$this->controller.DS.'css'.DS.'styles.css';
+			$files[] = 'pages'.DS.$this->controller.DS.'css'.DS.'styles.css?';
 		}
 
 		foreach ($files as $v) {
-			$return .= '	<link href="'.$v.'" rel="stylesheet" type="text/css" media="all">'.PHP_EOL;
+			$return .= '	<link href="'.$v.'?" rel="stylesheet" type="text/css" media="all">'.PHP_EOL;
 		}
 
 		return trim($return);
@@ -247,6 +248,10 @@ final class Template  extends Dispatcher
 		$files[] = 'assets/plugins/fontawesome-6.1.1/js/all.min.js';
 		/* tipped 4.6.1 */
 		$files[] = 'assets/plugins/tipped/tipped.js';
+		/* Calendar year month */
+		$files[] = 'assets/plugins/calendar_lang/calendar.js';
+		/* jquery.magnific-popup */
+		$files[] = 'assets/plugins/jquery.magnific-popup/jquery.magnific-popup.js';
 		/* custom css template */
 		if (is_file(DIR_TPL.CMS_TPL_WEBSITE.DS.'custom/custom.js')) {
 			$files[] = DIR_TPL.CMS_TPL_WEBSITE.DS.'custom/custom.js';

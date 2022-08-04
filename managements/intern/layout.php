@@ -16,6 +16,7 @@
 			}
 		};
 	</script>
+	<link rel="stylesheet" href="/assets/styles/belcms.global.css">
 	<link rel="stylesheet" href="/assets/plugins/loading/loading.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 	<link rel="stylesheet" href="/assets/plugins/fontawesome-6.1.1/css/all.min.css">
@@ -25,15 +26,11 @@
 	<link rel="stylesheet" href="/assets/plugins/bootstrap-switch/css/bootstrap3/bootstrap-switch.min.css">
 	<link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 	<link rel="stylesheet" href="/assets/styles/belcms.notification.css">
-	<link rel="stylesheet" href="/managements/asset/js/jquery.magnific-popup.js">
-	<link rel="stylesheet" href="/managements/asset/js/quick-events.js">
 	<link rel="stylesheet" href="/managements/css/simple-line-icons.css">
 	<link rel="stylesheet" href="/managements/asset/css/magnific-popup.css">
 	<link rel="stylesheet" href="/managements/asset/css/quick-events.css">
 	<!-- Include css files -->
 	<link rel="stylesheet" href="/managements/asset/css/simple-line-icons.css">
-	<link rel="stylesheet" href="/managements/asset/css/magnific-popup.css">
-	<link rel="stylesheet" href="/managements/asset/css/quick-events.css">
 	<link rel="stylesheet" href="/managements/asset/css/demo.css">
 	<link href="https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap&subset=cyrillic" rel="stylesheet">
 	</head>
@@ -215,8 +212,8 @@
 		<script src="/assets/plugins/jquery-3.3.1/jquery-3.3.1.min.js" type="text/javascript"></script>
 		<script src="/assets/plugins/bootstrap-4.1.3/js/bootstrap.min.js" type="text/javascript"></script>
 		<script src="/assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-		<script src="/managements/asset/js/quick-events.js"></script>
-		<script src="/managements/asset/js/jquery.magnific-popup.js"></script>
+		<script src="/asset/plugins/calendar_lang/calendar.js"></script>
+		<script src="/pages/events/js/javascripts.js"></script>
 		<script src="/assets/plugins/colorpicker/js/bootstrap-colorpicker.min.js" type="text/javascript"></script>
 		<script src="/assets/plugins/tinymce/tinymce.min.js" type="text/javascript"></script>
 		<script src="/managements/asset/js/adminlte.min.js" type="text/javascript"></script>

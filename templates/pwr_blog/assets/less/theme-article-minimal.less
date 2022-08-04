@@ -1,0 +1,44 @@
+.article-minimal{
+	> .zui-section{
+		padding: 0 @section-h-padding;
+		> .inner{
+			padding: 25px;
+			margin-top: 50px;
+			border: 1px solid @color-light;
+			max-width: 800px;
+		}
+	}
+	.meta-title{
+		color: @color-text-light;
+		font-size: @s-text-size;
+	}
+	.author{
+		padding-left: 50px;
+		min-height: 50px;
+		position: relative;
+		> img{
+			border-radius: 50%;
+			width: 40px;
+			height: 40px;
+			left: 0;
+			top: 50%;
+			display: block;
+			margin: 0;
+			padding: 0;
+			position: absolute;
+			margin-top: -20px;
+		}
+	}
+	img.photo{
+		margin: 0 0 15px;
+		border-radius: @global-border-radius;
+	}
+}
+
+@media (max-width: @xs-size-max){
+	.article-minimal{
+		> .zui-section{
+			padding: 0 @section-h-padding-min;
+		}
+	}
+}

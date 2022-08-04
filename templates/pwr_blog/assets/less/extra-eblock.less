@@ -1,0 +1,93 @@
+@zui-eblock-color: contrast(@color-layout, darken(@color-layout, 10%), lighten(@color-layout, 10%));
+@zui-eblock-color-alt: contrast(@color-layout, darken(@color-layout, 30%), lighten(@color-layout, 30%));
+
+.zui-eblock{
+	margin: 15px 0;
+	padding: 20px;
+	border: 1px solid @zui-eblock-color;
+	border-radius: @global-border-radius;
+
+	.title{
+		font-size: 12px;
+		text-transform: uppercase;
+		margin: 20px 0 10px;
+		padding-left: 10px;
+		position: relative;
+		font-weight: 700;
+
+		&:first-child{
+			margin-top: 0;
+		}
+
+		&:before,
+		&:after{
+			content: " ";
+			position: absolute;
+			margin: 1px 0 0 -14px;
+			z-index: 10;
+		}
+		&:before{
+			top: 4px;
+			left: 4px;
+			height: 8px;
+			width: 8px;
+			border-radius: 8px;
+			background: @color-primary;
+			z-index: 11;
+		}
+		&:after{
+			top: 0;
+			left: 0;
+			height: 16px;
+			width: 16px;
+			border-radius: 16px;
+			border: 1px solid @zui-eblock-color-alt;
+		}
+	}
+	.element{
+		margin-bottom: 30px;
+		padding-bottom: 20px;
+		border-bottom: 1px solid @zui-eblock-color;
+		&:last-of-type{
+			margin-bottom: 0;
+			padding-bottom: 0;
+			border-bottom: 0;
+		}
+	}
+	pre{
+		margin: 0;
+	}
+}
+
+// Hard color
+// ------------------
+@hard-zui-eblock-color: contrast(@color-hard, darken(@color-hard, 10%), lighten(@color-hard, 10%));
+@hard-zui-eblock-color-alt: contrast(@color-hard, darken(@color-hard, 30%), lighten(@color-hard, 30%));
+
+.zui-eblock{
+	&.hard{
+		background: @color-hard;
+		border: 1px solid @hard-zui-eblock-color;
+
+		.title{
+			color: lighten(@color-hard, 65%);
+			&:before,
+			&:after{
+				background: @color-hard;
+			}
+			&:before{
+				background: @hard-zui-eblock-color-alt;
+			}
+			&:after{
+				border-color: @hard-zui-eblock-color-alt;
+			}
+		}
+		.element{
+			border-bottom-color: @hard-zui-eblock-color;
+		}
+		pre{
+			background: lighten(@color-hard, 15%);
+			color: lighten(@color-hard, 65%);
+		}
+	}
+}

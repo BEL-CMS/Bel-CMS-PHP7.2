@@ -1,0 +1,140 @@
+// ----------------------------------------------------------------------------
+// Colors
+// ----------------------------------------------------------------------------
+@color-layout:                 #fff;
+@color-primary:                #D8335B;
+@color-hot:                    #F44336;
+@color-cold:                   #0091EA;
+@color-hard:                   #262F35;
+@color-light:                  contrast(@color-layout, lighten(@color-layout, 10%), darken(@color-layout, 5%));
+@color-light-alt:              contrast(@color-layout, lighten(@color-layout, 20%), darken(@color-layout, 10%));
+@color-text-light:             contrast(@body-font-color, lighten(@body-font-color, 35%), darken(@body-font-color, 10%));
+
+// ----------------------------------------------------------------------------
+// Body
+// ----------------------------------------------------------------------------
+@body-bg-color:                @color-layout;
+@body-bg:                      @body-bg-color;
+@body-font-color:              contrast(@color-layout, #333, #fff);
+@body-font-size:               16px;
+@body-font-family:             -apple-system, BlinkMacSystemFont,
+                               "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+                               "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+// ----------------------------------------------------------------------------
+// Global
+// ----------------------------------------------------------------------------
+@global-padding:               10px;
+@global-padding-small:         unit( round(@global-padding / 2.5 ), px);
+@global-padding-large:         unit( round(@global-padding * 1.7 ), px);
+
+@global-line-height:           1.5;
+@global-margin-bottom:         unit( round( @body-font-size + 5% ), px);
+@global-border-radius:         3px;
+
+// ----------------------------------------------------------------------------
+// Grid
+// ----------------------------------------------------------------------------
+@grid-space:                   15px;
+@grid-nr-of-columns:           12;
+@grid-view-xs-string:          xs;
+@grid-view-sm-string:          sm;
+@grid-view-md-string:          md;
+@grid-view-lg-string:          lg;
+
+@xs-size:                      480px;
+@sm-size:                      768px;
+@md-size:                      980px;
+@lg-size:                      1200px;
+
+@xs-size-min:                  unit( (@xs-size + 1), px );
+@xs-size-max:                  unit( (@sm-size + 1), px );
+
+@sm-size-min:                  unit( (@sm-size + 1), px );
+@sm-size-max:                  unit( (@md-size + 1), px );
+
+@md-size-min:                  unit( (@md-size + 1), px );
+@md-size-max:                  unit( (@lg-size + 1), px );
+
+@lg-size-min:                  unit( (@lg-size + 1), px );
+@lg-size-max:                  unit( (@lg-size + 1), px );
+
+// -------------------------------------------------------------------------------
+// Button
+// -------------------------------------------------------------------------------
+@button-padding-y:             @global-padding;
+@button-padding-x:             unit( round( @button-padding-y*3 ), px);
+
+@button-font-size:             @body-font-size;
+@button-bg-color:              @color-primary;
+@button-text-color:            contrast(@button-bg-color, #333, #fff);
+@button-hover-bg:              darken(@color-primary, 10%);
+
+@button-border-radius:         @global-border-radius;
+@button-border-width:          0;
+@button-border-color:          transparent;
+@button-margin:                10px 10px 10px 0;
+
+@button-subtle-border-width:   1px;
+
+@button-disabled-bg:           contrast(@color-layout, lighten(@color-layout, 8%), darken(@color-layout, 8%));
+@button-disabled-color:        contrast(@color-layout, lighten(@color-layout, 25%), darken(@color-layout, 25%));
+
+// ----------------------------------------------------------------------------
+// Table
+// ----------------------------------------------------------------------------
+@table-border-width:           1px;
+@table-border-color:           @color-light-alt;
+
+// ----------------------------------------------------------------------------
+// Section
+// ----------------------------------------------------------------------------
+@content-width:                900px;
+@section-h-padding:            50px;
+@section-h-padding-min:        20px;
+
+@section-v-padding:            50px;
+
+@section-inner-margin:         0 auto;
+
+
+
+
+
+
+//Links
+@link-color:                    @color-primary;
+@link-hover-color:              lighten( @color-primary, 10% );
+
+// Smaller text
+@s-text-size:                   unit( round( @body-font-size * 0.9 ), px);
+
+// //Medium text
+@m-text-size:                   unit( round( @body-font-size * 1.4 ), px);
+
+// //Large text
+@xl-text-size:                  unit( round( @body-font-size * 3.2 ), px);
+@xxl-text-size:                 unit( round( @body-font-size * 3.6 ), px);
+@xxxl-text-size:                unit( round( @body-font-size * 4.2 ), px);
+
+// //Headings
+@h1-font-size:                  unit( round( @body-font-size * 2.6 ), px);
+@h2-font-size:                  unit( round( @body-font-size * 2.3 ), px);
+@h3-font-size:                  unit( round( @body-font-size * 2.1 ), px);
+@h4-font-size:                  unit( round( @body-font-size * 1.9 ), px);
+@h5-font-size:                  unit( round( @body-font-size * 1.7 ), px);
+@h6-font-size:                  unit( round( @body-font-size * 1.5 ), px);
+@heading-font-color:            darken(@body-font-color, 10%);
+@heading-font-family:           'Merriweather', serif;
+@heading-font-weight:           300;
+@heading-line-height:           1.35;
+
+// ----------------------------------------------------------------------------
+// Theme
+// ----------------------------------------------------------------------------
+@th-menu-button-top:           30px;
+@th-menu-button-size:          60px;
+@th-menu-button-bg:            #60646d;
+@th-menu-button-color:         #fff;
+
+@wrapper-left-width:           400px;

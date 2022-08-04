@@ -1,0 +1,41 @@
+.zui-button,
+a.zui-button,
+input[type="submit"],
+input[type="button"],
+button{
+	position: relative;
+	display: inline-block;
+	margin: @button-margin;
+	padding: unit(@button-padding-y, px) unit(@button-padding-x, px);
+	background: @button-bg-color;
+	color: @button-text-color;
+	border-width: @button-border-width;
+	border-style: solid;
+	border-color: @button-border-color;
+	border-radius: @button-border-radius;
+	text-decoration: none;
+	font-weight: 400;
+	text-shadow: none;
+	vertical-align: middle;
+	cursor: pointer;
+	line-height: @global-line-height;
+	.transition(background 0.25s, color 0.25s);
+
+	//Hover
+	&:hover{
+		background: @button-hover-bg;
+		color: @button-text-color;
+		border-color: darken(@button-border-color, 20%);
+	}
+
+	// Disabled
+	&.disabled,
+	&.disabled:hover,
+	&[disabled],
+	&[disabled]:hover{
+		background: @button-disabled-bg!important;
+		border-color: @button-disabled-bg!important;
+		cursor: not-allowed!important;
+		color: @button-disabled-color!important;
+	}
+}

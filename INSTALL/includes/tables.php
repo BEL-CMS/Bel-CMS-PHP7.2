@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 0.3.0
- * @link http://www.bel-cms.be
- * @link http://www.stive.eu
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
  * @license http://opensource.org/licenses/GPL-3.0 copyleft
- * @copyright 2014-2016 Bel-CMS
- * @author Stive - mail@stive.eu
+ * @copyright 2015-2022 Bel-CMS
+ * @author Stive - stive@determe.be
  */
 
 $error      = true;
@@ -65,6 +65,12 @@ switch ($table) {
 			(NULL, 'CMS_JQUERY', 'on'),
 			(NULL, 'CMS_JQUERY_UI', 'on'),
 			(NULL, 'CMS_BOOTSTRAP', 'on'),
+			(NULL, 'COLOR_TOP', ''),
+			(NULL, 'COLOR_BODY', ''),
+			(NULL, 'COLOR_BOTTOM', ''),
+			(NULL, 'COLOR_TEXT', ''),
+			(NULL, 'COLOR_LINK', ''),
+			(NULL, 'TYPE_TABLE', ''),
 			(NULL, 'DATE_INSTALL', '".time()."'),
 			(NULL, 'API_KEY', '".md5(uniqid(rand(), true))."');";
 	break;
@@ -82,7 +88,7 @@ switch ($table) {
 			UNIQUE KEY `name` (`name`)
 		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
 		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `name`, `active`, `access_groups`, `access_admin`, `config`) VALUES
-			(NULL, 'blog', 1, '0', '1', 'MAX_BLOG=2|MAX_BLOG_ADMIN=25'),
+			(NULL, 'articles', 1, '0', '1', 'MAX_ARTICLES=2|MAX_BLOG_ARTICLES=25'),
 			(NULL, 'members', 1, '0', '1', 'MAX_USER=10'),
 			(NULL, 'team', 1, '0', '1', 'MAX_USER=10'),
 			(NULL, 'shoutbox', 1, '0', '1', 'MAX_MSG=15'),
@@ -91,6 +97,7 @@ switch ($table) {
 			(NULL, 'page', 1, '0', '1', ''),
 			(NULL, 'downloads', 1, '0', '1', ''),
 			(NULL, 'inbox', 1, '0', '1', ''),
+			(NULL, 'events', 1, '0', '1', ''),
 			(NULL, 'managements', 1, '1', '1', '');";
 	break;
 
@@ -137,6 +144,32 @@ switch ($table) {
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	break;
 
+	case 'events':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+		  `id` int(11) NOT NULL,
+		  `name` varchar(100) NOT NULL,
+		  `image` varchar(100) DEFAULT NULL,
+		  `start_date` varchar(10) NOT NULL,
+		  `end_date` varchar(10) NOT NULL,
+		  `start_time` varchar(10) NOT NULL,
+		  `end_time` varchar(10) NOT NULL,
+		  `color` text NOT NULL,
+		  `location` varchar(255) NOT NULL,
+		  `description` text NOT NULL,
+		  `state` tinyint(4) NOT NULL DEFAULT '1'
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+	break;
+
+	case 'events_cat':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+		  `id` int(11) NOT NULL,
+		  `name` varchar(64) DEFAULT NULL,
+		  `color` varchar(10) DEFAULT NULL
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+	break;
+
 	case 'games':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
@@ -154,12 +187,12 @@ switch ($table) {
 			`id` int(10) NOT NULL AUTO_INCREMENT,
 			`name` varchar(32) NOT NULL,
 			`id_group` int(2) NOT NULL,
+			`image` text,
 			PRIMARY KEY (`id`),
 			UNIQUE KEY `name` (`name`),
 			UNIQUE KEY `id_group` (`id_group`),
-			`color` varchar(128) NOT NULL DEFAULT '#000000',
-			`image` text
-		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
+			`color` varchar(128) NOT NULL DEFAULT '#000000'
+			) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
 		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `name`, `id_group`, `color`, `image`) VALUES
 			(1, 'ADMINISTRATORS', 1, '#ff6e00', 'NULL'),
 			(2, 'MEMBERS', 2, '#052ba0', 'NULL');";
@@ -311,12 +344,12 @@ switch ($table) {
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`name` varchar(64) NOT NULL,
-			`groups` int(11) NOT NULL,
+			`groups` text,
 			PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	break;
 
-	case 'page_blog':
+	case 'page_articles':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
 			`id` int(11) NOT NULL AUTO_INCREMENT,
@@ -332,7 +365,17 @@ switch ($table) {
 			`view` int(11) DEFAULT '0',
 			PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
 		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `rewrite_name`, `name`, `date_create`, `author`, `authoredit`, `content`, `additionalcontent`, `tags`, `cat`, `view`) VALUES (NULL, 'Bienvenue_sur_votre_site_bel-cms', 'Bienvenue sur votre site bel-cms', '".date('Y-m-d H:i:s')."', NULL, NULL, 'Bienvenue sur votre site Bel-CMS, votre installation s\'est, à priori, bien déroulée, rendez-vous dans la partie administration pour commencer à utiliser votre site tout simplement en vous loguant avec le e-mail indiqué lors de l\'installation. En cas de problèmes, veuillez le signaler sur <a href=\"https://bel-cms.be\">https://bel-cms.be</a> dans le forum prévu à cet effet.', NULL, NULL, NULL, '0')";
+	break;
+
+	case 'page_articles_cat':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`name` varchar(64) NOT NULL,
+			PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	break;
 
 	case 'page_content':
@@ -468,6 +511,7 @@ switch ($table) {
 			`valid` int(1) NOT NULL,
 			`ip` varchar(255) NOT NULL,
 			`token` varchar(50) DEFAULT NULL,
+			`expire` varchar(5) DEFAULT NULL,
 			PRIMARY KEY (`id`),
 			UNIQUE KEY `mail` (`email`),
 			UNIQUE KEY `name` (`username`)
@@ -503,7 +547,7 @@ switch ($table) {
 			`facebook` varchar(255) DEFAULT NULL,
 			`linkedin` varchar(128) DEFAULT NULL,
 			`twitter` varchar(35) DEFAULT NULL,
-			`googleplus` varchar(128) DEFAULT NULL,
+			`discord` varchar(128) DEFAULT NULL,
 			`pinterest` varchar(35) DEFAULT NULL,
 			PRIMARY KEY (`id`),
 			UNIQUE KEY `hash_key` (`hash_key`)

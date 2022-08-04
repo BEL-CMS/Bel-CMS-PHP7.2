@@ -33,6 +33,7 @@ Common::constant(array(
 	'REPORT_POST'         => 'Reporter ce sujet',
 	'EDIT_POST'           => 'Editer ce post',
 	'LAST_POST'           => 'Dernier message',
+	'VIEW_THE_LATEST_POST'=> 'Regarder le dernier poste',
 	'BY'                  => 'par',
 	'CATEGORY'            => 'Catégories',
 	'ICON'                => 'Icone',

@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 1.0.0
- * @link https://bel-cms.be
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2014-2019 Bel-CMS
- * @author as Stive - stive@determe.be
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @copyright 2015-2022 Bel-CMS
+ * @author Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -41,7 +41,7 @@ if (!defined('CHECK_INDEX')) {
 						<td><?=$v->last_visit;?></td>
 						<td><?=$v->date_registration;?></td>
 						<td>
-							<a href="/registration/edit/<?=$v->id?>?management&page&parameter=true" class="btn btn btn-primary btn-sm mb-1">Edit</a>
+							<a href="/registration/edit/<?=$v->id?>?management&users" class="btn btn btn-primary btn-sm mb-1">Edit</a>
 							<?php
 							if ($v->id != 1):
 							?>
@@ -56,7 +56,7 @@ if (!defined('CHECK_INDEX')) {
 										<div class="modal-body">Confirmer la suppression de l'utilisateur : <?=$v->username?></div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-											<button onclick="window.location.href='/registration/del/<?=$v->hash_key?>?management&parameter=true'" type="button" class="btn btn-primary">Confirmer</button>
+											<button onclick="window.location.href='/registration/del/<?=$v->hash_key?>?management&pages'" type="button" class="btn btn-primary">Confirmer</button>
 										</div>
 									</div>
 								</div>

@@ -1,11 +1,11 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 1.0.0
- * @link https://bel-cms.be
+ * @version 2.0.0
+ * @link https://bel-cms.dev
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2014-2019 Bel-CMS
+ * @copyright 2015-2022 Bel-CMS
  * @author as Stive - stive@determe.be
  */
 
@@ -222,22 +222,36 @@ class ModelsDownloads
 
 
 		if (isset($_FILES['screen'])) {
-			$screen = Common::Upload('screen', '/uploads/downloads'.DS.'screen', array('.png', '.gif', '.jpg', '.jpeg'));
+			$screen = Common::Upload('screen', 'uploads/downloads'.DS.'screen', array('.png', '.gif', '.jpg', '.jpeg'));
 			if ($screen = UPLOAD_FILE_SUCCESS) {
-				$insert['screen'] = 'uploads'.DS.'/uploads/downloads'.DS.'screen'.DS.$_FILES['screen']['name'];
+				$insert['screen'] = 'uploads'.DS.'uploads/downloads'.DS.'screen'.DS.$_FILES['screen']['name'];
 			}
 		} else {
 			$insert['screen'] = '';
 		}
 
-		if (empty($_FILES['url'])) {
+		if (!empty($_FILES['url'])):
 			$insert['download'] = Common::VarSecure($data['url'], 'html');
-		} else {
-			$dl = Common::Upload('download', '/uploads/downloads', array('.png', '.gif', '.jpg', '.jpeg', '.doc', '.txt', '.pdf', '.rar', '.zip', '.7zip', '.exe','.rtf'));
-			if ($dl = UPLOAD_FILE_SUCCESS) {
-				$insert['download'] = '/uploads'.DS.'downloads'.DS.$_FILES['download']['name'];
-			}
-		}
+		else:
+			$dl = Common::Upload('download', 'uploads/downloads',
+				array(
+					'.png',
+					'.gif', 
+					'.jpg',
+					'.jpeg',
+					'.doc',
+					'.txt',
+					'.pdf',
+					'.rar',
+					'.zip',
+					'.7zip',
+					'.tar',
+					'.exe',
+					'.rtf',
+					'.bz2'
+				));
+				$insert['download'] = 'uploads'.DS.'downloads'.DS.$_FILES['download']['name'];
+		endif;
 
 		$sql = New BDD();
 		$sql->table('TABLE_DOWNLOADS');

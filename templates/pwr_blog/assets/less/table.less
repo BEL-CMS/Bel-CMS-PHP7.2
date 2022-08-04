@@ -1,0 +1,35 @@
+table{
+	width: 100%;
+	max-width: 100%;
+	margin-bottom: @global-margin-bottom;
+	text-align: left;
+	border: @table-border-width solid @table-border-color;
+	border-collapse: collapse;
+	background: @color-layout;
+
+	th{
+		font-weight: 700;
+	}
+
+	th,
+	td {
+		padding: @global-padding;
+		vertical-align: top;
+		border: @table-border-width solid @table-border-color;
+	}
+
+	thead th {
+		vertical-align: bottom;
+		border-bottom: (2 * @table-border-width) solid @table-border-color;
+	}
+
+	tbody + tbody {
+		border-top: (2 * @table-border-width) solid @table-border-color;
+	}
+
+	&.zebra{
+		tbody tr:nth-child(even){
+			background: @color-light;
+		}
+	}
+}

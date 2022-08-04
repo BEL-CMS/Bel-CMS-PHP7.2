@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 1.0.0
- * @link https://bel-cms.be
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2014-2019 Bel-CMS
- * @author as Stive - stive@determe.be
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @copyright 2015-2022 Bel-CMS
+ * @author Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -28,7 +28,7 @@ if (!defined('CHECK_INDEX')) {
 			<div class="form-group">
 				<label class="col-sm-12 control-label" for="checkbox"><?=NAME?></label>
 				<div class="col-sm-12">
-					<input type="text" name="name" class="form-control" required minlength="5" maxlength="64">
+					<input type="text" name="name" class="form-control" required minlength="3" maxlength="64">
 				</div>
 			</div>
 			<div class="form-group">
@@ -40,7 +40,7 @@ if (!defined('CHECK_INDEX')) {
 		</div>
 		<div class="card-footer">
 			<button type="submit" class="btn btn-primary"><?=SUBMIT?></button>
-			<a class="btn btn-default" href="/calendar?management&page=true"><i class="fa fa-times"></i> Annulé</a>
+			<a class="btn btn-default" href="/calendar?management&pages"><i class="fa fa-times"></i> Annulé</a>
 		</div>
 	</div>
 </form>

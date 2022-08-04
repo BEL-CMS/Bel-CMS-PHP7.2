@@ -14,41 +14,55 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<div class="card">
-	<div class="card-header">
-		<h3 class="card-title">Menu page</h3>
+<div class="x_panel">
+	<div class="x_title">
+		<h2>Menu Page</h2>
+		<div class="clearfix"></div>
 	</div>
-	<div class="card-body">
-		<form action="/page/sendnew?management&pages" method="post" class="form-horizontal">
-			<div class="form-group">
-				<label for="input-Default" class="col-sm-2 control-label"><?=NAME?></label>
-				<div class="col-sm-10">
-					<input name="name" type="text" class="form-control" id="input-Default" value="">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-12 control-label">Accès aux groupes</label>
-				<div class="col-sm-12">
-				<?php
-				$visitor = constant('VISITORS');
-				$groups->$visitor = 0;
-				foreach ($groups as $k => $v):
-					$checked = $v['id'] == 1 ? 'checked readonly' : '';
-					?>
-					<div class="form-group">
-						<div class="icheck-primary d-inline">
-							<input class="col-sm-4" data-bootstrap-switch name="admin[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
-							<label class="col-sm-8 control-label" for="<?=$v['id']?>"><?=$k?></label>
-						</div>
+	<div class="x_content">
+		<a href="/page?management&page=true" class="btn btn-app">
+			<i class="fa fas fa-home"></i> Accueil
+		</a>
+		<a href="page/parameter?management&page=true" class="btn btn-app">
+			<i class="fa fas fa-cogs"></i> Configuration
+		</a>
+	</div>
+</div>
+
+<div class="col-md-12">
+	<div class="panel panel-white">
+		<div class="panel-body basic-form-panel">
+			<form action="/page/sendnew?management&pages" method="post" class="form-horizontal">
+				<div class="form-group">
+					<label for="input-Default" class="col-sm-2 control-label"><?=NAME?></label>
+					<div class="col-sm-10">
+						<input name="name" type="text" class="form-control" id="input-Default" value="">
 					</div>
-					<?php
-				endforeach;
-				?>
 				</div>
-			</div>
-			<div class="form-group">
-				<button type="submit" class="btn btn-primary"><?=ADD?></button>
-			</div>
-		</form>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Accès aux groupes</label>
+					<div class="col-sm-10">
+						<?php
+						$visitor = constant('VISITORS');
+						$groups->$visitor = 0;
+						foreach ($groups as $k => $v):
+							$checked = $v['id'] == 1 ? "checked" : "";
+							?>
+							<div class="input-group">
+								<span class="input-group-addon">
+									<input name="groups[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
+								</span>
+								<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
+							</div>
+							<?php
+						endforeach;
+						?>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary"><?=ADD?></button>
+				</div>
+			</form>
+		</div>
 	</div>
 </div>

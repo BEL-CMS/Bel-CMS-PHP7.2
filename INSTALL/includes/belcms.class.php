@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 0.3.0
- * @link http://www.bel-cms.be
- * @link http://www.stive.eu
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
  * @license http://opensource.org/licenses/GPL-3.0 copyleft
- * @copyright 2014-2016 Bel-CMS
- * @author Stive - mail@stive.eu
+ * @copyright 2015-2022 Bel-CMS
+ * @author Stive - stive@determe.be
  */
 
 class BelCMS
@@ -95,6 +95,8 @@ class BelCMS
 			'downloads',
 			'downloads_cat',
 			'emoticones',
+			'events',
+			'events_cat',
 			'games',
 			'groups',
 			'inbox',
@@ -106,13 +108,17 @@ class BelCMS
 			'newsletter_send',
 			'newsletter_tpl',
 			'page',
-			'page_blog',
+			'page_articles',
+			'page_articles_cat',
 			'page_content',
 			'page_forum',
 			'page_forum_post',
 			'page_forum_posts',
 			'page_forum_threads',
 			'page_shoutbox',
+			'page_survey',
+			'page_survey_author',
+			'page_survey_quest',
 			'page_users',
 			'page_users_profils',
 			'page_users_social',
@@ -224,7 +230,7 @@ function insertUserBDD ()
 				`facebook` ,
 				`linkedin` ,
 				`twitter` ,
-				`googleplus` ,
+				`discord` ,
 				`pinterest`
 				)
 			VALUES (

@@ -1,0 +1,123 @@
+.zui-button,
+a.zui-button{
+
+	// DEFAULT VERSION
+
+	&.hot{
+		background: @color-hot;
+		border-color: @color-hot;
+		color: #fff;
+		&:hover{
+			background: darken(@color-hot, 15%);
+			border-color: darken(@color-hot, 20%);
+		}
+	}
+	&.cold{
+		background: @color-cold;
+		border-color: @color-cold;
+		color: #fff;
+		&:hover{
+			background: darken(@color-cold, 15%);
+			border-color: darken(@color-cold, 20%);
+		}
+	}
+	&.hard{
+		background: @color-hard;
+		border-color: @color-hard;
+		color: #fff;
+		&:hover{
+			background: darken(@color-hard, 15%);
+			border-color: darken(@color-hard, 20%);
+		}
+	}
+	&.white{
+		background: #fff;
+		border-color: #fff;
+		color: @color-hard;
+		&:hover{
+			background: darken(#fff, 5%);
+			border-color: darken(#fff, 10%);
+		}
+	}
+
+
+	// SUBTLE VERSION
+
+	&.subtle{
+		border: @button-subtle-border-width solid @button-bg-color;
+		background: transparent;
+		color: contrast(@color-layout, @button-bg-color, #fff);
+		padding: unit(round(@button-padding-y - @button-subtle-border-width), px) unit(round(@button-padding-x - @button-subtle-border-width), px);
+		&:hover{
+			background: @button-bg-color;
+			border-color: @button-bg-color;
+			color: @button-text-color;
+		}
+
+		&.hot{
+			background: transparent;
+			border-color: @color-hot;
+			color: contrast(@color-layout, @color-hot, #fff);
+			&:hover{
+				background: @color-hot;
+				border-color: @color-hot;
+				color: #fff;
+			}
+		}
+		&.cold{
+			background: transparent;
+			border-color: @color-cold;
+			color: contrast(@color-layout, @color-cold, #fff);
+			&:hover{
+				background: @color-cold;
+				border-color: @color-cold;
+				color: #fff;
+			}
+		}
+		&.hard{
+			background: transparent;
+			border-color: @color-hard;
+			color: @color-hard;
+			color: contrast(@color-layout, @color-hard, #fff);
+			&:hover{
+				background: @color-hard;
+				border-color: @color-hard;
+				color: #fff;
+			}
+		}
+		&.white{
+			background: transparent;
+			border-color: #fff;
+			color: #fff;
+			&:hover{
+				background: #fff;
+				border-color: #fff;
+				color: @color-hard;
+			}
+		}
+		&.white-text{
+			color: #fff;
+		}
+	}
+
+
+	// SIZE
+
+	&.small{
+		padding: unit( round(@button-padding-y / 2.5 ), px) unit( round(@button-padding-x / 2.5), px);
+	}
+
+	&.large{
+		padding: unit( round(@button-padding-y * 1.7 ), px) unit( round(@button-padding-x * 1.7), px);
+		font-size: unit( round(@body-font-size * 1.2 ), px);
+	}
+
+	&.block{
+		display: block;
+		margin-right: 0;
+		margin-left: 0;
+		width: 100%;
+		text-align: center;
+	}
+
+}

@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 0.0.1
- * @link http://www.bel-cms.be
- * @link http://www.stive.eu
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
- * @copyright 2014-2019 Bel-CMS
- * @author Stive - mail@stive.eu
+ * @version 2.0.0
+ * @link https://bel-cms.dev
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @copyright 2015-2022 Bel-CMS
+ * @author as Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -30,29 +30,17 @@ class Forum extends Pages
 		foreach ($data['forum'] as $k => $v) {
 			$data['forum'][$k]->category = $this->ModelsForum->getCatForum($v->id);
 			foreach ($data['forum'][$k]->category as $last_k => $last_v) {
-
+				$data['forum'][$k]->category[$last_k]->countPosts = $this->ModelsForum->getCountPost($last_v->id);
 				$data['forum'][$k]->category[$last_k]->count = $this->ModelsForum->CountSjForum($data['forum'][$k]->category[$last_k]->id);
 
 				$last = $this->ModelsForum->getLastPostForum($last_v->id);
 				if (empty($last)) {
-					$data['forum'][$k]->category[$last_k]->last            = (object) array();
+					$data['forum'][$k]->category[$last_k]->last = (object) array();
 					$data['forum'][$k]->category[$last_k]->last->title     = null;
 					$data['forum'][$k]->category[$last_k]->last->date_post = null;
 					$data['forum'][$k]->category[$last_k]->last->author    = null;
 				} else {
 					$data['forum'][$k]->category[$last_k]->last = $last;
-					/*
-					if (Users::ifUserExist($data['forum'][$k]->category[$last_k]->last->author)) {
-						$user = Users::getInfosUser($data['forum'][$k]->category[$last_k]->last->author);
-						if ($user === false) {
-							$data['forum'][$k]->category[$last_k]->last->author = 'Unknow';
-						} else {
-							$data['forum'][$k]->category[$last_k]->last->author = $user->username;
-						}
-					} else {
-						$data['forum'][$k]->category[$last_k]->last->author = 'Unknow';
-					}
-					*/
 				}
 			}
 		}

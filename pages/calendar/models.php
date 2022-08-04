@@ -25,7 +25,6 @@ class ModelsCalendar
 		$sql->table('TABLE_EVENTS');
 		$sql->isObject(false);
 		$sql->queryAll();
-
 		$events = array();
 		foreach ($sql->data as $db_event) {
 			$event = new stdClass();

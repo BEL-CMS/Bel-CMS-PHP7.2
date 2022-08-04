@@ -10,17 +10,15 @@
  */
 
 if (!defined('CHECK_INDEX')) {
-	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit(ERROR_INDEX);
+    header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
+    exit(ERROR_INDEX);
 }
 ?>
 <div class="card col-sm-6">
-	<div class="card-header">
-		<h3 class="card-title">Événements</h3>
-	</div>
-	<div class="card-body">
-		<div class="quick-events"></div>
-	</div>
+    <div class="card-header">
+        <h3 class="card-title">Événements</h3>
+    </div>
+    <div class="card-body">
+        <div class="quick-events"></div>
+    </div>
 </div>
-
-

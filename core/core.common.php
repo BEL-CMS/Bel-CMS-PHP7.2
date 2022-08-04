@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 1.0.0
- * @link https://bel-cms.be
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2014-2019 Bel-CMS
- * @author as Stive - stive@determe.be
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @copyright 2015-2022 Bel-CMS
+ * @author Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -729,23 +729,23 @@ final class Common
 			}
 
 			$extension = strrchr($_FILES[$name]['name'], '.');
-			if (!in_array($extension, $extensions)) {
+			if (!in_array($extension, $extensions)):
 				$err = UPLOAD_ERROR_FILE;
-			}
+			endif;
 
-			if ($size>$sizeMax) {
+			if ($size>$sizeMax):
 				$err = UPLOAD_ERROR_SIZE;
-			}
+			endif;
 
-			if (!isset($err)) {
-				if (move_uploaded_file($_FILES[$name]['tmp_name'], $dir .'/'. ($file))) {
+			if (!isset($err)):
+				if (move_uploaded_file($_FILES[$name]['tmp_name'], $dir .'/'. ($file))):
 					$return = UPLOAD_FILE_SUCCESS;
-				} else {
+				else:
 					$return = UPLOAD_ERROR;
-				}
-			} else {
+				endif;
+			else:
 				$return = $err;
-			}
+			endif;
 		} else {
 			$return = 'UPLOAD_NONE';
 		}

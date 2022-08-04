@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 1.0.0
- * @link https://bel-cms.be
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2014-2019 Bel-CMS
- * @author as Stive - stive@determe.be
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @copyright 2015-2022 Bel-CMS
+ * @author Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -45,7 +45,7 @@ class Users
 			$sql = New BDD();
 			$sql->table('TABLE_USERS');
 			$sql->where(array('name' => 'hash_key', 'value' => $_SESSION['USER']['HASH_KEY']));
-			$sql->sqlData(array('last_visit' => date('Y-m-d H:i:s'), 'ip' => Common::GetIp()));
+			$sql->sqlData(array('last_visit' => date('Y-m-d H:i:s'), 'ip' => Common::GetIp(), 'expire' => 0));
 			$sql->update();
 		}
 	}
@@ -106,6 +106,11 @@ class Users
 			$results = $sql->data;
 
 			if ($results && is_array($results) && sizeof($results)) {
+				if ($results['expire'] >= 4) {
+					$return['msg']  = 'Compte bloqué, veuillez demander un nouveau mot de passe généré automatiquement et envoyé par e-mail.';
+					$return['type'] = 'error';
+					return $return;				
+				}
 				if ($hash_key AND strlen($hash_key) == 32) {
 					$check_password = $password == $results['password'] ? true : false;
 				} else {
@@ -120,14 +125,22 @@ class Users
 				} else {
 					$return['msg']  = 'Mauvaise combinaison de Pseudonyme-email et/ou mot de passe';
 					$return['type'] = 'error';
+						$results['expire']++;
+						$insert = New BDD();
+						$insert->table('TABLE_USERS');
+						$insert->sqlData(array('expire'=> $results['expire']));
+						$insert->where(array('name'=>'hash_key','value'=> $results['hash_key']));
+						$insert->update();
 				}
 			} else {
 				$return['msg']  = 'Aucun utilisateur avec ce Pseudonyme/mail';
 				$return['type'] = 'warning';
 			}
 		} else {
-			$return['msg']  = 'Le nom ou le mot de passe est obligatoire';
-			$return['type'] = 'error';
+			if ($hash_key AND strlen($hash_key) == 32) {
+				$return['msg']  = 'Le nom ou le mot de passe est obligatoire';
+				$return['type'] = 'error';
+			}
 		}
 		return $return;
 	}

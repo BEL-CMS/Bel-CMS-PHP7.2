@@ -1,11 +1,11 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 1.0.0
- * @link https://bel-cms.be
+ * @version 2.0.0
+ * @link https://bel-cms.dev
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2014-2019 Bel-CMS
+ * @copyright 2015-2022 Bel-CMS
  * @author as Stive - stive@determe.be
  */
 
@@ -36,31 +36,30 @@ class Downloads extends AdminPages
 		$cat = $this->ModelsDownloads->getCat();
 		$countCat = count($cat);
 
-		if ($countCat == 0) {
+		if ($countCat == 0):
 			$this->error(get_class($this), 'Une catégorie est obligatoire', 'warning');
 			$this->redirect('/downloads/addcat?management&pages', 2);
-
-		} else {
+		else:
 			$d['cat'] = $cat;
 			$this->set($d);
 			$this->render('add');
-		}
+		endif;
 	}
 
 	public function edit ($id = null)
 	{
 		$cat = $this->ModelsDownloads->getCat();
 		$countCat = count($cat);
-		if ($countCat == 0) {
+		if ($countCat == 0):
 			$this->error(get_class($this), 'Une catégorie est obligatoire', 'warning');
 			$this->redirect('/downloads/addcat?management&pages', 2);
 
-		} else {
+		else:
 			$d['data'] = $this->ModelsDownloads->getDL($id);
 			$d['cat']  = $cat;
 			$this->set($d);
 			$this->render('edit');
-		}
+		endif;
 	}
 
 	public function sendadd ()
@@ -81,8 +80,8 @@ class Downloads extends AdminPages
 	public function cat ()
 	{
 		$menu[] = array('Accueil'=> array('href'=>'/downloads?management&pages','icon'=>'fa fa-home'));
-		$menu[] = array('Ajouter Catégorie'=> array('href'=>'/downloads/addcat?management&page=true','icon'=>'fa fa-plus'));
-		$menu[] = array('Catégories'=> array('href'=>'/downloads/cat?management&page=true','icon'=>'fa fa-cogs'));
+		$menu[] = array('Ajouter Catégorie'=> array('href'=>'/downloads/addcat?management&pages','icon'=>'fa fa-plus'));
+		$menu[] = array('Catégories'=> array('href'=>'/downloads/cat?management&pages','icon'=>'fa fa-cogs'));
 		$menu[] = array('Configuration'=> array('href'=>'/downloads/parameter?management&pages','icon'=>'fa fa-cubes'));
 
 		$d['data']  = $this->ModelsDownloads->getCat();
@@ -100,12 +99,12 @@ class Downloads extends AdminPages
 
 	public function sendnewcat ()
 	{
-		if ($this->ModelsDownloads->testName($_POST['name'])) {
+		if ($this->ModelsDownloads->testName($_POST['name'])):
 			$return = $this->ModelsDownloads->sendnewcat($_POST);
 			$this->error(get_class($this), $return['text'], $return['type']);
-		} else {
+		else:
 			$this->error(get_class($this), 'Le nom de la catégorie à déjà été pris', 'warning');
-		}
+		endif;
 		$this->redirect('/downloads/cat?management&pages', 2);
 	}
 

@@ -1,0 +1,214 @@
+// ----------------------------------------------------------------------------
+// ROW
+// ----------------------------------------------------------------------------
+//Horizontal columns alignment
+.grid-horizontal-align( @view ){
+	&.grid@{view}-left { .justify-content( flex-start ); }
+	&.grid@{view}-right { .justify-content( flex-end ); }
+	&.grid@{view}-center { .justify-content( center ); }
+}
+
+//Vertical columns alignment
+.grid-vertical-align( @view ){
+	&.grid@{view}-top { .align-items( flex-start ); }
+	&.grid@{view}-middle { .align-items( center ); }
+	&.grid@{view}-bottom { .align-items( flex-end ); }
+}
+
+//Mixin utils
+.grid-utils( @view ){
+	&.grid@{view}-collapse{
+		margin: 0;
+		> [class^="col"] {
+			padding: 0;
+		}
+	}
+	&.grid@{view}-normal{
+		margin: 0 -(@grid-space) 0 -(@grid-space);
+		> [class^="col"] {
+			padding: 0 @grid-space;
+		}
+	}
+
+	&.grid@{view}-small{
+		margin: 0 -(@grid-space/2) 0 -(@grid-space/2);
+		> [class^="col"] {
+			padding: 0 @grid-space/2;
+		}
+	}
+
+	&.grid@{view}-large{
+		margin: 0 -(@grid-space*2) 0 -(@grid-space*2);
+		> [class^="col"] {
+			padding: 0 @grid-space*2;
+		}
+	}
+
+	&.grid@{view}-rtl { .flex-direction( row-reverse ); }
+	&.grid@{view}-ltr { .flex-direction( row ); }
+
+	&.grid@{view}-nowrap { .flex-wrap( nowrap ); }
+
+	&.grid@{view}-hide,
+	.col@{view}-hide {
+		display: none;
+	}
+
+	&.grid@{view}-show,
+	.col@{view}-show {
+		// .display( flex );
+		display: inline;
+		display: initial;
+	}
+
+	.text@{view}-right{
+		text-align: right;
+	}
+	.text@{view}-left{
+		text-align: left;
+	}
+	.text@{view}-center{
+		text-align: center;
+	}
+}
+
+//Grid x columns
+.grid-x-columns(@view, @n: @grid-nr-of-columns, @i: 1) when (@i =< @n){
+	&.grid@{view}-@{i}-columns > .col {
+		.flex-basis( 100% / @i );
+		max-width: 100% / @i;
+	}
+	.grid-x-columns(@view, @n, (@i + 1));
+}
+
+
+// ----------------------------------------------------------------------------
+// COLUMN
+// ----------------------------------------------------------------------------
+//Mixin generate columns width
+.column-size(@view, @n: @grid-nr-of-columns, @i: 1) when (@i =< @n) {
+	> .col@{view}-@{i} {
+		.flex-basis( @i * 100% / @n );
+		max-width: @i * 100% / @n;
+	}
+	.column-size(@view, @n, (@i + 1));
+}
+
+//Self column vertical alignment
+.column-align-self(@view){
+	.col@{view}-top { .align-self( flex-start ); }
+	.col@{view}-bottom { .align-self( flex-end ); }
+	.col@{view}-middle { .align-self( center ); }
+}
+.column-size-auto( @view ){
+	> .col@{view}-auto{ .flex(1 0 auto); }
+}
+
+
+// ----------------------------------------------------------------------------
+// Generate the CSS
+// ----------------------------------------------------------------------------
+
+/* Common
+---------------------------------------------------------------*/
+.zui-grid {
+	margin: 0 -(@grid-space) 0 -(@grid-space);
+	&,
+	> .zui-grid {
+		.display( flex );
+		.flex-wrap( wrap );
+	}
+	> [class^="col"],
+	> .zui-grid {
+		.flex-basis( 100% );
+		max-width: 100%;
+		padding: 0 @grid-space;
+		margin: 0;
+	}
+	> .flex{
+		.display(flex);
+	}
+	&.grid-as-table{
+		margin-bottom: @global-margin-bottom;
+		> [class^="col"]{
+			padding-top: @global-padding;
+			padding-bottom: @global-padding;
+			border-bottom: @table-border-width solid @table-border-color;
+		}
+	}
+}
+
+/* Grid any device
+---------------------------------------------------------------*/
+.zui-grid{
+	.column-size( ~'' );
+	.column-size-auto( ~'' );
+	.grid-x-columns( ~'' );
+	.grid-utils( ~'' );
+}
+.grid-horizontal-align( ~'' );
+.grid-vertical-align( ~'' );
+.column-align-self( ~'' );
+
+/* Grid small view -xs-
+---------------------------------------------------------------*/
+@media (min-width: @xs-size-min) {
+	@device: ~"-@{grid-view-xs-string}";
+	.zui-grid{
+		.column-size( @device );
+		.column-size-auto( @device );
+		.grid-x-columns( @device );
+		.grid-utils( @device );
+	}
+	.grid-horizontal-align( @device );
+	.grid-vertical-align( @device );
+	.column-align-self( @device );
+}
+
+/* Small view -sm-
+---------------------------------------------------------------*/
+@media (min-width: @sm-size-min) {
+	@device: ~"-@{grid-view-sm-string}";
+	.zui-grid{
+		.column-size( @device );
+		.column-size-auto( @device );
+		.grid-x-columns( @device );
+		.grid-utils( @device );
+	}
+
+	.grid-horizontal-align( @device );
+	.column-align-self( @device );
+	.grid-vertical-align( @device );
+}
+
+/* Medium view -md-
+---------------------------------------------------------------*/
+@media (min-width: @md-size-min) {
+	@device: ~"-@{grid-view-md-string}";
+	.zui-grid{
+		.column-size( @device );
+		.column-size-auto( @device );
+		.grid-x-columns( @device );
+		.grid-utils( @device );
+	}
+
+	.grid-horizontal-align( @device );
+	.column-align-self( @device );
+	.grid-vertical-align( @device );
+}
+
+/* Large view -lg-
+---------------------------------------------------------------*/
+@media (min-width: @lg-size-min) {
+	@device: ~"-@{grid-view-lg-string}";
+	.zui-grid{
+		.column-size( @device );
+		.column-size-auto( @device );
+		.grid-x-columns( @device );
+		.grid-utils( @device );
+	}
+
+	.grid-horizontal-align( @device );
+	.column-align-self( @device );
+	.grid-vertical-align( @device );
+}

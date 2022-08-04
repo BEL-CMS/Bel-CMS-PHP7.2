@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 0.0.1
- * @link http://www.bel-cms.be
- * @link http://www.stive.eu
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
- * @copyright 2014-2019 Bel-CMS
- * @author Stive - mail@stive.eu
+ * @version 2.0.0
+ * @link https://bel-cms.dev
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @copyright 2015-2022 Bel-CMS
+ * @author as Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -37,20 +37,26 @@ class ModelsForum
 		$sql->queryAll();
 		$return = $sql->data;
 
-		foreach ($return as $k => $v) {
-			$access = false;
-			$groups = explode('|', $v->access_groups);
-			foreach ($groups as $v_access) {
-				if ($v_access == 0) {
+		if (!empty($return)) {
+
+			foreach ($return as $k => $v) {
+				$access = false;
+				$groups = explode('|', $v->access_groups);
+				if (in_array(1, $groups)) {
 					$access = true;
-					break;
-				} else {
-					if (Users::getInfosUser($_SESSION['USER']['HASH_KEY']) !== false) {
-						$v_access = explode('|', $v_access);
-						foreach ($v_access as $key_access => $value_access) {
-							if (in_array($value_access, Users::getGroups($_SESSION['USER']['HASH_KEY']))) {
-								$access = true;
-								break;
+				}
+				foreach ($groups as $v_access) {
+					if ($v_access == 0) {
+						$access = true;
+						break;
+					} else {
+						if (Users::getInfosUser($_SESSION['USER']['HASH_KEY']) !== false) {
+							$v_access = explode('|', $v_access);
+							foreach ($v_access as $key_access => $value_access) {
+								if (in_array($value_access, Users::getGroups($_SESSION['USER']['HASH_KEY']))) {
+									$access = true;
+									break;
+								}
 							}
 						}
 					}
@@ -613,5 +619,20 @@ class ModelsForum
 		}
 
 		return $return;
-	} 
+	}
+
+	public function getCountPost ($id = null)
+	{
+		$id = (int) $id;
+		$sql = New BDD();
+		$sql->table('TABLE_FORUM_POST');
+		$where = array(
+			'name' => 'id_threads',
+			'value' => $id
+		);
+		$sql->where($where);
+		$sql->count();
+		$return = $sql->data;
+		return $return;
+	}
 }

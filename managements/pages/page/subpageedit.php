@@ -20,7 +20,7 @@ if (!defined('CHECK_INDEX')) {
 		<div class="clearfix"></div>
 	</div>
 	<div class="x_content">
-		<a href="/page?management&pages" class="btn btn-app">
+		<a href="/page?management&page=true" class="btn btn-app">
 			<i class="fa fas fa-home"></i> Accueil
 		</a>
 	</div>
@@ -29,7 +29,7 @@ if (!defined('CHECK_INDEX')) {
 <div class="col-md-12">
 	<div class="panel panel-white">
 		<div class="panel-body basic-form-panel">
-			<form action="/page/sendeditsub?management&pages" method="post" class="form-horizontal">
+			<form action="/page/sendeditsub?management&page=true" method="post" class="form-horizontal">
 				<div class="form-group">
 					<label for="input-Default" class="col-sm-2 control-label"><?=NAME?></label>
 					<div class="col-sm-10">

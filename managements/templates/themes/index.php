@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 1.0.0
- * @link https://bel-cms.be
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2014-2019 Bel-CMS
- * @author as Stive - stive@determe.be
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @copyright 2015-2022 Bel-CMS
+ * @author Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -15,64 +15,71 @@ if (!defined('CHECK_INDEX')) {
 }
 if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === true):
 ?>
-<div class="row">
-    <div class="col-md-6">
-        <!-- Basic Form Elements Block -->
-        <div class="block">
-            <!-- Basic Form Elements Title -->
-            <div class="block-title">
-                <h2><strong>Templates</strong></h2>
-            </div>
-			<form action="themes/send?management&parameter=true" method="post" class="form-horizontal form-bordered">
-				<?php
-				foreach ($tpl as $k => $v):
-					$chcked = $active->value == $v ? 'checked="checked"': '';
-					?>
-					<div class="form-group">
-						<label class="col-sm-3 control-label" for="<?=$k?>"><?=$v?></label>
-						<div class="col-sm-9">
-							<input value="<?=$v?>" type="radio" id="<?=$k?>" name="tpl" class="form-control input-sm" <?=$chcked?>>
-						</div>
-					</div>
-					<?php
-				endforeach;
-				?>
-				<div class="form-group form-actions">
-					<div class="col-sm-9 col-sm-offset-3">
-						<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> <?=SAVE?></button>
-					</div>
-				</div>
-			</form>
+<div class="card">
+	<div class="card-header">
+		<h3 class="card-title">Liste des thèmes</h3>
+		<div class="card-tools">
+			<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+				<i class="fas fa-minus"></i>
+			</button>
 		</div>
 	</div>
-    <div class="col-md-6">
-        <!-- Basic Form Elements Block -->
-        <div class="block">
-            <!-- Basic Form Elements Title -->
-            <div class="block-title">
-                <h2><strong>Large Full pages</strong></h2>
-            </div>
-			<form action="themes/sendpages?management&parameter=true" method="post" class="form-horizontal form-bordered">
-				<?php
-				foreach ($scan as $k => $v):
-					$chcked = in_array($v, $pages) ? 'checked="checked"': '';
-					$vname = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
-					?>
-					<div class="form-group">
-						<label class="col-sm-3 control-label" for="<?=$k?>"><?=$vname?></label>
-						<div class="col-sm-9">
-							<input value="<?=$v?>" type="checkbox" id="<?=$k?>" name="full[]" class="form-control input-sm" <?=$chcked?>>
-						</div>
-					</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="DataTableBelCMS table table-vcenter table-bordered">
+				<thead>
+					<tr>
+						<th>Screen</th>
+						<th colspan="2">Information</th>
+						<th>Activation</th>
+					</tr>
+				</thead>
+				<tbody>
 					<?php
-				endforeach;
-				?>
-				<div class="form-group form-actions">
-					<div class="col-sm-9 col-sm-offset-3">
-						<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> <?=SAVE?></button>
-					</div>
-				</div>
-			</form>
+					foreach ($themes as $tpl):
+						if ($tpl['active']):
+							$active = 'bg_1';
+							$css    = 'color: green';
+						else:
+							$active = 'bg_2';
+							$css    = 'color: red';
+						endif;
+					?>
+					<tr class="<?=$active;?>">
+						<td style="width: 280px; text-align: center;">
+							<img style="width: 270px; height: 120px; border: 1px solid grey;" src="<?=$tpl['screen'];?>">
+						</td>
+						<td>
+							<strong><?=NAME_TPL;?></strong><br>
+							<strong><?=CREATOR;?></strong><br>
+							<strong><?=DESCRIPTION;?></strong><br>
+							<strong><?=VERSION;?></strong><br>
+							<strong><?=DATE;?></strong>
+						</td>
+						<td>
+							<?=$tpl['name'];?><br>
+							<?=$tpl['creator'];?><br>
+							<?=$tpl['description'];?><br>
+							<?=$tpl['version'];?><br>
+							<?=$tpl['date'];?>
+						</td>
+						<td style="vertical-align: middle; text-align: center;">
+							<?php
+							if (!$tpl['active']):
+							?>
+							<a href="/themes/send/<?=$tpl['name'];?>?management&templates">
+								<button type="button" class="btn btn-block btn-success">Activer</button>
+							</a>
+							<?php
+							endif;
+							?>
+						</td>
+					</tr>
+					<?php
+					endforeach;
+					?>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>

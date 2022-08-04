@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 1.0.0
- * @link https://bel-cms.be
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2014-2019 Bel-CMS
- * @author as Stive - stive@determe.be
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @copyright 2015-2022 Bel-CMS
+ * @author Stive - stive@determe.be
  */
 ?>
 <div class="row">
@@ -15,8 +15,8 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><h4>Bienvenue</h4></div>
 			<div class="panel-body">
-				<p>Bienvenue sur l'installation de BEL-CMS 0.3.1</p>
-				<p>Nous vous remercions d'avoir choisis notre CMS et nous espérons qu'il va vous plaire</p>
+				<p>Bienvenue sur l'installation de BEL-CMS 2.0.0</p>
+				<p>Nous vous remercions d'avoir choisi notre CMS, en espérant qu'il vous plaira, n'hésitez pas à poster sur le forum pour demander des nouveautés.</p>
 				<hr>
 				<?php
 

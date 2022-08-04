@@ -17,19 +17,19 @@ if (!defined('CHECK_INDEX')) {
 class Color extends AdminPages
 {
 	var $admin  = true; // Admin suprême uniquement (Groupe 1);
-	var $active = false; // activation manuel;
+	var $active = true; // activation manuel;
 	var $models = array('ModelsColor');
 
 	public function index ()
 	{
-		$menu[] = array('Accueil'=> array('href'=>'/color?management&templates=true','icon'=>'fa fa-home'));
-		$menu[] = array('Editer'=> array('href'=>'/color/add?management&templates=true','icon'=>'fa fa-plus'));
+		$menu[] = array('Accueil'=> array('href'=>'/color?management&templates','icon'=>'fa fa-home'));
+		$menu[] = array('Editer'=> array('href'=>'/color/add?management&templates','icon'=>'fa fa-plus'));
 		$this->render('index', $menu);
 	}
 
 	public function add ()
 	{
-		$menu[] = array('Accueil'=> array('href'=>'/color?management&templates=true','icon'=>'fa fa-home'));
+		$menu[] = array('Accueil'=> array('href'=>'/color?management&templates','icon'=>'fa fa-home'));
 		$this->render('add', $menu);
 	}
 
@@ -37,6 +37,6 @@ class Color extends AdminPages
 	{
 		$return = $this->ModelsColor->editColor($_POST);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('/color?management&templates=true', '2');
+		$this->redirect('/color?management&templates', '2');
 	}
 }

@@ -1,0 +1,952 @@
+@charset "utf-8";
+/* CSS Document */
+
+/**
+	Gridz Site Template
+ 	Copyright (c) 2013, Pophonic 
+
+	Author: Pophonic
+	Profile: themeforest.net/user/pophonic
+	
+**/
+
+/* ===== Design for a width of 1280px ===== */
+
+@media only screen and (max-width:1280px)
+{
+	
+	/** Main Menu **/
+
+	.header-section {
+		width: 205px;
+	}
+	
+	/** Nav Menu **/
+	
+	.hover-active {
+		margin-left: 185px;
+	}
+	
+	/** Content **/
+
+	.wrapper,
+	.footer-section {
+		margin-left: 225px;
+	}
+}
+
+
+/* ===== Design for a width of 1264px ===== */
+
+@media only screen and (max-width:1264px)
+{
+	
+	/** Main Menu **/
+
+	.header-section {
+		width: 195px;
+	}
+	
+	/** Nav Menu **/
+	
+	.hover-active {
+		margin-left: 175px;
+	}
+	
+	/** Content **/
+
+	.wrapper,
+	.footer-section {
+		margin-left: 210px;
+	}
+	
+	/** Main Menu Social Media Icon **/
+	
+	.social-main ul li {
+		margin-left: 2px;
+	}
+}
+
+
+/* ===== Design for a width of 1024px ===== */
+
+@media only screen and (max-width:1024px)
+{
+	
+	/** Main Menu **/
+	
+	.header-section {
+		width: 1024px;
+		height: auto;
+		position: relative;
+		margin-top: 0px;
+		box-shadow: 0px 3px 3px #000000;
+		overflow: hidden;
+	}
+	
+	.logo {
+		width: 130px;
+		height: auto;
+		padding: 10px 0px 5px 0px;
+		text-align: center;
+		background-color: #ffffff;
+		border-bottom: none;
+	}
+	
+	.logo img {
+		width: 80px;
+		height: auto;
+	}
+	
+	.main-menu {
+		display: none;
+		position: static;
+		width: 100%;
+		top: auto;
+		right: auto;
+		margin-top: 0px;
+	}
+	
+	.main-menu ul {
+		text-align: left;
+		background-color: #009797;
+	}
+	
+	.main-menu ul li {
+		float: none;
+		margin: 0;
+	}
+	
+	.main-menu ul li a {
+		display: block;
+		width: 100%;
+	}
+	
+	.main-menu ul li:hover {
+		background-color: transparent;
+	}
+	
+	.main-menu ul li:hover > .hover-active {
+		display: none;
+	}
+	
+	.main-menu ul .menu-active {
+		background-color: transparent;
+	}
+	
+	.hover-active {
+		display: none;
+	}
+	
+	.main-menu ul ul {
+		width: 100%;
+		position: relative;
+		left: 0;
+		top: 0;
+		margin-top: 10px;
+		margin-bottom: -10px;
+		display: block;
+	}
+	
+	.main-menu ul ul li {
+		float: none;
+		position: relative;
+		margin-bottom: 0px;
+	}
+	
+	.main-menu ul ul ul {
+		position: relative;
+		left: 0;
+		top: 0;
+		padding-left: 20px;
+	}
+	
+	.header-section #navbtn {
+		display: block;
+	}
+	
+	.social-main {
+		display: none;
+	}
+	
+	
+	/** Content **/
+	
+	.wrapper {
+		margin: 0 auto;
+		margin-top: 40px;
+	}
+	
+	
+	/** Footer Top **/
+	
+	.footer-section {
+		margin: 0 auto;
+		margin-top: 20px;
+	}
+}
+
+
+/* ===== Design for a width of 768px to 1023px ===== */
+
+@media only screen and (max-width:1023px)
+{
+	/** Main Menu **/
+	
+	.header-section {
+		width: 100%;
+	}
+	
+	
+	/** Content **/
+	
+	.wrapper {
+		width: 728px;
+	}
+	
+	.content-header h1{
+		float: none;
+	}
+	
+	.content-header nav {
+		position: relative;
+		margin: 10px 0px 10px -20px;
+		overflow: hidden;
+	}
+	
+	
+	/** Blockquote **/
+	
+	blockquote {
+		font-size: 2em;
+		line-height: 40px;
+	}
+	
+	
+	/** Grid Content Area **/
+	
+	.grid-half {
+		width: 728px;
+	}
+	
+	.left {
+		float: none;
+	}
+	
+	.right {
+		float: none;
+	}
+	
+	.large-grid {
+		height: 728px;
+	}
+	
+	.large-grid figure {
+		width: 728px;
+	}
+	
+	.large-grid img {
+		width: 100%;
+		height: auto;
+	}
+	
+	.small-grid li {
+		width: 354px;
+		height: 354px;
+	}
+	
+	.small-grid li figure img {
+		width: 100%;
+		height: auto;
+	}
+	
+	.icon .service-icon {
+		padding-top: 33%;
+	}
+	
+	.grid-half .banner-slide {
+		margin-bottom: 40px;
+	}
+	
+	.half-feature-image {
+		width: 728px;
+		height: 728px;
+		margin-bottom: 20px;
+	}
+	
+	.half-feature-image img,
+	.fullwidth-feature img {
+		width: 100%;
+		height: auto;
+	}
+	
+	
+	/** Service **/
+	
+	.service ul {
+		margin-left: -19px;
+	}
+	
+	.service ul li {
+		width: 230px;
+		height: 230px;
+		margin-left: 19px;
+	}
+	
+	.service-large ul {
+		margin-top: 20px;
+	}
+	
+	.service-large ul li {
+		width: 728px;
+		height: auto;
+		float: none;
+		overflow: hidden;
+	}
+	
+	.service-large .thumb-hover {
+		width: 100%;
+		height: auto;
+	}
+	
+	.service-large .thumb-hover img {
+		width: 100%;
+		height: auto;
+	}
+	
+	.service-details .large-button {
+		position: relative;
+		float: right;
+		margin-top: 30px;
+		margin-bottom: 40px;
+		margin-right: 0px;
+	}
+	
+
+	/** Portfolio, Gallery, Team, Related Grid **/
+	
+	.portfolio ul,
+	.gallery-list ul,
+	.team ul,
+	.related ul {
+		margin-left: -19px;
+	}
+	
+	.portfolio ul li,
+	.gallery-list ul li,
+	.team ul li,
+	.related ul li {
+		width: 230px;
+		height: 230px;
+		margin-left: 19px;
+	}
+	
+	.portfolio .flip img,
+	.gallery-list ul li img,
+	.team .flip img,
+	.related .flip img {
+		width: 100%;
+		height: auto;
+	}
+	
+	.work-meta {
+		width: 30%;
+	}
+	
+	.portfolio-detail {
+		width: 70%;
+	}
+	
+	
+	/** Blog **/
+	
+	.blog-content {
+		width: 483px;
+	}
+	
+	.content-list .thumb-hover img {
+		width: 100%;
+		height: auto;
+	}
+	
+	.blog-details h2 a {
+		line-height: 28px;
+	}
+	
+	.bottom-active .readmore-button{
+		margin-top: 20px;
+	}
+	
+	.blog-related ul {
+		margin-left: -21px;
+	}
+	
+	.blog-related ul li {
+		width: 147px;
+		height: 147px;
+		margin-left: 21px;
+	}
+	
+	.blog-related .flip-front img {
+		width: 100%;
+		height: auto;
+	}
+	
+	/* Leave a Comment */
+	
+	.leave-comment .input-email {
+		margin-top: 20px;
+	}
+	
+	
+	/** Sidebar **/
+	
+	.sidebar {
+		width: 225px;
+	}
+	
+	
+	/** Contact **/
+	
+	.contact {
+		display: block;
+	}
+	
+	.send-message {
+		display: block;
+		width: 728px;
+		border-right: none;
+		vertical-align: top;
+	}
+	
+	.contact-info {
+		display: block;
+		width: 728px;
+		margin-top: 20px;
+	}
+	
+	.leave-comment input {
+		width: 314px;
+	}
+	
+	.leave-comment .input-subject {
+		width: 100%;
+	}
+	
+	
+	/** Footer Top **/
+	
+	.footer-section {
+		width: 728px;
+	}
+	
+	.footer-about {
+		width: 100%;
+		float: none;
+		margin-right: 0px;
+	}
+	
+	.footer-contact {
+		width: 319px;
+		margin-top: 40px;
+		margin-right: 30px;
+	}
+	
+	.footer-subscribe {
+		width: 319px;
+		margin-top: 40px;
+	}
+	
+	.subscribe-box input {
+		width: 153px;
+	}
+	
+	.subscribe-box .first-name {
+		margin-right: 13px;
+	}
+}
+
+
+/* ===== Design for a width of 480px to 767px ===== */
+
+@media only screen and (max-width:767px)
+{
+	/** Content **/
+	
+	.wrapper {
+		width: 460px;
+	}
+	
+	
+	/** Blockquote **/
+	
+	.large-grid blockquote {
+		margin-top: 100px;
+	}
+	
+	
+	/** Page Header **/
+	
+	.page-header {
+		height: auto;
+		display: block;
+		position: relative;
+	}
+	
+	.page-header h1 {
+		line-height: 38px;
+	}
+	
+	.page-header .content {
+		display: block;
+		padding: 30px 40px;
+		overflow: hidden;
+	}
+	
+	.header-title {
+		margin-top: 40px;
+	}
+	
+	.category-filter ul {
+		margin-top: 20px;
+	}
+	
+	.sub-title {
+		margin-top: 20px;
+		line-height: normal;
+	}
+	
+	.page-navigation {
+		position: absolute;
+		margin-top: 0px;
+		margin-left: -20px;
+	}
+	
+	
+	/** Call to Action **/
+	
+	.call-action {
+		height: auto;
+		display: block;
+		overflow: hidden;
+	}
+	
+	.call-action .large-button {
+		margin: 0px 40px 38px 40px;
+	}
+	
+	
+	/** Grid Content Area **/
+	
+	.grid-half {
+		width: 460px;
+	}
+	
+	.large-grid {
+		height: 460px;
+	}
+	
+	.large-grid figure {
+		width: 460px;
+	}
+	
+	.small-grid li {
+		width: 220px;
+		height: 220px;
+	}
+	
+	.half-feature-image {
+		width: 460px;
+		height: 460px;
+	}
+	
+	.icon .service-icon {
+		padding-top: 28%;
+	}
+	
+	
+	/** Service **/
+	
+	.service ul {
+		margin-left: -20px;
+	}
+	
+	.service ul li {
+		width: 220px;
+		height: 220px;
+		margin-left: 20px;
+	}
+	
+	.service-large ul li {
+		width: 460px;
+		height: auto;
+		overflow: hidden;
+	}
+	
+
+	/** Portfolio, Gallery, Team, Related Grid **/
+	
+	.portfolio ul,
+	.gallery-list ul,
+	.team ul,
+	.related ul {
+		margin-left: -20px;
+	}
+	
+	.portfolio ul li,
+	.gallery-list ul li,
+	.team ul li,
+	.related ul li {
+		width: 220px;
+		height: 220px;
+		margin-left: 20px;
+	}
+	
+	.details aside {
+		display: block;
+	}
+	
+	.work-meta {
+		width: 100%;
+		padding-right: 0px;
+	}
+	
+	.portfolio-detail {
+		display: block;
+		width: 100%;
+		margin-top: 40px;
+	}
+
+	
+	/** Blog **/
+	
+	.blog {
+		display: block;
+	}
+	
+	.blog-content {
+		display: block;
+		width: 100%;
+		overflow: hidden;
+	}
+	
+	.content-list {
+		margin-top: 0px;
+	}
+	
+	.blog-related ul {
+		margin-left: -20px;
+	}
+	
+	.blog-related ul li {
+		width: 140px;
+		height: 140px;
+		margin-left: 20px;
+	}
+	
+	.tiny-grid h2 {
+		font-size: 0.9em;
+		font-weight: 400;
+		padding: 15px;
+	}
+	
+	.tiny-active {
+		font-size: 12px;
+		margin-bottom: 20px;
+	}
+	
+	
+	/* Leave a Comment */
+	
+	.leave-comment input {
+		width: 100%;
+	}
+	
+	
+	/** Sidebar **/
+	
+	aside {
+		display: block;
+	}
+	
+	.sidebar {
+		width: 100%;
+		margin-top: 20px;
+	}
+	
+	.sidebar-box .gallery .gallery-list {
+		width: 76.6px;
+		height: 76.6px;
+	}
+	
+	.sidebar-box .gallery img {
+		width: 100%;
+		height: auto;
+	}
+	
+	
+	/** Contact **/
+		
+	.send-message,
+	.contact-info {
+		width: 100%;;
+	}
+
+
+	/** Footer Top **/
+	
+	.footer-section {
+		width: 460px;
+	}
+	
+	.footer-contact {
+		width: 100%;
+		margin-right: 0px;
+	}
+	
+	.footer-subscribe {
+		width: 100%;
+	}
+	
+	.subscribe-box input {
+		width: 194px;
+	}
+	
+	.subscribe-box .first-name {
+		margin-right: 12px;
+	}
+	
+	
+	/** Footer Bottom **/
+	
+	.footer-bottom {
+		text-align: center;
+	}
+	
+	.copyright {
+		float: none;
+	}
+	
+	.footer-bottom nav {
+		float: none;
+		margin-top: 10px;
+		overflow: hidden;
+	}
+	
+	.footer-bottom ul li {
+		float: none;
+		margin: 0px 7px 0px 7px;
+	}
+}
+
+
+/* ===== Design for a width of 320px to 479px ===== */
+
+@media only screen and (max-width:479px)
+{
+	/** Main Menu **/
+	
+	.header-section {
+		min-width: 320px;
+	}
+	
+	
+	/** Content **/
+	
+	.wrapper {
+		width: 310px;
+	}
+	
+	
+	/** Blockquote **/
+	
+	blockquote {
+		font-size: 1.5em;
+		line-height: 30px;
+	}
+	
+	.large-grid blockquote {
+		margin-top: 20px;
+	}
+	
+	.quote-author {
+		font-family: 'Open Sans', sans-serif;
+		font-size: 14px;
+		font-weight: 300;
+	}
+	
+	
+	/** Grid Content Area **/
+	
+	.grid-half {
+		width: 310px;
+	}
+	
+	.large-grid {
+		height: 310px;
+	}
+	
+	.large-grid figure {
+		width: 310px;
+	}
+	
+	.small-grid li,
+	.half-feature-image {
+		width: 310px;
+		height: 310px;
+	}
+	
+	.small-grid .icon h2 {
+		margin-bottom: 20px;
+	}
+	
+	
+	/** Service **/
+	
+	.service ul {
+		margin-left: 0px;
+	}
+	
+	.service ul li {
+		width: 310px;
+		height: 310px;
+		margin-left: 0px;
+	}
+	
+	.service-large ul li {
+		width: 100%;
+		height: auto;
+	}
+	
+	.service .grid-title {
+		margin-bottom: 20px;
+	}
+	
+	.service-details h2 a {
+		line-height: normal;
+	}
+	
+
+	/** Portfolio, Gallery, Team, Related Grid **/
+	
+	.portfolio ul,
+	.gallery-list ul,
+	.team ul,
+	.related ul {
+		margin-left: 0px;
+	}
+	
+	.portfolio ul li,
+	.gallery-list ul li,
+	.team ul li,
+	.related ul li {
+		width: 310px;
+		height: 310px;
+		margin-left: 0px;
+	}
+	
+	.portfolio .flip img,
+	.gallery-list ul li img,
+	.team .flip img,
+	.related .flip img {
+		width: 310px;
+		height: 310px;
+	}
+	
+	.box-title h2 {
+		margin-bottom: 20px;
+	}
+	
+	
+	/** Blog **/
+	
+	.blog-single-details h1 {
+		line-height: 30px;
+	}
+	
+	.blog-related ul {
+		margin-left: -20px;
+	}
+	
+	.blog-related ul li {
+		width: 145px;
+		height: 145px;
+		margin-left: 20px;
+	}
+	
+	.tiny-grid h2 {
+		margin-bottom: 5px;
+	}
+	
+	
+	/* Comments */
+	
+	.reply {
+		float: left;
+		margin-top: 10px;
+	}
+	
+	.comment-active .submit-button {
+		float: left;
+		margin-top: 15px;
+	}
+	
+	
+	/** Sidebar **/
+	
+	.sidebar-box .gallery .gallery-list {
+		width: 77.5px;
+		height: 77.5px;
+	}
+	
+	
+	/** Contact **/
+	
+	.map {
+		height: 310px;
+	}
+	
+	.info-box h2 {
+		line-height: 30px;
+	}
+	
+		
+	/** Detail Flip Back **/
+	
+	.large-title-back {
+		font-size: 1.5em;
+		line-height: 30px;
+	}
+	
+	.large-description-back {
+		font-size: 14px;
+		line-height: 20px;
+		margin-top: 20px;
+	}
+	
+	
+	/** Footer Top **/
+	
+	.footer-section {
+		width: 310px;
+	}
+	
+	.subscribe-box input {
+		width: 100%;
+	}
+	
+	.subscribe-box .first-name {
+		margin-right: 0px;
+	}
+	
+	.subscribe-box .last-name {
+		margin-top: 12px;
+	}
+	
+	
+	/** Footer Bottom **/
+	
+	.footer-bottom ul li {
+		margin: 0px 5px 0px 5px;
+	}
+}

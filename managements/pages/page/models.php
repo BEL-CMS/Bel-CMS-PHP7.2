@@ -26,7 +26,7 @@ class ModelsPage
 	{
 		if ($data !== false) {
 			// SECURE DATA
-			$send['name']    = Common::VarSecure($data['name'], ''); // autorise que du texte
+			$send['name'] = Common::VarSecure($data['name'], ''); // autorise que du texte
 			if (!isset($data['groups'])) {
 				$send['groups'] = 0;
 			} else {

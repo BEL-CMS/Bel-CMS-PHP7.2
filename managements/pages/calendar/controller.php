@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 1.0.0
- * @link https://bel-cms.be
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2014-2019 Bel-CMS
- * @author as Stive - stive@determe.be
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @copyright 2015-2022 Bel-CMS
+ * @author Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -24,7 +24,7 @@ class Calendar extends AdminPages
 		$menu[] = array('Accueil'      => array('href'=>'/calendar?management&pages','icon'=>'fa fa-home'));
 		$menu[] = array('Ajouter'      => array('href'=>'/calendar/add?management&pages','icon'=>'fa fa-plus'));
 		$menu[] = array('Catégories'   => array('href'=>'/calendar/addcat?management&pages','icon'=>'fa fa-cogs'));
-		$menu[] = array('Configuration'=> array('href'=>'/calendar/parameter?management&page','icon'=>'fa fa-cubes'));
+		$menu[] = array('Configuration'=> array('href'=>'/calendar/parameter?management&pages','icon'=>'fa fa-cubes'));
 		$this->render('index', $menu);
 	}
 
@@ -48,10 +48,16 @@ class Calendar extends AdminPages
 		$this->render('cat');
 	}
 
-	public function sendnewcat($data)
+	public function sendnewcat()
 	{
 		$return = $this->ModelsCalendar->sendnewcat ($_POST);
 		$this->error(get_class($this), $return['text'], $return['type']);
 		$this->redirect('/calendar?management&pages', 2);
+	}
+
+	public function getEvents ()
+	{
+		$return = $this->ModelsCalendar->getEvents();
+		echo json_encode($return);
 	}
 }

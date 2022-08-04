@@ -65,7 +65,7 @@ if (!defined('CHECK_INDEX')) {
 							<td><?=$v->pagenumber?></td>
 							<td><?=Common::TransformDate($v->publish, 'LONG', 'SHORT')?></td>
 							<td>
-								<a href="/page/subpageedit/<?=$v->id?>?management&pages"><i class="fas fa-pen"></i></a> - 
+								<a href="/page/subpageedit/<?=$v->id?>?management&pages>"><i class="fas fa-pen"></i></a> - 
 								<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>"><i class="fas fa-trash-alt"></i></a>
 								<div class="modal fade" id="modal_<?=$v->id?>" tabindex="-1" role="dialog">
 									<div class="modal-dialog" role="document">

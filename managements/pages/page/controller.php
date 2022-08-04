@@ -45,13 +45,9 @@ class Page extends AdminPages
 
 	public function add ()
 	{
-		$menu[] = array('Accueil'=> array('href'=>'/page?management&pages','icon'=>'fa fa-home'));
-		$menu[] = array('Configuration'=> array('href'=>'/page/parameter?management&pages','icon'=>'fa fa-cubes'));
-		$menu[] = array(ADD=> array('href'=>'/page/add?management&pages','icon'=>'fa fa-plus'));
 		$data['groups'] = BelCMSConfig::getGroups();
-		$data['data']   = $this->ModelsPage->getPages();
 		$this->set($data);
-		$this->render('addpage', $menu);
+		$this->render('addpage');
 	}
 
 	public function edit ($id)
@@ -60,14 +56,16 @@ class Page extends AdminPages
 		$set['groups'] = BelCMSConfig::getGroups();
 		$set['data']   = $this->ModelsPage->getPage($id);
 		$this->set($set);
-		$this->render('edit');
+		$menu[] = array('Accueil'=> array('href'=>'/page?management&pages','icon'=>'fa fa-home'));
+		$menu[] = array('Configuration'=> array('href'=>'page/parameter?management&pages','icon'=>'fa fa-cubes'));
+		$this->render('edit', $menu);
 	}
 
 	public function sendnew ()
 	{
 		if (empty($_POST['name'])) {
 			$this->error(get_class($this), 'Aucun nom', 'error');
-			$this->redirect('page?management&pages', 2);
+			$this->redirect('page?management&page', 2);
 		} else {
 			$return = $this->ModelsPage->addNewPage($_POST);
 			$this->error(get_class($this), $return['text'], $return['type']);
@@ -131,15 +129,14 @@ class Page extends AdminPages
 	{
 		$data['groups'] = BelCMSConfig::getGroups();
 		$data['config'] = BelCMSConfig::GetConfigPage(get_class($this));
-		$menu[] = array('Accueil'=> array('href'=>'/page?management&pages','icon'=>'fa fa-home'));
 		$this->set($data);
-		$this->render('parameter', $menu);
+		$this->render('parameter');
 	}
 
 	public function sendparameter ()
 	{
 		$return = $this->ModelsPage->sendparameter($_POST);
 		$this->error(get_class($this), $return['text'], $return['type']);
-		$this->redirect('Page?management&pages', 2);
+		$this->redirect('Page?management&page=true', 2);
 	}
 }
