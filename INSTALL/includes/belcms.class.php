@@ -200,7 +200,7 @@ function insertUserBDD ()
 				`main_groups` ,
 				`valid` ,
 				`ip` ,
-				`token`
+				`token`,
 				`expire`,
 				`god`
 			) VALUES (
