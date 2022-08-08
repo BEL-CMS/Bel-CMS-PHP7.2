@@ -18,6 +18,7 @@ Common::constant(array(
 	#####################################
 	# Fichier lang en français - Pages
 	#####################################
+	'BAN'                   => 'Gestion ban',
 	'HOME'                  => 'Accueil',
 	'BLOG'                  => 'Blog',
 	'COMMENTS'              => 'Commentaires',

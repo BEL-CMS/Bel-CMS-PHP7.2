@@ -16,7 +16,7 @@ if (!defined('CHECK_INDEX')) {
 
 class prefgen extends AdminPages
 {
-	var $active = true;
+	var $active = false;
 	var $models = array('ModelsPrefGen');
 
 	public function index ()

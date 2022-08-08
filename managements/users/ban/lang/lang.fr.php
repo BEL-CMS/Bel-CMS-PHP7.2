@@ -5,7 +5,7 @@
  * @link http://bel-cms.dev
  * @link http://determe.be
  * @license http://opensource.org/licenses/GPL-3.0 copyleft
- * @copyright 2015-2022 Bel-CMS
+ * @copyright 2014-2022 Bel-CMS
  * @author Stive - stive@determe.be
  */
 
@@ -16,9 +16,7 @@ if (!defined('CHECK_INDEX')) {
 
 Common::constant(array(
 	#####################################
-	# Fichier lang en français - Pages gallery
+	# Fichier lang en français - Pages BAN
 	#####################################
-	'EDIT_DL_PARAM_SUCCESS' => 'Edition des parametres effecté avec succès',
-	'EDIT_DL_PARAM_ERROR'   => 'Error lors de la sauvegarde des parametre',
-	'ERROR_NO_DATA'         => 'Erreur de transfert de données'
+	'BAN'  => 'Gestion bannissement',
 ));

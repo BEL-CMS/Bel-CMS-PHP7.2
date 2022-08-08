@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 0.0.1
- * @link https://bel-cms.be
- * @link https://stive.eu
+ * @version 2.0.1
+ * @link http://bel-cms.dev
+ * @link http://determe.be
  * @license http://opensource.org/licenses/GPL-3.0 copyleft
- * @copyright 2014-2019 Bel-CMS
- * @author Stive - determe@stive.eu
+ * @copyright 2015-2022 Bel-CMS
+ * @author Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {

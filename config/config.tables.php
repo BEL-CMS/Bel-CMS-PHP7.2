@@ -1,13 +1,13 @@
 <?php
 /**
- * Bel-CMS [Content management system]
- * @version 2.0.0
- * @link http://bel-cms.dev
- * @link http://determe.be
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
- * @copyright 2015-2022 Bel-CMS
- * @author Stive - stive@determe.be
- */
+* Bel-CMS [Content management system]
+* @version 2.0.1
+* @link https://bel-cms.be
+* @link https://determe.be
+* @license http://opensource.org/licenses/GPL-3.0 copyleft
+* @copyright 2022 Bel-CMS
+* @author Stive - stive@determe.be
+*/
 
 
 if (!defined('CHECK_INDEX')) {
@@ -37,12 +37,13 @@ Common::constant(array(
 	'TABLE_EMOTICONES'          => $DB_PREFIX.'emoticones',
 	'TABLE_EVENTS'              => $DB_PREFIX.'events',
 	'TABLE_EVENTS_CAT'          => $DB_PREFIX.'events_cat',
-	'TABLE_GALLERY'             => $DB_PREFIX.'gallery_img',
+	'TABLE_GALLERY'             => $DB_PREFIX.'gallery',
 	'TABLE_GALLERY_CAT'         => $DB_PREFIX.'gallery_cat',
 	'TABLE_GROUPS'              => $DB_PREFIX.'groups',
 	'TABLE_INBOX'               => $DB_PREFIX.'inbox',
 	'TABLE_INBOX_MSG'           => $DB_PREFIX.'inbox_msg',
 	'TABLE_INTERACTION'         => $DB_PREFIX.'interaction',
+	'TABLE_KEY_GOLD'            => $DB_PREFIX.'key_gold',
 	'TABLE_LINK_OUT'            => $DB_PREFIX.'links_click',
 	'TABLE_MAIL_BLACKLIST'      => $DB_PREFIX.'mails_blacklist',
 	'TABLE_MAINTENANCE'         => $DB_PREFIX.'maintenance',

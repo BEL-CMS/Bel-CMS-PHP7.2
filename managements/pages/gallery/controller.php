@@ -1,7 +1,7 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.0
+ * @version 2.0.1
  * @link http://bel-cms.dev
  * @link http://determe.be
  * @license http://opensource.org/licenses/GPL-3.0 copyleft
@@ -28,13 +28,32 @@ class Gallery extends AdminPages
 		$this->render('index', $menu);
 	}
 
+	public function add ()
+	{
+		$this->render('add');
+	}
+
+	public function sendadd ()
+	{
+		$return = $this->ModelsGallery->sendadd ($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('/gallery?management&pages', 2);
+	}
+
 	public function parameter ()
 	{
+		$menu[] = array('Accueil'=> array('href'=>'/gallery?management&pages','icon'=>'fa fa-home'));
 		$data['groups'] = BelCMSConfig::getGroups();
 		$data['config'] = BelCMSConfig::GetConfigPage(get_class($this));
 		$this->set($data);
-		$menu[] = array('Accueil'=> array('href'=>'/gallery?management&pages','icon'=>'fa fa-home'));
 		$this->render('parameter', $menu);
+	}
+
+	public function sendparameter ()
+	{
+		$return = $this->ModelsGallery->sendparameter($_POST);
+		$this->error(get_class($this), $return['text'], $return['type']);
+		$this->redirect('/gallery?management&pages', 2);
 	}
 
 	public function cat ()

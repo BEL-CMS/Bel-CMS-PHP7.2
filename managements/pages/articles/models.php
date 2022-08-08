@@ -224,8 +224,8 @@ class ModelsArticles
 	public function sendparameter($data = null)
 	{
 		if ($data !== false) {
-			$data['MAX_BLOG'] = (int) $data['MAX_BLOG'];
-			$opt = array('MAX_BLOG' => $data['MAX_BLOG']);
+			$data['MAX_ARTICLES'] = (int) $data['MAX_ARTICLES'];
+			$opt                  = array('MAX_ARTICLES' => $data['MAX_ARTICLES']);
 			$data['admin']        = isset($data['admin']) ? $data['admin'] : array(1);
 			$data['groups']       = isset($data['groups']) ? $data['groups'] : array(1);
 			$upd['config']        = Common::transformOpt($opt, true);

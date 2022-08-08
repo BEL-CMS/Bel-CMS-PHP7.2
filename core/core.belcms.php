@@ -53,7 +53,7 @@ final class BelCMS extends Dispatcher
 				}
 			}
 		}
-		$ban = New Ban;
+		$ban = New _Ban;
 		$ban = $ban->effective();
 		if ($ban == false) {
 			echo Notification::renderFull('error', 'Vous êtes actuellement banni(e) de ce site', 'Bannissement');

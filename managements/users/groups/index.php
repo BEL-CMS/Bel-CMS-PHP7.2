@@ -37,7 +37,7 @@ foreach ($count as $key => $value) {
 				$ico = "fa-arrow-down-up-across-line";
 			}
 			?>
-			<div class="info-box col-md-3">
+			<div class="info-box col-md-4">
 				<span class="info-box-icon" style="color:#FFF;background-color:<?=$v['color'];?>"><i class="fa-solid <?=$ico;?>"></i></span>
 				<div class="info-box-content">
 					<span class="info-box-text"><?=$k?></span>

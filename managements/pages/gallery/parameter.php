@@ -2,17 +2,18 @@
 /**
  * Bel-CMS [Content management system]
  * @version 2.0.0
- * @link http://bel-cms.dev
- * @link http://determe.be
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @link https://bel-cms.dev
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
  * @copyright 2015-2022 Bel-CMS
- * @author Stive - stive@determe.be
+ * @author as Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
 	exit(ERROR_INDEX);
 }
+
 if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === true):
 ?>
 <form action="/gallery/sendparameter?management&pages" method="post" class="form-horizontal">
@@ -20,7 +21,7 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 		<div class="col-md-2">
 			<div class="card">
 				<div class="card-header">
-					<h3 class="card-title">Galerie Active</h3>
+					<h3 class="card-title">Blog Active</h3>
 					<div class="card-tools">
 						<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
 							<i class="fas fa-minus"></i>
@@ -78,12 +79,12 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 				$visitor = constant('VISITORS');
 				$groups->$visitor = 0;
 				foreach ($groups as $k => $v):
-					$checked = in_array($v, $config->access_admin) ? 'checked' : '';
+					$checked = in_array($v['id'], $config->access_groups) ? 'checked' : '';
 					$checked = $v['id'] == 1 ? 'checked readonly' : $checked;
 					?>
 					<div class="form-group">
 						<div class="icheck-primary d-inline">
-							<input class="col-8" data-bootstrap-switch name="admin[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
+							<input class="col-8" data-bootstrap-switch name="groups[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
 							<label class="col-4 control-label" for="<?=$v['id']?>"><?=$k?></label>
 						</div>
 					</div>

@@ -34,9 +34,9 @@ Bel-CMS need a LAMP hosting (Apache / PHP / MySQL).
 ## Contribution
 
 Feel free to contribute to the greatest CMS already made, share your ideas, and help us to build a better CMS for all !
-- For more information [Bel-CMS](http://bel-cms.be)
+- For more information [Bel-CMS](http://bel-cms.dev)
 - For issues/bugs : https://github.com/Stive1987/Bel-CMS/issues
 
 Stay tuned on social medias : [@Facebook/Bel-CMS](https://www.facebook.com/Bel.CMS/)
 
-Copyleft 2015 - 2019
+Copyleft 2015 - 2022

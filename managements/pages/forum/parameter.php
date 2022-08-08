@@ -88,12 +88,12 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 				$visitor = constant('VISITORS');
 				$groups->$visitor = 0;
 				foreach ($groups as $k => $v):
-					$checked = in_array($v, $config->access_admin) ? 'checked' : '';
+					$checked = in_array($v['id'], $config->access_groups) ? 'checked' : '';
 					$checked = $v['id'] == 1 ? 'checked readonly' : $checked;
 					?>
 					<div class="form-group">
 						<div class="icheck-primary d-inline">
-							<input class="col-8" data-bootstrap-switch name="admin[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
+							<input class="col-8" data-bootstrap-switch name="groups[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
 							<label class="col-4 control-label" for="<?=$v['id']?>"><?=$k?></label>
 						</div>
 					</div>

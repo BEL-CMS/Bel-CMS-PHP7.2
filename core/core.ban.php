@@ -14,7 +14,7 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 
-final class Ban
+final class _Ban
 {
 	public 	$author,
 			$ip,
@@ -37,7 +37,7 @@ final class Ban
 	{
 		$get = self::getBan();
 		if (!empty($get)) {
-			if ($get->date - $this->date <= 1) {
+			if (strtotime($get->date) - $this->date <= 1) {
 				self::delete();
 				return true;
 			} else {

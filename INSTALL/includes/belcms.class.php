@@ -201,8 +201,10 @@ function insertUserBDD ()
 				`valid` ,
 				`ip` ,
 				`token`
+				`expire`,
+				`god`
 			) VALUES (
-				NULL , '".$users['username']."', '".$users['password']."', '".$users['email']."', '', '".$users['hash_key']."', NOW() , NOW() , '1', '1', '1', '".$users['ip']."', ''
+				NULL , '".$users['username']."', '".$users['password']."', '".$users['email']."', '', '".$users['hash_key']."', NOW() , NOW() , '1', '1', '1', '".$users['ip']."', '', '', '1'
 			);";
 
 	$sql[1]  = "INSERT INTO `".$_SESSION['prefix']."page_users_profils` (

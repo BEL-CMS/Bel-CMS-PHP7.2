@@ -21,8 +21,8 @@ switch ($table) {
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`author` varchar(32) NOT NULL,
-			`ip` text NOT NULL,
-			`date` int(11) NOT NULL,
+			`ip` text DEFAULT NULL,
+			`date` datetime DEFAULT NULL,
 			`reason` text NOT NULL,
 			PRIMARY KEY (`id`),
 			UNIQUE KEY `author` (`author`)
@@ -98,6 +98,7 @@ switch ($table) {
 			(NULL, 'downloads', 1, '0', '1', ''),
 			(NULL, 'inbox', 1, '0', '1', ''),
 			(NULL, 'events', 1, '0', '1', ''),
+			(NULL, 'gallery', 1, '0', '1', ''),
 			(NULL, 'managements', 1, '1', '1', '');";
 	break;
 
@@ -169,6 +170,22 @@ switch ($table) {
 		  `color` varchar(10) DEFAULT NULL
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	break;
+
+	case 'events_events':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL,
+			`name` varchar(100) NOT NULL,
+			`image` varchar(100) DEFAULT NULL,
+			`start_date` varchar(10) NOT NULL,
+			`end_date` varchar(10) NOT NULL,
+			`start_time` varchar(10) NOT NULL,
+			`end_time` varchar(10) NOT NULL,
+			`color` text NOT NULL,
+			`location` varchar(255) NOT NULL,
+			`description` text NOT NULL,
+			`state` tinyint(4) NOT NULL DEFAULT '1'
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
 	case 'games':
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
@@ -366,7 +383,7 @@ switch ($table) {
 			PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
-		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `rewrite_name`, `name`, `date_create`, `author`, `authoredit`, `content`, `additionalcontent`, `tags`, `cat`, `view`) VALUES (NULL, 'Bienvenue_sur_votre_site_bel-cms', 'Bienvenue sur votre site bel-cms', '".date('Y-m-d H:i:s')."', NULL, NULL, 'Bienvenue sur votre site Bel-CMS, votre installation s\'est, à priori, bien déroulée, rendez-vous dans la partie administration pour commencer à utiliser votre site tout simplement en vous loguant avec le e-mail indiqué lors de l\'installation. En cas de problèmes, veuillez le signaler sur <a href=\"https://bel-cms.be\">https://bel-cms.be</a> dans le forum prévu à cet effet.', NULL, NULL, NULL, '0')";
+		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `rewrite_name`, `name`, `date_create`, `author`, `authoredit`, `content`, `additionalcontent`, `tags`, `cat`, `view`) VALUES (NULL, 'Bienvenue_sur_votre_site_bel-cms', 'Bienvenue sur votre site bel-cms', '".date('Y-m-d H:i:s')."', NULL, NULL, 'Bienvenue sur votre site Bel-CMS, votre installation s\'est, à priori, bien déroulée, rendez-vous dans la partie administration pour commencer à utiliser votre site tout simplement en vous loguant avec le e-mail indiqué lors de l\'installation. En cas de problèmes, veuillez nous le faire part sur <a href=\"https://bel-cms.dev\">https://bel-cms.dev</a> dans le forum prévu à cet effet.', NULL, NULL, NULL, '0')";
 	break;
 
 	case 'page_articles_cat':
@@ -512,6 +529,7 @@ switch ($table) {
 			`ip` varchar(255) NOT NULL,
 			`token` varchar(50) DEFAULT NULL,
 			`expire` varchar(5) DEFAULT NULL,
+			`god` varchar(1) DEFAULT NULL,
 			PRIMARY KEY (`id`),
 			UNIQUE KEY `mail` (`email`),
 			UNIQUE KEY `name` (`username`)
@@ -537,6 +555,18 @@ switch ($table) {
 			PRIMARY KEY (`id`),
 			UNIQUE KEY `hash_key` (`hash_key`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+	break;
+
+	case 'key_gold':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`key_gold` varchar(32) NOT NULL,
+			PRIMARY KEY (`id`),
+			UNIQUE KEY `key_gold` (`hash_key`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `key_gold`) VALUES
+			(1, '".md5(uniqid(rand(), true))."');";
 	break;
 
 	case 'page_users_social':
@@ -621,7 +651,6 @@ switch ($table) {
 			(5, 'donates', 'Paypal', '0', '1', 1, 'right', 1, '', 'CSS=1|JS=1'),
 			(6, 'newsletter', 'Newsletter', '0', '1', 1, 'right', 2, '', 'CSS=1|JS=1');
 			(7, 'survey', 'Sondages', '0', '1', 1, 'right', 2, '', 'CSS=1|JS=1');";
-
 	break;
 }
 

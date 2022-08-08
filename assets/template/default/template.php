@@ -13,7 +13,7 @@
 		<!-- Top Bar Menu -->
 		<nav id="bel_cms-top_bar">
 			<ul class="bel_cms_content">
-				<li><a href="Blog">Home</a></li>
+				<li><a href="Articles">Home</a></li>
 				<li><a href="Forum">Forum</a></li>
 				<li><a href="Team">Team</a></li>
 				<li><a href="inbox">Inbox</a></li>
@@ -56,6 +56,7 @@
 		<footer id="footer">
 			<div class="bel_cms_content">
 				<span>Copyright 2019 > <?=(date('Y'))?> | By <a href="https://bel-cms.dev">Bel-CMS</a></span>
+			</div>
 		</footer>
 		<!-- / Footer -->
 		{js}

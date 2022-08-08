@@ -49,6 +49,7 @@ final class Interaction
 				$type = 'error';
 			break;
 		}
+
 		$this->type = $type;
 	}
 
