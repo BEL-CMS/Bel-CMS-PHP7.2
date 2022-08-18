@@ -16,6 +16,7 @@ if (!defined('CHECK_INDEX')) {
 
 class Page extends AdminPages
 {
+	var $admin  = true; // Admin suprême uniquement (Groupe 1);
 	var $active = true;
 	var $models = array('ModelsPage');
 

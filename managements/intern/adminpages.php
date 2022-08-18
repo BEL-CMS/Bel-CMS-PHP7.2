@@ -28,6 +28,7 @@ class AdminPages
 
 		if ($this->active === false) {
 			self::pageOff();
+			Notification::error('Page fermer manuellement, via le fichier : controller.');
 		} else if ($this->admin === true) {
 			if (Users::isSuperAdmin() === false) {
 				self::superAdmin();

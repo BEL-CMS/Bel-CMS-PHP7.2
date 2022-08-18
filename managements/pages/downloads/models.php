@@ -137,7 +137,7 @@ class ModelsDownloads
 		} else {
 			$return = array(
 				'type' => 'warning',
-				'text' => SEND_EDITCAT_ERROR
+				'text' => SEND_EDIT_ERROR
 			);
 		}
 

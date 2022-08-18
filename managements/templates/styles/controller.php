@@ -22,6 +22,12 @@ class Styles extends AdminPages
 	var $admin  = true; // Admin suprême uniquement (Groupe 1);
 	var $active = true; // activation manuel;
 	var $models = array('ModelsStyles');
+
+	function __construct() {
+		if ($this->active == false) {
+			Notification::error('Page fermer manuellement');
+		}
+	}
 	#########################################
 	# Premiere page avec le rendu de la page index.php
 	#########################################

@@ -16,6 +16,7 @@ if (!defined('CHECK_INDEX')) {
 
 class Forum extends AdminPages
 {
+	var $admin  = false; // Admin suprême uniquement (Groupe 1);
 	var $active = true;
 	var $models = array('ModelsForum');
 

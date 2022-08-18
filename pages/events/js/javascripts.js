@@ -3,6 +3,27 @@
 	// Global events variables
 	var quick_events = [];
 
+	var word_day_sun = 'Dimanche';
+	var word_day_mon = 'Lundi';
+	var word_day_tue = 'Mardi';
+	var word_day_wed = 'Mercredi';
+	var word_day_thu = 'Jeudi';
+	var word_day_fri = 'Vendredi';
+	var word_day_sat = 'Samedi';
+
+	var word_month_1 = 'Janvier';
+	var word_month_2 = 'Fevrier';
+	var word_month_3 = 'Mars';
+	var word_month_4 = 'Avril';
+	var word_month_5 = 'Mai';
+	var word_month_6 = 'Juin';
+	var word_month_7 = 'Juillet';
+	var word_month_8 = 'Aout';
+	var word_month_9 = 'Septeùbre';
+	var word_month_10 = 'Octobre';
+	var word_month_11 = 'Novembre';
+	var word_month_12 = 'Decembre';
+
 	// Global time variables
 	var today = new Date();
 	var today_date_g 	= today.getDate();
@@ -493,7 +514,6 @@
 						+ '</div>';
 		return event_string;
 	}
-	alert('test');
 	$(document).ready(function(){
 		$('.quick-events').each(function(index) {
 			// Set id for timetable
@@ -517,7 +537,7 @@
 			word_month = new Array(word_month_1, word_month_2, word_month_3, word_month_4, word_month_5, word_month_6, word_month_7, word_month_8, word_month_9, word_month_10, word_month_11, word_month_12);
 
 			$.ajax({
-				url: 'events/get?json';
+				url: '/calendar/index?json',
 				dataType: 'json',
 				data: '',
 				success: function(data) {

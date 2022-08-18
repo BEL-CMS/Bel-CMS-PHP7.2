@@ -58,6 +58,11 @@ Common::constant(array(
 	'SEND_NEWCAT_SUCCESS'   => 'Catégorie ajouter avec succès',
 	'SEND_NEWCAT_ERROR'     => 'Erreur lors de l\'ajout de la Catégorie',
 	'SEND_EDITCAT_SUCCESS'  => 'Catégorie editer avec succès',
-	'SEND_EDITCAT_ERROR'    => 'Erreur lors de l\'édition de la Catégorie',
-	'SAVE_BDD_SUCCESS'      => 'La sauvegarde a été effectuée avec succès.'
+	'SEND_EDIT_ERROR'       => 'Erreur lors de l\'édition',
+	'SEND_EDITCAT_ERROR'    => 'Erreur lors de l\'édition',
+	'SAVE_BDD_SUCCESS'      => 'La sauvegarde a été effectuée avec succès.',
+	'SEND_EDIT_SUCCESS'     => 'Enregistrement effectuée avec succès',
+	'ERROR_ID'              => 'Erreur de ID',
+	'DEL_SUCCESS'           => 'Supprimé avec succès',
+	'DEL_ERROR'             => 'Erreur durant l\'effacement',
 ));

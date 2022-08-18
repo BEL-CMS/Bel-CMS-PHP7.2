@@ -399,23 +399,3 @@ function social ($user)
 </div>
 <?php
 }
-
-function mobile ()
-{
-?>
-<div class="tab-pane fade" id="v-pills-mobile" role="tabpanel" aria-labelledby="v-pills-mobile-tab">
-	<h2>Compte Mobile</h2>
-	<p>En cours de développement</p>
-</div>
-<?php
-}
-
-function connexion ()
-{
-?>
-<div class="tab-pane fade" id="v-pills-connexion" role="tabpanel" aria-labelledby="v-pills-connexion-tab">
-	<h2>Vos connexions</h2>
-	<p>En cours de développement</p>
-</div>
-<?php
-}

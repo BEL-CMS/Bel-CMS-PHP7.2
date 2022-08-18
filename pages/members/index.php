@@ -14,62 +14,49 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<div id="bel_cms_members_index" class="section_bg card">
-	<div class="card-header" style="background-color:<?=COLOR_TOP;?>"><?=MEMBERS?></div>
-	<div class="card-body" style="background-color:<?=COLOR_BODY;?>">
-		<table class="table <?=TYPE_TABLE;?>" style="color:<?=COLOR_TEXT;?>">
-			<thead>
-				<tr>
-					<th><?=USERNAME?></th>
-					<th><?=LAST_VISIT?></th>
-					<th><?=LOCATION?></th>
-					<th><?=GENDER?></th>
-					<th><?=WEBSITE?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-				if (empty($members)) {
-					?>
-					<tr>
-						<td colspan="6">Aucun utilisateur</td>
-					</tr>
-					<?php
-				} else {
-					foreach ($members as $k => $v):
-						if (!empty($v->profils)) {
-							if ($v->profils->gender == 'male') {
-								$gender = MALE;
-							} else if ($v->profils->gender == 'female') {
-								$gender = FEMALE;
-							} else {
-								$gender = UNISEXUAL;
-							}
-							$country  = $v->profils->country;
-							$websites = empty($v->profils->websites) ? '<i class="fa fa-link"></i>' : '<a href="'.$v->profils->websites.'"><i class="fa fa-link"></i></a>';
-							$flag = array_search($country, Common::contryList());
-							$flag = 'flag-icon flag-icon-'.strtolower($flag);
-						} else {
-							$gender   = '-';
-							$country  = '-';
-							$websites = '<i class="fa fa-link"></i>';
-							$flag     = '';
-						}
-						?>
-						<tr>
-							<td><a href="Members/View/<?=$v->username?>"><?=$v->username?></a></td>
-							<td><?=Common::TransformDate($v->last_visit, 'FULL', 'MEDIUM')?></td>
-							<td><span class="<?=$flag?>"></span><span style="padding-left: 10px;"><?=$country?></span></td>
-							<td><?=$gender?></td>
-							<td><?=$websites?></td>
-						</tr>
-					<?php
-					endforeach;
-				}
-				?>
-			</tbody>
-		</table>
+<section id="belcms_members">
+<?php
+foreach ($members as $k => $v):
+	if (!empty($v->profils)) {
+		$country  = $v->profils->country;
+		$websites = empty($v->profils->websites) ? '<i class="fa fa-link"></i>' : '<a href="'.$v->profils->websites.'"><i class="fa fa-link"></i></a>';
+		$flag = array_search($country, Common::contryList());
+		$flag = 'flag-icon flag-icon-'.strtolower($flag);
+	} else {
+		$gender   = '-';
+		$country  = '-';
+		$websites = '<i class="fa fa-link"></i>';
+		$flag     = '';
+	}
+	$colorGroup = Users::colorUsername($v->hash_key);
+	$nameGroup  = BelCMSConfig::getGroups(true);
+	$idGroup    = $v->main_groups;
+	$avatar     = empty($v->avatar) ? 'assets/images/default_avatar.jpg' : $v->avatar;
+	?>
+	<div class="belcms_members_section col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+		<span class="badge" style="background-color: <?=$colorGroup?>; color: #FFF;"><?=$nameGroup->$idGroup['name']?></span>
+		<div class="belcms_members_avatar">
+			<img src="<?=$avatar;?>" alt="avatar" class="rounded-circle border border-light">
+		</div>
+		<div class="belcms_members_infos">
+			<div class="belcms_members_infos_col">
+				<p><strong>Pseudo</strong></p>
+				<p><?=$v->username?></p>
+			</div>
+			<div class="belcms_members_infos_col">
+				<p><strong>Site-Web</strong></p>
+				<p><?=$websites?></p>
+			</div>
+			<div class="belcms_members_infos_col">
+				<p><strong>Pays</strong></p>
+				<p><i class="<?=$flag?>"></i></p>
+			</div>
+		</div>
+		<a href="members/view/<?=$v->username?>" class="btn btn-secondary btn-lg btn-block">Voir le profile</a>
 	</div>
+<?php
+endforeach;
+?>
 	<?php
 	if (!empty($pagination)):
 	?>
@@ -79,4 +66,4 @@ if (!defined('CHECK_INDEX')) {
 	<?php
 	endif;
 	?>
-</div>
+</section>

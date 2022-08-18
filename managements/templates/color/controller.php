@@ -20,6 +20,12 @@ class Color extends AdminPages
 	var $active = true; // activation manuel;
 	var $models = array('ModelsColor');
 
+	function __construct() {
+		if ($this->active == false) {
+			Notification::error('Page fermer manuellement');
+		}
+	}
+
 	public function index ()
 	{
 		$menu[] = array('Accueil'=> array('href'=>'/color?management&templates','icon'=>'fa fa-home'));

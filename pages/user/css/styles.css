@@ -374,3 +374,46 @@ section#bel_cms_page_user {
 	padding: 25px;
 	margin: auto;
 }
+/*###################################
+# BEL-CMS MODULE NEW USER
+###################################*/
+#belcms_user_profil_bg {
+	width: 100%
+	background: no-repeat url('/pages/user/images/my-profile_bg.jpg');
+	height: 350px;
+	overflow: hidden;
+	margin: 0; padding: 0;
+}
+#belcms_user_profil_bg #belcms_user_profil_table_top,
+#belcms_user_profil_bg img {
+	margin: 0; padding: 0;
+}
+#belcms_user_profil_bg #belcms_user_profil_table_top {
+	border: none;
+}
+#belcms_user_profil_bg #belcms_user_profil_table_top tr {
+	display: block;
+	padding-left: 250px;
+	border: none;
+}
+#belcms_user_profil_bg #belcms_user_profil_table_top tr td {
+	border: none;
+}
+#belcms_user_profil_bg #belcms_user_profil_table_top tr td:first-child {
+ font-weight: bold;
+}
+#belcms_user_profil_bg_user {
+	width: 200px;
+	height: 200px;
+	position: absolute;
+	left: 100px;
+	top: 125px;
+}
+#belcms_user_profil_bg_user img {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+#belcms_user_profil_social {
+	margin: auto;
+	text-align: center;
+}

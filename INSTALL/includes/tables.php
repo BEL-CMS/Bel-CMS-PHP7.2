@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.0
- * @link http://bel-cms.dev
- * @link http://determe.be
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @version 2.0.1
+ * @link https://bel-cms.dev
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
  * @copyright 2015-2022 Bel-CMS
- * @author Stive - stive@determe.be
+ * @author as Stive - stive@determe.be
  */
 
 $error      = true;
@@ -21,8 +21,8 @@ switch ($table) {
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`author` varchar(32) NOT NULL,
-			`ip` text NOT NULL,
-			`date` int(11) NOT NULL,
+			`ip` text DEFAULT NULL,
+			`date` datetime DEFAULT NULL,
 			`reason` text NOT NULL,
 			PRIMARY KEY (`id`),
 			UNIQUE KEY `author` (`author`)
@@ -65,12 +65,6 @@ switch ($table) {
 			(NULL, 'CMS_JQUERY', 'on'),
 			(NULL, 'CMS_JQUERY_UI', 'on'),
 			(NULL, 'CMS_BOOTSTRAP', 'on'),
-			(NULL, 'COLOR_TOP', ''),
-			(NULL, 'COLOR_BODY', ''),
-			(NULL, 'COLOR_BOTTOM', ''),
-			(NULL, 'COLOR_TEXT', ''),
-			(NULL, 'COLOR_LINK', ''),
-			(NULL, 'TYPE_TABLE', ''),
 			(NULL, 'DATE_INSTALL', '".time()."'),
 			(NULL, 'API_KEY', '".md5(uniqid(rand(), true))."');";
 	break;
@@ -98,6 +92,7 @@ switch ($table) {
 			(NULL, 'downloads', 1, '0', '1', ''),
 			(NULL, 'inbox', 1, '0', '1', ''),
 			(NULL, 'events', 1, '0', '1', ''),
+			(NULL, 'gallery', 1, '0', '1', ''),
 			(NULL, 'managements', 1, '1', '1', '');";
 	break;
 
@@ -366,7 +361,7 @@ switch ($table) {
 			PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
-		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `rewrite_name`, `name`, `date_create`, `author`, `authoredit`, `content`, `additionalcontent`, `tags`, `cat`, `view`) VALUES (NULL, 'Bienvenue_sur_votre_site_bel-cms', 'Bienvenue sur votre site bel-cms', '".date('Y-m-d H:i:s')."', NULL, NULL, 'Bienvenue sur votre site Bel-CMS, votre installation s\'est, à priori, bien déroulée, rendez-vous dans la partie administration pour commencer à utiliser votre site tout simplement en vous loguant avec le e-mail indiqué lors de l\'installation. En cas de problèmes, veuillez le signaler sur <a href=\"https://bel-cms.be\">https://bel-cms.be</a> dans le forum prévu à cet effet.', NULL, NULL, NULL, '0')";
+		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `rewrite_name`, `name`, `date_create`, `author`, `authoredit`, `content`, `additionalcontent`, `tags`, `cat`, `view`) VALUES (NULL, 'Bienvenue_sur_votre_site_bel-cms', 'Bienvenue sur votre site bel-cms', '".date('Y-m-d H:i:s')."', NULL, NULL, 'Bienvenue sur votre site Bel-CMS, votre installation s\'est, à priori, bien déroulée, rendez-vous dans la partie administration pour commencer à utiliser votre site tout simplement en vous loguant avec le e-mail indiqué lors de l\'installation. En cas de problèmes, veuillez nous le faire part sur <a href=\"https://bel-cms.dev\">https://bel-cms.dev</a> dans le forum prévu à cet effet.', NULL, NULL, NULL, '0')";
 	break;
 
 	case 'page_articles_cat':
@@ -512,6 +507,7 @@ switch ($table) {
 			`ip` varchar(255) NOT NULL,
 			`token` varchar(50) DEFAULT NULL,
 			`expire` varchar(5) DEFAULT NULL,
+			`god` varchar(1) DEFAULT NULL,
 			PRIMARY KEY (`id`),
 			UNIQUE KEY `mail` (`email`),
 			UNIQUE KEY `name` (`username`)
@@ -619,9 +615,8 @@ switch ($table) {
 			(3, 'connected', 'Connecté', '0', '1', 1, 'left', 2, 'blog', 'CSS=1|JS=1'),
 			(4, 'lastconnected', 'Dernier connecté', '0', '1', 3, 'top', 1, 'blog', 'CSS=1|JS=1'),
 			(5, 'donates', 'Paypal', '0', '1', 1, 'right', 1, '', 'CSS=1|JS=1'),
-			(6, 'newsletter', 'Newsletter', '0', '1', 1, 'right', 2, '', 'CSS=1|JS=1');
+			(6, 'newsletter', 'Newsletter', '0', '1', 1, 'right', 2, '', 'CSS=1|JS=1'),
 			(7, 'survey', 'Sondages', '0', '1', 1, 'right', 2, '', 'CSS=1|JS=1');";
-
 	break;
 }
 

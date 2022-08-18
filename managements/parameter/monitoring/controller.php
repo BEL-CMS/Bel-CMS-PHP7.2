@@ -19,6 +19,12 @@ class monitoring extends AdminPages
 	var $active = true;
 	var $models = array('ModelsMonitoring');
 
+	function __construct() {
+		if ($this->active == false) {
+			Notification::error('Page fermer manuellement');
+		}
+	}
+
 	public function index ()
 	{
 		//$d['data'] = $this->ModelsMonitoring->lastInteraction();

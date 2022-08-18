@@ -20,6 +20,12 @@ class activate extends AdminPages
 	var $active = true; // activation manuel;
 	var $models = array('ModelsActivate');
 
+	function __construct() {
+		if ($this->active == false) {
+			Notification::error('Page fermer manuellement');
+		}
+	}
+
 	public function index ()
 	{
 		$d['pages']   = $this->ModelsActivate->getNamePages();

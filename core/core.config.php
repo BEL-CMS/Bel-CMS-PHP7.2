@@ -1,17 +1,17 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.0
- * @link http://bel-cms.dev
- * @link http://determe.be
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @version 2.0.1
+ * @link https://bel-cms.dev
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
  * @copyright 2015-2022 Bel-CMS
- * @author Stive - stive@determe.be
+ * @author as Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit(ERROR_INDEX);
+	exit('<!doctype html><html><head><meta charset="utf-8"><title>BEL-CMS : Error 403 Forbidden</title><style>h1{margin: 20px auto;text-align:center;color: red;}p{text-align:center;font-weight:bold;</style></head><body><h1>HTTP Error 403 : Forbidden</h1><p>You don\'t permission to access / on this server.</p></body></html>');
 }
 
 final class BelCMSConfig extends Dispatcher
@@ -82,7 +82,7 @@ final class BelCMSConfig extends Dispatcher
 		return $return;
 	}
 
-	public static function getGroups ()
+	public static function getGroups ($true = false)
 	{
 		$return = (object) array();
 
@@ -93,7 +93,14 @@ final class BelCMSConfig extends Dispatcher
 
 		foreach ($sql->data as $k => $v) {
 			$a = defined(strtoupper($v->name)) ? constant(strtoupper($v->name)) : ucfirst(strtolower($v->name));
-			$return->$a = array('id' => $v->id_group, 'color' => $v->color, 'image' => $v->image);
+			if ($true == false) {
+				$a = defined(strtoupper($v->name)) ? constant(strtoupper($v->name)) : ucfirst(strtolower($v->name));
+				$return->$a = array('id' => $v->id_group, 'color' => $v->color, 'image' => $v->image);
+			} else {
+				$a = defined(strtoupper($v->name)) ? constant(strtoupper($v->name)) : ucfirst(strtolower($v->name));
+				$return->{$v->id} = array('name' => $a, 'color' => $v->color, 'image' => $v->image);
+			}
+
 		}
 
 		return $return;

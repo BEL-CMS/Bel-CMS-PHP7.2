@@ -1,3 +1,50 @@
+
+#belcms_members {
+	display: block;
+	width: 100%;
+}
+	.belcms_members_section {
+		border-radius: 4px;
+		border: 1px solid rgba(0, 0, 0, 0.125);
+		background: rgba(255,255,255,1);
+		padding: 15px !important;
+		float: left;
+		margin: 0 15px;
+		margin-bottom: 15px;
+	}
+		.belcms_members_avatar {
+			text-align: center;
+			margin: 15px auto;
+		}
+			.belcms_members_avatar > img {
+				width: 100px;
+				max-height: 100px;
+			}
+	.belcms_members_infos {
+		overflow: hidden;
+		display: table;
+		width: 100%;
+		margin-bottom: 15px;
+	}
+		.belcms_members_infos_col {
+			display: table-cell;
+			background-color: #F8F8F8;
+			vertical-align: middle;
+			text-align: center;
+			padding: 20px 0;
+		}
+		.belcms_members_infos_col:nth-child(odd) {
+			border-left: 2px solid rgba(255,255,255, 1);
+			border-right: 2px solid rgba(255,255,255, 1);
+		}
+			.belcms_members_infos_col p {
+				margin: 0; padding: 0;
+			}
+
+
+
+
+
 #bel_cms_members_index {
 
 }

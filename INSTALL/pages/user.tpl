@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.0
- * @link http://bel-cms.dev
- * @link http://determe.be
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @version 2.0.1
+ * @link https://bel-cms.dev
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
  * @copyright 2015-2022 Bel-CMS
- * @author Stive - stive@determe.be
+ * @author as Stive - stive@determe.be
  */
 ?>
 <form action="?page=finish" method="post">

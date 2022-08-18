@@ -226,7 +226,7 @@ function getNbDl()
 	  <div class="icon">
 		<i class="fas fa-user-plus"></i>
 	  </div>
-	  <a href="/users?management&page=true" class="small-box-footer">
+	  <a href="/registration?management&users" class="small-box-footer">
 		Voir tout les utilisateurs <i class="fas fa-arrow-circle-right"></i>
 	  </a>
 	</div>
@@ -242,7 +242,7 @@ function getNbDl()
 	  <div class="icon">
 		<i class="fa-solid fa-file-circle-plus"></i>
 	  </div>
-	  <a href="/blog/add?management&page=true" class="small-box-footer">
+	  <a href="/articles?management&pages" class="small-box-footer">
 		Ajouté une news <i class="fas fa-arrow-circle-right"></i>
 	  </a>
 	</div>
@@ -258,7 +258,7 @@ function getNbDl()
 	  <div class="icon">
 		<i class="fa-solid fa-comment-dots"></i>
 	  </div>
-	  <a href="#" class="small-box-footer">
+	  <a href="/comments?management&pages" class="small-box-footer">
 		Voir les commentaires <i class="fas fa-arrow-circle-right"></i>
 	  </a>
 	</div>
@@ -274,7 +274,7 @@ function getNbDl()
 	  <div class="icon">
 		<i class="fa-solid fa-download"></i>
 	  </div>
-	  <a href="/downloads/add?management&page=true" class="small-box-footer">
+	  <a href="/downloads?management&pages" class="small-box-footer">
 		Ajouter <i class="fas fa-arrow-circle-right"></i>
 	  </a>
 	</div>

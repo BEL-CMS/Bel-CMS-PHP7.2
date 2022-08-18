@@ -20,6 +20,12 @@ class Maintenance extends AdminPages
 	var $active    = true;
 	var $models    = array('ModelsMaintenance');
 
+	function __construct() {
+		if ($this->active == false) {
+			Notification::error('Page fermer manuellement');
+		}
+	}
+
 	public function index ()
 	{
 		$data['data'] = $this->ModelsMaintenance->getMaintenance();

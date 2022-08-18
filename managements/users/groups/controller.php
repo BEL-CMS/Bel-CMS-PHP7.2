@@ -20,6 +20,12 @@ class Groups extends AdminPages
 	var $active = true; // activation manuel;
 	var $models = array('ModelGroups');
 
+	function __construct() {
+		if ($this->active == false) {
+			Notification::error('Page fermer manuellement');
+		}
+	}
+
 	public function index ()
 	{
 		$menu[] = array('Accueil'=> array('href'=>'/groups?management&users','icon'=>'fa fa-home'));

@@ -28,5 +28,4 @@ Common::constant(array(
 	'LAST_VISIT'         => 'Dernière visite',
 	'FRIEND'             => 'Ami',
 	'FRIENDS'            => 'Amis',
-
 )); 

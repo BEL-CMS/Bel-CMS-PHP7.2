@@ -44,6 +44,13 @@
 			  <div class="user-panel mt-3 mb-3 d-flex">
 			  <nav>
 				<ul class="nav nav-pills nav-sidebar flex-column">
+				  <li class="nav-item" style="text-align: center;">
+					<a href="https://bel-cms.dev" class="nav-link">
+						<img style="width:140px; height: 90px;" src="/managements/asset/img/logo.png">
+						<div class="clear"></div>
+					  	<p>Bel-CMS</p>
+					</a>
+				  </li>
 				  <li class="nav-item">
 					<a href="\index.php" class="nav-link">
 					  <p><?=BACK_TO_WEBSITE;?></p>
@@ -203,7 +210,7 @@
 		  </div>
 		  <footer class="main-footer">
 			<div class="float-right d-none d-sm-block">
-			  <b>Version</b> 2.0.0 CMS
+			  <b>Version</b> <?=VERSION_CMS?>
 			</div>
 			<strong>Copyright &copy; <a href="https://bel-cms.be">Bel-CMS</a> - <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
 		  </footer>

@@ -19,6 +19,12 @@ class prefgen extends AdminPages
 	var $active = false;
 	var $models = array('ModelsPrefGen');
 
+	function __construct() {
+		if ($this->active == false) {
+			Notification::error('Page fermer manuellement');
+		}
+	}
+
 	public function index ()
 	{
 		$menu[] = array(

@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.0
- * @link http://bel-cms.dev
- * @link http://determe.be
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @version 2.0.1
+ * @link https://bel-cms.dev
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
  * @copyright 2015-2022 Bel-CMS
- * @author Stive - stive@determe.be
+ * @author as Stive - stive@determe.be
  */
 
 $insert = insertUserBDD();
@@ -18,7 +18,7 @@ $insert = insertUserBDD();
 			<div class="panel-body">
 				<?php if ($insert === true): ?>
 				<p>Votre installation s'est, à priori, bien déroulée</p>
-				<p>Merci de nous signaler sur <a href="http://bel-cms.be" title="BEL-CMS">bel-cms.be</a> si vous avez rencontre le moindre souci lors de l'installation</p>
+				<p>Merci de nous en faire part sur <a href="http://bel-cms.dev" title="BEL-CMS">bel-cms.dev</a> si vous avez rencontre le moindre souci lors de l'installation</p>
 				<?php else: ?>
 				<p><?=$insert?></p>
 				<?php endif; ?>

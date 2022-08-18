@@ -27,7 +27,6 @@ class Games extends AdminPages
 		$this->set($data);
 		$menu[] = array('Accueil'=> array('href'=>'/games?management&gaming=true','icon'=>'fa fa-home'));
 		$menu[] = array('Ajouter'=> array('href'=>'/games/add?management&gaming=true','icon'=>'fa fa-plus'));
-		$menu[] = array('Configurations'=> array('href'=>'Team/addTeam?management&gaming=true','icon'=>'fa fa-cubes'));
 		$this->render('index', $menu);;
 	}
 
