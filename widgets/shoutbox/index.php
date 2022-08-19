@@ -47,7 +47,7 @@ if (!defined('CHECK_INDEX')) {
 							<a data-toggle="tooltip" title="<?=$username?>" href="Members/View/<?=$username?>" class="avatar">
 								<img src="<?=$avatar?>">
 							</a>
-							<div class="message_wrap"> <span class="arrow"></span>
+							<div class="message_wrap">
 								<div class="info"> <a style="color: <?=$color?>" data-toggle="tooltip" title="<?=$username?>" href="Members/View/<?=$username?>" class="name"><?=$username?></a> <span class="time"><?=$v->date_msg?></span>
 								</div>
 								<div class="text"><?=Common::getSmiley($msg)?></div>

@@ -1,10 +1,19 @@
-<div class="card-body">
-	<div class="widget-newsletter">
-		<div><span class="m-text">Abonnez-vous à la newsletter.</span></div>
-		<form action="Newsletter/send" method="post">
-			<input type="text" class="fullwidth" name="email" placeholder="Votre email...">
-			<button style="width: 100%;" class="mt-1">Envoyer votre email</button>
-			<div class="hint"><strong><?=$count?></strong> abonnés déjà</div>
-		</form>
-	</div>
-</div>
+<?php
+/**
+ * Bel-CMS [Content management system]
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @copyright 2015-2022 Bel-CMS
+ * @author Stive - stive@determe.be
+ */
+
+if (!defined('CHECK_INDEX')) {
+	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
+	exit(ERROR_INDEX);
+}
+
+class Team extends AdminPages
+{
+	var $admin  = tru

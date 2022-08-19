@@ -20,12 +20,6 @@ class Themes extends AdminPages
 	var $active    = true;
 	var $models    = array('ModelsThemes');
 
-	function __construct() {
-		if ($this->active == false) {
-			Notification::error('Page fermer manuellement');
-		}
-	}
-
 	public function index ()
 	{
 		$menu[] = array('Accueil'=> array('href'=>'/themes?management&templates','icon'=>'fa fa-home'));

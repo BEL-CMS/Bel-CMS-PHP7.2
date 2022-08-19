@@ -20,12 +20,6 @@ class Ban extends AdminPages
 	var $active = true; // activation manuel;
 	var $models = array('ModelsBan');
 
-	function __construct() {
-		if ($this->active == false) {
-			Notification::error('Page fermer manuellement');
-		}
-	}
-
 	public function index ()
 	{
 		$menu[] = array('Accueil'=> array('href'=>'/ban?management&users','icon'=>'fa fa-home'));

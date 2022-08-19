@@ -19,12 +19,6 @@ class activites extends AdminPages
 	var $active = true;
 	var $models = array('Modelsactivites');
 
-	function __construct() {
-		if ($this->active == false) {
-			Notification::error('Page fermer manuellement');
-		}
-	}
-
 	public function index ()
 	{
 		$d['data'] = $this->Modelsactivites->interaction();

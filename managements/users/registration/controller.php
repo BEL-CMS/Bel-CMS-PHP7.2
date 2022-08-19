@@ -20,12 +20,6 @@ class Registration extends AdminPages
 	var $active    = true;
 	var $models    = array('ModelsUsers');
 
-	function __construct() {
-		if ($this->active == false) {
-			Notification::error('Page fermer manuellement');
-		}
-	}
-
 	public function index ()
 	{
 		$data['user'] = $this->ModelsUsers->getAllUsers();
