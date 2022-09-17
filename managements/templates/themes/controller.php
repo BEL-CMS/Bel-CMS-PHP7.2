@@ -51,10 +51,17 @@ class Themes extends AdminPages
 			endif;
 
 			$d = $this->ModelsThemes->getInfos($name);
-			$return[$name]['creator']     = $d['creator'];
-			$return[$name]['description'] = $d['description'];
-			$return[$name]['version']     = $d['version'];
-			$return[$name]['date']        = $d['date'];
+			if ($d):
+				$return[$name]['creator']     = $d['creator'];
+				$return[$name]['description'] = $d['description'];
+				$return[$name]['version']     = $d['version'];
+				$return[$name]['date']        = $d['date'];
+			else:
+				$return[$name]['creator']     = null;
+				$return[$name]['description'] = null;
+				$return[$name]['version']     = null;
+				$return[$name]['date']        = null;	
+			endif;
 
 		endforeach;
 

@@ -1,7 +1,7 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.0
+ * @version 2.0.2
  * @link https://bel-cms.dev
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
@@ -11,7 +11,7 @@
 
 if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit(ERROR_INDEX);
+	exit('<!doctype html><html><head><meta charset="utf-8"><title>BEL-CMS : Error 403 Forbidden</title><style>h1{margin: 20px auto;text-align:center;color: red;}p{text-align:center;font-weight:bold;</style></head><body><h1>HTTP Error 403 : Forbidden</h1><p>You don\'t permission to access / on this server.</p></body></html>');
 }
 
 final class Managements extends Dispatcher
@@ -181,7 +181,7 @@ final class Managements extends Dispatcher
 				if (Secure::isMail($_REQUEST['umal']) === false) {
 					$return['ajax'] = 'Veuillez entrer votre e-mail';
 					echo json_encode($return);
-					sleep(2);
+					sleep(1);
 					return;
 				}
 
@@ -314,6 +314,7 @@ final class Managements extends Dispatcher
 	private function getPages ()
 	{
 		$scan = Common::ScanDirectory(MANAGEMENTS.'pages', true);
+		asort($scan);
 		return $scan;
 	}
 	#########################################
@@ -322,6 +323,7 @@ final class Managements extends Dispatcher
 	private function getWidgets ()
 	{
 		$scan = Common::ScanDirectory(MANAGEMENTS.'widgets', true);
+		asort($scan);
 		return $scan;
 	}
 	#########################################
@@ -330,6 +332,7 @@ final class Managements extends Dispatcher
 	private function getUsers ()
 	{
 		$scan = Common::ScanDirectory(MANAGEMENTS.'users', true);
+		asort($scan);
 		return $scan;
 	}
 	#########################################
@@ -338,6 +341,7 @@ final class Managements extends Dispatcher
 	private function getTemplates ()
 	{
 		$scan = Common::ScanDirectory(MANAGEMENTS.'templates', true);
+		asort($scan);
 		return $scan;
 	}
 	#########################################
@@ -346,6 +350,7 @@ final class Managements extends Dispatcher
 	private function getGaming ()
 	{
 		$scan = Common::ScanDirectory(MANAGEMENTS.'gaming', true);
+		asort($scan);
 		return $scan;
 	}
 	#########################################
@@ -354,6 +359,7 @@ final class Managements extends Dispatcher
 	private function getParameter ()
 	{
 		$scan = Common::ScanDirectory(MANAGEMENTS.'parameter', true);
+		asort($scan);
 		return $scan;
 	}
 	#########################################

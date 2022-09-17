@@ -1,17 +1,17 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.0
- * @link http://bel-cms.dev
- * @link http://determe.be
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @version 2.0.2
+ * @link https://bel-cms.dev
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
  * @copyright 2015-2022 Bel-CMS
- * @author Stive - stive@determe.be
+ * @author as Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit(ERROR_INDEX);
+	exit('<!doctype html><html><head><meta charset="utf-8"><title>BEL-CMS : Error 403 Forbidden</title><style>h1{margin: 20px auto;text-align:center;color: red;}p{text-align:center;font-weight:bold;</style></head><body><h1>HTTP Error 403 : Forbidden</h1><p>You don\'t permission to access / on this server.</p></body></html>');
 }
 
 class User extends Pages
@@ -42,43 +42,102 @@ class User extends Pages
 		}
 	}
 	#########################################
-	# copy index
+	# données privé
 	#########################################
-	public function profil ()
+	public function privacy ()
 	{
-		self::index();
+		$d['user'] = $this->ModelsUser->getDataUser ($_SESSION['USER']['HASH_KEY']);
+		$this->set($d); 
+		$this->render('privacy');
+	}
+	#########################################
+	# changement de mot de passe (+ generateur)
+	#########################################
+	public function secure ()
+	{ 
+		$this->render('secure');
+	}
+	#########################################
+	# changement de mot de passe (+ generateur)
+	#########################################
+	public function avatars ()
+	{ 
+		$d['user'] = $this->ModelsUser->getDataUser ($_SESSION['USER']['HASH_KEY']);
+		$this->set($d);
+		$this->render('avatars');
+	}
+	#########################################
+	# Social
+	#########################################
+	public function social ()
+	{ 
+		$d['user'] = $this->ModelsUser->getDataUser ($_SESSION['USER']['HASH_KEY']);
+		$this->set($d);
+		$this->render('social');
+	}
+	#########################################
+	# mise à jour BDD
+	#########################################
+	public function sendsecure ()
+	{
+		$d = $this->ModelsUser->sendSecure ($_POST);
+		$this->error(get_class($this), $d['text'], $d['type']);
+		$this->redirect('/User/privacy', 2);
+	}
+	#########################################
+	# Selectionne l'avatar ou le supprime
+	#########################################
+	public function avatarsubmit ()
+	{
+		$return = $this->ModelsUser->avatarSubmit($this->data);
+		$this->error($return['ext'], $return['msg'], $return['type']);
+		$this->redirect('/User', 2);
+	}
+	#########################################
+	# Enregistre le nouveau avatar (upload)
+	#########################################
+	public function newavatar ()
+	{
+		$return = $this->ModelsUser->sendNewAvatar();
+		$this->error($return['ext'], $return['msg'], $return['type']);
+		$this->redirect('/User/avatars', 2);
+	}
+	public function modifications ()
+	{
+		$d['user']   = $this->ModelsUser->getDataUser ($_SESSION['USER']['HASH_KEY']);
+		$this->set($d); 
+		$this->render('modifications');
 	}
 	#########################################
 	# Page login
 	#########################################
 	public function login ()
 	{
-		if (Users::isLogged() === false) {
+		if (Users::isLogged() === false):
 			if (!isset($_REQUEST['echo'])) {
 				$this->redirect('user/login&echo', 0);
 			} else {
 				$this->render('login');
 			}
-		} else {
+		else:
 			$d = array();
 			$d['user'] = $this->ModelsUser->getDataUser($_SESSION['USER']['HASH_KEY']);
 			$this->set($d);
 			$this->render('index');
-		}
+		endif;
 	}
 	public function loginSecure ()
 	{
-		if (Users::isLogged() === false) {
+		if (Users::isLogged() === false):
 			$this->redirect('user/login&echo', 0);
-		} else {
-		}
+		endif;
 	}
 	#########################################
 	# S'enregistree
 	#########################################	
 	public function register ()
 	{
-		if (Users::isLogged() === false) {
+		if (Users::isLogged() === false):
 			$_SESSION['TMP_QUERY_REGISTER'] = array();
 			$_SESSION['TMP_QUERY_REGISTER']['number_1'] = rand(1, 9);
 			$_SESSION['TMP_QUERY_REGISTER']['number_2'] = rand(1, 9);
@@ -86,9 +145,9 @@ class User extends Pages
 			$_SESSION['TMP_QUERY_REGISTER'] = Common::arrayChangeCaseUpper($_SESSION['TMP_QUERY_REGISTER']);
 			$this->data = (bool) true;
 			$this->render('register');
-		} else {
+		else:
 			$this->redirect('user', 0);
-		}
+		endif;
 	}
 	#########################################
 	# Deconnexion
@@ -101,21 +160,21 @@ class User extends Pages
 	}
 	public function lostpassword ()
 	{
-		if (Users::isLogged() === false) {
+		if (Users::isLogged() === false):
 			$this->data = (bool) true;
 			$this->render('lostpassword');
-		}
+		endif;
 	}
 	public function sendLostPassword ()
 	{
 		unset($_POST['send']);
 		$return = $this->ModelsUser->checkToken($_POST);
-		if (!isset($return['pass'])) {
+		if (!isset($return['pass'])):
 			$this->error('Password', $return['msg'], $return['type']);
 			$this->redirect('User/LostPassword', 3);
-		} else {
+		else:
 			$this->error('Password', $return['msg'], $return['type']);
-		}
+		endif;
 	}
 
 	public function sendRegister ()
@@ -272,24 +331,6 @@ class User extends Pages
 	{
 		$return = $this->ModelsUser->sendSecurity($this->data);
 		$this->error($return['title'], $return['msg'], $return['type']);
-		$this->redirect('User', 2);
-	}
-	#########################################
-	# Selectionne l'avatar ou le supprime
-	#########################################
-	public function avatarsubmit ()
-	{
-		$return = $this->ModelsUser->avatarSubmit($this->data);
-		$this->error($return['ext'], $return['msg'], $return['type']);
-		$this->redirect('User', 2);
-	}
-	#########################################
-	# Enregistre le nouveau avatar (upload)
-	#########################################
-	public function newavatar ()
-	{
-		$return = $this->ModelsUser->sendNewAvatar();
-		$this->error($return['ext'], $return['msg'], $return['type']);
 		$this->redirect('User', 2);
 	}
 	#########################################

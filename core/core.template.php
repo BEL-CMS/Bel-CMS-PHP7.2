@@ -1,7 +1,7 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.1
+ * @version 2.1.0
  * @link https://bel-cms.dev
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
@@ -200,6 +200,8 @@ final class Template  extends Dispatcher
 		$files[] = 'assets/styles/belcms.notification.css';
 		/* BOOTSTRAP 4.1.3 */
 		$files[] = 'assets/plugins/bootstrap-4.1.3/css/bootstrap.min.css';
+		/* BOOTSTRAP 5.0.2 */
+		$files[] = 'assets/plugins/bootstrap-5.0.2/css/bootstrap.min.css';
 		/* FONTAWASOME 6.1.1 ALL */
 		$files[] = 'assets/plugins/fontawesome-6.1.1/css/all.min.css';
 		/* Jquery UI 1.12.1 */
@@ -242,10 +244,12 @@ final class Template  extends Dispatcher
 		/* BOOTSTRAP 4.1.3 */
 		$files[] = 'assets/plugins/bootstrap-4.1.3/js/popper.min.js';
 		$files[] = 'assets/plugins/bootstrap-4.1.3/js/bootstrap.min.js';
+		/* BOOTSTRAP 5.0.2 */
+		$files[] = 'assets/plugins/bootstrap-5.0.2/js/bootstrap.min.js';
 		/* Jquery UI 1.12.1 */
 		$files[] = 'assets/plugins/jquery_ui-1.12.1/js/jquery-ui.min.js';
 		/* FONTAWASOME 6.1.1 ALL */
-		$files[] = 'assets/plugins/fontawesome-6.1.1/js/all.min.js';
+		//$files[] = 'assets/plugins/fontawesome-6.1.1/js/all.min.js';
 		/* tipped 4.6.1 */
 		$files[] = 'assets/plugins/tipped/tipped.js';
 		/* Calendar year month */
@@ -281,7 +285,7 @@ final class Template  extends Dispatcher
 		$return  = '<nav aria-label="breadcrumb"><ol class="breadcrumb">';
 		$return .= '<li class="breadcrumb-item"><a href="Home">'.constant('HOME').'</a></li>';
 
-		if ($this->controller != 'blog') {
+		if ($this->controller != 'articles') {
 			$return .= '<li class="breadcrumb-item"><a href="'.$this->controller.'">'.Common::translate($this->controller).'</a></li>';
 			if ($this->view != 'index') {
 				$return .= '<li class="breadcrumb-item"><a href="'.ucfirst($this->controller).'/'.$this->view.'">'.Common::translate($this->view).'</a></li>';

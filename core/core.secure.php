@@ -1,7 +1,7 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.1
+ * @version 2.1.0
  * @link https://bel-cms.dev
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
@@ -232,7 +232,7 @@ final class Secures
 	}
 	#########################################
 	# retourne tout les groupes
-	# et possible de retourné un seul
+	# et possible de retourné q'un seul
 	#########################################
 	public static function getGroups ($group = null)
 	{
@@ -243,7 +243,12 @@ final class Secures
 		$data = $sql->data;
 
 		if ($group != null) {
-			return $return[$group];
+			foreach ($data as $k => $v) {
+				if ($v->id_group == $group):
+					$v->name = defined($v->name) ? constant($v->name) : $v->name;
+					return $v->name;
+				endif;
+			}
 		} else {
 			foreach ($data as $k => $v) {
 				$return[$v->id_group] = $v->name;

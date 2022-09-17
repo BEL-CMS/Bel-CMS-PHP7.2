@@ -84,7 +84,7 @@ class ModelsActivate
 	#####################################
 	public function sendBDDWidgets ($data)
 	{
-		foreach (self::getNamePages () as $k => $v) {
+		foreach (self::getNameWidgets () as $k => $v) {
 			if (array_key_exists($v->name, $data)) {
 				$sql = New BDD;
 				$sql->table('TABLE_WIDGETS');

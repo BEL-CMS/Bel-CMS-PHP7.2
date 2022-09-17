@@ -1,7 +1,7 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.1
+ * @version 2.1.0
  * @link https://bel-cms.dev
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
@@ -93,15 +93,15 @@ class Dispatcher
 					break;
 
 					case 'home':
-						$return = 'blog';
+						$return = 'Articles';
 					break;
 
 					case 'index.html':
-						$return = 'blog';
+						$return = 'Articles';
 					break;
 
 					case 'index.php':
-						$return = 'blog';
+						$return = 'Articles';
 					break;
 
 					case 'forum.html':

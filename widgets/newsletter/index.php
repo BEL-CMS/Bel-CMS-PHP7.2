@@ -13,7 +13,3 @@ if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
 	exit(ERROR_INDEX);
 }
-
-class Team extends AdminPages
-{
-	var $admin  = tru

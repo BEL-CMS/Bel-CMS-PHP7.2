@@ -1,3 +1,19 @@
+<?php
+/**
+ * Bel-CMS [Content management system]
+ * @version 2.0.2
+ * @link https://bel-cms.dev
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @copyright 2015-2022 Bel-CMS
+ * @author as Stive - stive@determe.be
+ */
+
+if (!defined('CHECK_INDEX')) {
+	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
+	exit('<!doctype html><html><head><meta charset="utf-8"><title>BEL-CMS : Error 403 Forbidden</title><style>h1{margin: 20px auto;text-align:center;color: red;}p{text-align:center;font-weight:bold;</style></head><body><h1>HTTP Error 403 : Forbidden</h1><p>You don\'t permission to access / on this server.</p></body></html>');
+}
+?>
 <div class="row">
 	<div class="col-md-6">
 		<div class="card">
@@ -5,7 +21,7 @@
 				<h3 class="card-title">Centre utilisateurs</h3>
 			</div>
 			<div class="card-body">
-				<form action="/registration/sendPrivate/<?=$user->id?>?management&page&parameter=true" enctype="multipart/form-data" method="post">
+				<form action="/registration/sendPrivate/<?=$user->id?>?management&users" enctype="multipart/form-data" method="post">
 					<div class="form-group">
 						<label class="col-md-12 control-label" for="inputSuccess1"><?=NAME?></label>
 						<div class="col-md-12">
@@ -46,7 +62,7 @@
 				<h3 class="card-title">Gestions du groupe : Principale</h3>
 			</div>
 			<div class="card-body">
-				<form action="/registration/sendMainGroup?management&page&parameter=true" method="post" class="form-horizontal form-bordered">
+				<form action="/registration/sendMainGroup?management&users&parameter=true" method="post" class="form-horizontal form-bordered">
 					<div class="form-group">
 						<label class="col-md-12 control-label" for="inputSuccess2">Groupe</label>
 						<div class="col-md-12">

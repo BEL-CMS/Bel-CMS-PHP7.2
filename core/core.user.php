@@ -1,7 +1,7 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.1
+ * @version 2.1.0
  * @link https://bel-cms.dev
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
@@ -116,6 +116,12 @@ class Users
 					$check_password = $password == $results['password'] ? true : false;
 				} else {
 					$check_password = false;
+					$results['expire']++;
+					$insert = New BDD();
+					$insert->table('TABLE_USERS');
+					$insert->sqlData(array('expire'=> $results['expire']));
+					$insert->where(array('name'=>'hash_key','value'=> $results['hash_key']));
+					$insert->update();
 				}
 				if (password_verify($password, $results['password']) OR $check_password) {
 					$setcookie = $results['username'].'###'.$results['hash_key'].'###'.date('Y-m-d H:i:s').'###'.$results['password'];
@@ -125,15 +131,6 @@ class Users
 					$return['type'] = 'success';
 				} else {
 					$return['msg']  = 'Mauvaise combinaison de Pseudonyme-email et/ou mot de passe';
-					$return['type'] = 'error';
-					if ($return['type'] == 'error') {
-						$results['expire']++;
-						$insert = New BDD();
-						$insert->table('TABLE_USERS');
-						$insert->sqlData(array('expire'=> $results['expire']));
-						$insert->where(array('name'=>'hash_key','value'=> $results['hash_key']));
-						$insert->update();
-					}
 				}
 			} else {
 				$return['msg']  = 'Aucun utilisateur avec ce Pseudonyme/mail';

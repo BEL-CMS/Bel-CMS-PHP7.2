@@ -1,6 +1,0 @@
-<Files ~ "^\.(htaccess)$">
-	deny from all
-</Files>
-
-Options +FollowSymLinks
-RewriteEngine On

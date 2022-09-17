@@ -32,6 +32,8 @@ Common::constant(array(
 	'ACTUAL_PASSWORD'       => 'Mot de passe actuelle',
 	'IMPORT_IMG'            => 'Importer une image',
 	'REGISTER'              => 'S\'enregistrer',
+	'ANNIVERSARY'           => 'Anniversaire',
+	'PEUSO'					=> 'Pseudonyme',
 	#####################################
 	# Fichier lang en français - Admin
 	#####################################
@@ -41,7 +43,9 @@ Common::constant(array(
 	'DEL_USER_SUCCESS'      => 'Suppression de l\'utilisateur avec succès',
 	'DEL_USER_ERROR'        => 'Erreur lors de la suppresion de l\'utilisateur',
 	'MAIN_GROUP'            => 'Groupe principal',
+	'SECOND_GROUP'          => 'Groupe Secondaire',
 	'GROUPS'                => 'Groups',
 	'PRIVATE'               => 'Priver',
 	'SOCIAL'                => 'Social',
+	'MODIFICATION'          => 'Modifications',
 ));

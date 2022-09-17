@@ -100,7 +100,7 @@ class ModelsUser
 				
 					foreach ($returnMerge as $k => $v) {
 						if ($k == 'birthday') {
-							$v = Common::transformDate($v, 'SHORT');
+							
 						} else if ($k == 'date_registration' OR $k == 'last_visit') {
 							$v = Common::TransformDate($v, 'SHORT', 'SHORT');
 						}
@@ -1081,7 +1081,7 @@ class ModelsUser
 		$update['facebook']   = empty($data['facebook'])   ? '' : Secure::isString($data['facebook']);
 		$update['linkedin']   = empty($data['linkedin'])   ? '' : Secure::isString($data['linkedin']);
 		$update['twitter']    = empty($data['twitter'])    ? '' : Secure::isString($data['twitter']);
-		$update['googleplus'] = empty($data['googleplus']) ? '' : Secure::isString($data['googleplus']);
+		$update['discord']    = empty($data['discord'])    ? '' : Secure::isString($data['discord']);
 		$update['pinterest']  = empty($data['pinterest'])  ? '' : Secure::isString($data['pinterest']);
 
 		if (!empty($data)) {
@@ -1090,11 +1090,11 @@ class ModelsUser
 			$sql->sqlData($update);
 			$sql->update();
 
-			$return['msg']  = 'Liens sociaux modifier avec succès';
+			$return['text'] = 'Liens sociaux modifier avec succès';
 			$return['type'] = 'success';
 			$return['ext']  = 'Liens';
 		} else {
-			$return['msg']  = 'Erreur aucune données';
+			$return['text'] = 'Erreur aucune données';
 			$return['type'] = 'warning';
 			$return['ext']  = 'Liens';
 		}
@@ -1120,5 +1120,61 @@ class ModelsUser
 		$sql->table('TABLE_TEAM_USERS');
 		$sql->queryAll();
 		return $sql->data;
+	}
+	#########################################
+	# Envoie la page Confidentialité en BDD
+	#########################################
+	public function sendSecure ($data = null)
+	{
+		debug($data);
+		if (!empty($data['birthday']) && strlen($data['birthday']) == 10):
+			$data['birthday'] = Common::DatetimeSQL($data['birthday'], false, 'Y-m-d');
+			$sql = New BDD();
+			$sql->table('TABLE_USERS_PROFILS');
+			$sql->where(array('name'=> 'hash_key','value' => $_SESSION['USER']['HASH_KEY']));
+			$sql->sqlData(array('birthday' => $data['birthday']));
+			$sql->update();
+			unset($sql);
+		endif;
+		if (!empty($data['country'])):
+			$data['country'] = Common::VarSecure($data['country'], '');
+			$sql = New BDD();
+			$sql->table('TABLE_USERS_PROFILS');
+			$sql->where(array('name'=> 'hash_key','value' => $_SESSION['USER']['HASH_KEY']));
+			$sql->sqlData(array('country' => $data['country']));
+			$sql->update();
+			unset($sql);
+		endif;
+		if (!empty($data['public_mail'])):
+			$data['public_mail'] = Secure::isMail($data['public_mail']);
+			$sql = New BDD();
+			$sql->table('TABLE_USERS_PROFILS');
+			$sql->where(array('name'=> 'hash_key','value' => $_SESSION['USER']['HASH_KEY']));
+			$sql->sqlData(array('public_mail' => $data['public_mail']));
+			$sql->update();
+			unset($sql);
+		endif;
+		if (!empty($data['websites'])):
+			$data['websites'] = Secure::isUrl($data['websites']);
+			$sql = New BDD();
+			$sql->table('TABLE_USERS_PROFILS');
+			$sql->where(array('name'=> 'hash_key','value' => $_SESSION['USER']['HASH_KEY']));
+			$sql->sqlData(array('websites' => $data['websites']));
+			$sql->update();
+			unset($sql);
+		endif;
+		if (!empty($data['gender'])):
+			$data['gender'] = Secure::isString($data['gender']);
+			$sql = New BDD();
+			$sql->table('TABLE_USERS_PROFILS');
+			$sql->where(array('name'=> 'hash_key','value' => $_SESSION['USER']['HASH_KEY']));
+			$sql->sqlData(array('gender' => $data['gender']));
+			$sql->update();
+			unset($sql);
+		endif;
+
+		$return['text']  = NEW_PARAMETER_SUCCESS;
+		$return['type']  = 'success';
+		return $return;
 	}
 }

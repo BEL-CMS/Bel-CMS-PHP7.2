@@ -1,7 +1,7 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.1
+ * @version 2.0.2
  * @link https://bel-cms.dev
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
@@ -48,6 +48,9 @@ Common::constant(array(
 	'TABLE_NEWSLETTER'          => $DB_PREFIX.'newsletter',
 	'TABLE_NEWSLETTE_SEND'      => $DB_PREFIX.'newsletter_send',
 	'TABLE_NEWSLETTER_TPL'      => $DB_PREFIX.'newsletter_tpl',
+	'TABLE_MARKET'              => $DB_PREFIX.'market',
+	'TABLE_MARKET_BUY'          => $DB_PREFIX.'market_buy',
+	'TABLE_MARKET_CAT'          => $DB_PREFIX.'market_cat',
 	'TABLE_PAGE'                => $DB_PREFIX.'page',
 	'TABLE_PAGES_ARTICLES'      => $DB_PREFIX.'page_articles',
 	'TABLE_PAGE_CONTENT'        => $DB_PREFIX.'page_content',

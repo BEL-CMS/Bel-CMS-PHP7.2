@@ -54,12 +54,11 @@ if (!defined('CHECK_INDEX')) {
 				$visitor = constant('VISITORS');
 				$groups->$visitor = 0;
 				foreach ($groups as $k => $v):
-				//$checked = in_array($v, $data->access_admin) ? 'checked' : '';
 				$checked = $v['id'] == 1 ? 'checked readonly' : '';
 				?>
 				<div class="form-group">
 					<div class="icheck-primary d-inline">
-						<input <?=$checked;?> class="col-8" data-bootstrap-switch name="admin[]" value="<?=$v['id']?>" type="checkbox" >
+						<input <?=$checked;?> class="col-8" data-bootstrap-switch name="groups[]" value="<?=$v['id']?>" type="checkbox" >
 						<label class="col-4 control-label" for="<?=$v['id']?>"><?=$k?></label>
 					</div>
 				</div>

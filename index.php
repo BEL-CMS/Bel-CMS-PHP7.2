@@ -1,15 +1,13 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.0
- * @link http://bel-cms.dev
- * @link http://determe.be
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @version 2.1.0
+ * @link https://bel-cms.dev
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
  * @copyright 2015-2022 Bel-CMS
- * @author Stive - stive@determe.be
+ * @author as Stive - stive@determe.be
  */
-
-
 #########################################
 # start timer
 #########################################
@@ -52,7 +50,7 @@ define ('DIR_ASSET',ROOT.'assets'.DS);
 define ('DIR_WIDGETS', ROOT.'widgets'.DS);
 define ('DIR_UPLOADS', ROOT.'uploads'.DS);
 define ('MANAGEMENTS', ROOT.'managements'.DS);
-define ('VERSION_CMS', '2.0.1');
+define ('VERSION_CMS', '2.1.0');
 #########################################
 # Install
 #########################################

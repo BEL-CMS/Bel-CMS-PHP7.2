@@ -16,7 +16,7 @@ if (!defined('CHECK_INDEX')) {
 ?>
 <div class="x_panel">
 	<div class="x_title">
-		<h2>Menu Page Blog</h2>
+		<h2>Menu Page</h2>
 		<div class="clearfix"></div>
 	</div>
 	<div class="x_content">

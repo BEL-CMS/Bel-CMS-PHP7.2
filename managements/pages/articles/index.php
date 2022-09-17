@@ -1,7 +1,7 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.1
+ * @version 2.0.2
  * @link https://bel-cms.dev
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
@@ -54,7 +54,7 @@ if (!defined('CHECK_INDEX')) {
 						<td><?=$v->date_create?></td>
 						<td><?=Users::hashkeyToUsernameAvatar($v->author)?></td>
 						<td>
-							<a href="/blog/edit/<?=$v->id?>?management&pages" class="btn btn btn-primary btn-sm mb-1">Edit</a>
+							<a href="/articles/edit/<?=$v->id?>?management&pages" class="btn btn btn-primary btn-sm mb-1">Edit</a>
 							<a href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>" class="btn btn btn-danger btn-sm mb-1">Supprimer</a>
 							<div class="modal fade" id="modal_<?=$v->id?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 								<div class="modal-dialog" role="document">
@@ -63,10 +63,10 @@ if (!defined('CHECK_INDEX')) {
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 										<h4 class="modal-title" id="exampleModalLabel"><?=$v->name?></h4>
 										</div>
-										<div class="modal-body">Confirmer la suppression du blog : <?=$v->name?></div>
+										<div class="modal-body">Confirmer la suppression de article : <?=$v->name?></div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-											<button onclick="window.location.href='/Blog/del/<?=$v->id?>?management&pages'" type="button" class="btn btn-primary">Supprimer</button>
+											<button onclick="window.location.href='/articles/del/<?=$v->id?>?management&pages'" type="button" class="btn btn-primary">Supprimer</button>
 										</div>
 									</div>
 								</div>

@@ -116,6 +116,7 @@ Common::constant(array(
 	'OPEN'                   => 'Ouvert',
 	'CLOSE'                  => 'Fermer',
 	'NB_BLOG'                => 'Nombre de blog',
+	'SEND_REGISTER'          => 'Enregistrer le formulaire',
 	#####################################
 	# UPLOAD
 	#####################################
