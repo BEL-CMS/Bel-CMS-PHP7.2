@@ -20,5 +20,6 @@ Common::constant(array(
 	#####################################
 	'EDIT_DL_PARAM_SUCCESS' => 'Edition des parametres effecté avec succès',
 	'EDIT_DL_PARAM_ERROR'   => 'Error lors de la sauvegarde des parametre',
-	'ERROR_NO_DATA'         => 'Erreur de transfert de données'
+	'ERROR_NO_DATA'         => 'Erreur de transfert de données',
+	'ADD_FILE_SUCCESS'      => 'Ajouté avec succès',
 ));

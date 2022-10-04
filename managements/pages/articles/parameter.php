@@ -91,7 +91,7 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 					?>
 					<div class="form-group">
 						<div class="icheck-primary d-inline">
-							<input class="col-sm-4" data-bootstrap-switch name="admin[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
+							<input class="col-sm-4" data-bootstrap-switch name="groups[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
 							<label class="col-sm-8 control-label" for="<?=$v['id']?>"><?=$k?></label>
 						</div>
 					</div>

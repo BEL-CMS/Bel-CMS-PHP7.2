@@ -68,7 +68,7 @@
 					</a>
 				  </li>
 				  <li class="nav-item">
-					<a href="#" class="nav-link">
+					<a href="#" class="nav-link text-danger">
 					  <i class="fa-solid fa-gears"></i>
 					  <p><?=PARAMETERS;?></p>
 					  <i class="right fas fa-angle-left"></i>
@@ -89,7 +89,7 @@
 					</ul>
 				  </li>
 				  <li class="nav-item">
-					<a href="#" class="nav-link">
+					<a href="#" class="nav-link text-warning">
 					  <i class="fa-solid fa-arrows-turn-to-dots"></i>
 					  <p><?=TEMPLATES?></p>
 					  <i class="right fas fa-angle-left"></i>
@@ -110,7 +110,7 @@
 					</ul>
 				  </li>
 				  <li class="nav-item">
-					<a href="#" class="nav-link">
+					<a href="#" class="nav-link text-info">
 					  <i class="fa-solid fa-user-gear"></i>
 					  <p><?=USERS;?></p>
 					  <i class="right fas fa-angle-left"></i>
@@ -131,7 +131,7 @@
 					</ul>
 				  </li>
 				  <li class="nav-item">
-					<a href="#" class="nav-link">
+					<a href="#" class="nav-link text-success">
 					  <i class="fa-solid fa-paperclip"></i>
 					  <p><?=PAGES;?></p>
 					  <i class="right fas fa-angle-left"></i>
@@ -152,7 +152,7 @@
 					</ul>
 				  </li>
 				  <li class="nav-item">
-					<a href="#" class="nav-link">
+					<a href="#" class="nav-link text-warning">
 					  <i class="fa-solid fa-cubes"></i>
 					  <p><?=WIDGETS;?></p>
 					  <i class="right fas fa-angle-left"></i>
@@ -173,7 +173,7 @@
 					</ul>
 				  </li> 
 				  <li class="nav-item">
-					<a href="#" class="nav-link">
+					<a href="#" class="nav-link text-light">
 					  <i class="fa-solid fa-gamepad"></i>
 					  <p><?=GAMINGS;?></p>
 					  <i class="right fas fa-angle-left"></i>

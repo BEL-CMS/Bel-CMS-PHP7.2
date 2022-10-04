@@ -199,9 +199,9 @@ final class Template  extends Dispatcher
 		// NOTIFICATION */
 		$files[] = 'assets/styles/belcms.notification.css';
 		/* BOOTSTRAP 4.1.3 */
-		$files[] = 'assets/plugins/bootstrap-4.1.3/css/bootstrap.min.css';
+		//$files[] = 'assets/plugins/bootstrap-4.1.3/css/bootstrap.min.css';
 		/* BOOTSTRAP 5.0.2 */
-		$files[] = 'assets/plugins/bootstrap-5.0.2/css/bootstrap.min.css';
+		//$files[] = 'assets/plugins/bootstrap-5.0.2/css/bootstrap.min.css';
 		/* FONTAWASOME 6.1.1 ALL */
 		$files[] = 'assets/plugins/fontawesome-6.1.1/css/all.min.css';
 		/* Jquery UI 1.12.1 */

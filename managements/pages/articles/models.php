@@ -235,7 +235,7 @@ class ModelsArticles
 			// SQL UPDATE
 			$sql = New BDD();
 			$sql->table('TABLE_PAGES_CONFIG');
-			$sql->where(array('name' => 'name', 'value' => 'blog'));
+			$sql->where(array('name' => 'name', 'value' => 'articles'));
 			$sql->sqlData($upd);
 			$sql->update();
 			if ($sql->rowCount == 1) {

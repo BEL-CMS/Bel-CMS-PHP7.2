@@ -1,23 +1,22 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.0
- * @link http://bel-cms.dev
- * @link http://determe.be
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @version 2.0.2
+ * @link https://bel-cms.dev
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
  * @copyright 2015-2022 Bel-CMS
- * @author Stive - stive@determe.be
+ * @author as Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit(ERROR_INDEX);
+	exit('<!doctype html><html><head><meta charset="utf-8"><title>BEL-CMS : Error 403 Forbidden</title><style>h1{margin: 20px auto;text-align:center;color: red;}p{text-align:center;font-weight:bold;</style></head><body><h1>HTTP Error 403 : Forbidden</h1><p>You don\'t permission to access / on this server.</p></body></html>');
 }
-if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === true):
 ?>
 <form action="/shoutbox/sendparameter?management&widgets=true" method="post" class="form-horizontal">
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<div class="card">
 				<div class="card-header">
 					<h3 class="card-title">Paramètres Shoutbox</h3>
@@ -29,8 +28,10 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 				</div>
 				<div class="card-body">
 					<div class="form-group">
-						<div class="icheck-primary d-inline"></div>
-						<input data-bootstrap-switch value="1" type="checkbox" <?=$config->active == 1 ? 'checked' : ''?> name="active">
+						<label for="input-NB_MSG" class="col-sm-12 control-label">Activer le widget</label>
+						<div class="col-sm-12">
+							<input data-bootstrap-switch value="1" type="checkbox" <?=$config->active == 1 ? 'checked' : ''?> name="active">
+						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-12 control-label">Nom personnalisé du widgets</label>
@@ -47,25 +48,38 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="input-JS" class="col-sm-12 control-label"><?=JS?></label>
+						<label for="input-JS" class="col-sm-12 control-label">Javascript</label>
 						<div class="col-sm-12">
 							<?php $chkjs = $config->config['JS'] == 1 ? 'checked' : ''; ?>
-							<label>
-								<input value="1" type="checkbox" class="js-switch" <?=$chkjs?> name="JS"> Activer
-							</label>
+							<div class="col-sm-12">
+								<input data-bootstrap-switch value="1" type="checkbox" <?=$config->active == 1 ? 'checked' : ''?> name="active">
+							</div>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="input-CSS" class="col-sm-12 control-label"><?=CSS?></label>
 						<div class="col-sm-12">
 							<?php $chkcss = $config->config['CSS'] == 1 ? 'checked' : ''; ?>
-							<label>
-								<input value="1" type="checkbox" class="js-switch" <?=$chkcss?> name="CSS"> Activer
-							</label>
+							<div class="col-sm-12">
+								<input data-bootstrap-switch value="1" type="checkbox" class="js-switch" <?=$chkcss?> name="CSS">
+							</div>
 						</div>
 					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">Pages à afficher</h3>
+					<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+							<i class="fas fa-minus"></i>
+						</button>
+					</div>
+				</div>
+				<div class="card-body">
 					<div class="form-group">
-						<label class="col-sm-12 control-label">Pages à afficher</label>
 						<div class="col-sm-12">
 							<?php
 							foreach ($pages as $key => $value) {
@@ -78,9 +92,9 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 								$checked = $v == 1 ? 'checked' : $checked;
 								$name    = defined(strtoupper($v)) ? constant(strtoupper($v)) : $v;
 								?>
-								<div class="input-group">
+								<div class="input-group mb-3">
 									<span class="input-group-addon">
-										<input name="pages[]" value="<?=$v?>" type="checkbox" <?=$checked?>>
+										<input data-bootstrap-switch name="pages[]" value="<?=$v?>" type="checkbox" <?=$checked?>>
 									</span>
 									<input type="text" class="form-control" disabled="disabled" value="<?=$name?>">
 								</div>
@@ -92,7 +106,7 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<div class="card">
 				<div class="card-header">
 					<h3 class="card-title">Accès aux Administrateurs</h3>
@@ -112,8 +126,8 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 							?>
 							<div class="form-group">
 								<div class="icheck-primary d-inline">
-									<input class="col-4" data-bootstrap-switch id="<?=$v['id']?>" name="admin[]" value="<?=$v['id']?>" type="checkbox" style="vertical-align: -moz-middle-with-baseline;" <?=$checked?>>
 									<label class="col-8 control-label" for="<?=$v['id']?>"><?=$k?></label>
+									<input class="col-4" data-bootstrap-switch id="<?=$v['id']?>" name="admin[]" value="<?=$v['id']?>" type="checkbox" style="vertical-align: -moz-middle-with-baseline;" <?=$checked?>>
 								</div>
 							</div>
 							<?php
@@ -122,8 +136,17 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 						</div>
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-12 control-label">Accès aux groupes</label>
+			</div>
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">Accès aux groupes</h3>
+					<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+							<i class="fas fa-minus"></i>
+						</button>
+					</div>
+				</div>
+				<div class="card-body">
 					<div class="col-sm-12">
 						<?php
 						$visitor = constant('VISITORS');
@@ -132,11 +155,11 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 							$checked = in_array($v, $config->groups_access) ? 'checked' : '';
 							$checked = $v['id'] == 1 ? 'checked' : $checked;
 							?>
-							<div class="input-group">
-								<span class="input-group-addon">
-									<input name="groups[]" value="<?=$v['id']?>" type="checkbox" <?=$checked?>>
-								</span>
-								<input type="text" class="form-control" disabled="disabled" value="<?=$k?>">
+							<div class="form-group">
+								<div class="icheck-primary d-inline">
+									<label class="col-8 control-label" for="<?=$v['id']?>"><?=$k?></label>
+									<input class="col-4" data-bootstrap-switch id="<?=$v['id']?>" name="admin[]" value="<?=$v['id']?>" type="checkbox" style="vertical-align: -moz-middle-with-baseline;" <?=$checked?>>
+								</div>
 							</div>
 							<?php
 						endforeach;
@@ -145,8 +168,16 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">Disposition</h3>
+					<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+							<i class="fas fa-minus"></i>
+						</button>
+					</div>
+				</div>
 				<?php
 				$top = null; $right = null; $bottom = null; $left = null;
 				if ($config->pos == "top") {
@@ -160,31 +191,38 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 				}
 				?>
 				<div class="form-group">
-					<label class="col-sm-12 control-label">Disposition</label>
 					<div class="col-sm-12">
-						<div class="input-group">
-							<span class="input-group-addon">
-								<input type="radio" name="pos" value="top" <?=$top?>>
-							</span>
+						<div class="input-group mb-3 mt-3">
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									<input type="radio" name="pos" <?=$top?>>
+								</div>
+							</div>
 							<input type="text" class="form-control" disabled="disabled" value="Haut">
 						</div>
-						<div class="input-group">
-							<span class="input-group-addon">
-								<input type="radio" name="pos" value="right" <?=$right?>>
-							</span>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									<input type="radio" name="pos" <?=$right?>>
+								</div>
+							</div>
 							<input type="text" class="form-control" disabled="disabled" value="Droite">
 						</div>
-						<div class="input-group">
-							<span class="input-group-addon">
-								<input type="radio" name="pos" value="bottom" <?=$bottom?>>
-							</span>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									<input type="radio" name="pos" <?=$bottom?>>
+								</div>
+							</div>
 							<input type="text" class="form-control" disabled="disabled" value="Bas">
 						</div>
-						<div class="input-group">
-							<span class="input-group-addon">
-								<input type="radio" name="pos" value="left" <?=$left?>>
-							</span>
-							<input type="text" class="form-control" disabled="disabled" value="Gauche">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									<input type="radio" name="pos" <?=$left?>>
+								</div>
+							</div>
+							<input type="text" class="form-control" disabled="disabled" value="Droite">
 						</div>
 					</div>
 				</div>
@@ -197,5 +235,3 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 		</div>
 	</div>
 </form>
-<?php
-endif;

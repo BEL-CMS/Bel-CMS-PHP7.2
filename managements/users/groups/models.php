@@ -1,17 +1,17 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.0
- * @link http://bel-cms.dev
- * @link http://determe.be
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
- * @copyright 2014-2022 Bel-CMS
- * @author Stive - stive@determe.be
+ * @version 2.0.2
+ * @link https://bel-cms.dev
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @copyright 2015-2022 Bel-CMS
+ * @author as Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit(ERROR_INDEX);
+	exit('<!doctype html><html><head><meta charset="utf-8"><title>BEL-CMS : Error 403 Forbidden</title><style>h1{margin: 20px auto;text-align:center;color: red;}p{text-align:center;font-weight:bold;</style></head><body><h1>HTTP Error 403 : Forbidden</h1><p>You don\'t permission to access / on this server.</p></body></html>');
 }
 #   TABLE_GROUPS
 #-> id, name, id_group
@@ -111,7 +111,7 @@ class ModelGroups
 			$fclose = fclose($fopen); 
 		}
 
-		$extensions = array('.png', '.gif', '.jpg', '.ico', '.jpeg',);
+		$extensions = array('.png', '.gif', '.jpg', '.ico', '.jpeg');
 		if (!empty($_FILES['image'])) {
 			Common::Upload('image', $dir, $extensions);
 		}
@@ -119,7 +119,7 @@ class ModelGroups
 		$d['image'] = $dir.$_FILES['image']['name'];
 
 		$s = New BDD;
-		$s->table(TABLE_GROUPS);
+		$s->table('TABLE_GROUPS');
 		$s->where(array('name' => 'id_group','value' => $_POST['id']));
 		$d['name']  = Common::VarSecure($_POST['name']);
 		$d['color'] = Common::VarSecure($_POST['color']);
