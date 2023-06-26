@@ -1,17 +1,17 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.1.0
- * @link https://bel-cms.dev
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
  * @copyright 2015-2022 Bel-CMS
- * @author as Stive - stive@determe.be
+ * @author Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit('<!doctype html><html><head><meta charset="utf-8"><title>BEL-CMS : Error 403 Forbidden</title><style>h1{margin: 20px auto;text-align:center;color: red;}p{text-align:center;font-weight:bold;</style></head><body><h1>HTTP Error 403 : Forbidden</h1><p>You don\'t permission to access / on this server.</p></body></html>');
+	exit(ERROR_INDEX);
 }
 
 final class Secures
@@ -232,7 +232,7 @@ final class Secures
 	}
 	#########################################
 	# retourne tout les groupes
-	# et possible de retourné q'un seul
+	# et possible de retourné un seul
 	#########################################
 	public static function getGroups ($group = null)
 	{
@@ -243,12 +243,7 @@ final class Secures
 		$data = $sql->data;
 
 		if ($group != null) {
-			foreach ($data as $k => $v) {
-				if ($v->id_group == $group):
-					$v->name = defined($v->name) ? constant($v->name) : $v->name;
-					return $v->name;
-				endif;
-			}
+			return $return[$group];
 		} else {
 			foreach ($data as $k => $v) {
 				$return[$v->id_group] = $v->name;

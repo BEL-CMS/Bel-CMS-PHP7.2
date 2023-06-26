@@ -1,155 +1,23 @@
-
-#belcms_members {
-	display: block;
-	width: 100%;
-}
-	.belcms_members_section {
-		border-radius: 4px;
-		border: 1px solid rgba(0, 0, 0, 0.125);
-		background: rgba(255,255,255,1);
-		padding: 15px !important;
-		float: left;
-		margin: 0 15px;
-		margin-bottom: 15px;
-	}
-		.belcms_members_avatar {
-			text-align: center;
-			margin: 15px auto;
-		}
-			.belcms_members_avatar > img {
-				width: 100px;
-				max-height: 100px;
-			}
-	.belcms_members_infos {
-		overflow: hidden;
-		display: table;
-		width: 100%;
-		margin-bottom: 15px;
-	}
-		.belcms_members_infos_col {
-			display: table-cell;
-			background-color: #F8F8F8;
-			vertical-align: middle;
-			text-align: center;
-			padding: 20px 0;
-		}
-		.belcms_members_infos_col:nth-child(odd) {
-			border-left: 2px solid rgba(255,255,255, 1);
-			border-right: 2px solid rgba(255,255,255, 1);
-		}
-			.belcms_members_infos_col p {
-				margin: 0; padding: 0;
-			}
-
-
-
-
-
-#bel_cms_members_index {
-
-}
-	#bel_cms_members_index > h4 {
-		line-height: 40px;
-	}
-
-	.bel_cms_members_index_table {
-		background: rgba(255, 255, 255, 1);
-    	border: 1px solid #e4e4e4;
-    	box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.05);
-    	padding: 10px;
-    	margin-bottom: 15px;
-	}
-	.bel_cms_members_index_table img {
-		width: 20px;
-		height: 20px;
-		vertical-align: middle;
-	}
-
-/*##### VIEW ##### */
-#bel_cms_members_view {
+section#belcms-members {
 	display: block;
 	width: 100%;
 	overflow: hidden;
 }
-	#bel_cms_members_view_lt {
-		display: block;
-		width: 30%;
-		float: left;
-	}
-		#bel_cms_members_view_lt_atr {
-		}
+.belcms-table-th {
+	background-color: #2F3239;
+	color: #FFF;
+	padding: 5px;
+}
+.belcms-table-tr {
+	background-color: #8A8A8A;
+	color: #FFF;
+}
 
-			#bel_cms_members_view_lt_atr > img {
-				background: rgba(242, 242, 242, 1);
-				display: block;
-				margin: auto;
-				width: 100%;
-				height: auto;
-				padding: 15px;
-			}
-			#bel_cms_members_view_lt_grps {
-				display: block;
-				background: rgba(242, 242, 242, 1);
-				padding: 15px;
-				margin: 25px 0;
-			}
-				#bel_cms_members_view_lt_grps ul {
-					display: block;
-					margin: 0; padding: 0;
-					text-decoration: none;
-					text-transform: none;
-					list-style:none;
-					padding: 0 15px;
-				}
-					#bel_cms_members_view_lt_grps ul li {
-						line-height: 35px;
-					}
-					#bel_cms_members_view_lt_grps .title {
-						font-weight: bold;
-						border-bottom: 1px dashed rgba(255, 255, 255, 1);
-					}
+.belcms-table-tr:nth-child(odd) {
+	background-color: #353940;
+	color: #FFF;
+}
 
-	#bel_cms_members_view_rt {
-		display: block;
-		width: 70%;
-		float: left;
-	}
-		.bel_cms_members_view_rt_block {
-			display: block;
-			margin: 25px;
-			margin-top: 0;
-			background: rgba(242, 242, 242, 1);
-		}
-			.bel_cms_members_view_rt_block > h3 {
-				margin: 0; padding: 0;
-				line-height: 40px;
-				font-size: 1rem;
-				padding: 0 15px;
-				border: 1px dashed rgba(255, 255, 255, 1);
-			}
-				.bel_cms_members_view_rt_block > h3 a {
-					display: block;
-					float: right;
-					margin: 0 5px;
-				}
-
-			.bel_cms_members_view_rt_block nav {
-				display: block;
-			}
-				.bel_cms_members_view_rt_block nav ul {
-					display: block;
-					margin: 0; padding: 0;
-					text-decoration: none;
-					text-transform: none;
-					list-style:none;
-					padding: 0 15px;
-				}
-					.bel_cms_members_view_rt_block nav ul li {
-						line-height: 35px;
-						font-weight: bold;
-					}
-						.bel_cms_members_view_rt_block nav ul li span {
-							float: right;
-							font-weight: normal;
-						}
-
+.belcms-table-td {
+	padding: 5px;
+}

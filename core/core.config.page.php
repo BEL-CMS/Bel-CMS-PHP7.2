@@ -1,17 +1,17 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.1.0
- * @link https://bel-cms.dev
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
  * @copyright 2015-2022 Bel-CMS
- * @author as Stive - stive@determe.be
+ * @author Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit('<!doctype html><html><head><meta charset="utf-8"><title>BEL-CMS : Error 403 Forbidden</title><style>h1{margin: 20px auto;text-align:center;color: red;}p{text-align:center;font-weight:bold;</style></head><body><h1>HTTP Error 403 : Forbidden</h1><p>You don\'t permission to access / on this server.</p></body></html>');
+	exit(ERROR_INDEX);
 }
 
 class Pages
@@ -220,14 +220,14 @@ class Pages
 			}
 
 			if ($current < $counter - 1) {
-				$setPaginate .= '<li class="page-item"><a class="page-link" href="'.$page_url.'page='.$next.'">Suivant</a></li>';
-				$setPaginate .= '<li class="page-item"><a class="page-link" href="'.$page_url.'page='.$setLastpage.'">Dernière</a></li>';
+				$setPaginate .= '<li class="page-item"><a class="page-link" href="'.$page_url.'page='.$next.'"><i class="fa-solid fa-forward"></i></a></li>';
+				$setPaginate .= '<li class="page-item"><a class="page-link" href="'.$page_url.'page='.$setLastpage.'"><i class="fa-solid fa-slash"></i></a></li>';
 			} else{
-				$setPaginate .= '<li class="page-item disabled"><a class="page-link">Suivant</a></li>';
-				$setPaginate .= '<li class="page-item disabled"><a class="page-link">Dernière</a></li>';
+				$setPaginate .= '<li class="page-item disabled"><a class="page-link"><i class="fa-solid fa-forward"></i></a></li>';
+				$setPaginate .= '<li class="page-item disabled"><a class="page-link"><i class="fa-solid fa-slash"></i></a></li>';
 			}
-			//$setPaginate .= '<li class="page-item">Page '.$current.' '. OF . ' '.$setLastpage.'</li>';
-			$setPaginate .= '</ul></nav>'.PHP_EOL;
+			//$setPaginate .= '<li class="">Page '.$current.' '. OF . ' '.$setLastpage.'</li>';
+			//$setPaginate .= '</ul></nav>'.PHP_EOL;
 		}
 
 		return $setPaginate;

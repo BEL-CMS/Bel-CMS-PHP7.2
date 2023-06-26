@@ -34,43 +34,5 @@ if (Users::isLogged() === true):
 		</li>
 	</ul>
 </nav>
-<div class="content">
-	<div class="row">
-		<div class="col-lg-4 col-md-6 col-sm-6 col-6">
-			<div class="card">
-				<a href="">
-					<img id="user_img" src="<?=$user->avatar;?>">
-				</a>
-			</div>
-		</div>
-		<div class="col-lg-8 col-md-6 col-sm-6 col-6">
-			<h2 id="user_h2">Mon Profile</h2>
-			<div id="user_detail">
-				<table id="belcms_user_table" class="table">
-					<tr>
-						<td>Pseudo</td>
-						<td><?=$user->username;?></td>
-					</tr>
-					<tr>
-						<td>Inscription</td>
-						<td><?=$user->date_registration;?></td>
-					</tr>
-					<tr>
-						<td>Activité</td>
-						<td><?=$user->last_visit;?></td>
-					</tr>
-					<tr>
-						<td>Anniversaire</td>
-						<td><?=$user->birthday;?></td>
-					</tr>
-					<tr>
-						<td>Mon IP</td>
-						<td><?=$user->ip;?></td>
-					</tr>	
-				</table>
-			</div>
-		</div>
-	</div>
-</div>
 <?php
 endif;

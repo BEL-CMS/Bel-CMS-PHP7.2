@@ -1,13 +1,15 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.1.0
- * @link https://bel-cms.dev
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
  * @copyright 2015-2022 Bel-CMS
- * @author as Stive - stive@determe.be
+ * @author Stive - stive@determe.be
  */
+
+
 #########################################
 # start timer
 #########################################
@@ -50,7 +52,7 @@ define ('DIR_ASSET',ROOT.'assets'.DS);
 define ('DIR_WIDGETS', ROOT.'widgets'.DS);
 define ('DIR_UPLOADS', ROOT.'uploads'.DS);
 define ('MANAGEMENTS', ROOT.'managements'.DS);
-define ('VERSION_CMS', '2.1.0');
+define ('VERSION_CMS', '2.0.1');
 #########################################
 # Install
 #########################################
@@ -64,10 +66,50 @@ if (is_file(ROOT.'INSTALL'.DS.'index.php')) {
 require DIR_CORE.'core.error.php';
 require 'file_require.php';
 new RequireFiles;
-try {
-	$BelCMS = new BelCMS;
-	$BelCMS->_init();
-	echo $BelCMS->render;
-} catch (Exception $e) {
-	echo 'Exception reçue : ',  $e->getMessage(), "\n";
+#########################################
+# Bannissement(s)
+#########################################
+$sql = New BDD;
+$sql->table('TABLE_BAN');
+$sql->queryAll();
+$ban = $sql->data;
+if (!empty($ban)) {
+	foreach ($ban as $v) {
+		if ($v->number == 0) {
+			_init();
+			return;
+		} else {
+			if (!isset($_SESSION['USER']['HASH_KEY'])) {
+				$_SESSION['USER']['HASH_KEY'] = null;
+			}
+			if ($v->author == $_SESSION['USER']['HASH_KEY'] or $v->ip == Common::GetIp()) {
+				if ($v->effective != 0) {
+					require_once DIR_TPL_DEFAULT.'ban/index.php';
+					return;
+				} else {
+					_init();
+					return;
+				}
+			} else {
+				_init();
+				return;
+			}
+		}
+	}
+} else {
+	_init();
+	return;
+}
+#########################################
+# Initialisation
+#########################################
+function _init ()
+{
+	try {
+		$BelCMS = new BelCMS;
+		$BelCMS->_init();
+		echo $BelCMS->render;
+	} catch (Exception $e) {
+		echo 'Exception reçue : ',  $e->getMessage(), "\n";
+	}
 }

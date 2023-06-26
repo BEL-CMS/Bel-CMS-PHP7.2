@@ -1,29 +1,29 @@
 .belcms_notification {
-	border: 1px solid rgba(209, 207, 207, 1) !important; 
-	background: rgba(248, 248, 248, 1) !important; 
-	margin: 15px auto !important; 
-	width: 100% !important; 
-	overflow: hidden !important; 
+	border: 1px solid rgba(209, 207, 207, 1);
+	background: rgba(248, 248, 248, 1);
+	margin: 15px auto;
+	width: 100%;
+	overflow: hidden;
 }
 .belcms_notification_header {
-	display: block !important; 
-	width: 100% !important; 
-	padding: 5px !important; 
-	overflow: hidden !important;
-	color: rgba(255, 255, 255, 0.95) !important; ;
-	float: none !important; 
+	display: block;
+	width: 100%;
+	padding: 15px;
+	overflow: hidden;
+	color: rgba(255, 255, 255, 0.95);
+	min-height: auto !important;
 }
 .belcms_notification > .error {
-	background-color: rgba(223, 83, 73, .8) !important; 
+	background-color: rgba(223, 83, 73, .8);
 }
 .belcms_notification > .success {
-	background-color: rgba(106, 189, 110, .8) !important; 
+	background-color: rgba(106, 189, 110, .8);
 }
 .belcms_notification > .warning {
-	background-color: rgba(255, 170, 43, .8) !important; 
+	background-color: rgba(255, 170, 43, .8);
 }
 .belcms_notification > .infos {
-	background-color: rgba(42, 167, 246, .8) !important; 
+	background-color: rgba(42, 167, 246, .8);
 }
 .belcms_notification i {
 	display: block;
@@ -39,11 +39,11 @@
 	font-weight: bold;
 }
 .belcms_notification .belcms_notification_msg {
-	margin: 15px !important; 
-	padding: 15px !important; 
-	text-align: justify !important; 
-	border: 1px solid rgba(209, 207, 207, 1) !important; 
+	margin: 15px;
+	padding: 15px;
+	text-align: justify;
+	border: 1px solid rgba(209, 207, 207, 1);
 	background-color: rgba(244, 242, 242, 1);
-	font-weight: 13px !important; 
-	color: var(--gray-dark) !important; 
+	font-weight: 13px;
+	color: var(--gray-dark);
 }

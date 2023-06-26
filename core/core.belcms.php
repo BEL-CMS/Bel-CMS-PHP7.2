@@ -1,17 +1,17 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.1.0
- * @link https://bel-cms.dev
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2015-2022 Bel-CMS
- * @author as Stive - stive@determe.be
+ * @version 2.0.1
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @copyright 2015-2023 Bel-CMS
+ * @author Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit('<!doctype html><html><head><meta charset="utf-8"><title>BEL-CMS : Error 403 Forbidden</title><style>h1{margin: 20px auto;text-align:center;color: red;}p{text-align:center;font-weight:bold;</style></head><body><h1>HTTP Error 403 : Forbidden</h1><p>You don\'t permission to access / on this server.</p></body></html>');
+	exit(ERROR_INDEX);
 }
 
 final class BelCMS extends Dispatcher
@@ -30,10 +30,15 @@ final class BelCMS extends Dispatcher
 		if ($this->controller != 'shoutbox') {
 			new Visitors;
 		}
-
 		new BelCMSConfig;
 		new Users;
+#########################################
+# Nouveau utilisateurs mise à jour
+#########################################
 
+#########################################
+# Maintennance
+#########################################
 		$sql = New BDD;
 		$sql->table('TABLE_MAINTENANCE');
 		$sql->queryAll();
@@ -53,18 +58,13 @@ final class BelCMS extends Dispatcher
 				}
 			}
 		}
-		$ban = New _Ban;
-		$ban = $ban->effective();
-		if ($ban == false) {
-			echo Notification::renderFull('error', 'Vous êtes actuellement banni(e) de ce site', 'Bannissement');
-			die();
-		}
 	}
-
+#########################################
+# Initialisation
+#########################################
 	public function _init ()
 	{
 		ob_start();
-
 		if ($this->isManagement === true) {
 			require_once MANAGEMENTS.'managements.php';
 			new Managements;
@@ -89,4 +89,7 @@ final class BelCMS extends Dispatcher
 			ob_end_clean();
 		}
 	}
+#########################################
+# Initialisation
+#########################################
 }

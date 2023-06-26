@@ -98,15 +98,16 @@ if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === tr
 					<?php
 				endforeach;
 				?>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="form-group form-actions">
-			<div class="col-sm-12 col-sm-offset-3">
-				<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> <?=SAVE?></button>
-			</div>
-		</div>	
+		<div class="row">
+			<div class="form-group form-actions">
+				<div class="col-sm-12 col-sm-offset-3">
+					<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> <?=SAVE?></button>
+				</div>
+			</div>	
+		</div>
 	</div>
 </form>
 <?php

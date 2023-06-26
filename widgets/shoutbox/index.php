@@ -1,12 +1,12 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.0
- * @link http://bel-cms.dev
- * @link http://determe.be
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
- * @copyright 2015-2022 Bel-CMS
- * @author Stive - stive@determe.be
+ * @version 1.0.0
+ * @link https://bel-cms.be
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @copyright 2014-2019 Bel-CMS
+ * @author as Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
@@ -47,7 +47,7 @@ if (!defined('CHECK_INDEX')) {
 							<a data-toggle="tooltip" title="<?=$username?>" href="Members/View/<?=$username?>" class="avatar">
 								<img src="<?=$avatar?>">
 							</a>
-							<div class="message_wrap">
+							<div class="message_wrap"> <span class="arrow"></span>
 								<div class="info"> <a style="color: <?=$color?>" data-toggle="tooltip" title="<?=$username?>" href="Members/View/<?=$username?>" class="name"><?=$username?></a> <span class="time"><?=$v->date_msg?></span>
 								</div>
 								<div class="text"><?=Common::getSmiley($msg)?></div>

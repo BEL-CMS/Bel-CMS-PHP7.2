@@ -1,17 +1,18 @@
 <?php
 /**
- * Bel-CMS [Content management system]
- * @version 2.0.2
- * @link https://bel-cms.dev
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2015-2022 Bel-CMS
- * @author as Stive - stive@determe.be
- */
+* Bel-CMS [Content management system]
+* @version 2.0.1
+* @link https://bel-cms.be
+* @link https://determe.be
+* @license http://opensource.org/licenses/GPL-3.0 copyleft
+* @copyright 2022 Bel-CMS
+* @author Stive - stive@determe.be
+*/
+
 
 if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit('<!doctype html><html><head><meta charset="utf-8"><title>BEL-CMS : Error 403 Forbidden</title><style>h1{margin: 20px auto;text-align:center;color: red;}p{text-align:center;font-weight:bold;</style></head><body><h1>HTTP Error 403 : Forbidden</h1><p>You don\'t permission to access / on this server.</p></body></html>');
+	exit(ERROR_INDEX);
 }
 
 #########################################
@@ -42,15 +43,13 @@ Common::constant(array(
 	'TABLE_INBOX'               => $DB_PREFIX.'inbox',
 	'TABLE_INBOX_MSG'           => $DB_PREFIX.'inbox_msg',
 	'TABLE_INTERACTION'         => $DB_PREFIX.'interaction',
+	'TABLE_KEY_GOLD'            => $DB_PREFIX.'key_gold',
 	'TABLE_LINK_OUT'            => $DB_PREFIX.'links_click',
 	'TABLE_MAIL_BLACKLIST'      => $DB_PREFIX.'mails_blacklist',
 	'TABLE_MAINTENANCE'         => $DB_PREFIX.'maintenance',
 	'TABLE_NEWSLETTER'          => $DB_PREFIX.'newsletter',
 	'TABLE_NEWSLETTE_SEND'      => $DB_PREFIX.'newsletter_send',
 	'TABLE_NEWSLETTER_TPL'      => $DB_PREFIX.'newsletter_tpl',
-	'TABLE_MARKET'              => $DB_PREFIX.'market',
-	'TABLE_MARKET_BUY'          => $DB_PREFIX.'market_buy',
-	'TABLE_MARKET_CAT'          => $DB_PREFIX.'market_cat',
 	'TABLE_PAGE'                => $DB_PREFIX.'page',
 	'TABLE_PAGES_ARTICLES'      => $DB_PREFIX.'page_articles',
 	'TABLE_PAGE_CONTENT'        => $DB_PREFIX.'page_content',

@@ -56,7 +56,6 @@
 		<footer id="footer">
 			<div class="bel_cms_content">
 				<span>Copyright 2019 > <?=(date('Y'))?> | By <a href="https://bel-cms.dev">Bel-CMS</a></span>
-			</div>
 		</footer>
 		<!-- / Footer -->
 		{js}

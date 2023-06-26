@@ -1,4 +1,3 @@
-
 section#bel_cms_widgets_lastconnected {
 	display: block;
 	overflow: hidden;
@@ -39,4 +38,4 @@ section#bel_cms_widgets_lastconnected {
 				#bel_cms_widgets_lastconnected ul > li > span > p:last-child {
 					font-size: 11px;
 					margin-bottom: 5px;
-				}					
+				}

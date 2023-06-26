@@ -1,7 +1,7 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.0
+ * @version 2.0.2
  * @link https://bel-cms.dev
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
@@ -11,7 +11,7 @@
 
 if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit(ERROR_INDEX);
+	exit('<!doctype html><html><head><meta charset="utf-8"><title>BEL-CMS : Error 403 Forbidden</title><style>h1{margin: 20px auto;text-align:center;color: red;}p{text-align:center;font-weight:bold;</style></head><body><h1>HTTP Error 403 : Forbidden</h1><p>You don\'t permission to access / on this server.</p></body></html>');
 }
 
 class Forum extends Pages
@@ -117,7 +117,7 @@ class Forum extends Pages
 			$this->redirect('Forum', 3);
 			return;
 		}
-		$d = array();
+		$d  = array();
 		$id = (int) $id;
 		$_SESSION['REPLYPOST']   = $id;
 		$_SESSION['FORUM']       = uniqid('forum_');
@@ -142,7 +142,7 @@ class Forum extends Pages
 
 	public function EditPost ($id = null)
 	{
-		$id = Common::SecureRequest($id);
+		$id     = Common::SecureRequest($id);
 		$d['d'] = $this->ModelsForum->editpost($id);
 		if (Users::isSuperAdmin($_SESSION['USER']['HASH_KEY']) or $d['d']->author == $_SESSION['USER']['HASH_KEY']) {
 			$this->set($d);
@@ -152,15 +152,38 @@ class Forum extends Pages
 		}
 	}
 
+	public function EditPostPrimary ($id = null)
+	{
+		$id     = Common::SecureRequest($id);
+		$d['d'] = $this->ModelsForum->editpostprimary($id);
+		if (Users::isSuperAdmin($_SESSION['USER']['HASH_KEY']) or $d['d']->author == $_SESSION['USER']['HASH_KEY']) {
+			$this->set($d);
+			$this->render('editpostprimary');			
+		} else {
+			$this->error(FORUM, NO_ACCESS_POST, 'error');
+		}
+	}
+
 	public function SendEditPost ()
 	{
-		if (Users::isSuperAdmin($_SESSION['USER']['HASH_KEY']) or $d['d']->author == $_SESSION['USER']['HASH_KEY']) {
+		if (Users::isSuperAdmin($_SESSION['USER']['HASH_KEY']) or $_POST['author'] == $_SESSION['USER']['HASH_KEY']) {
 		$return = $this->ModelsForum->sendEditPost($_POST);
 		$this->error (get_class($this), $return['msg'], $return['type']);
 		} else {
 			$this->error(FORUM, NO_ACCESS_POST, 'error');
 		}
 		$this->redirect('Forum', 2);
+	}
+
+	public function SendEditPostPrimary ()
+	{
+		if (Users::isSuperAdmin($_SESSION['USER']['HASH_KEY']) or $_POST['author'] == $_SESSION['USER']['HASH_KEY']) {
+		$return = $this->ModelsForum->SendEditPostPrimary($_POST);
+		$this->error (get_class($this), $return['msg'], $return['type']);
+		} else {
+			$this->error(FORUM, NO_ACCESS_POST, 'error');
+		}
+		$this->redirect('Forum', 2);	
 	}
 
 	private function accessLock ($id)

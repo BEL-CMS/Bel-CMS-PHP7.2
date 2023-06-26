@@ -149,6 +149,20 @@ class ModelsForum
 		$return = $sql->data;
 		return $return;
 	}
+	public function CountPosts ()
+	{
+		$id = (int) $id;
+		$sql = New BDD();
+		$sql->table('TABLE_FORUM_POST');
+		$where = array(
+			'name' => 'author',
+			'value' => $id
+		);
+		$sql->where($where);
+		$sql->count();
+		$return = $sql->data;
+		return $return;
+	}
 	#####################################
 	# Récupère les posts
 	#####################################
@@ -230,8 +244,8 @@ class ModelsForum
 	{
 		$return = null;
 		if ($id != null) {
-			$id = Common::SecureRequest($id);
-			$sql = New BDD();
+			$id   = Common::SecureRequest($id);
+			$sql  = New BDD();
 			$sql->table('TABLE_FORUM_POSTS');
 			$sql->where(array('name' => 'id', 'value' => $id));
 			$sql->queryOne();
@@ -239,9 +253,24 @@ class ModelsForum
 		}
 		return $return;
 	}
+
+	public function editpostprimary ($id = null)
+	{
+		$return = null;
+		if ($id != null) {
+			$id   = Common::SecureRequest($id);
+			$sql  = New BDD();
+			$sql->table('TABLE_FORUM_POST');
+			$sql->where(array('name' => 'id', 'value' => $id));
+			$sql->queryOne();
+			$return = $sql->data;
+		}
+		return $return;
+	}
+
 	public function sendEditPost ($d)
 	{
-		$data['info_text'] = Common::VarSecure($d['info_text']);
+		$data['content'] = Common::VarSecure($d['content']);
 		$update = New BDD();
 		$update->table('TABLE_FORUM_POSTS');
 		$where[] = array(
@@ -253,8 +282,8 @@ class ModelsForum
 			'value' => Common::SecureRequest($d['id_post'])
 		);
 		$update->where($where);
-		$options = $data['info_text'];
-		$update->sqlData(array('content' => $options));
+		$text = $data['content'];
+		$update->sqlData(array('content' => $text));
 		$update->update();
 		if ($update->rowCount == 1) {
 			$return['msg']  = EDIT_SUCCESS;
@@ -264,6 +293,29 @@ class ModelsForum
 			$return['type'] = 'error';
 		}
 		return $return;	
+	}
+
+	public function SendEditPostPrimary ($d)
+	{
+		$data['content'] = Common::VarSecure($d['content']);
+		$update = New BDD();
+		$update->table('TABLE_FORUM_POST');
+		$where = array(
+			'name'  => 'id_threads',
+			'value' => Common::SecureRequest($d['id_threads'])
+		);
+		$update->where($where);
+		$text = $data['content'];
+		$update->sqlData(array('content' => $text));
+		$update->update();
+		if ($update->rowCount == 1) {
+			$return['msg']  = EDIT_SUCCESS;
+			$return['type'] = 'success';
+		} else {
+			$return['msg']  = EDIT_FALSE;
+			$return['type'] = 'error';
+		}
+		return $return;
 	}
 	#####################################
 	# Récupère les posts
@@ -291,28 +343,52 @@ class ModelsForum
 			// Assemble les deux tableaux
 			$return = array_merge($firstPost, $posts);
 			foreach ($return as $k => $v) {
-				$authorId = $v->author;
-				$author = Users::getInfosUser($authorId);
-				// Fait corrépondre leurs ID avec leur username
-				$return[$k]->author = Users::hashkeyToUsernameAvatar($authorId);
-				// Fait corrépondre leurs ID avec leur avatar
-				$return[$k]->avatar = Users::hashkeyToUsernameAvatar($authorId, 'avatar');
-				// Fait corrépondre leurs ID avec leur date d'inscription
-				$return[$k]->registration = (isset($author->date_registration)) ? Common::TransformDate($author->date_registration) : '';
-				// Récupère les options et les transformer en Booleen
-				// Les like sont transoformer en (int)
-				$options = explode('|', $v->options);
-				foreach ($options as $k_opt => $v_opt) {
-					$tmp_opt = explode('=', $v_opt);
-					$options[$tmp_opt[0]] = $tmp_opt[1] == 1 ? true : false;
-					if (isset($options['like'])) {
-						$options['like'] = $options['like'] == false ? (int) 0 : $options['like'];
+				if (empty($v->author)) {
+					$return = (object) array();
+				} else {
+					$authorId = $v->author;
+					$author   = Users::getInfosUser($authorId);
+					// Fait corrépondre leurs ID avec leur username
+					$return[$k]->author       = Users::hashkeyToUsernameAvatar($authorId);
+					// Fait corrépondre leurs ID avec leur avatar
+					$return[$k]->avatar       = Users::hashkeyToUsernameAvatar($authorId, 'avatar');
+					// Fait corrépondre leurs ID avec leur date d'inscription
+					$return[$k]->registration = isset($author->date_registration) ? Common::TransformDate($author->date_registration) : '';
+					
+					$return[$k]->authorId     = $authorId;
+					$return[$k]->countPost    = self::nbUserForum($authorId);
+					// Récupère les options et les transformer en Booleen
+					// Les like sont transoformer en (int)
+					$options = explode('|', $v->options);
+					foreach ($options as $k_opt => $v_opt) {
+						$tmp_opt = explode('=', $v_opt);
+						$options[$tmp_opt[0]] = $tmp_opt[1] == 1 ? true : false;
+						if (isset($options['like'])) {
+							$options['like'] = $options['like'] == false ? (int) 0 : $options['like'];
+						}
+						unset($options[$k_opt], $tmp_opt);
 					}
-					unset($options[$k_opt], $tmp_opt);
+					$return[$k]->options = $options;
 				}
-				$return[$k]->options = $options;
 			}
 		}
+		return $return;
+	}
+
+	private function getGroup ($id)
+	{
+		$return = (object) array();
+
+		$sql = New BDD;
+		$sql->table('TABLE_GROUPS');
+		$sql->fields(array('id', 'name', 'id_group', 'color', 'image'));
+		$where = array(
+			'name'  => 'id_group',
+			'value' => (int) $id
+		);
+		$sql->where($where);
+		$sql->queryOne();
+		$return = $sql->data;
 		return $return;
 	}
 	#####################################
@@ -634,5 +710,42 @@ class ModelsForum
 		$sql->count();
 		$return = $sql->data;
 		return $return;
+	}
+
+	public function nbUserForum ($hash)
+	{
+		$int = null;
+		$secure = Common::hash_key($hash) ? true : false;
+		if ($secure === true):
+			$sql = New BDD();
+			$sql->table('TABLE_FORUM_POST');
+			$where = array(
+				'name' => 'author',
+				'value' => $hash
+			);
+			$sql->where($where);
+			$sql->count();
+			$return = $sql->data;
+			if ($return == 0) {
+				$int = 0;
+			} else {
+				$int = (int) $return;
+			}
+			$sql_count = New BDD();
+			$sql_count->table('TABLE_FORUM_POSTS');
+			$where = array(
+				'name' => 'author',
+				'value' => $hash
+			);
+			$sql_count->where($where);
+			$sql_count->count();
+			$return_count = $sql_count->data;
+			if ($return_count == 0) {
+				$int_count = 0;
+			} else {
+				$int + (int) $return_count;
+			}
+		endif;
+		return $int;
 	}
 }

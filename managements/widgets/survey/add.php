@@ -1,30 +1,32 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.0
- * @link http://bel-cms.dev
- * @link http://determe.be
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
+ * @version 2.0.2
+ * @link https://bel-cms.dev
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
  * @copyright 2015-2022 Bel-CMS
- * @author Stive - stive@determe.be
+ * @author as Stive - stive@determe.be
  */
+
+if (!defined('CHECK_INDEX')) {
+	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
+	exit('<!doctype html><html><head><meta charset="utf-8"><title>BEL-CMS : Error 403 Forbidden</title><style>h1{margin: 20px auto;text-align:center;color: red;}p{text-align:center;font-weight:bold;</style></head><body><h1>HTTP Error 403 : Forbidden</h1><p>You don\'t permission to access / on this server.</p></body></html>');
+}
+if (isset($_SESSION['LOGIN_MANAGEMENT']) && $_SESSION['LOGIN_MANAGEMENT'] === true):
 ?>
-<div class="x_panel">
-	<div class="x_title">
-		<h2>Menu Widgets Sondage</h2>
-		<div class="clearfix"></div>
+<div class="card">
+	<div class="card-header">
+		<h3 class="card-title">Sondage</h3>
+		<div class="card-tools">
+			<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+				<i class="fas fa-minus"></i>
+			</button>
+		</div>
 	</div>
-	<div class="x_content">
-		<a href="survey?management&widgets=true" class="btn btn-app">
-			<i class="fa fas fa-home"></i> Accueil
-		</a>
-	</div>
-</div>
-<form class="form-horizontal" action="/survey/send?management&widgets=true" method="post">
-<div class="col-md-12">
-	<div class="panel panel-white">
-		<div class="panel-body">
-			<div class="form-group mb-2">
+	<div class="card-body">
+		<form action="/survey/send?management&widgets" method="post" class="form-horizontal form-bordered">
+			<div class="form-group">
 				<label class="col-sm-2 control-label">Titre</label>
 				<div class="col-sm-10">
 					<input name="name" type="text" class="form-control">
@@ -97,3 +99,5 @@
 	</div>
 </div>
 </form>
+<?php
+endif;

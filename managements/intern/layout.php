@@ -212,7 +212,7 @@
 			<div class="float-right d-none d-sm-block">
 			  <b>Version</b> <?=VERSION_CMS?>
 			</div>
-			<strong>Copyright &copy; <a href="https://bel-cms.be">Bel-CMS</a> - <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+			<strong>Copyright &copy; <a href="https://bel-cms.dev">Bel-CMS</a> - <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
 		  </footer>
 		</div>
 		<a class="back-to-top"><i class="fa-arrow-up"></i></a>

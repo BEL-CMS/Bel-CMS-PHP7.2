@@ -1,19 +1,18 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.1.0
- * @link https://bel-cms.dev
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
  * @copyright 2015-2022 Bel-CMS
- * @author as Stive - stive@determe.be
+ * @author Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit('<!doctype html><html><head><meta charset="utf-8"><title>BEL-CMS : Error 403 Forbidden</title><style>h1{margin: 20px auto;text-align:center;color: red;}p{text-align:center;font-weight:bold;</style></head><body><h1>HTTP Error 403 : Forbidden</h1><p>You don\'t permission to access / on this server.</p></body></html>');
+	exit(ERROR_INDEX);
 }
-
 class Users
 {
 	function __construct ()
@@ -108,7 +107,7 @@ class Users
 
 			if ($results && is_array($results) && sizeof($results)) {
 				if ($results['expire'] >= 4) {
-					$return['msg']  = 'Compte bloqué, veuillez demander un nouveau mot de passe généré automatiquement et envoyé par e-mail.';
+					$return['msg']  = 'Par mesure de sécurité, votre compte est bloqué, veuillez demander un nouveau mot de passe.';
 					$return['type'] = 'error';
 					return $return;				
 				}
@@ -116,21 +115,31 @@ class Users
 					$check_password = $password == $results['password'] ? true : false;
 				} else {
 					$check_password = false;
-					$results['expire']++;
-					$insert = New BDD();
-					$insert->table('TABLE_USERS');
-					$insert->sqlData(array('expire'=> $results['expire']));
-					$insert->where(array('name'=>'hash_key','value'=> $results['hash_key']));
-					$insert->update();
+				}
+				if ($results['valid'] == 0) {
+					$return['msg']  = 'Validation requis.';
+					$return['type'] = 'error';
 				}
 				if (password_verify($password, $results['password']) OR $check_password) {
 					$setcookie = $results['username'].'###'.$results['hash_key'].'###'.date('Y-m-d H:i:s').'###'.$results['password'];
 					setcookie('BEL-CMS-COOKIE', $setcookie, time()+60*60*24*30, '/');
 					$_SESSION['USER']['HASH_KEY'] = $results['hash_key'];
+					$update = New BDD();
+					$update->table('TABLE_USERS');
+					$update->sqlData(array('expire'=> 0));
+					$update->where(array('name'=>'hash_key','value'=> $results['hash_key']));
+					$update->update();
 					$return['msg']  = 'La connexion a été éffectuée avec succès';
 					$return['type'] = 'success';
 				} else {
 					$return['msg']  = 'Mauvaise combinaison de Pseudonyme-email et/ou mot de passe';
+					$return['type'] = 'error';
+						$results['expire']++;
+						$insert = New BDD();
+						$insert->table('TABLE_USERS');
+						$insert->sqlData(array('expire'=> $results['expire']));
+						$insert->where(array('name'=>'hash_key','value'=> $results['hash_key']));
+						$insert->update();
 				}
 			} else {
 				$return['msg']  = 'Aucun utilisateur avec ce Pseudonyme/mail';

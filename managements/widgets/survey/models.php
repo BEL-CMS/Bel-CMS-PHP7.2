@@ -1,7 +1,7 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.0
+ * @version 2.2.0
  * @link http://bel-cms.dev
  * @link http://determe.be
  * @license http://opensource.org/licenses/GPL-3.0 copyleft
@@ -166,7 +166,13 @@ class ModelsSurvey
 			$upd['title']         = Common::VarSecure($data['title'], '');
 			$upd['groups_access'] = implode("|", $data['groups']);
 			$upd['groups_admin']  = implode("|", $data['admin']);
-			$upd['active']        = isset($data['active']) ? 1 : 0;
+			if (empty($data['active'])) {
+				$upd['active'] = null;
+			} else {
+				if (Secure::isInt($data['active'])) {
+					$upd['active'] = $data['active'];
+				}
+			}
 			if ($data['pos'] == 'top') {
 				$upd['pos'] = 'top';
 			} else if ($data['pos'] == 'bottom') {
@@ -175,10 +181,12 @@ class ModelsSurvey
 				$upd['pos'] = 'left';
 			} else if ($data['pos'] == 'right') {
 				$upd['pos'] = 'right';
-			} else {
-				$upd['pos'] = 'right';
 			}
-			$upd['pages']  = implode("|", $data['pages']);
+			if (isset($data['current']) and !empty($data['current'])) {
+				$upd['pages']  = implode("|", $data['current']);
+			} else {
+				$upd['pages']  = null;
+			}
 			// SQL UPDATE
 			$sql = New BDD();
 			$sql->table('TABLE_WIDGETS');

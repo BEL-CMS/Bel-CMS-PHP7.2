@@ -32,7 +32,7 @@ class AdminPages
 		} else if ($this->admin === true) {
 			if (Users::isSuperAdmin() === false) {
 				self::superAdmin();
-			}	
+			}
 		}
 
 		if (isset($this->models)){
@@ -115,8 +115,6 @@ class AdminPages
 			$filename = MANAGEMENTS.'users'.DS.strtolower(get_class($this)).DS.$filename.'.php';
 		}
 
-		?>
-			<?php
 			if (!empty($menu)):
 				$title = defined(strtoupper(get_class($this))) ? constant(strtoupper(get_class($this))) : get_class($this);
 			?>
@@ -134,7 +132,7 @@ class AdminPages
 						?>
 					<a class="btn btn-app <?=$value['color']?>" href="<?=$value['href']?>">
 						<i class="<?=$value['icon']?>"></i>
-							<?=$key?>
+						<?=$key?>
 					</a>
 						<?php
 						}  		
@@ -145,7 +143,7 @@ class AdminPages
 			<?php
 			endif;		
 		if (is_file($filename)) {
-			require $filename;
+			require_once $filename;
 		} else {
 			Notification::error('Fichier : <strong>'.$filename.' </strong>non disponible...', 'Fichier');
 		}

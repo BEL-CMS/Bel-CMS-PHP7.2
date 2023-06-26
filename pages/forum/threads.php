@@ -1,20 +1,4 @@
-<?php
-/**
- * Bel-CMS [Content management system]
- * @version 2.0.0
- * @link http://bel-cms.dev
- * @link http://determe.be
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
- * @copyright 2015-2022 Bel-CMS
- * @author Stive - stive@determe.be
- */
-
-if (!defined('CHECK_INDEX')) {
-	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit(ERROR_INDEX);
-}
-?>
-<section class="section_bg" id="belcms_forum">
+<div id="belcms_threads">
 	<?php
 	if (Users::getInfosUser($_SESSION['USER']['HASH_KEY']) !== false):
 		?>
@@ -29,41 +13,45 @@ if (!defined('CHECK_INDEX')) {
 		Notification::infos('Aucun sujet disponible dans la base de données', 'Forum');
 	else:
 	?>
-	<div class="forum">
-		<h1 class="belcms_forum_h1"><?=$name->title?></h1>
-		<table class="belcms_forum_table table table-bordered">
-			<thead>
-				<th>Titres</th>
-				<th style="text-align: center;">infos</th>
-				<th>Dernier post</th>
-			</thead>
-			<tr class="espace"></tr>
-			<tbody>
-			<?php
-			foreach ($threads as $key => $value):
-			?>
+		<table class="table">
 			<tr>
+				<th></th>
+				<th>Thread</th>
+				<th>Réponse</th>
+				<th>Vu</th>
+				<th>Dernier post</th>
+			</tr>
+			<?php
+			foreach ($threads as $value) {
+				?>
+			<tr>
+				<td></td>
 				<td>
-					<a style="display: block;line-height: 15px;" href="Forum/Post/<?=$value->title?>/<?=$value->id?>"><?=$value->title?></a>
-					 <span style="color: <?=Users::colorUsername($value->author)?>"><i class="fa fa-user-circle"></i> <?=Users::hashkeyToUsernameAvatar($value->author)?> <i class="fa fa-clock-o" aria-hidden="true"></i> <?=Common::TransformDate($value->date_post, 'MEDIUM', 'SHORT')?></span>
+					<div class="padding-left-10">
+						<a href="Forum/Post/<?=$value->title?>/<?=$value->id?>"><?=$value->title?></a>
+					</div>
+					<div class="padding-left-10"><?=Users::hashkeyToUsernameAvatar($value->author)?></div>
+				</td>
+				<td class="center">
+					<?php
+					echo $value->options['post'];
+					?>
+				</td>
+				<td class="center">
+					<?php
+					echo $value->options['view'];
+					?>
 				</td>
 				<td>
-					<span style="display: block;line-height: 15px; text-align: center;"><i class="fa fa-eye"></i> <?=$value->options['view']?></span>
-					<span style="display: block;line-height: 35px; text-align: center;"><i class="fas fa-exchange-alt"></i> <?=$value->options['post']?></span>
-				</td>
-				<td>
-					<span style="display: block;line-height: 15px;color: <?=Users::colorUsername($value->last->author)?>">Dernier message par <?=Users::hashkeyToUsernameAvatar($value->last->author)?></span>
-					14 avr. 2021 à 00:33
+					<div class="padding-left-10">
+						<span style="color: <?=Users::colorUsername($value->last->author)?>"><?=Users::hashkeyToUsernameAvatar($value->last->author)?></span>
+					</div>
+					<div class="padding-left-10"><?=Common::TransformDate($value->last->date_post, 'MEDIUM', 'SHORT')?></div>
 				</td>
 			</tr>
-			<tr class="espace"></tr>
-			<?php
-			endforeach;
+				<?php
+			}
 			?>
-			</tbody>
 		</table>
-	</div>
-</section>
 <?php
 	endif; ?>
-

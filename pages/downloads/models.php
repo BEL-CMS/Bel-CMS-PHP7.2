@@ -178,19 +178,19 @@ class ModelsDownloads
 
 	public function countFiles ($id)
 	{
-			$id  = Common::secureRequest($id);
-			$get = New BDD();
-			$get->table('TABLE_DOWNLOADS');
-			$where = array(
-				'name'  => 'idcat',
-				'value' => (int) $id
-			);
-			$get->where($where);
-			$get->queryAll();
-			if ($get->rowCount != 0) {
-				return (int) $get->rowCount;
-			} else {
-				return (int) 0;
-			}
+		$id  = Common::secureRequest($id);
+		$get = New BDD();
+		$get->table('TABLE_DOWNLOADS');
+		$where = array(
+			'name'  => 'idcat',
+			'value' => (int) $id
+		);
+		$get->where($where);
+		$get->queryAll();
+		if ($get->rowCount != 0) {
+			return (int) $get->rowCount;
+		} else {
+			return (int) 0;
+		}
 	}
 }

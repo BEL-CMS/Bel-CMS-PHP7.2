@@ -1,7 +1,7 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.2
+ * @version 2.2.0
  * @link https://bel-cms.dev
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
@@ -27,7 +27,7 @@ if (!defined('CHECK_INDEX')) {
 					</div>
 				</div>
 				<div class="card-body">
-					<table class="DataTableBelCMS table table-bordered table-hover">
+					<table class="table table-bordered table-hover">
 						<thead>
 							<th>Nom</th>
 							<th>Activation</th>
@@ -41,9 +41,11 @@ if (!defined('CHECK_INDEX')) {
 									$checked = 'checked readonly';
 								} else {
 									if ($value->active == 0) {
-										$checked = null;
+										$checked  = (int) 0;
+										$values   = (int) 0;
 									} else { 
-										$checked = 'checked';
+										$checked  = 'checked';
+										$values   = (int) 1;
 									}
 								}
 								?>
@@ -52,7 +54,7 @@ if (!defined('CHECK_INDEX')) {
 									<td>
 										<div class="form-group">
 											<div class="icheck-primary d-inline"></div>
-											<input data-bootstrap-switch value="1" type="checkbox" name="<?=$value->name;?>" <?=$checked?>>
+											<input data-bootstrap-switch value="<?=$values?>" type="checkbox" name="<?=$value->name;?>" <?=$checked?>>
 										</div>
 									</td>
 								</tr>
@@ -71,7 +73,7 @@ if (!defined('CHECK_INDEX')) {
 		</form>
 	</div>
 	<div class="col-md-6">
-		<form action="/activate/sendAddWidgets?management&parameter=true" method="post">
+		<form action="activate/sendAddWidgets?management&parameter" method="post">
 			<div class="card">
 				<div class="card-header">
 					<h3 class="card-title">Activation Widgets</h3>
@@ -82,19 +84,22 @@ if (!defined('CHECK_INDEX')) {
 					</div>
 				</div>
 				<div class="card-body">
-					<table class="DataTableBelCMS table table-bordered table-hover">
+					<table class="table table-bordered table-hover">
 						<thead>
 							<th>Nom</th>
 							<th>Activation</th>
 						</thead>
 						<tbody>
 							<?php
+							$values = null;
 							foreach ($widgets as $key => $value):
 								$name = defined(strtoupper($value->name)) ? constant(strtoupper($value->name)) : $value->name;
 									if ($value->active == 0) {
-										$checked = null;
+										$checked  = (int) 0;
+										$values   = 'off';
 									} else { 
-										$checked = 'checked';
+										$checked  = 'checked';
+										$values   = 'on';
 									}
 								?>
 								<tr>
@@ -102,7 +107,7 @@ if (!defined('CHECK_INDEX')) {
 									<td>
 										<div class="form-group">
 											<div class="icheck-primary d-inline"></div>
-											<input data-bootstrap-switch value="1" type="checkbox" name="<?=$value->name;?>" <?=$checked?>>
+											<input data-bootstrap-switch value="<?=$values?>" type="checkbox" name="<?=$value->name;?>" <?=$checked?>>
 										</div>
 									</td>
 								</tr>

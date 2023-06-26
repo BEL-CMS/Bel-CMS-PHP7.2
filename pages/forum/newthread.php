@@ -14,7 +14,7 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<section class="section_bg" id="bel_cms_forum_newthread">
+<section id="bel_cms_forum_newthread">
 	<form action="Forum/Send" method="post" enctype="multipart/form-data">
 		<div class="card">
 			<div class="card-header">

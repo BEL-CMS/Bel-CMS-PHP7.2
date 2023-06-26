@@ -68,13 +68,15 @@ final class Managements extends Dispatcher
 		# Accessible Uniquement aux administrateurs de 1er niveau
 		#####################################
 		if (isset($_REQUEST['parameter'])) {
-			if ($this->view == 'parameter' or $this->view == 'sendparameter' or $page == 'parameter' or isset($_REQUEST['parameter'])) {
+			if ($this->view == strtolower('parameter') or $this->view == strtolower('sendparameter') or $page == strtolower('parameter') or strtolower(isset($_REQUEST['parameter']))) {
 				if (!in_array(1, $groups)) {
 					?>
 					<div id="page-content">
 					<?php
 					Notification::error(NO_ACCESS_GROUP_PAGE, 'Page');
-					?></div><?php
+					?>
+					</div>
+					<?php
 					$render = ob_get_contents();
 					if (ob_get_length() != 0) {
 						ob_end_clean();
@@ -94,19 +96,18 @@ final class Managements extends Dispatcher
 		# End
 		#####################################
 		# requete page
-		#####################################
-		if (isset($_REQUEST['parameter'])) {
-			echo self::request('parameter', $page);
+		if (isset($_REQUEST['pages'])) {
+			echo self::request('pages', $page);
 		} else if (isset($_REQUEST['templates'])) {
 			echo self::request('templates', $page);
 		} else if (isset($_REQUEST['users'])) {
 			echo self::request('users', $page);
-		} else if (isset($_REQUEST['pages'])) {
-			echo self::request('pages', $page);
 		} else if (isset($_REQUEST['widgets'])) {
 			echo self::request('widgets', $page);
 		} else if (isset($_REQUEST['gaming'])) {
 			echo self::request('gaming', $page);
+		} else if (isset($_REQUEST['parameter'])) {
+			echo self::request('parameter', $page);
 		} else {
 			include MANAGEMENTS.'intern'.DS.'dashboard.php';
 			$render = ob_get_contents();
@@ -132,7 +133,7 @@ final class Managements extends Dispatcher
 	# Requete des pages = menu
 	#########################################
 	private function request ($request, $page) {
-		$scan = Common::ScanDirectory(MANAGEMENTS.$request);
+		$scan  = Common::ScanDirectory(MANAGEMENTS.$request);
 		if (in_array($page, $scan)) {
 			if (Secures::getAccessPageAdmin($page) === false) {
 			?>
@@ -150,7 +151,12 @@ final class Managements extends Dispatcher
 				$Interaction->text('Accès non autorisé de '.Users::hashkeyToUsernameAvatar($_SESSION['USER']['HASH_KEY']).' à la page '.$page.' : paramètre');
 				$Interaction->insert();
 			} else {
-				include MANAGEMENTS.$request.DS.$page.DS.'controller.php';
+				$require = MANAGEMENTS.$request.DS.$page.DS.'controller.php';
+				if(!is_file($require)) {
+					Notification::error('Accès au controller impossible <br> '.$require, 'Page', true);
+					die();
+				}
+				require_once $require;
 				$this->controller = new $this->controller();
 				if ($this->controller->active === true) {
 					if (method_exists($this->controller, $this->view)) {
@@ -168,6 +174,8 @@ final class Managements extends Dispatcher
 					echo $this->controller->render;
 				}
 			}
+		} else {
+
 		}
 	}
 	#########################################

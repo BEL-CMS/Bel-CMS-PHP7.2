@@ -1,7 +1,7 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.0
+ * @version 2.2.0
  * @link https://bel-cms.dev
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
@@ -11,7 +11,7 @@
 
 if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit(ERROR_INDEX);
+	exit('<!doctype html><html><head><meta charset="utf-8"><title>BEL-CMS : Error 403 Forbidden</title><style>h1{margin: 20px auto;text-align:center;color: red;}p{text-align:center;font-weight:bold;</style></head><body><h1>HTTP Error 403 : Forbidden</h1><p>You don\'t permission to access / on this server.</p></body></html>');
 }
 
 class ModelsActivate
@@ -56,23 +56,24 @@ class ModelsActivate
 	#####################################
 	public function sendBDDPages ($data)
 	{
-		foreach (self::getNamePages () as $k => $v) {
-			if (array_key_exists($v->name, $data)) {
+		foreach (self::getNamePages () as $k => $v):
+			if (array_key_exists($v->name, $data)):
 				$sql = New BDD;
 				$sql->table('TABLE_PAGES_CONFIG');
 				$sql->where(array('name'=> 'name','value'=> $v->name));
 				$sql->sqlData(array('active' => 1));
 				$sql->update();
 				unset($sql);
-			} else {
+			else:
 				$sql = New BDD;
 				$sql->table('TABLE_PAGES_CONFIG');
 				$sql->where(array('name'=> 'name','value'=> $v->name));
 				$sql->sqlData(array('active' => 0));
 				$sql->update();
-				unset($sql);
-			}
-		}
+				unset($sql);	
+			endif;
+		endforeach;
+
 		$save = array(
 			'type' => 'success',
 			'msg'  => SAVE_BDD_SUCCESS
@@ -84,23 +85,24 @@ class ModelsActivate
 	#####################################
 	public function sendBDDWidgets ($data)
 	{
-		foreach (self::getNameWidgets () as $k => $v) {
-			if (array_key_exists($v->name, $data)) {
+		foreach (self::getNamePages () as $k => $v):
+			if (array_key_exists($v->name, $data)):
 				$sql = New BDD;
 				$sql->table('TABLE_WIDGETS');
 				$sql->where(array('name'=> 'name','value'=> $v->name));
 				$sql->sqlData(array('active' => 1));
 				$sql->update();
 				unset($sql);
-			} else {
+			else:
 				$sql = New BDD;
 				$sql->table('TABLE_WIDGETS');
 				$sql->where(array('name'=> 'name','value'=> $v->name));
 				$sql->sqlData(array('active' => 0));
 				$sql->update();
 				unset($sql);
-			}
-		}
+			endif;
+		endforeach;
+
 		$save = array(
 			'type' => 'success',
 			'msg'  => SAVE_BDD_SUCCESS
