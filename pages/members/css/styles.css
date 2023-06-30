@@ -1,23 +1,4 @@
-section#belcms-members {
-	display: block;
-	width: 100%;
-	overflow: hidden;
-}
-.belcms-table-th {
-	background-color: #2F3239;
-	color: #FFF;
-	padding: 5px;
-}
-.belcms-table-tr {
-	background-color: #8A8A8A;
-	color: #FFF;
-}
-
-.belcms-table-tr:nth-child(odd) {
-	background-color: #353940;
-	color: #FFF;
-}
-
-.belcms-table-td {
-	padding: 5px;
+#bel_cms_index_table {
+	margin: .75rem 1.25rem;
+	padding: .75rem 1.25rem;
 }
