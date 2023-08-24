@@ -1,153 +1,163 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.2
- * @link https://bel-cms.dev
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
  * @copyright 2015-2022 Bel-CMS
- * @author as Stive - stive@determe.be
+ * @author Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit('<!doctype html><html><head><meta charset="utf-8"><title>BEL-CMS : Error 403 Forbidden</title><style>h1{margin: 20px auto;text-align:center;color: red;}p{text-align:center;font-weight:bold;</style></head><body><h1>HTTP Error 403 : Forbidden</h1><p>You don\'t permission to access / on this server.</p></body></html>');
+	exit(ERROR_INDEX);
 }
 
 class User extends Pages
 {
 	var $models = array('ModelsUser');
-	private $_error = false;
 	#########################################
 	# Index de la page utilisateur
 	#########################################
 	public function index ()
 	{
-		$dir = 'uploads/users/'.$_SESSION['USER']['HASH_KEY'].'/';
+		$dir = DIR_USERS.$_SESSION['USER']['HASH_KEY'].'/';
 		if (!is_dir($dir)) {
 		    mkdir($dir, 0777, true);
 		}
-		$fopen = fopen($dir.'/index.html', 'a+');
+		$fopen  = fopen($dir.'/index.html', 'a+');
 		$fclose = fclose($fopen);
 		if (Users::isLogged() === true) {
-			$d = array();
-			$d['user']   = $this->ModelsUser->getDataUser ($_SESSION['USER']['HASH_KEY']);
-			$d['gaming'] = $this->ModelsUser->getGaming ();
-			$d['gamers'] = $this->ModelsUser->getTeamUsers ();
+			$d            = array();
+			$d['user']    = $this->ModelsUser->getDataUser ($_SESSION['USER']['HASH_KEY']);
+			$d['gaming']  = $this->ModelsUser->getGaming ();
+			$d['gamers']  = $this->ModelsUser->getTeamUsers ();
+			$d['current'] ='user';
 			$this->set($d);
 			$this->render('index');
 		} else {
-			$this->redirect('User/login&echo', 3);
+			$this->redirect('User/login', 3);
 			Notification::warning(LOGIN_REQUIRE);
 		}
 	}
 	#########################################
-	# données privé
+	# copy index
 	#########################################
-	public function privacy ()
+	public function profil ()
 	{
-		$d['user'] = $this->ModelsUser->getDataUser ($_SESSION['USER']['HASH_KEY']);
-		$this->set($d); 
-		$this->render('privacy');
+		self::index();
 	}
 	#########################################
-	# changement de mot de passe (+ generateur)
+	# Page Avatar
 	#########################################
-	public function secure ()
-	{ 
-		$this->render('secure');
+	public function avatar ()
+	{
+		if (Users::isLogged() === true) {
+			$d = array();
+			$d['user']    = $this->ModelsUser->getDataUser ($_SESSION['USER']['HASH_KEY']);
+			$d['current'] ='avatar';
+			$this->set($d);
+			$this->render('avatar');
+		} else {
+			$this->redirect('User/login', 3);
+			Notification::warning(LOGIN_REQUIRE);
+		}
 	}
 	#########################################
-	# changement de mot de passe (+ generateur)
+	# Page Secure
 	#########################################
-	public function avatars ()
-	{ 
-		$d['user'] = $this->ModelsUser->getDataUser ($_SESSION['USER']['HASH_KEY']);
-		$this->set($d);
-		$this->render('avatars');
+	public function security ()
+	{
+		if (Users::isLogged() === true) {
+			$d = array();
+			$d['user']    = $this->ModelsUser->getDataUser ($_SESSION['USER']['HASH_KEY']);
+			$d['current'] ='security';
+			$this->set($d);
+			$this->render('security');
+		} else {
+			$this->redirect('User/login', 3);
+			Notification::warning(LOGIN_REQUIRE);
+		}
 	}
 	#########################################
-	# Social
+	# Page Safety
+	#########################################
+	public function safety ()
+	{
+		if (Users::isLogged() === true) {
+			$d = array();
+			$d['user']    = $this->ModelsUser->getDataUser ($_SESSION['USER']['HASH_KEY']);
+			$d['current'] ='safety';
+			$this->set($d);
+			$this->render('safety');
+		} else {
+			$this->redirect('User/login', 3);
+			Notification::warning(LOGIN_REQUIRE);
+		}
+	}
+	#########################################
+	# Page Avatar
 	#########################################
 	public function social ()
-	{ 
-		$d['user'] = $this->ModelsUser->getDataUser ($_SESSION['USER']['HASH_KEY']);
-		$this->set($d);
-		$this->render('social');
-	}
-	#########################################
-	# mise à jour BDD
-	#########################################
-	public function sendsecure ()
 	{
-		$d = $this->ModelsUser->sendSecure ($_POST);
-		$this->error(get_class($this), $d['text'], $d['type']);
-		$this->redirect('/User/privacy', 2);
-	}
-	#########################################
-	# Selectionne l'avatar ou le supprime
-	#########################################
-	public function avatarsubmit ()
-	{
-		$return = $this->ModelsUser->avatarSubmit($this->data);
-		$this->error($return['ext'], $return['msg'], $return['type']);
-		$this->redirect('/User', 2);
-	}
-	#########################################
-	# Enregistre le nouveau avatar (upload)
-	#########################################
-	public function newavatar ()
-	{
-		$return = $this->ModelsUser->sendNewAvatar();
-		$this->error($return['ext'], $return['msg'], $return['type']);
-		$this->redirect('/User/avatars', 2);
-	}
-	public function modifications ()
-	{
-		$d['user']   = $this->ModelsUser->getDataUser ($_SESSION['USER']['HASH_KEY']);
-		$this->set($d); 
-		$this->render('modifications');
+		if (Users::isLogged() === true) {
+			$d = array();
+			$d['user']    = $this->ModelsUser->getDataUser ($_SESSION['USER']['HASH_KEY']);
+			$d['current'] ='social';
+			$this->set($d);
+			$this->render('social');
+		} else {
+			$this->redirect('User/login', 3);
+			Notification::warning(LOGIN_REQUIRE);
+		}
 	}
 	#########################################
 	# Page login
 	#########################################
 	public function login ()
 	{
-		if (Users::isLogged() === false):
-			if (!isset($_REQUEST['echo'])) {
-				$this->redirect('user/login&echo', 0);
+		if (Users::isLogged() === false) {
+			self::queryRegister();
+			if (isset($_REQUEST['echo'])) {
+				$this->render('loginEcho');
 			} else {
 				$this->render('login');
 			}
-		else:
+		} else {
 			$d = array();
 			$d['user'] = $this->ModelsUser->getDataUser($_SESSION['USER']['HASH_KEY']);
 			$this->set($d);
 			$this->render('index');
-		endif;
+		}
 	}
 	public function loginSecure ()
 	{
-		if (Users::isLogged() === false):
+		if (isset($_REQUEST['echo'])) {
+			if (Users::isLogged() === false) {
 			$this->redirect('user/login&echo', 0);
-		endif;
+			}
+		}
 	}
 	#########################################
 	# S'enregistree
 	#########################################	
 	public function register ()
 	{
-		if (Users::isLogged() === false):
-			$_SESSION['TMP_QUERY_REGISTER'] = array();
-			$_SESSION['TMP_QUERY_REGISTER']['number_1'] = rand(1, 9);
-			$_SESSION['TMP_QUERY_REGISTER']['number_2'] = rand(1, 9);
-			$_SESSION['TMP_QUERY_REGISTER']['overall']  = $_SESSION['TMP_QUERY_REGISTER']['number_1'] + $_SESSION['TMP_QUERY_REGISTER']['number_2'];
-			$_SESSION['TMP_QUERY_REGISTER'] = Common::arrayChangeCaseUpper($_SESSION['TMP_QUERY_REGISTER']);
+		if (Users::isLogged() === false) {
+			self::queryRegister();
 			$this->data = (bool) true;
 			$this->render('register');
-		else:
+		} else {
 			$this->redirect('user', 0);
-		endif;
+		}
+	}
+	private function queryRegister () {
+		$_SESSION['TMP_QUERY_REGISTER'] = array();
+		$_SESSION['TMP_QUERY_REGISTER']['number_1'] = rand(1, 9);
+		$_SESSION['TMP_QUERY_REGISTER']['number_2'] = rand(1, 9);
+		$_SESSION['TMP_QUERY_REGISTER']['overall']  = $_SESSION['TMP_QUERY_REGISTER']['number_1'] + $_SESSION['TMP_QUERY_REGISTER']['number_2'];
+		$_SESSION['TMP_QUERY_REGISTER'] = Common::arrayChangeCaseUpper($_SESSION['TMP_QUERY_REGISTER']);	
 	}
 	#########################################
 	# Deconnexion
@@ -160,28 +170,27 @@ class User extends Pages
 	}
 	public function lostpassword ()
 	{
-		if (Users::isLogged() === false):
+		if (Users::isLogged() === false) {
 			$this->data = (bool) true;
 			$this->render('lostpassword');
-		endif;
+		}
 	}
 	public function sendLostPassword ()
 	{
 		unset($_POST['send']);
 		$return = $this->ModelsUser->checkToken($_POST);
-		if (!isset($return['pass'])):
+		if (!isset($return['pass'])) {
 			$this->error('Password', $return['msg'], $return['type']);
 			$this->redirect('User/LostPassword', 3);
-		else:
+		} else {
 			$this->error('Password', $return['msg'], $return['type']);
-		endif;
+		}
 	}
 
 	public function sendRegister ()
 	{
 		if (empty($this->data)) {
 			Notification::alert('Pas de données');
-			$this->redirect('user&echo', 2);
 		} else if (
 			empty($this->data['email']) or 
 			empty($this->data['username']) or 
@@ -196,15 +205,16 @@ class User extends Pages
 			
 			if ($return['type'] == 'error') {
 				Notification::error($return['msg']);
-				$this->redirect('User/register&echo', 3);
+				$this->redirect('User/register', 3
+			);
 			} else if ($return['type'] == 'warning') {
-				$this->redirect('User/register&echo', 3);
+				$this->redirect('User/register', 3);
 				Notification::warning($return['msg']);
 			} else if ($return['type'] == 'success') {
 				$this->redirect('User/Profil', 3);
 				Notification::success($return['msg']);
 			} else {
-				$this->redirect('User/register&echo', 3);
+				$this->redirect('User/register', 3);
 				Notification::warning('Erreur inconnu');
 			}
 		}
@@ -274,9 +284,9 @@ class User extends Pages
 			$return = Users::login($this->data['username'], $this->data['password']);
 			if ($return['type'] == 'error') {
 				Notification::error($return['msg']);
-				$this->redirect('User/Login&echo', 3);
+				$this->redirect('User/Login', 3);
 			} else if ($return['type'] == 'warning') {
-				$this->redirect('User/Login&echo', 3);
+				$this->redirect('User/Login', 3);
 				Notification::warning($return['msg']);
 			} else if ($return['type'] == 'success') {
 				$this->redirect('User/Profil', 3);
@@ -331,6 +341,24 @@ class User extends Pages
 	{
 		$return = $this->ModelsUser->sendSecurity($this->data);
 		$this->error($return['title'], $return['msg'], $return['type']);
+		$this->redirect('User', 2);
+	}
+	#########################################
+	# Selectionne l'avatar ou le supprime
+	#########################################
+	public function avatarsubmit ()
+	{
+		$return = $this->ModelsUser->avatarSubmit($this->data);
+		$this->error($return['ext'], $return['msg'], $return['type']);
+		$this->redirect('User', 2);
+	}
+	#########################################
+	# Enregistre le nouveau avatar (upload)
+	#########################################
+	public function newavatar ()
+	{
+		$return = $this->ModelsUser->sendNewAvatar();
+		$this->error($return['ext'], $return['msg'], $return['type']);
 		$this->redirect('User', 2);
 	}
 	#########################################
