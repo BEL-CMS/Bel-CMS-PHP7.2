@@ -36,5 +36,8 @@ switch ($link_current) {
 		<li>
 			<a <?=$link_social?> href="User/social">Liens Social</a>
 		</li>
+		<li>
+			<a class="belcms_bg_red" href="User/logout">Déconnexion</a>
+		</li>	
 	</ul>
 </nav>
