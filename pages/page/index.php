@@ -1,7 +1,7 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.0
+ * @version 2.2.2
  * @link http://bel-cms.dev
  * @link http://determe.be
  * @license http://opensource.org/licenses/GPL-3.0 copyleft
@@ -15,49 +15,39 @@ if (!defined('CHECK_INDEX')) {
 }
 if (!empty($data)):
 ?>
-<div id="belcms_page" class="card">
-	<div class="card-header">Page(s)</div>
-	<div class="card-body">
-		<table class="table table-striped">
-			<tr>
-				<th>Nom</th>
-				<th>Nombre de page(s)</th>
-			</tr>
+<div id="belcms_section_page_main">
+	<div class="belcms_card">
+		<div class="bel-cms-pages_title">Page(s)</div>
+	</div>
+	<div class="belcms_section_page_detail_infos">
+		<ul>
 			<?php
 			foreach ($data as $k => $v):
-				?>
-				<tr>
-					<td><a href="page/subpage/<?=$v->id?>/<?=$v->name?>"><?=$v->name?></a></td>
-					<td><?=$v->count?></td>
-				</tr>
-				<?php
+			?>
+			<li><a href="page/subpage/<?=$v->id?>/<?=$v->name?>"><?=$v->name?>: <i><?=$v->count?></i></a></li>
+			<?php
 			endforeach;
 			?>
-		</table>
+		</ul>
 	</div>
 </div>
-<hr>
 <?php
 endif;
 if (!empty($sub)):
 ?>
-<div class="card">
-	<div class="card-header">Page(s) : Interne</div>
-	<div class="card-body">
-		<table class="table table-striped">
-			<tr>
-			<th>Nom</th>
-		</tr>
-		<?php
-		foreach ($sub as $k => $v):
-			?>
-			<tr>
-				<td><a href="page/intern/<?=$v?>"><?=$v?></a></td>
-			</tr>
+<div class="belcms_card">
+	<div class="bel-cms-pages_title">Page(s) : Interne</div>
+</div>
+	<div class="belcms_section_page_detail_infos">
+		<ul>
 			<?php
-		endforeach;
-		?>
-		</table>
+			foreach ($sub as $k => $v):
+			?>
+			<li><a href="page/intern/<?=$v?>"><?=$v?></a></li>
+			<?php
+			endforeach;
+			?>
+		</ul>
 	</div>
 </div>
 <?php

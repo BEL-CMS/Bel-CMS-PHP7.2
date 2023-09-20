@@ -1,7 +1,7 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.0
+ * @version 2.2.2
  * @link http://bel-cms.dev
  * @link http://determe.be
  * @license http://opensource.org/licenses/GPL-3.0 copyleft
@@ -13,29 +13,22 @@ if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
 	exit(ERROR_INDEX);
 }
-if (empty($data)):
-	Notification::warning('Aucune page dans la BDD');
-else:
+if (!empty($data)):
 ?>
-<div id="belcms_subpage" class="card">
-	<div class="card-header">Page(s)</div>
-	<div class="card-body">
-		<table class="table table-striped">
-			<tr>
-				<th>Nom</th>
-				<th>Page publié</th>
-			</tr>
-	<?php
-	foreach ($data as $k => $v):
-		?>
-			<tr>
-				<td><a href="page/read/<?=$v->id?>/<?=$v->name?>"><?=$v->name?></a></td>
-				<td><?=$v->publish?></td>
-			</tr>
-		<?php
-	endforeach;
-	?>
-		</table>
+<div id="belcms_section_page_main">
+	<div class="belcms_card">
+		<div class="belcms_title">Page(s)</div>
+	</div>
+	<div class="belcms_section_page_detail_infos">
+		<ul>
+			<?php
+			foreach ($data as $k => $v):
+			?>
+			<li><a href="page/read/<?=$v->id?>/<?=$v->name?>"><?=$v->name?></a><i><?=$v->publish?></i></a></li>
+			<?php
+			endforeach;
+			?>
+		</ul>
 	</div>
 </div>
 <?php

@@ -1,16 +1,53 @@
 *, ::after, ::before {
   box-sizing: border-box;
 }
+pre, code {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	overflow: auto;
+	overflow-y: hidden;
+	font-size: 12px;
+	line-height: 20px;
+	background: #efefef;
+	border: 1px solid #777;
+	padding: 10px;
+	color: #333;
+	text-align: left !important;
+}
+@media print {
+	pre {
+		overflow-x: auto;
+		white-space: pre-wrap;
+		white-space: -moz-pre-wrap !important;
+		white-space: -pre-wrap;
+		white-space: -o-pre-wrap;
+		word-wrap: break-word;
+		background: #fff;
+	}
+}
+.clear {
+	clear: both;
+	margin: 0;
+	padding: 0;
+}
 .bel-cms-widgets {
 	display: block;
 	overflow: hidden;
 	width: 100%;
 }
-.bel-cms-widgets-title {
-	padding: .75rem 1.25rem;
-	margin-bottom: 0;
-	background-color: rgba(0,0,0,.03);
-	border-bottom: 1px solid rgba(0,0,0,.125);
+.bel-cms-widgets-title,
+.bel-cms-pages_title {
+	display: block;
+	width: 100%;
+	padding: 0;
+	line-height: 40px;
+	margin: 0;
+	margin-bottom: 15px;
+	border: 1px solid rgba(0,0,0,.3);
+	font-weight: bold;
+	background-color: rgba(0, 0, 0, .125);
 }
 .bel-cms-widgets-title:first-child {
     border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
@@ -61,31 +98,12 @@
   background-color: var(--bs-btn-bg);
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
-/*@copy to boostrap;*/
-.belcms_btn_blue {
-	--bs-btn-color: #fff;
-	--bs-btn-bg: #0d6efd;
-	--bs-btn-border-color: #0d6efd;
-	--bs-btn-hover-color: #fff;
-	--bs-btn-hover-bg: #0b5ed7;
-	--bs-btn-hover-border-color: #0a58ca;
-	--bs-btn-focus-shadow-rgb: 49, 132, 253;
-	--bs-btn-active-color: #fff;
-	--bs-btn-active-bg: #0a58ca;
-	--bs-btn-active-border-color: #0a53be;
-	--bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-	--bs-btn-disabled-color: #fff;
-	--bs-btn-disabled-bg: #0d6efd;
-	--bs-btn-disabled-border-color: #0d6efd;
-}
 .pull-right {
 	float: right;
 }
 .belcms_card {
 	position: relative;
 	width: 100%;
-	padding-right: 15px;
-	padding-left: 15px;
 }
 .belcms_title {
 	font-size: 18px;
@@ -101,9 +119,19 @@
 	background-clip: padding-box;
 	transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+.belcms_form_group_label {
+	display: block;
+	width: 100%;
+	text-align: left;
+	padding: 0 15px;
+}
 .belcms_form_group_i {
+	display: block;
+	width: 100%;
 	font-size: .7rem;
 	font-weight: 100;
+	margin-bottom: 5px;
+	text-align: left;
 }
 .belcms_form_group_submit {
 	background-color: rgba(0, 0, 0, 0.05);
@@ -111,6 +139,11 @@
 	padding: 15px;
 	text-align: right;
 	border-radius: 3px;
+}
+.belcms_form_group input { 
+	display: block;
+	width: 100%;
+
 }
 .belcms_bg_white {
 	background-color: #FFF;
@@ -168,15 +201,6 @@
 }
 .belcms_pb_15 {
 	padding: 15px;
-}
-code,
-pre {
-	display: block;
-	background: rgb(66,66,66) !important;
-	color: rgb(232, 232, 232) !important;
-	padding: 20px;
-	width: 100% !important;
-	border-radius: .25rem;
 }
 section {
 	width: 100%;
@@ -421,10 +445,9 @@ nav#bel_cms-breadcrumb {
 /*#########################################
 # Input
 #########################################*/
-/*
 .bel_cms_box_input {
 	display: block;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 	clear: both;
 	overflow: hidden;
 }
@@ -455,9 +478,7 @@ nav#bel_cms-breadcrumb {
 		width: calc(100% - 20px); 
 		float: none;
 	}
-	select.bel_cms_input {
-		width: calc(100% - 130px);
-	}
+
 	button.bel_cms_input {
 		cursor: pointer;
 	}
@@ -465,6 +486,26 @@ nav#bel_cms-breadcrumb {
 		font-size: 80%;
 		margin-left: calc(25% + 22px);
 	}
+.belcms_h3_input_lf {
+	margin-bottom: 5px;
+	text-align: left;
+	float: left;
+	display: block;
+	width: 100%;
+}
+.belcms_h3_input_rg {
+	margin-bottom: 5px;
+	text-align: right;
+	float: right;
+	display: block;
+	width: 100%;
+}
+.belcms_h3_input_md {
+	margin-bottom: 5px;
+	text-align: center;
+	display: block;
+	width: 100%;
+}
 button {
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -515,6 +556,17 @@ button:active {
 	position:relative;
 	top:1px;
 }
+.belcms_form_group_submit {
+	text-align: center;
+	display: block;
+	clear: both;
+	line-height: 30px;
+	background: #f7f7f7 none repeat scroll 0 0;
+	border: 1px solid #d4d4d4;
+	padding: 0 10px;
+	border-radius: 2px;
+	width: 100%; 
+}
 */
 /*#########################################
 # Card
@@ -563,6 +615,11 @@ button:active {
 }
 textarea {
 	width: 100%;
+}
+.belcms_section_user_main_form > div {
+	position: relative;
+	margin-bottom: 5px;
+	display: block;
 }
 /*#########################################
 # Arrow - fleche
@@ -645,6 +702,6 @@ textarea {
 	padding: .75rem 1.25rem;
 }
 .lign {
-	margin-bottom: 1px
+	margin-bottom: 1px;
 	border-bottom: 1px solid #F7F7F7;
 }
