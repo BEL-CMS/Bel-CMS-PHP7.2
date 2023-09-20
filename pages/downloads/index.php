@@ -1,38 +1,60 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.2
- * @link https://bel-cms.dev
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
  * @copyright 2015-2022 Bel-CMS
- * @author as Stive - stive@determe.be
+ * @author Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit('<!doctype html><html><head><meta charset="utf-8"><title>BEL-CMS : Error 403 Forbidden</title><style>h1{margin: 20px auto;text-align:center;color: red;}p{text-align:center;font-weight:bold;</style></head><body><h1>HTTP Error 403 : Forbidden</h1><p>You don\'t permission to access / on this server.</p></body></html>');
+	exit(ERROR_INDEX);
 }
 ?>
-<section class="section_bg" id="section_bel_cms_donwloads">
-	<div class="card mb-3">
-		<div class="card-body"><?=DOWNLOADS?></div>
-	</div>
-
-	<div class="list-group mb-5">
-		<?php 
-		foreach ($data as $k => $v):
-			?>
-			<a href="downloads/category/<?=$v->id?>/<?=$v->name?>" class="list-group-item list-group-item-action">
-				<div class="d-flex w-100 justify-content-between">
-					<h5 class="mb-1"><?=$v->name?></h5>
-					<small><?=$v->count?> fichier(s)</small>
-				</div>
-				<p class="mb-1"><?=$v->description?></p>
-			</a>
+<div id="belcms_section_downloads_main">
+	<span class="bel-cms-pages_title"><?=DOWNLOADS;?></span>
+	<div id="belcms_section_downloads_cat">
+		<ul id="belcms_section_downloads_nav">
 			<?php
-		endforeach;
-		?>
+			foreach ($data as $b):
+			?>
+			<li><a href="downloads/category/<?=$b->id;?>"><?=$b->name;?></a></li>
+			<?php
+			endforeach;
+			?>
+		</ul>
 	</div>
-
-</section>
+	<div id="belcms_section_downloads_links">
+		<div id="belcms_section_downloads_nav_link">
+		<ul id="belcms_section_downloads_nav_ul">
+			<?php
+			foreach ($data as $v) {
+				foreach ($v->dl as $value):
+					if (!is_file($value->screen)) {
+						$value->screen = '/pages/downloads/no_image.png';
+					}
+				?>
+				<li class="belcms_section_downloads_nav_ul_li">
+					<div class="belcms_section_downloads_nav_ul_left">
+						<img src="<?=$value->screen;?>" title="logo_<?=$value->name;?>">
+					</div>
+					<div class="belcms_section_downloads_nav_ul_right">
+						<a href="#"><?=$value->name;?></a>
+						<span><i><a href="#" style="color: <?=Users::colorUsername($value->uploader);?> !important;">Par <?=Users::getUserName($value->uploader);?></a></i></span>
+						<span>Cat : <i><?=$v->name;?></i></span>
+						<a class="belcms_section_downloads_nav_ul_right_dl belcms_btn belcms_bg_blue" href="downloads/detail/<?=$value->id;?>/<?=$value->name;?>">Voir</a>
+					</div>
+				</li>
+				<?php
+				endforeach;
+			?>
+			<?php
+			}
+			?>
+		</ul>
+	</div>
+</div>
+<?php

@@ -1,17 +1,17 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.2
- * @link https://bel-cms.dev
- * @link https://determe.be
- * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @version 2.0.0
+ * @link http://bel-cms.dev
+ * @link http://determe.be
+ * @license http://opensource.org/licenses/GPL-3.0 copyleft
  * @copyright 2015-2022 Bel-CMS
- * @author as Stive - stive@determe.be
+ * @author Stive - stive@determe.be
  */
 
 if (!defined('CHECK_INDEX')) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Direct access forbidden');
-	exit('<!doctype html><html><head><meta charset="utf-8"><title>BEL-CMS : Error 403 Forbidden</title><style>h1{margin: 20px auto;text-align:center;color: red;}p{text-align:center;font-weight:bold;</style></head><body><h1>HTTP Error 403 : Forbidden</h1><p>You don\'t permission to access / on this server.</p></body></html>');
+	exit(ERROR_INDEX);
 }
 
 class Downloads extends Pages
@@ -20,16 +20,17 @@ class Downloads extends Pages
 
 	public function index ()
 	{	
-		$c['data'] = $this->ModelsDownloads->getCat();
-		foreach ($c['data'] as $a => $b) {
+		$data = $this->ModelsDownloads->getCat();
+		foreach ($data as $a => $b) {
 			if (Secures::isAcess($b->groups) == false) {
 				unset($c['data'][$a]);
 			} else {
-				$c['data'][$a]->count = $this->ModelsDownloads->countFiles($b->id);
+				$get['data'][$a]->name = $b->name;
+				$get['data'][$a]->id   = $b->id;
+				$get['data'][$a]->dl   = $this->ModelsDownloads->getDls($b->id);
 			}
-			
 		}
-		$this->set($c);
+		$this->set($get);
 		$this->render('index');
 	}
 
