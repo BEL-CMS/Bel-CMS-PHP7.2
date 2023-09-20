@@ -42,10 +42,10 @@ if (Users::isLogged() === false):
 							<input type="text" class="form-control" name="token" placeholder="Enter your token" autocomplete="off" value="<?=$token?>">
 						</div>
 						<div class="forgot">
-							<a href="login&echo">have account ?</a>
+							<a href="user/login">have account ?</a>
 						</div>
 						<div class="nouser">
-							<a href="register&echo">Don't have account ?</a>
+							<a href="user/register">Don't have account ?</a>
 						</div>
 						<input type="hidden" name="send" value="lostpassword">
 						<button type="submit" class="btn btn-primary">Recovery</button>

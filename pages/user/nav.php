@@ -22,22 +22,23 @@ switch ($link_current) {
 	break;
 }
 ?>
-<nav id="belcms_section_user_nav">
-	<ul>
-		<li>
-			<a <?=$link_user?> href="User">Infos Personnel</a>
-		</li>
-		<li>
-			<a <?=$link_safety?> href="User/safety">Confidentialité</a>
-		</li>
-		<li>
-			<a <?=$link_security?> href="User/security">Sécurité</a>
-		</li>
-		<li>
-			<a <?=$link_social?> href="User/social">Liens Social</a>
-		</li>
-		<li>
-			<a class="belcms_bg_red" href="User/logout">Déconnexion</a>
-		</li>	
-	</ul>
-</nav>
+
+                                <nav id="belcms_section_user_nav">
+                                	<ul>
+                                		<li>
+                                			<a <?=$link_user?> href="User">Infos Personnel</a>
+										</li>
+										<li>
+											<a <?=$link_safety?> href="User/safety">Confidentialité</a>
+										</li>
+										<li>
+											<a <?=$link_security?> href="User/security">Sécurité</a>
+										</li>
+										<li>
+											<a <?=$link_social?> href="User/social">Liens Social</a>
+										</li>
+										<li>
+											<a class="belcms_bg_red" href="User/logout">Déconnexion</a>
+										</li>	
+									</ul>
+								</nav>

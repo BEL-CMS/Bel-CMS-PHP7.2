@@ -46,10 +46,10 @@ if (Users::isLogged() === false):
 							</label>
 						</div>
 						<div class="forgot">
-							<a href="lostpassword&echo">Forgot password?</a>
+							<a href="lostpassword">Forgot password?</a>
 						</div>
 						<div class="nouser">
-							<a href="register&echo">Don't have account?</a>
+							<a href="register">Don't have account?</a>
 						</div>
 						<input type="hidden" name="send" value="login">
 						<button type="submit" class="btn btn-primary">Login</button>

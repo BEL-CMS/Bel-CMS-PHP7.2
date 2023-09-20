@@ -61,12 +61,6 @@
 	padding-right: 10px;
 	padding-left: 10px;
 }
-.belcms_title {
-	background-color: #FFF;
-	padding: 5px;
-	padding-left: 15px;
-	border-bottom: 1px solid #ced4da;
-}
 .belcms_section_user_main_form {
 	background-color: #FFF;
 	padding: 5px;
@@ -151,23 +145,9 @@
 #belcms_section_user_safety {
 	display: block;
 	max-width: 100%;
-	overflow: hidden;
 	position: relative;
-	flex-wrap: wrap;
 	margin-bottom: 15px;
-	clear: both;
-	flex: 100%;
 	width: 100%;
 	padding-right: 25px;
 	padding-left: 25px;
-}
-#belcms_section_user_security_card {
-	background-color: #FFF;
-	width: 100%;
-	overflow: hidden;
-	color: #212529;
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: flex-start;
 }

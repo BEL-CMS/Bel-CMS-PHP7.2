@@ -54,10 +54,10 @@ if ($this->data):
 							<input name="query_register" type="number" min="1" max="18" class="form-control" id="security-password" placeholder="Your Answer" autocomplete="off">
 						</div>
 						<div class="forgot">
-							<a href="lostpassword&echo">Forgot password?</a>
+							<a href="lostpassword">Forgot password?</a>
 						</div>
 						<div class="nouser">
-							<a href="Login&echo">You have account?</a>
+							<a href="Login">You have account?</a>
 						</div>
 						<input type="hidden" name="send" value="register">
 						<button type="submit" class="btn btn-primary">Register</button>

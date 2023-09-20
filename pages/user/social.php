@@ -20,44 +20,33 @@ if (Users::isLogged() === true):
 		<div id="belcms_section_user_safety_card">
 			<div class="belcms_card">
 				<div class="belcms_title">Liens Social</div>
-					<form action="user/submitsocial" method="post" class="belcms_section_user_main_form">
-						<div class="belcms_form_group">
-							<label class="col-sm-12 col-form-label"><i class="fab fa-facebook-square"></i> (Meta) Facebook</label>
-							<div class="col-sm-12">
-								<input class="form-control" name="facebook" type="text" placeholder="<?=constant('ENTER_YOUR');?> facebook" value="<?=$user->facebook?>" pattern="^[a-z\d\.]{5,}$">
-							</div>
-						</div>
+				<form action="user/submitsocial" method="post" class="belcms_section_user_main_form">
+					<div>
+						<h3 class="belcms_h3_input_lf">(Meta) Facebook :</h3>
+						<input class="bel_cms_input" name="facebook" type="text" placeholder="<?=constant('ENTER_YOUR');?> facebook" value="<?=$user->facebook?>" pattern="^[a-z\d\.]{5,}$">
+					</div>
 
-						<div class="belcms_form_group">
-							<label class="col-sm-12 col-form-label"><i class="fab fa-twitter-square"></i> X (Twitter)</label>
-							<div class="col-sm-12">
-								<input class="form-control" name="twitter" type="text" placeholder="<?=constant('ENTER_YOUR');?> twitter" value="<?=$user->twitter?>" pattern="^[A-Za-z0-9_]{1,15}$">
-							</div>
-						</div>
+					<div>
+						<h3 class="belcms_h3_input_lf">X (Twitter) :</h3>
+						<input class="bel_cms_input" name="twitter" type="text" placeholder="<?=constant('ENTER_YOUR');?> twitter" value="<?=$user->twitter?>" pattern="^[A-Za-z0-9_]{1,15}$">
+					</div>
 
-						<div class="belcms_form_group">
-							<label class="col-sm-12 col-form-label"><i class="fab fa-discord"></i> Discord</label>
-							<div class="col-sm-12">
-								<input class="form-control" name="discord" type="text" placeholder="<?=constant('ENTER_YOUR');?> Discord" value="<?=$user->discord?>">
-							</div>
-						</div>
+					<div>
+						<h3 class="belcms_h3_input_lf">Discord :</h3>
+						<input class="bel_cms_input" name="discord" type="text" placeholder="<?=constant('ENTER_YOUR');?> Discord" value="<?=$user->discord?>">
+					</div>
 
-						<div class="belcms_form_group">
-							<label class="col-sm-12 col-form-label"><i class="fab fa-pinterest-square"></i> Pinterest</label>
-							<div class="col-sm-12">
-								<input class="form-control" name="pinterest" type="text" placeholder="<?=constant('ENTER_YOUR');?> pinterest" value="<?=$user->pinterest?>">
-							</div>
-						</div>
+					<div>
+						<h3 class="belcms_h3_input_lf">Pinterest :</h3>
+						<input class="bel_cms_input" name="pinterest" type="text" placeholder="<?=constant('ENTER_YOUR');?> pinterest" value="<?=$user->pinterest?>">
+					</div>
 
-						<div class="belcms_form_group">
-							<label class="col-sm-12 col-form-label"><i class="fab fa-linkedin"></i> Linkedin</label>
-							<div class="col-sm-12">
-								<input class="form-control" name="linkedin" type="text" placeholder="<?=constant('ENTER_YOUR');?> linkedin" value="<?=$user->linkedin?>">
-							</div>
-						</div>
-						<hr>
-						<button type="submit" class="belcms_btn belcms_btn_blue">Enregistrer</button>
-					</form>
+					<div>
+						<h3 class="belcms_h3_input_lf">Linkedin :</h3>
+						<input class="bel_cms_input" name="linkedin" type="text" placeholder="<?=constant('ENTER_YOUR');?> linkedin" value="<?=$user->linkedin?>">
+					</div>
+					<button type="submit" class="belcms_btn"><?=CONFIRM?></button>
+				</form>
 			</div>
 		</div>
 	</div>
