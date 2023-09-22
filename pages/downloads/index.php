@@ -42,10 +42,10 @@ if (!defined('CHECK_INDEX')) {
 						<img src="<?=$value->screen;?>" title="logo_<?=$value->name;?>">
 					</div>
 					<div class="belcms_section_downloads_nav_ul_right">
-						<a href="#"><?=$value->name;?></a>
-						<span><i><a href="#" style="color: <?=Users::colorUsername($value->uploader);?> !important;">Par <?=Users::getUserName($value->uploader);?></a></i></span>
+						<a href="downloads/detail/<?=$value->id;?>"><?=$value->name;?></a>
+						<span><i><a href="" style="color: <?=Users::colorUsername($value->uploader);?> !important;">Par <?=Users::getUserName($value->uploader);?></a></i></span>
 						<span>Cat : <i><?=$v->name;?></i></span>
-						<a class="belcms_section_downloads_nav_ul_right_dl belcms_btn belcms_bg_blue" href="downloads/detail/<?=$value->id;?>/<?=$value->name;?>">Voir</a>
+						<a class="belcms_section_downloads_nav_ul_right_dl belcms_btn belcms_bg_blue" href="downloads/detail/<?=$value->id;?>">Voir</a>
 					</div>
 				</li>
 				<?php

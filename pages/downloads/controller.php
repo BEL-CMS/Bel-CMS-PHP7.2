@@ -63,7 +63,12 @@ class Downloads extends Pages
 	{
 		if ($id != null && is_numeric($id)) {
 			if ($this->ModelsDownloads->ifAccess($id) == true) {
-				$this->redirect($this->ModelsDownloads->getDownloads($id), 0);
+				if (stristr($this->ModelsDownloads->getDownloads($id), 'http') === true or stristr($this->ModelsDownloads->getDownloads($id), 'https')) {
+					$this->link($this->ModelsDownloads->getDownloads($id), 0);
+				} else {
+					$this->redirect($this->ModelsDownloads->getDownloads($id), 0);
+				}
+				$this->error(INFO, 'Téléchargement en cours', 'success');
 				$c['data'] = current($this->ModelsDownloads->getDlsDetail($id));
 				$this->set($c);
 				$this->render('detail');

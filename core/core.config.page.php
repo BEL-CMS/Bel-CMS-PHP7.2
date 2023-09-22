@@ -262,4 +262,8 @@ class Pages
 		}
 		header("refresh:$time;url='$url'");
 	}
+	function link ($url = null, $time = null)
+	{
+		header("refresh:$time;url='$url'");
+	}
 }
