@@ -1,7 +1,7 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.2
+ * @version 2.0.1
  * @link https://bel-cms.dev
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
@@ -69,7 +69,7 @@ final class Common
 			'Ò' => 'o', 'Ó' => 'o', 'Ô' => 'o', 'Ö' => 'o', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'ö' => 'o',
 			'Ù' => 'u', 'Ú' => 'u', 'Û' => 'u', 'Ü' => 'u', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ü' => 'u', 'µ' => 'u',
 			'Œ' => 'oe', 'œ' => 'oe',
-			'$' => 's', '&' => '_AND_', '?' => '%3F');
+			'$' => 's', '&' => '_AND_', '?' => '%3F', ' ' => '_');
 		$return = strtr($d, $chr);
 		$return = preg_replace('#[^A-Za-z0-9]+#', '_', $return);
 		$return = trim($return, '-');

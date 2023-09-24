@@ -13,7 +13,7 @@
 		Notification::infos('Aucun sujet disponible dans la base de données', 'Forum');
 	else:
 	?>
-		<table class="table">
+		<table  class="table">
 			<tr>
 				<th></th>
 				<th>Thread</th>
@@ -27,26 +27,24 @@
 			<tr>
 				<td></td>
 				<td>
-					<div class="padding-left-10">
-						<a href="Forum/Post/<?=$value->title?>/<?=$value->id?>"><?=$value->title?></a>
+					<div>
+						<a href="Forum/Post/<?=Common::MakeConstant($value->title)?>/<?=$value->id?>"><?=$value->title?></a>
 					</div>
-					<div class="padding-left-10"><?=Users::hashkeyToUsernameAvatar($value->author)?></div>
+					<div><?=Users::hashkeyToUsernameAvatar($value->author)?></div>
 				</td>
-				<td class="center">
+				<td>
 					<?php
 					echo $value->options['post'];
 					?>
 				</td>
-				<td class="center">
+				<td>
 					<?php
 					echo $value->options['view'];
 					?>
 				</td>
 				<td>
-					<div class="padding-left-10">
-						<span style="color: <?=Users::colorUsername($value->last->author)?>"><?=Users::hashkeyToUsernameAvatar($value->last->author)?></span>
-					</div>
-					<div class="padding-left-10"><?=Common::TransformDate($value->last->date_post, 'MEDIUM', 'SHORT')?></div>
+					<div><span style="color: <?=Users::colorUsername($value->last->author)?>"><?=Users::hashkeyToUsernameAvatar($value->last->author)?></span></div>
+					<div><?=Common::TransformDate($value->last->date_post, 'MEDIUM', 'SHORT')?></div>
 				</td>
 			</tr>
 				<?php

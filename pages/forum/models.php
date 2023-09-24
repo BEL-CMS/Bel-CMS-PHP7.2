@@ -343,33 +343,29 @@ class ModelsForum
 			// Assemble les deux tableaux
 			$return = array_merge($firstPost, $posts);
 			foreach ($return as $k => $v) {
-				if (empty($v->author)) {
-					$return = (object) array();
-				} else {
-					$authorId = $v->author;
-					$author   = Users::getInfosUser($authorId);
-					// Fait corrépondre leurs ID avec leur username
-					$return[$k]->author       = Users::hashkeyToUsernameAvatar($authorId);
-					// Fait corrépondre leurs ID avec leur avatar
-					$return[$k]->avatar       = Users::hashkeyToUsernameAvatar($authorId, 'avatar');
-					// Fait corrépondre leurs ID avec leur date d'inscription
-					$return[$k]->registration = isset($author->date_registration) ? Common::TransformDate($author->date_registration) : '';
-					
-					$return[$k]->authorId     = $authorId;
-					$return[$k]->countPost    = self::nbUserForum($authorId);
-					// Récupère les options et les transformer en Booleen
-					// Les like sont transoformer en (int)
-					$options = explode('|', $v->options);
-					foreach ($options as $k_opt => $v_opt) {
-						$tmp_opt = explode('=', $v_opt);
-						$options[$tmp_opt[0]] = $tmp_opt[1] == 1 ? true : false;
-						if (isset($options['like'])) {
-							$options['like'] = $options['like'] == false ? (int) 0 : $options['like'];
-						}
-						unset($options[$k_opt], $tmp_opt);
+				$authorId = $v->author;
+				$author   = Users::getInfosUser($authorId);
+				// Fait corrépondre leurs ID avec leur username
+				$return[$k]->author       = Users::hashkeyToUsernameAvatar($authorId);
+				// Fait corrépondre leurs ID avec leur avatar
+				$return[$k]->avatar       = Users::hashkeyToUsernameAvatar($authorId, 'avatar');
+				// Fait corrépondre leurs ID avec leur date d'inscription
+				$return[$k]->registration = (isset($author->date_registration)) ? Common::TransformDate($author->date_registration) : '';
+				$return[$k]->group        = self::getGroup($author[$authorId]->main_groups);
+				$return[$k]->authorId     = $authorId;
+				$return[$k]->countPost    = self::nbUserForum($authorId);
+				// Récupère les options et les transformer en Booleen
+				// Les like sont transoformer en (int)
+				$options = explode('|', $v->options);
+				foreach ($options as $k_opt => $v_opt) {
+					$tmp_opt = explode('=', $v_opt);
+					$options[$tmp_opt[0]] = $tmp_opt[1] == 1 ? true : false;
+					if (isset($options['like'])) {
+						$options['like'] = $options['like'] == false ? (int) 0 : $options['like'];
 					}
-					$return[$k]->options = $options;
+					unset($options[$k_opt], $tmp_opt);
 				}
+				$return[$k]->options = $options;
 			}
 		}
 		return $return;

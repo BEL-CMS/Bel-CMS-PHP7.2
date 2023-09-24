@@ -29,8 +29,8 @@
 	<div class="belcms_forum_post_div">
 		<div class="belcms_forum_post_div_infos">
 			<h3 style="margin: 0"><?=$value->author;?></h3>
+			<p><?=Common::translate($value->group->name);?></p>
 			<ul>
-				<li><img style="width: 150px; height: 150px;" src="<?=$value->avatar?>"></li>
 				<li><strong>Join Date</strong><?=Common::TransformDate($user[$value->authorId]->date_registration, 'MEDIUM', 'NONE');?></li>
 				<li><strong>Posts</strong><?=$value->countPost;?></li>
 			</ul>
@@ -42,7 +42,7 @@
 				if (Users::isSuperAdmin($_SESSION['USER']['HASH_KEY']) or Users::UsernameToHashkey($value->author)->hash_key == $_SESSION['USER']['HASH_KEY']):
 					if ($k == 0):
 						?>
-						<div style="float: right;"><a href="Forum/EditPostPrimary/<?=$value->id;?>"><i class="fas fa-pencil-alt"></i></a></div>
+						<div style="float: right;"><a href="Forum/EditPostPrimary/<?=$value->id_threads;?>"><i class="fas fa-pencil-alt"></i></a></div>
 					<?php
 					else:
 						?>

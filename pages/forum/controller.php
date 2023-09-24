@@ -117,7 +117,7 @@ class Forum extends Pages
 			$this->redirect('Forum', 3);
 			return;
 		}
-		$d  = array();
+		$d = array();
 		$id = (int) $id;
 		$_SESSION['REPLYPOST']   = $id;
 		$_SESSION['FORUM']       = uniqid('forum_');

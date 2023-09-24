@@ -24,7 +24,7 @@ if (!empty($data)):
 			<?php
 			foreach ($data as $k => $v):
 			?>
-			<li><a href="page/read/<?=$v->id?>/<?=$v->name?>"><?=$v->name?></a><i><?=$v->publish?></i></a></li>
+			<li><a href="page/read/<?=$v->id?>/<?=Common::MakeConstant($v->name)?>"><?=$v->name?></a><i><?=$v->publish?></i></a></li>
 			<?php
 			endforeach;
 			?>
