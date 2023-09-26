@@ -1,7 +1,7 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.2.0
+ * @version 2.2.2
  * @link https://bel-cms.dev
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
@@ -21,6 +21,7 @@ if (!defined('CHECK_INDEX')) {
 	<div id="bel_cms_index_padding">
 		<div class="bel_cms_index_table">
 			<div class="bel_cms_index_table_row bel_cms_index_table_row_dotted">
+				
 				<div class="bel_cms_index_table_th bel_cms_index_table_row_dotted">
 					<?=USERNAME?>
 				</div>

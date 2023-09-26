@@ -14,10 +14,13 @@ if (!defined('CHECK_INDEX')) {
 	exit(ERROR_INDEX);
 }
 ?>
-<section class="section_bg" id="bel_cms_members_view">
-	<div id="bel_cms_members_view_lt">
-		<div id="bel_cms_members_view_lt_atr">
-			<img src="<?=$data->avatar?>" alt="avatar_<?=$data->username?>">
+<div id="belcms_section_members_view">
+	<span class="bel-cms-pages_title"><?=$data->username?></span>
+	<div id="belcms_section_members_view_left">
+		<div class="belcms_card">
+			<div id="belcms_section_members_view_avatar">
+				<img src="<?=$data->avatar?>">
+			</div>
 		</div>
 		<div id="bel_cms_members_view_lt_grps">
 			<ul>
@@ -26,7 +29,9 @@ if (!defined('CHECK_INDEX')) {
 			foreach ($data->main_groups as $k => $v):
 				if (array_key_exists($v, $groups)):
 				?>
-				<li><i class="fas fa-angle-right"></i> <?php echo defined($groups[$v]) ? constant($groups[$v]) : $groups[$v] ?></li>
+				<li>
+					<span><?=defined($groups[$v]) ? constant($groups[$v]) : $groups[$v] ?></span>
+				</li>
 				<?php
 				endif;
 			endforeach;
@@ -34,23 +39,8 @@ if (!defined('CHECK_INDEX')) {
 			</ul>
 		</div>
 	</div>
-	<div id="bel_cms_members_view_rt">
-		<div class="bel_cms_members_view_rt_block">
-			<h3>Information de profil
-				<a title="Demande d'amis" data-toggle="tooltip" href="Members/AddFriend/<?=$data->username?>"><i class="fas fa-user-friends"></i></a>
-				<a title="message priver" data-toggle="tooltip" href="#"><i class="fas fa-mail-bulk"></i></a></h3>
-			<nav>
-				<ul>
-					<li>
-						Nom d'utilisateur<span><?=$data->username?></span>
-					</li>
-					<li>Date d'inscription<span><?=Common::TransformDate($data->date_registration, 'FULL')?></span>
-					</li>
-					<li>Dernière activité<span><?=Common::TransformDate($data->last_visit, 'LONG', 'MEDIUM')?></span>
-					</li>
-				</ul>
-			</nav>
-		</div>
+	<div id="belcms_section_members_view_right">
 
 	</div>
-</section>
+
+</div>
