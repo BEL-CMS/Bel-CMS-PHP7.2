@@ -19,12 +19,12 @@
 				endif;
 				?>
 				<tr>
-					<td class="forum_table_ico"><i class="<?=$cat->icon;?>"></td>
+					<td class="forum_table_ico" style="padding: 0 !important; text-align: center !important;"><i class="<?=$cat->icon;?>"></td>
 					<td><div><a href="Forum/Threads/<?=Common::MakeConstant($cat->title)?>/<?=$cat->id?>"><?=$cat->title?></a></div>
 						<div><?=$value->subtitle;?></div>
 					</td>
-					<td><?=$cat->countPosts;?></td>
-					<td><?=$cat->count;?></td>
+					<td class="center"><?=$cat->countPosts;?></td>
+					<td class="center"><?=$cat->count;?></td>
 					<?=$last;?>
 				</tr>
 				<?php
