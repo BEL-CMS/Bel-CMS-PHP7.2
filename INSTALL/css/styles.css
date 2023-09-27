@@ -1,13 +1,14 @@
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans+Mono);
 
+<?php
 /**
  * Bel-CMS [Content management system]
- * @version 0.0.1
- * @link http://www.bel-cms.be
- * @link http://www.stive.eu
- * @license http://opensource.org/licenses/GPL-3.0 copyleft
- * @copyright 2014-2016 Bel-CMS
- * @author Stive - mail@stive.eu
+ * @version 2.2.0
+ * @link https://bel-cms.dev
+ * @link https://determe.be
+ * @license http://opensource.org/licenses/GPL-3.-copyleft
+ * @copyright 2015-2023 Bel-CMS
+ * @author as Stive - stive@determe.be
  */
 
 html,body {

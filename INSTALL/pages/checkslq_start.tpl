@@ -1,11 +1,11 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.1
+ * @version 2.2.0
  * @link https://bel-cms.dev
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2015-2022 Bel-CMS
+ * @copyright 2015-2023 Bel-CMS
  * @author as Stive - stive@determe.be
  */
 

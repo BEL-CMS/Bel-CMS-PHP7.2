@@ -1,11 +1,11 @@
 <?php
 /**
  * Bel-CMS [Content management system]
- * @version 2.0.1
+ * @version 2.2.0
  * @link https://bel-cms.dev
  * @link https://determe.be
  * @license http://opensource.org/licenses/GPL-3.-copyleft
- * @copyright 2015-2022 Bel-CMS
+ * @copyright 2015-2023 Bel-CMS
  * @author as Stive - stive@determe.be
  */
 
@@ -310,6 +310,33 @@ switch ($table) {
 			(1, 'status', 'open'),
 			(2, 'title', 'Le site est temporairement inaccessible'),
 			(3, 'description', 'Le site est temporairement inaccessible en raison d’activités de maintenance planifiées');";
+	break;
+
+	case 'market':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL,
+			`name` varchar(64) NOT NULL,
+			`description` text NOT NULL,
+			`amount` int(3) NOT NULL,
+			`remaining` int(3) NOT NULL,
+			`cat` text,
+			`screen` text NOT NULL,
+			`author` varchar(32) NOT NULL,
+			`date_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+			PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+		break;
+
+	case 'market_cat':
+		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
+		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
+			`id` int(11) NOT NULL,
+			`name` varchar(128) NOT NULL,
+			`email` varchar(256) NOT NULL,
+			`sendmail` int(11) NOT NULL,
+			PRIMARY KEY (`id`)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	break;
 
 	case 'newsletter':
