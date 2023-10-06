@@ -9,6 +9,8 @@
  * @author as Stive - stive@determe.be
  */
 
+$current    = new DateTime('now');
+$date       = $current->format('Y-m-d H:i:s');
 $error      = true;
 $class      = null;
 $insert     = null;
@@ -20,12 +22,15 @@ switch ($table) {
 		$drop = 'DROP TABLE IF EXISTS `'.$_SESSION['prefix'].$table.'`';
 		$sql  = "CREATE TABLE IF NOT EXISTS `".$_SESSION['prefix'].$table."` (
 			`id` int(11) NOT NULL AUTO_INCREMENT,
-			`author` varchar(32) NOT NULL,
+			`who` varchar(32) DEFAULT NULL,
+			`author` varchar(32) DEFAULT NULL,
 			`ip` text DEFAULT NULL,
+			`email` text NOT NULL,
 			`date` datetime DEFAULT NULL,
+			`endban` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+			`timeban` varchar(5) DEFAULT '0',
 			`reason` text NOT NULL,
-			PRIMARY KEY (`id`),
-			UNIQUE KEY `author` (`author`)
+			PRIMARY KEY (`id`)
 		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
 	break;
 
@@ -53,20 +58,20 @@ switch ($table) {
 			UNIQUE KEY `name` (`name`)
 		) ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
 		$insert = "INSERT INTO `".$_SESSION['prefix'].$table."` (`id`, `name`, `value`) VALUES
-			(NULL, 'CMS_WEBSITE_NAME', ''),
+			(NULL, 'API_KEY', '".md5(uniqid(rand(), true))."'),
+			(NULL, 'CMS_DATE_INSTALL', '".$date."'),
+			(NULL, 'CMS_DEBUG', '0'),
+			(NULL, 'CMS_FUSEAU', '2'),
+			(NULL, 'CMS_MAIL_WEBSITE', '".$_SERVER['SERVER_ADMIN']."'),
+			(NULL, 'CMS_REGISTER_CHARTER', 'En poursuivant votre navigation sur ce site, vous acceptez nos conditions générales d'utilisation et notamment que des cookies soient utilisés afin de vous connecter automatiquement.'),
+			(NULL, 'CMS_TPL_FULL', 'calendar,comments,downloads,events,forum,groups,inbox,market,members,newsletter,page,shoutbox,survey,team,user,readmore'),
 			(NULL, 'CMS_TPL_WEBSITE', ''),
+			(NULL, 'CMS_VERSION', '3'),
 			(NULL, 'CMS_WEBSITE_DESCRIPTION', ''),
-			(NULL, 'CMS_REGISTER_CHARTER', 'En poursuivant votre navigation sur ce site, vous acceptez nos conditions générales d\'utilisation et notamment que des cookies soient utilisés afin de vous connecter automatiquement.'),
-			(NULL, 'CMS_MAIL_WEBSITE', ''),
 			(NULL, 'CMS_WEBSITE_KEYWORDS', ''),
 			(NULL, 'CMS_WEBSITE_LANG', 'fr'),
-			(NULL, 'CMS_TPL_FULL', 'readmore, user, forum, downloads, members, page, inbox'),
-			(NULL, 'BELCMS_DEBUG', '0'),
-			(NULL, 'CMS_JQUERY', 'on'),
-			(NULL, 'CMS_JQUERY_UI', 'on'),
-			(NULL, 'CMS_BOOTSTRAP', 'on'),
-			(NULL, 'DATE_INSTALL', '".time()."'),
-			(NULL, 'API_KEY', '".md5(uniqid(rand(), true))."');";
+			(NULL, 'CMS_WEBSITE_NAME', ''),
+			(NULL, 'KEY_ADMIN', '".md5(uniqid(rand(), true))."');";
 	break;
 
 	case 'config_pages':
